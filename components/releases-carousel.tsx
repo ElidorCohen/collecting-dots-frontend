@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Play, Heart, Share2, ChevronLeft, ChevronRight } from "lucide-react"
+import { Play, Heart, Share2, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 
 const releases = [
@@ -209,15 +209,15 @@ export default function ReleasesCarousel() {
 									/>
 
 									{/* Album Artwork */}
-									<div className="aspect-square relative overflow-hidden">
+									<div className="aspect-square relative overflow-hidden flex items-center justify-center">
 										<img
 											src={release.artwork || "/placeholder.svg"}
 											alt={`${release.title} by ${release.artist}`}
-											className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+											className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
 										/>
 
 										{/* Play Button Overlay */}
-										<div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
+										<div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20 leading-10">
 											<Button
 												size="lg"
 												className="rounded-full bg-white text-black hover:bg-gray-200"
