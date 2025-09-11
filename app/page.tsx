@@ -46,6 +46,7 @@ export default function CollectingDotsLabel() {
   })
 
   const [isUploading, setIsUploading] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState(0)
 
   // Validation states
   const [errors, setErrors] = useState({
@@ -95,6 +96,7 @@ export default function CollectingDotsLabel() {
     const file = event.target.files?.[0]
     if (file) {
       setIsUploading(true)
+      setUploadProgress(0)
 
       const fileType = file.type
       const validTypes = ["audio/mpeg", "audio/wav", "audio/mp3"]
@@ -103,7 +105,19 @@ export default function CollectingDotsLabel() {
       const fileExtension = file.name.toLowerCase().slice(file.name.lastIndexOf("."))
 
       if (validTypes.includes(fileType) || validExtensions.includes(fileExtension)) {
+        const progressInterval = setInterval(() => {
+          setUploadProgress((prev) => {
+            if (prev >= 100) {
+              clearInterval(progressInterval)
+              return 100
+            }
+            return prev + Math.random() * 15 + 5 // Random increment between 5-20%
+          })
+        }, 200)
+
         setTimeout(() => {
+          clearInterval(progressInterval)
+          setUploadProgress(100)
           setFormData((prev) => ({ ...prev, audioFile: file }))
           setErrors((prev) => ({ ...prev, audioFile: "" }))
           setIsUploading(false)
@@ -111,6 +125,7 @@ export default function CollectingDotsLabel() {
       } else {
         setErrors((prev) => ({ ...prev, audioFile: "Please upload an MP3 or WAV file only" }))
         setIsUploading(false)
+        setUploadProgress(0)
         event.target.value = "" // Clear the input
       }
     }
@@ -120,6 +135,7 @@ export default function CollectingDotsLabel() {
   const removeFile = () => {
     setFormData((prev) => ({ ...prev, audioFile: null }))
     setErrors((prev) => ({ ...prev, audioFile: "" }))
+    setUploadProgress(0)
   }
 
   // Handle form submission
@@ -662,6 +678,24 @@ export default function CollectingDotsLabel() {
                     </div>
                   ) : (
                     <div className="animate-in slide-in-from-top-4 duration-1000 space-y-6">
+                      {formData.audioFile && (
+                        <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4 backdrop-blur-sm">
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-white font-medium">Upload Progress</span>
+                            <span className="text-green-400 font-mono text-sm">{Math.round(uploadProgress)}%</span>
+                          </div>
+                          <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
+                            <div
+                              className="h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full transition-all duration-300 ease-out"
+                              style={{ width: `${uploadProgress}%` }}
+                            />
+                          </div>
+                          <p className="text-gray-400 text-sm mt-2 font-light">
+                            {uploadProgress < 100 ? "Processing your track..." : "Upload complete!"}
+                          </p>
+                        </div>
+                      )}
+
                       {/* File display with enhanced styling */}
                       <div className="bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600 rounded-lg p-6 flex items-center justify-between backdrop-blur-sm">
                         <div className="flex items-center space-x-4">
