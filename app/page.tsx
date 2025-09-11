@@ -643,7 +643,7 @@ export default function CollectingDotsLabel() {
                       </div>
                     </div>
                   ) : (
-                    <div className="animate-in slide-in-from-top-4 duration-500 space-y-6">
+                    <div className="animate-in slide-in-from-top-4 duration-1000 space-y-6">
                       {/* File display with enhanced styling */}
                       <div className="bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600 rounded-lg p-6 flex items-center justify-between backdrop-blur-sm">
                         <div className="flex items-center space-x-4">
