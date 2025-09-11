@@ -358,6 +358,244 @@ export default function CollectingDotsLabel() {
         </div>
       </section>
 
+      {/* Artists Section */}
+      <section id="artists" className="py-24 px-4 bg-gray-950/30">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 tracking-tight">ARTISTS</h2>
+            <p className="text-gray-300 text-lg font-light">Our label artists.</p>
+          </div>
+
+          {/* Auto-moving Artists Carousel */}
+          <div className="relative overflow-hidden">
+            <div className="flex animate-scroll-left space-x-8">
+              {/* First set of artist cards */}
+              {[
+                {
+                  name: "Omri",
+                  genre: "Melodic House",
+                  image: "/electronic-music-artist-portrait.jpg",
+                  socials: {
+                    instagram: "https://instagram.com/omri",
+                    soundcloud: "https://soundcloud.com/omri",
+                    spotify: "https://spotify.com/artist/omri",
+                    beatport: "https://beatport.com/artist/omri",
+                  },
+                },
+                {
+                  name: "The Botanist",
+                  genre: "Deep House",
+                  image: "/botanical-electronic-music-artist.jpg",
+                  socials: {
+                    instagram: "https://instagram.com/thebotanist",
+                    soundcloud: "https://soundcloud.com/thebotanist",
+                    spotify: "https://spotify.com/artist/thebotanist",
+                    beatport: "https://beatport.com/artist/thebotanist",
+                  },
+                },
+                {
+                  name: "Bonafique",
+                  genre: "Techno",
+                  image: "/techno-electronic-music-artist.jpg",
+                  socials: {
+                    instagram: "https://instagram.com/bonafique",
+                    soundcloud: "https://soundcloud.com/bonafique",
+                    spotify: "https://spotify.com/artist/bonafique",
+                    beatport: "https://beatport.com/artist/bonafique",
+                  },
+                },
+                {
+                  name: "TOBEHONEST",
+                  genre: "Bass",
+                  image: "/bass-electronic-music-artist.jpg",
+                  socials: {
+                    instagram: "https://instagram.com/tobehonest",
+                    soundcloud: "https://soundcloud.com/tobehonest",
+                    spotify: "https://spotify.com/artist/tobehonest",
+                    beatport: "https://beatport.com/artist/tobehonest",
+                  },
+                },
+                {
+                  name: "Adaru",
+                  genre: "Electronic",
+                  image: "/electronic-music-producer.jpg",
+                  socials: {
+                    instagram: "https://instagram.com/adaru",
+                    soundcloud: "https://soundcloud.com/adaru",
+                    spotify: "https://spotify.com/artist/adaru",
+                    beatport: "https://beatport.com/artist/adaru",
+                  },
+                },
+                {
+                  name: "Rafael & Sapian",
+                  genre: "Indie Dance",
+                  image: "/indie-dance-electronic-duo.jpg",
+                  socials: {
+                    instagram: "https://instagram.com/rafaelsapian",
+                    soundcloud: "https://soundcloud.com/rafaelsapian",
+                    spotify: "https://spotify.com/artist/rafaelsapian",
+                    beatport: "https://beatport.com/artist/rafaelsapian",
+                  },
+                },
+              ]
+                .concat([
+                  // Duplicate the array for seamless loop
+                  {
+                    name: "Omri",
+                    genre: "Melodic House",
+                    image: "/electronic-music-artist-portrait.jpg",
+                    socials: {
+                      instagram: "https://instagram.com/omri",
+                      soundcloud: "https://soundcloud.com/omri",
+                      spotify: "https://spotify.com/artist/omri",
+                      beatport: "https://beatport.com/artist/omri",
+                    },
+                  },
+                  {
+                    name: "The Botanist",
+                    genre: "Deep House",
+                    image: "/botanical-electronic-music-artist.jpg",
+                    socials: {
+                      instagram: "https://instagram.com/thebotanist",
+                      soundcloud: "https://soundcloud.com/thebotanist",
+                      spotify: "https://spotify.com/artist/thebotanist",
+                      beatport: "https://beatport.com/artist/thebotanist",
+                    },
+                  },
+                  {
+                    name: "Bonafique",
+                    genre: "Techno",
+                    image: "/techno-electronic-music-artist.jpg",
+                    socials: {
+                      instagram: "https://instagram.com/bonafique",
+                      soundcloud: "https://soundcloud.com/bonafique",
+                      spotify: "https://spotify.com/artist/bonafique",
+                      beatport: "https://beatport.com/artist/bonafique",
+                    },
+                  },
+                  {
+                    name: "TOBEHONEST",
+                    genre: "Bass",
+                    image: "/bass-electronic-music-artist.jpg",
+                    socials: {
+                      instagram: "https://instagram.com/tobehonest",
+                      soundcloud: "https://soundcloud.com/tobehonest",
+                      spotify: "https://spotify.com/artist/tobehonest",
+                      beatport: "https://beatport.com/artist/tobehonest",
+                    },
+                  },
+                  {
+                    name: "Adaru",
+                    genre: "Electronic",
+                    image: "/electronic-music-producer.jpg",
+                    socials: {
+                      instagram: "https://instagram.com/adaru",
+                      soundcloud: "https://soundcloud.com/adaru",
+                      spotify: "https://spotify.com/artist/adaru",
+                      beatport: "https://beatport.com/artist/adaru",
+                    },
+                  },
+                  {
+                    name: "Rafael & Sapian",
+                    genre: "Indie Dance",
+                    image: "/indie-dance-electronic-duo.jpg",
+                    socials: {
+                      instagram: "https://instagram.com/rafaelsapian",
+                      soundcloud: "https://soundcloud.com/rafaelsapian",
+                      spotify: "https://spotify.com/artist/rafaelsapian",
+                      beatport: "https://beatport.com/artist/rafaelsapian",
+                    },
+                  },
+                ])
+                .map((artist, index) => (
+                  <div key={index} className="flex-shrink-0 w-80 group perspective-1000">
+                    <div className="relative w-full h-96 preserve-3d transition-transform duration-700 group-hover:rotate-y-180">
+                      {/* Front of card */}
+                      <div className="absolute inset-0 w-full h-full backface-hidden">
+                        <Card className="w-full h-full bg-gray-900/80 border-gray-800/50 hover:border-gray-700/50 transition-all duration-500 backdrop-blur-sm overflow-hidden">
+                          <div className="relative h-full">
+                            <img
+                              src={artist.image || "/placeholder.svg"}
+                              alt={artist.name}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                            <div className="absolute bottom-0 left-0 right-0 p-6">
+                              <h3 className="font-display text-2xl font-bold text-white mb-2">{artist.name}</h3>
+                              <Badge
+                                variant="secondary"
+                                className="bg-black/60 text-gray-200 border-gray-700/50 backdrop-blur-sm font-mono text-xs"
+                              >
+                                {artist.genre}
+                              </Badge>
+                            </div>
+                            <div className="absolute top-4 right-4">
+                              <div className="flex space-x-1">
+                                <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                                <div className="w-2 h-2 bg-white rounded-full animate-pulse delay-100" />
+                                <div className="w-2 h-2 bg-white rounded-full animate-pulse delay-200" />
+                              </div>
+                            </div>
+                          </div>
+                        </Card>
+                      </div>
+
+                      {/* Back of card */}
+                      <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
+                        <Card className="w-full h-full bg-gray-900/90 border-gray-800/50 backdrop-blur-sm">
+                          <CardContent className="h-full flex flex-col items-center justify-center p-8">
+                            <h3 className="font-display text-2xl font-bold text-white mb-6 text-center">
+                              {artist.name}
+                            </h3>
+                            <div className="grid grid-cols-2 gap-4 w-full">
+                              <Button
+                                variant="ghost"
+                                size="lg"
+                                className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
+                                onClick={() => window.open(artist.socials.instagram, "_blank")}
+                              >
+                                <Instagram className="w-8 h-8" />
+                                <span className="text-xs">Instagram</span>
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="lg"
+                                className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
+                                onClick={() => window.open(artist.socials.soundcloud, "_blank")}
+                              >
+                                <Music className="w-8 h-8" />
+                                <span className="text-xs">SoundCloud</span>
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="lg"
+                                className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
+                                onClick={() => window.open(artist.socials.spotify, "_blank")}
+                              >
+                                <SpotifyIcon />
+                                <span className="text-xs">Spotify</span>
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="lg"
+                                className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
+                                onClick={() => window.open(artist.socials.beatport, "_blank")}
+                              >
+                                <BeatportIcon />
+                                <span className="text-xs">Beatport</span>
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Collecting Dots Sounds Section */}
       <section id="sounds" className="py-24 px-4 bg-gray-950/30">
         <div className="max-w-6xl mx-auto">
