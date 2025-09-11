@@ -45,6 +45,8 @@ export default function CollectingDotsLabel() {
     audioFile: null as File | null,
   })
 
+  const [isUploading, setIsUploading] = useState(false)
+
   // Validation states
   const [errors, setErrors] = useState({
     email: "",
@@ -92,6 +94,8 @@ export default function CollectingDotsLabel() {
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
+      setIsUploading(true)
+
       const fileType = file.type
       const validTypes = ["audio/mpeg", "audio/wav", "audio/mp3"]
       const validExtensions = [".mp3", ".wav"]
@@ -99,10 +103,14 @@ export default function CollectingDotsLabel() {
       const fileExtension = file.name.toLowerCase().slice(file.name.lastIndexOf("."))
 
       if (validTypes.includes(fileType) || validExtensions.includes(fileExtension)) {
-        setFormData((prev) => ({ ...prev, audioFile: file }))
-        setErrors((prev) => ({ ...prev, audioFile: "" }))
+        setTimeout(() => {
+          setFormData((prev) => ({ ...prev, audioFile: file }))
+          setErrors((prev) => ({ ...prev, audioFile: "" }))
+          setIsUploading(false)
+        }, 1500) // 1.5 second loading simulation
       } else {
         setErrors((prev) => ({ ...prev, audioFile: "Please upload an MP3 or WAV file only" }))
+        setIsUploading(false)
         event.target.value = "" // Clear the input
       }
     }
@@ -606,7 +614,7 @@ export default function CollectingDotsLabel() {
             <CardHeader>
               <CardTitle className="text-white font-display text-2xl">Demo Submission</CardTitle>
               <CardDescription className="text-gray-400 font-light">
-                Fill out the form below and upload your track. We'll get back to you within 48 hours.
+                Fill out the form below and upload your track.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -616,7 +624,7 @@ export default function CollectingDotsLabel() {
                   Upload Demo Track * (MP3 or WAV only)
                 </Label>
                 <div className="space-y-3">
-                  {!formData.audioFile ? (
+                  {!formData.audioFile && !isUploading ? (
                     <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 text-center hover:border-gray-500 transition-all duration-300 hover:bg-gray-800/20">
                       <div className="transform transition-transform duration-300 hover:scale-105">
                         <FileAudio className="w-20 h-20 mx-auto mb-6 text-gray-400" />
@@ -640,6 +648,16 @@ export default function CollectingDotsLabel() {
                         >
                           Choose Your Track
                         </Button>
+                      </div>
+                    </div>
+                  ) : isUploading ? (
+                    <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 text-center">
+                      <div className="flex flex-col items-center">
+                        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mb-6"></div>
+                        <h3 className="text-white text-2xl font-display font-bold mb-3 tracking-tight">
+                          Uploading your track...
+                        </h3>
+                        <p className="text-gray-400 text-lg font-light">Processing your audio file</p>
                       </div>
                     </div>
                   ) : (
@@ -794,7 +812,7 @@ export default function CollectingDotsLabel() {
                                 : "bg-gray-700 text-gray-400 cursor-not-allowed"
                             }`}
                           >
-                            {isFormValid() ? "Submit Demo" : "Complete Required Fields"}
+                            Submit Demo
                           </Button>
                         </div>
                       </div>
