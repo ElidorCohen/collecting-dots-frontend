@@ -678,44 +678,46 @@ export default function CollectingDotsLabel() {
                     </div>
                   ) : (
                     <div className="animate-in slide-in-from-top-4 duration-1000 space-y-6">
-                      {formData.audioFile && (
-                        <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4 backdrop-blur-sm">
-                          <div className="flex items-center justify-between mb-3">
-                            <span className="text-white font-medium">Upload Progress</span>
+                      <div className="bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600 rounded-lg p-6 backdrop-blur-sm">
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center space-x-4">
+                            <div className="p-3 bg-green-500/20 rounded-full">
+                              <FileAudio className="w-6 h-6 text-green-400" />
+                            </div>
+                            <div>
+                              <p className="text-white text-lg font-medium">{formData.audioFile.name}</p>
+                              <p className="text-gray-400 text-sm font-mono">
+                                {formatFileSize(formData.audioFile.size)}
+                              </p>
+                            </div>
+                          </div>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={removeFile}
+                            className="text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors"
+                          >
+                            <X className="w-5 h-5" />
+                          </Button>
+                        </div>
+
+                        {/* File display with enhanced styling */}
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <span className="text-white font-medium text-sm">Upload Progress</span>
                             <span className="text-green-400 font-mono text-sm">{Math.round(uploadProgress)}%</span>
                           </div>
-                          <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
+                          <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
                             <div
                               className="h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full transition-all duration-300 ease-out"
                               style={{ width: `${uploadProgress}%` }}
                             />
                           </div>
-                          <p className="text-gray-400 text-sm mt-2 font-light">
+                          <p className="text-gray-400 text-xs font-light">
                             {uploadProgress < 100 ? "Processing your track..." : "Upload complete!"}
                           </p>
                         </div>
-                      )}
-
-                      {/* File display with enhanced styling */}
-                      <div className="bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600 rounded-lg p-6 flex items-center justify-between backdrop-blur-sm">
-                        <div className="flex items-center space-x-4">
-                          <div className="p-3 bg-green-500/20 rounded-full">
-                            <FileAudio className="w-6 h-6 text-green-400" />
-                          </div>
-                          <div>
-                            <p className="text-white text-lg font-medium">{formData.audioFile.name}</p>
-                            <p className="text-gray-400 text-sm font-mono">{formatFileSize(formData.audioFile.size)}</p>
-                          </div>
-                        </div>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          onClick={removeFile}
-                          className="text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors"
-                        >
-                          <X className="w-5 h-5" />
-                        </Button>
                       </div>
 
                       {/* Required Fields with enhanced styling */}
