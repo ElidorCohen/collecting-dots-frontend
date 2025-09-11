@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Music, Mail, Instagram, FileAudio, X, Users, Headphones, Star } from "lucide-react"
+import { Music, Mail, Instagram, FileAudio, X, Users, Headphones, Star, MapPin } from "lucide-react"
 import ReleasesCarousel from "@/components/releases-carousel"
 import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
@@ -607,6 +607,155 @@ export default function Home() {
                     </div>
                   </div>
                 ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Events Section */}
+      <section id="events" className="py-24 px-4 bg-gray-900/20">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 tracking-tight">EVENTS</h2>
+            <p className="text-gray-300 text-lg font-light">Collecting Dots Records events all around the world.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Future Events */}
+            <div>
+              <h3 className="font-display text-2xl font-bold mb-8 text-center text-white">Future Events</h3>
+              <div className="space-y-6">
+                {[
+                  {
+                    title: "Collecting Dots Showcase",
+                    date: "March 15, 2025",
+                    time: "22:00 - 06:00",
+                    venue: "Warehouse 23",
+                    location: "Berlin, Germany",
+                    artists: ["Omri", "The Botanist", "Bonafique"],
+                  },
+                  {
+                    title: "Electronic Nights Festival",
+                    date: "April 8, 2025",
+                    time: "20:00 - 04:00",
+                    venue: "Industrial Complex",
+                    location: "Amsterdam, Netherlands",
+                    artists: ["TOBEHONEST", "Adaru"],
+                  },
+                  {
+                    title: "Underground Sessions",
+                    date: "May 22, 2025",
+                    time: "23:00 - 07:00",
+                    venue: "Club Voltage",
+                    location: "London, UK",
+                    artists: ["Rafael & Sapian", "Omri"],
+                  },
+                ].map((event, index) => (
+                  <Card
+                    key={index}
+                    className="bg-gray-900/80 border-gray-800/50 hover:border-gray-700/50 transition-all duration-300 backdrop-blur-sm"
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex justify-between items-start mb-4">
+                        <h4 className="font-display text-xl font-bold text-white">{event.title}</h4>
+                        <div className="text-right">
+                          <div className="text-sm text-gray-300">{event.date}</div>
+                          <div className="text-xs text-gray-400">{event.time}</div>
+                        </div>
+                      </div>
+                      <div className="space-y-2 mb-4">
+                        <div className="flex items-center text-gray-300">
+                          <MapPin className="w-4 h-4 mr-2" />
+                          <span className="text-sm">
+                            {event.venue}, {event.location}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {event.artists.map((artist, artistIndex) => (
+                          <span
+                            key={artistIndex}
+                            className="px-3 py-1 bg-gray-800/50 text-gray-300 text-xs rounded-full border border-gray-700/50"
+                          >
+                            {artist}
+                          </span>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Past Events */}
+            <div>
+              <h3 className="font-display text-2xl font-bold mb-8 text-center text-gray-400">Past Events</h3>
+              <div className="space-y-6">
+                {[
+                  {
+                    title: "New Year Electronic Celebration",
+                    date: "December 31, 2024",
+                    time: "23:00 - 08:00",
+                    venue: "Rooftop Terrace",
+                    location: "Tel Aviv, Israel",
+                    artists: ["Omri", "TOBEHONEST", "Adaru"],
+                  },
+                  {
+                    title: "Autumn Vibes Festival",
+                    date: "October 12, 2024",
+                    time: "21:00 - 05:00",
+                    venue: "Open Air Stage",
+                    location: "Barcelona, Spain",
+                    artists: ["The Botanist", "Rafael & Sapian"],
+                  },
+                  {
+                    title: "Summer Electronic Series",
+                    date: "August 5, 2024",
+                    time: "22:00 - 06:00",
+                    venue: "Beach Club Paradise",
+                    location: "Ibiza, Spain",
+                    artists: ["Bonafique", "Omri", "The Botanist"],
+                  },
+                  {
+                    title: "Spring Awakening Tour",
+                    date: "May 18, 2024",
+                    time: "20:00 - 03:00",
+                    venue: "Underground Vault",
+                    location: "Prague, Czech Republic",
+                    artists: ["TOBEHONEST", "Adaru"],
+                  },
+                ].map((event, index) => (
+                  <Card key={index} className="bg-gray-900/60 border-gray-800/30 backdrop-blur-sm opacity-75">
+                    <CardContent className="p-6">
+                      <div className="flex justify-between items-start mb-4">
+                        <h4 className="font-display text-xl font-bold text-gray-300">{event.title}</h4>
+                        <div className="text-right">
+                          <div className="text-sm text-gray-400">{event.date}</div>
+                          <div className="text-xs text-gray-500">{event.time}</div>
+                        </div>
+                      </div>
+                      <div className="space-y-2 mb-4">
+                        <div className="flex items-center text-gray-400">
+                          <MapPin className="w-4 h-4 mr-2" />
+                          <span className="text-sm">
+                            {event.venue}, {event.location}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {event.artists.map((artist, artistIndex) => (
+                          <span
+                            key={artistIndex}
+                            className="px-3 py-1 bg-gray-800/30 text-gray-400 text-xs rounded-full border border-gray-700/30"
+                          >
+                            {artist}
+                          </span>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
         </div>
