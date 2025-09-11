@@ -168,3 +168,39 @@ html {
 .animate-scroll-left:hover {
   animation-play-state: paused;
 }
+
+/* Events section invisible scrollbar */
+.events-scroll-container {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.events-scroll-container::-webkit-scrollbar {
+  display: none; /* WebKit */
+}
+
+/* Smooth scrolling for events container */
+.events-scroll-container {
+  scroll-behavior: smooth;
+}
+
+/* Optional: Add subtle fade effect at top and bottom */
+.events-scroll-container::before,
+.events-scroll-container::after {
+  content: "";
+  position: sticky;
+  display: block;
+  height: 20px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.events-scroll-container::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(17, 24, 39, 0.8), transparent);
+}
+
+.events-scroll-container::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(17, 24, 39, 0.8), transparent);
+}
