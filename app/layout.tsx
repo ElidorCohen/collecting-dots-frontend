@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Inter, JetBrains_Mono } from 'next/font/google'
+import localFont from 'next/font/local'
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 
@@ -12,6 +13,12 @@ const inter = Inter({
 const jetbrainsMono = JetBrains_Mono({ 
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
+  display: 'swap',
+})
+
+const bnBobbieSans = localFont({
+  src: '../public/fonts/BNBobbieSans.otf',
+  variable: '--font-bn-bobbie-sans',
   display: 'swap',
 })
 
@@ -67,7 +74,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} ${bnBobbieSans.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

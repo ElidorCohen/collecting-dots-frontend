@@ -238,10 +238,10 @@ export default function CollectingDotsLabel() {
               </p>
               <div className="grid grid-cols-2 gap-8">
                 {[
-                  { label: "Artists", value: "150+", icon: Users },
-                  { label: "Releases", value: "300+", icon: Music },
-                  { label: "Monthly Listeners", value: "2.5M", icon: Headphones },
-                  { label: "Rating", value: "4.9", icon: Star },
+                  { label: "Artists", value: "15+", icon: Users },
+                  { label: "Releases", value: "20+", icon: Music },
+                  { label: "Monthly Listeners", value: "110K", icon: Headphones },
+                  { label: "Rating", value: "5.0", icon: Star },
                 ].map((stat, index) => (
                   <div key={index} className="text-center">
                     <stat.icon className="w-8 h-8 mx-auto mb-3 text-gray-400" />
@@ -271,7 +271,7 @@ export default function CollectingDotsLabel() {
       <section id="releases" className="py-24 px-4 bg-gradient-to-b from-black to-gray-950/30">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 tracking-tight">Latest Releases</h2>
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 tracking-tight">LATEST RELEASES</h2>
             <p className="text-gray-300 text-lg font-light">Discover the dots we've connected in our musical constellation</p>
           </div>
           <ReleasesCarousel />
@@ -282,7 +282,7 @@ export default function CollectingDotsLabel() {
       <section id="sounds" className="py-24 px-4 bg-gray-950/30">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 tracking-tight">Collecting Dots Sounds</h2>
+            <h2 className="font-display font-bold mb-4 tracking-tight text-4xl">COLLECTING DOTS SOUNDS </h2>
             <p className="text-gray-300 text-lg font-light">Premium sound packs crafted by Omri for producers worldwide</p>
           </div>
           
@@ -349,7 +349,7 @@ export default function CollectingDotsLabel() {
       <section id="sets" className="py-24 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 tracking-tight">Collecting Dots Sets</h2>
+            <h2 className="font-display font-bold mb-4 tracking-tight text-4xl">COLLECTING DOTS MEDIA ARCHIVE </h2>
             <p className="text-gray-300 text-lg font-light">Live DJ sets from Omri and our label artists</p>
           </div>
           
@@ -418,7 +418,7 @@ export default function CollectingDotsLabel() {
       <section id="merchandise" className="py-24 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 tracking-tight">Collecting Dots Merchandise</h2>
+            <h2 className="font-display font-bold mb-4 tracking-tight text-4xl">COLLECTING DOTS MERCHANDISE  </h2>
             <p className="text-gray-300 text-lg font-light">Premium apparel and accessories for the collecting dots community</p>
           </div>
           
@@ -521,7 +521,7 @@ export default function CollectingDotsLabel() {
       <section id="demo-submission" className="py-24 px-4 bg-gray-950/50">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 tracking-tight">Submit Your Demo</h2>
+            <h2 className="font-display text-4xl font-bold mb-4 tracking-tight md:text-4xl">SUBMIT YOUR DEMO</h2>
             <p className="text-gray-300 text-lg font-light">
               Ready to become part of the constellation? Share your music with us.
             </p>
@@ -603,7 +603,7 @@ export default function CollectingDotsLabel() {
                   {!formData.audioFile ? (
                     <div className="border-2 border-dashed border-gray-600 rounded-lg p-6 text-center hover:border-gray-500 transition-colors">
                       <FileAudio className="w-8 h-8 mx-auto mb-3 text-gray-400" />
-                      <p className="text-gray-400 mb-2 font-light">Click to upload or drag and drop</p>
+                      <p className="text-gray-400 mb-2 font-light">Drop it like it's dot</p>
                       <p className="text-xs text-gray-500 font-light">MP3 or WAV files only</p>
                       <Input
                         id="demo-file"
@@ -688,7 +688,7 @@ export default function CollectingDotsLabel() {
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-6 md:mb-0">
-              <h3 className="font-display text-2xl font-bold mb-2">collecting dots records</h3>
+              <h3 className="font-display text-2xl font-bold mb-2">COLLECTING DOTS RECORDS </h3>
               <p className="text-gray-400 font-light">Curated by Omri.</p>
             </div>
 
