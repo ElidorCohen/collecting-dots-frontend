@@ -617,35 +617,42 @@ export default function CollectingDotsLabel() {
                 </Label>
                 <div className="space-y-3">
                   {!formData.audioFile ? (
-                    <div className="border-2 border-dashed border-gray-600 rounded-lg p-8 text-center hover:border-gray-500 transition-colors">
-                      <FileAudio className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-                      <p className="text-gray-300 text-xl mb-2 font-light">Drop it like it's dot</p>
-                      <p className="text-xs text-gray-500 font-light">MP3 or WAV files only</p>
-                      <Input
-                        id="demo-file"
-                        type="file"
-                        accept=".mp3,.wav,audio/mpeg,audio/wav"
-                        onChange={handleFileUpload}
-                        className="hidden"
-                      />
-                      <Button
-                        type="button"
-                        variant="outline"
-                        className="mt-4 bg-transparent border-gray-600 text-gray-300 hover:bg-gray-800/50 font-medium"
-                        onClick={() => document.getElementById("demo-file")?.click()}
-                      >
-                        Choose File
-                      </Button>
+                    <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 text-center hover:border-gray-500 transition-all duration-300 hover:bg-gray-800/20">
+                      <div className="transform transition-transform duration-300 hover:scale-105">
+                        <FileAudio className="w-20 h-20 mx-auto mb-6 text-gray-400" />
+                        <h3 className="text-white text-3xl font-display font-bold mb-3 tracking-tight">
+                          Drop it like it's dot
+                        </h3>
+                        <p className="text-gray-400 text-lg mb-6 font-light">Share your sound with the constellation</p>
+                        <p className="text-xs text-gray-500 font-light mb-6">MP3 or WAV files only • Max 50MB</p>
+                        <Input
+                          id="demo-file"
+                          type="file"
+                          accept=".mp3,.wav,audio/mpeg,audio/wav"
+                          onChange={handleFileUpload}
+                          className="hidden"
+                        />
+                        <Button
+                          type="button"
+                          size="lg"
+                          className="bg-white text-black hover:bg-gray-200 font-medium px-8 py-3 text-lg"
+                          onClick={() => document.getElementById("demo-file")?.click()}
+                        >
+                          Choose Your Track
+                        </Button>
+                      </div>
                     </div>
                   ) : (
-                    <div className="space-y-6">
-                      {/* File display */}
-                      <div className="bg-gray-800/50 border border-gray-600 rounded-lg p-4 flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <FileAudio className="w-5 h-5 text-green-400" />
+                    <div className="animate-in slide-in-from-top-4 duration-500 space-y-6">
+                      {/* File display with enhanced styling */}
+                      <div className="bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600 rounded-lg p-6 flex items-center justify-between backdrop-blur-sm">
+                        <div className="flex items-center space-x-4">
+                          <div className="p-3 bg-green-500/20 rounded-full">
+                            <FileAudio className="w-6 h-6 text-green-400" />
+                          </div>
                           <div>
-                            <p className="text-white text-sm font-medium">{formData.audioFile.name}</p>
-                            <p className="text-gray-400 text-xs font-mono">{formatFileSize(formData.audioFile.size)}</p>
+                            <p className="text-white text-lg font-medium">{formData.audioFile.name}</p>
+                            <p className="text-gray-400 text-sm font-mono">{formatFileSize(formData.audioFile.size)}</p>
                           </div>
                         </div>
                         <Button
@@ -653,126 +660,142 @@ export default function CollectingDotsLabel() {
                           variant="ghost"
                           size="sm"
                           onClick={removeFile}
-                          className="text-gray-400 hover:text-white hover:bg-gray-700/50"
+                          className="text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors"
                         >
-                          <X className="w-4 h-4" />
+                          <X className="w-5 h-5" />
                         </Button>
                       </div>
 
-                      {/* Required Fields */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="track-title" className="text-white font-medium">
-                            Track Title *
-                          </Label>
-                          <Input
-                            id="track-title"
-                            placeholder="Name of your track"
-                            value={formData.trackTitle}
-                            onChange={(e) => handleInputChange("trackTitle", e.target.value)}
-                            className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light"
-                          />
+                      {/* Required Fields with enhanced styling */}
+                      <div className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-3">
+                            <Label htmlFor="track-title" className="text-white font-medium text-lg">
+                              Track Title *
+                            </Label>
+                            <Input
+                              id="track-title"
+                              placeholder="Name of your track"
+                              value={formData.trackTitle}
+                              onChange={(e) => handleInputChange("trackTitle", e.target.value)}
+                              className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
+                            />
+                          </div>
+                          <div className="space-y-3">
+                            <Label htmlFor="artist-name" className="text-white font-medium text-lg">
+                              Artist Name *
+                            </Label>
+                            <Input
+                              id="artist-name"
+                              placeholder="Your artist name"
+                              value={formData.artistName}
+                              onChange={(e) => handleInputChange("artistName", e.target.value)}
+                              className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
+                            />
+                          </div>
                         </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="artist-name" className="text-white font-medium">
-                            Artist Name *
-                          </Label>
-                          <Input
-                            id="artist-name"
-                            placeholder="Your artist name"
-                            value={formData.artistName}
-                            onChange={(e) => handleInputChange("artistName", e.target.value)}
-                            className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light"
-                          />
-                        </div>
-                      </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="full-name" className="text-white font-medium">
-                            Full Name *
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-3">
+                            <Label htmlFor="full-name" className="text-white font-medium text-lg">
+                              Full Name *
+                            </Label>
+                            <Input
+                              id="full-name"
+                              placeholder="Your full name"
+                              value={formData.fullName}
+                              onChange={(e) => handleInputChange("fullName", e.target.value)}
+                              className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
+                            />
+                          </div>
+                          <div className="space-y-3">
+                            <Label htmlFor="email" className="text-white font-medium text-lg">
+                              Email *
+                            </Label>
+                            <Input
+                              id="email"
+                              type="email"
+                              placeholder="your@email.com"
+                              value={formData.email}
+                              onChange={(e) => handleInputChange("email", e.target.value)}
+                              className={`bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors ${
+                                errors.email ? "border-red-500" : ""
+                              }`}
+                            />
+                            {errors.email && <p className="text-red-400 text-sm font-light">{errors.email}</p>}
+                          </div>
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label htmlFor="instagram" className="text-white font-medium text-lg">
+                            Instagram *
                           </Label>
                           <Input
-                            id="full-name"
-                            placeholder="Your full name"
-                            value={formData.fullName}
-                            onChange={(e) => handleInputChange("fullName", e.target.value)}
-                            className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light"
+                            id="instagram"
+                            placeholder="@yourusername or full Instagram URL"
+                            value={formData.instagram}
+                            onChange={(e) => handleInputChange("instagram", e.target.value)}
+                            className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
                           />
                         </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="email" className="text-white font-medium">
-                            Email *
-                          </Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            placeholder="your@email.com"
-                            value={formData.email}
-                            onChange={(e) => handleInputChange("email", e.target.value)}
-                            className={`bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light ${
-                              errors.email ? "border-red-500" : ""
+
+                        {/* Optional Social Media Fields - removed header text */}
+                        <div className="space-y-4 pt-4 border-t border-gray-700/50">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-3">
+                              <Label htmlFor="beatport" className="text-gray-300 font-medium">
+                                Beatport
+                              </Label>
+                              <Input
+                                id="beatport"
+                                placeholder="Beatport profile URL"
+                                value={formData.beatport}
+                                onChange={(e) => handleInputChange("beatport", e.target.value)}
+                                className="bg-black/30 border-gray-700 text-white placeholder:text-gray-500 font-light h-11 focus:border-gray-500 transition-colors"
+                              />
+                            </div>
+                            <div className="space-y-3">
+                              <Label htmlFor="facebook" className="text-gray-300 font-medium">
+                                Facebook
+                              </Label>
+                              <Input
+                                id="facebook"
+                                placeholder="Facebook page URL"
+                                value={formData.facebook}
+                                onChange={(e) => handleInputChange("facebook", e.target.value)}
+                                className="bg-black/30 border-gray-700 text-white placeholder:text-gray-500 font-light h-11 focus:border-gray-500 transition-colors"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="space-y-3">
+                            <Label htmlFor="x" className="text-gray-300 font-medium">
+                              X (Twitter)
+                            </Label>
+                            <Input
+                              id="x"
+                              placeholder="X/Twitter profile URL"
+                              value={formData.x}
+                              onChange={(e) => handleInputChange("x", e.target.value)}
+                              className="bg-black/30 border-gray-700 text-white placeholder:text-gray-500 font-light h-11 focus:border-gray-500 transition-colors"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Submit Button */}
+                        <div className="pt-6">
+                          <Button
+                            onClick={handleSubmit}
+                            disabled={!isFormValid()}
+                            size="lg"
+                            className={`w-full h-14 text-lg font-medium transition-all duration-300 ${
+                              isFormValid()
+                                ? "bg-white text-black hover:bg-gray-200 hover:scale-[1.02] shadow-lg"
+                                : "bg-gray-700 text-gray-400 cursor-not-allowed"
                             }`}
-                          />
-                          {errors.email && <p className="text-red-400 text-sm font-light">{errors.email}</p>}
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="instagram" className="text-white font-medium">
-                          Instagram *
-                        </Label>
-                        <Input
-                          id="instagram"
-                          placeholder="@yourusername or full Instagram URL"
-                          value={formData.instagram}
-                          onChange={(e) => handleInputChange("instagram", e.target.value)}
-                          className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light"
-                        />
-                      </div>
-
-                      {/* Optional Social Media Fields */}
-                      <div className="space-y-4">
-                        <h4 className="text-white font-medium text-sm">Optional Social Media Links</h4>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="beatport" className="text-gray-300 font-medium text-sm">
-                              Beatport
-                            </Label>
-                            <Input
-                              id="beatport"
-                              placeholder="Beatport profile URL"
-                              value={formData.beatport}
-                              onChange={(e) => handleInputChange("beatport", e.target.value)}
-                              className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light"
-                            />
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="facebook" className="text-gray-300 font-medium text-sm">
-                              Facebook
-                            </Label>
-                            <Input
-                              id="facebook"
-                              placeholder="Facebook page URL"
-                              value={formData.facebook}
-                              onChange={(e) => handleInputChange("facebook", e.target.value)}
-                              className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="x" className="text-gray-300 font-medium text-sm">
-                            X (Twitter)
-                          </Label>
-                          <Input
-                            id="x"
-                            placeholder="X/Twitter profile URL"
-                            value={formData.x}
-                            onChange={(e) => handleInputChange("x", e.target.value)}
-                            className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light"
-                          />
+                          >
+                            {isFormValid() ? "Submit Demo" : "Complete Required Fields"}
+                          </Button>
                         </div>
                       </div>
                     </div>
