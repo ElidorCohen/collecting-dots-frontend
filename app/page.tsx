@@ -620,13 +620,11 @@ export default function Home() {
             <p className="text-gray-300 text-lg font-light">Collecting Dots Records events all around the world.</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 max-h-[600px] md:max-h-[700px]">
+          <div className="grid md:grid-cols-2 gap-12">
             {/* Future Events */}
             <div className="flex flex-col">
-              <h3 className="font-display text-2xl font-bold mb-8 text-center text-white sticky top-0 bg-gray-900/90 backdrop-blur-sm py-4 z-10">
-                Future Events
-              </h3>
-              <div className="events-scroll-container flex-1 overflow-y-auto pr-2">
+              <h3 className="font-display text-2xl font-bold mb-8 text-center text-white">Future Events</h3>
+              <div className="events-scroll-container overflow-y-auto pr-2 max-h-[480px]">
                 <div className="space-y-6 pb-4">
                   {[
                     {
@@ -709,10 +707,8 @@ export default function Home() {
 
             {/* Past Events */}
             <div className="flex flex-col">
-              <h3 className="font-display text-2xl font-bold mb-8 text-center text-gray-400 sticky top-0 bg-gray-900/90 backdrop-blur-sm py-4 z-10">
-                Past Events
-              </h3>
-              <div className="events-scroll-container flex-1 overflow-y-auto pr-2">
+              <h3 className="font-display text-2xl font-bold mb-8 text-center text-gray-400">Past Events</h3>
+              <div className="events-scroll-container overflow-y-auto pr-2 max-h-[480px]">
                 <div className="space-y-6 pb-4">
                   {[
                     {
