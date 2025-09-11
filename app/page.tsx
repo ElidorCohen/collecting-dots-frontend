@@ -268,6 +268,12 @@ export default function Home() {
               <a href="#sets" className="text-gray-300 hover:text-white transition-colors font-medium">
                 Sets
               </a>
+              <a href="#artists" className="text-gray-300 hover:text-white transition-colors font-medium">
+                Artists
+              </a>
+              <a href="#events" className="text-gray-300 hover:text-white transition-colors font-medium">
+                Events
+              </a>
               <a href="#merchandise" className="text-gray-300 hover:text-white transition-colors font-medium">
                 Merchandise
               </a>
