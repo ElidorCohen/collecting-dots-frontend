@@ -387,7 +387,6 @@ export default function Home() {
               {[
                 {
                   name: "Omri",
-                  genre: "Melodic House",
                   image: "/electronic-music-artist-portrait.jpg",
                   socials: {
                     instagram: "https://instagram.com/omri",
@@ -398,7 +397,6 @@ export default function Home() {
                 },
                 {
                   name: "The Botanist",
-                  genre: "Deep House",
                   image: "/botanical-electronic-music-artist.jpg",
                   socials: {
                     instagram: "https://instagram.com/thebotanist",
@@ -409,7 +407,6 @@ export default function Home() {
                 },
                 {
                   name: "Bonafique",
-                  genre: "Techno",
                   image: "/techno-electronic-music-artist.jpg",
                   socials: {
                     instagram: "https://instagram.com/bonafique",
@@ -420,7 +417,6 @@ export default function Home() {
                 },
                 {
                   name: "TOBEHONEST",
-                  genre: "Bass",
                   image: "/bass-electronic-music-artist.jpg",
                   socials: {
                     instagram: "https://instagram.com/tobehonest",
@@ -431,7 +427,6 @@ export default function Home() {
                 },
                 {
                   name: "Adaru",
-                  genre: "Electronic",
                   image: "/electronic-music-producer.jpg",
                   socials: {
                     instagram: "https://instagram.com/adaru",
@@ -442,7 +437,6 @@ export default function Home() {
                 },
                 {
                   name: "Rafael & Sapian",
-                  genre: "Indie Dance",
                   image: "/indie-dance-electronic-duo.jpg",
                   socials: {
                     instagram: "https://instagram.com/rafaelsapian",
@@ -456,7 +450,6 @@ export default function Home() {
                   // Duplicate the array for seamless loop
                   {
                     name: "Omri",
-                    genre: "Melodic House",
                     image: "/electronic-music-artist-portrait.jpg",
                     socials: {
                       instagram: "https://instagram.com/omri",
@@ -467,7 +460,6 @@ export default function Home() {
                   },
                   {
                     name: "The Botanist",
-                    genre: "Deep House",
                     image: "/botanical-electronic-music-artist.jpg",
                     socials: {
                       instagram: "https://instagram.com/thebotanist",
@@ -478,7 +470,6 @@ export default function Home() {
                   },
                   {
                     name: "Bonafique",
-                    genre: "Techno",
                     image: "/techno-electronic-music-artist.jpg",
                     socials: {
                       instagram: "https://instagram.com/bonafique",
@@ -489,7 +480,6 @@ export default function Home() {
                   },
                   {
                     name: "TOBEHONEST",
-                    genre: "Bass",
                     image: "/bass-electronic-music-artist.jpg",
                     socials: {
                       instagram: "https://instagram.com/tobehonest",
@@ -500,7 +490,6 @@ export default function Home() {
                   },
                   {
                     name: "Adaru",
-                    genre: "Electronic",
                     image: "/electronic-music-producer.jpg",
                     socials: {
                       instagram: "https://instagram.com/adaru",
@@ -511,7 +500,6 @@ export default function Home() {
                   },
                   {
                     name: "Rafael & Sapian",
-                    genre: "Indie Dance",
                     image: "/indie-dance-electronic-duo.jpg",
                     socials: {
                       instagram: "https://instagram.com/rafaelsapian",
@@ -544,12 +532,6 @@ export default function Home() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                             <div className="absolute bottom-0 left-0 right-0 p-6">
                               <h3 className="font-display text-2xl font-bold text-white mb-2">{artist.name}</h3>
-                              <Badge
-                                variant="secondary"
-                                className="bg-black/60 text-gray-200 border-gray-700/50 backdrop-blur-sm font-mono text-xs"
-                              >
-                                {artist.genre}
-                              </Badge>
                             </div>
                             <div className="absolute top-4 right-4">
                               <div className="flex space-x-1">
