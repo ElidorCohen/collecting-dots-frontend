@@ -151,18 +151,38 @@ html {
   transform: rotateY(180deg);
 }
 
-/* Auto-scroll animation */
+/* Auto-scroll animation for artists carousel */
+/* Each card is 320px (w-80) + 32px gap = 352px per card */
+/* 11 artists × 352px = 3872px (one complete set) */
+@keyframes scroll-left-artists {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-3872px);
+  }
+}
+
+.animate-scroll-artists {
+  animation: scroll-left-artists 25s linear infinite;
+}
+
+.animate-scroll-artists:hover {
+  animation-play-state: paused;
+}
+
+/* Legacy scroll animation */
 @keyframes scroll-left {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-33.333%);
   }
 }
 
 .animate-scroll-left {
-  animation: scroll-left 30s linear infinite;
+  animation: scroll-left 10s linear infinite;
 }
 
 .animate-scroll-left:hover {

@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Music, Mail, Instagram, FileAudio, X, Users, Headphones, Star, MapPin } from "lucide-react"
 import ReleasesCarousel from "@/components/releases-carousel"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import HorizontalSetsCarousel from "@/components/horizontal-sets-carousel"
 
@@ -48,6 +48,16 @@ export default function Home() {
   const [isUploading, setIsUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
 
+  // Submission status
+  const [submissionStatus, setSubmissionStatus] = useState<{
+    type: "success" | "error" | null
+    message: string
+    demoId?: string
+  }>({
+    type: null,
+    message: "",
+  })
+
   // Validation states
   const [errors, setErrors] = useState({
     email: "",
@@ -62,6 +72,17 @@ export default function Home() {
 
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set())
 
+  // Artists data state
+  const [artists, setArtists] = useState<Array<{
+    artist_name: string;
+    artist_instagram_username: string;
+    artist_soundcloud: string;
+    artist_spotify: string;
+    artist_beatport: string;
+    image: string;
+  }>>([])
+  const [isLoadingArtists, setIsLoadingArtists] = useState(true)
+
   const toggleCardFlip = (index: number) => {
     setFlippedCards((prev) => {
       const newSet = new Set(prev)
@@ -73,6 +94,27 @@ export default function Home() {
       return newSet
     })
   }
+
+  // Fetch artists data from API
+  useEffect(() => {
+    const fetchArtists = async () => {
+      try {
+        setIsLoadingArtists(true)
+        const response = await fetch('/api/get-artists-data')
+        const data = await response.json()
+
+        if (data.success && data.data) {
+          setArtists(data.data)
+        }
+      } catch (error) {
+        console.error('Error fetching artists data:', error)
+      } finally {
+        setIsLoadingArtists(false)
+      }
+    }
+
+    fetchArtists()
+  }, [])
 
   // Check if form is valid
   const isFormValid = () => {
@@ -153,27 +195,84 @@ export default function Home() {
   }
 
   // Handle form submission
-  const handleSubmit = () => {
-    if (isFormValid()) {
-      // Placeholder for future API call
-      console.log("Demo submission data:", formData)
-      // TODO: Implement API call here
+  const handleSubmit = async () => {
+    if (!isFormValid()) return
 
-      alert("Demo submitted successfully! We'll get back to you within 48 hours.")
+    setIsUploading(true)
+    setSubmissionStatus({ type: null, message: "" })
 
-      // Reset form
-      setFormData({
-        trackTitle: "",
-        artistName: "",
-        fullName: "",
-        email: "",
-        instagram: "",
-        beatport: "",
-        facebook: "",
-        x: "",
-        audioFile: null,
+    try {
+      // Create FormData object for multipart/form-data
+      const formDataToSubmit = new FormData()
+
+      // Add file with the expected field name 'demo_file'
+      if (formData.audioFile) {
+        formDataToSubmit.append('demo_file', formData.audioFile)
+      }
+
+      // Add required fields
+      formDataToSubmit.append('artist_name', formData.artistName)
+      formDataToSubmit.append('track_title', formData.trackTitle)
+      formDataToSubmit.append('email', formData.email)
+      formDataToSubmit.append('full_name', formData.fullName)
+      formDataToSubmit.append('instagram_username', formData.instagram)
+
+      // Add optional fields only if they have values
+      if (formData.beatport) {
+        formDataToSubmit.append('beatport', formData.beatport)
+      }
+      if (formData.facebook) {
+        formDataToSubmit.append('facebook', formData.facebook)
+      }
+      if (formData.x) {
+        formDataToSubmit.append('x_twitter', formData.x)
+      }
+
+      // Submit to API
+      const response = await fetch('/api/submit-demo', {
+        method: 'POST',
+        body: formDataToSubmit,
       })
-      setErrors({ email: "", audioFile: "" })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        // Success
+        setSubmissionStatus({
+          type: "success",
+          message: "Demo submitted successfully!",
+          demoId: data.demo_id,
+        })
+
+        // Don't reset form immediately - let user see the success message
+        // Keep the form fields but clear their values
+        setFormData({
+          trackTitle: "",
+          artistName: "",
+          fullName: "",
+          email: "",
+          instagram: "",
+          beatport: "",
+          facebook: "",
+          x: "",
+          audioFile: formData.audioFile, // Keep the file to maintain UI state
+        })
+        setErrors({ email: "", audioFile: "" })
+      } else {
+        // Error
+        setSubmissionStatus({
+          type: "error",
+          message: data.error || 'Unknown error occurred',
+        })
+      }
+    } catch (error: any) {
+      console.error('Submission error:', error)
+      setSubmissionStatus({
+        type: "error",
+        message: error.message || 'Network error occurred',
+      })
+    } finally {
+      setIsUploading(false)
     }
   }
 
@@ -386,136 +485,24 @@ export default function Home() {
             <p className="text-gray-300 text-lg font-light">Our label artists.</p>
           </div>
 
-          {/* Auto-moving Artists Carousel */}
-          <div className="relative overflow-hidden">
-            <div className="flex animate-scroll-left space-x-8">
-              {/* First set of artist cards */}
-              {[
-                {
-                  name: "Omri",
-                  image: "/electronic-music-artist-portrait.jpg",
-                  socials: {
-                    instagram: "https://instagram.com/omri",
-                    soundcloud: "https://soundcloud.com/omri",
-                    spotify: "https://spotify.com/artist/omri",
-                    beatport: "https://beatport.com/artist/omri",
-                  },
-                },
-                {
-                  name: "The Botanist",
-                  image: "/botanical-electronic-music-artist.jpg",
-                  socials: {
-                    instagram: "https://instagram.com/thebotanist",
-                    soundcloud: "https://soundcloud.com/thebotanist",
-                    spotify: "https://spotify.com/artist/thebotanist",
-                    beatport: "https://beatport.com/artist/thebotanist",
-                  },
-                },
-                {
-                  name: "Bonafique",
-                  image: "/techno-electronic-music-artist.jpg",
-                  socials: {
-                    instagram: "https://instagram.com/bonafique",
-                    soundcloud: "https://soundcloud.com/bonafique",
-                    spotify: "https://spotify.com/artist/bonafique",
-                    beatport: "https://beatport.com/artist/bonafique",
-                  },
-                },
-                {
-                  name: "TOBEHONEST",
-                  image: "/bass-electronic-music-artist.jpg",
-                  socials: {
-                    instagram: "https://instagram.com/tobehonest",
-                    soundcloud: "https://soundcloud.com/tobehonest",
-                    spotify: "https://spotify.com/artist/tobehonest",
-                    beatport: "https://beatport.com/artist/tobehonest",
-                  },
-                },
-                {
-                  name: "Adaru",
-                  image: "/electronic-music-producer.jpg",
-                  socials: {
-                    instagram: "https://instagram.com/adaru",
-                    soundcloud: "https://soundcloud.com/adaru",
-                    spotify: "https://spotify.com/artist/adaru",
-                    beatport: "https://beatport.com/artist/adaru",
-                  },
-                },
-                {
-                  name: "Rafael & Sapian",
-                  image: "/indie-dance-electronic-duo.jpg",
-                  socials: {
-                    instagram: "https://instagram.com/rafaelsapian",
-                    soundcloud: "https://soundcloud.com/rafaelsapian",
-                    spotify: "https://spotify.com/artist/rafaelsapian",
-                    beatport: "https://beatport.com/artist/rafaelsapian",
-                  },
-                },
-              ]
-                .concat([
-                  // Duplicate the array for seamless loop
-                  {
-                    name: "Omri",
-                    image: "/electronic-music-artist-portrait.jpg",
-                    socials: {
-                      instagram: "https://instagram.com/omri",
-                      soundcloud: "https://soundcloud.com/omri",
-                      spotify: "https://spotify.com/artist/omri",
-                      beatport: "https://beatport.com/artist/omri",
-                    },
-                  },
-                  {
-                    name: "The Botanist",
-                    image: "/botanical-electronic-music-artist.jpg",
-                    socials: {
-                      instagram: "https://instagram.com/thebotanist",
-                      soundcloud: "https://soundcloud.com/thebotanist",
-                      spotify: "https://spotify.com/artist/thebotanist",
-                      beatport: "https://beatport.com/artist/thebotanist",
-                    },
-                  },
-                  {
-                    name: "Bonafique",
-                    image: "/techno-electronic-music-artist.jpg",
-                    socials: {
-                      instagram: "https://instagram.com/bonafique",
-                      soundcloud: "https://soundcloud.com/bonafique",
-                      spotify: "https://spotify.com/artist/bonafique",
-                      beatport: "https://beatport.com/artist/bonafique",
-                    },
-                  },
-                  {
-                    name: "TOBEHONEST",
-                    image: "/bass-electronic-music-artist.jpg",
-                    socials: {
-                      instagram: "https://instagram.com/tobehonest",
-                      soundcloud: "https://soundcloud.com/tobehonest",
-                      spotify: "https://spotify.com/artist/tobehonest",
-                      beatport: "https://beatport.com/artist/tobehonest",
-                    },
-                  },
-                  {
-                    name: "Adaru",
-                    image: "/electronic-music-producer.jpg",
-                    socials: {
-                      instagram: "https://instagram.com/adaru",
-                      soundcloud: "https://soundcloud.com/adaru",
-                      spotify: "https://spotify.com/artist/adaru",
-                      beatport: "https://beatport.com/artist/adaru",
-                    },
-                  },
-                  {
-                    name: "Rafael & Sapian",
-                    image: "/indie-dance-electronic-duo.jpg",
-                    socials: {
-                      instagram: "https://instagram.com/rafaelsapian",
-                      soundcloud: "https://soundcloud.com/rafaelsapian",
-                      spotify: "https://spotify.com/artist/rafaelsapian",
-                      beatport: "https://beatport.com/artist/rafaelsapian",
-                    },
-                  },
-                ])
-                .map((artist, index) => (
+          {/* Loading state */}
+          {isLoadingArtists ? (
+            <div className="relative h-96 flex items-center justify-center">
+              <div className="flex flex-col items-center space-y-4">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+                <p className="text-gray-400 text-lg">Loading artists...</p>
+              </div>
+            </div>
+          ) : artists.length === 0 ? (
+            <div className="relative h-96 flex items-center justify-center">
+              <p className="text-gray-400 text-lg">No artists found</p>
+            </div>
+          ) : (
+            /* Auto-moving Artists Carousel */
+            <div className="relative overflow-hidden">
+              <div className="flex space-x-8 animate-scroll-artists">
+                {/* Double artists array for seamless loop */}
+                {[...artists, ...artists].map((artist, index) => (
                   <div
                     key={index}
                     className="flex-shrink-0 w-80 group perspective-1000 cursor-pointer"
@@ -532,12 +519,12 @@ export default function Home() {
                           <div className="relative h-full">
                             <img
                               src={artist.image || "/placeholder.svg"}
-                              alt={artist.name}
+                              alt={artist.artist_name}
                               className="w-full h-full object-cover"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                             <div className="absolute bottom-0 left-0 right-0 p-6">
-                              <h3 className="font-display text-2xl font-bold text-white mb-2">{artist.name}</h3>
+                              <h3 className="font-display text-2xl font-bold text-white mb-2">{artist.artist_name}</h3>
                             </div>
                             <div className="absolute top-4 right-4">
                               <div className="flex space-x-1">
@@ -555,7 +542,7 @@ export default function Home() {
                         <Card className="w-full h-full bg-gray-900/90 border-gray-800/50 backdrop-blur-sm">
                           <CardContent className="h-full flex flex-col items-center justify-center p-8">
                             <h3 className="font-display text-2xl font-bold text-white mb-6 text-center">
-                              {artist.name}
+                              {artist.artist_name}
                             </h3>
                             <div className="grid grid-cols-2 gap-4 w-full">
                               <Button
@@ -564,7 +551,7 @@ export default function Home() {
                                 className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
                                 onClick={(e) => {
                                   e.stopPropagation()
-                                  window.open(artist.socials.instagram, "_blank")
+                                  window.open(`https://instagram.com/${artist.artist_instagram_username}`, "_blank")
                                 }}
                               >
                                 <Instagram className="w-8 h-8" />
@@ -576,7 +563,7 @@ export default function Home() {
                                 className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
                                 onClick={(e) => {
                                   e.stopPropagation()
-                                  window.open(artist.socials.soundcloud, "_blank")
+                                  window.open(artist.artist_soundcloud, "_blank")
                                 }}
                               >
                                 <Music className="w-8 h-8" />
@@ -588,7 +575,7 @@ export default function Home() {
                                 className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
                                 onClick={(e) => {
                                   e.stopPropagation()
-                                  window.open(artist.socials.spotify, "_blank")
+                                  window.open(artist.artist_spotify, "_blank")
                                 }}
                               >
                                 <SpotifyIcon />
@@ -600,7 +587,7 @@ export default function Home() {
                                 className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
                                 onClick={(e) => {
                                   e.stopPropagation()
-                                  window.open(artist.socials.beatport, "_blank")
+                                  window.open(artist.artist_beatport, "_blank")
                                 }}
                               >
                                 <BeatportIcon />
@@ -613,8 +600,9 @@ export default function Home() {
                     </div>
                   </div>
                 ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
@@ -1123,50 +1111,53 @@ export default function Home() {
                     </div>
                   ) : (
                     <div className="animate-in slide-in-from-top-4 duration-1000 space-y-6">
-                      <div className="bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600 rounded-lg p-6 backdrop-blur-sm">
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center space-x-4">
-                            <div className="p-3 bg-green-500/20 rounded-full">
-                              <FileAudio className="w-6 h-6 text-green-400" />
+                      {/* Show file info and form fields only if submission hasn't succeeded */}
+                      {submissionStatus.type !== "success" && (
+                        <>
+                          <div className="bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600 rounded-lg p-6 backdrop-blur-sm">
+                            <div className="flex items-center justify-between mb-4">
+                              <div className="flex items-center space-x-4">
+                                <div className="p-3 bg-green-500/20 rounded-full">
+                                  <FileAudio className="w-6 h-6 text-green-400" />
+                                </div>
+                                <div>
+                                  <p className="text-white text-lg font-medium">{formData.audioFile.name}</p>
+                                  <p className="text-gray-400 text-sm font-mono">
+                                    {formatFileSize(formData.audioFile.size)}
+                                  </p>
+                                </div>
+                              </div>
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                onClick={removeFile}
+                                className="text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors"
+                              >
+                                <X className="w-5 h-5" />
+                              </Button>
                             </div>
-                            <div>
-                              <p className="text-white text-lg font-medium">{formData.audioFile.name}</p>
-                              <p className="text-gray-400 text-sm font-mono">
-                                {formatFileSize(formData.audioFile.size)}
+
+                            {/* File display with enhanced styling */}
+                            <div className="space-y-2">
+                              <div className="flex items-center justify-between">
+                                <span className="text-white font-medium text-sm">Upload Progress</span>
+                                <span className="text-green-400 font-mono text-sm">{Math.round(uploadProgress)}%</span>
+                              </div>
+                              <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                                <div
+                                  className="h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full transition-all duration-300 ease-out"
+                                  style={{ width: `${uploadProgress}%` }}
+                                />
+                              </div>
+                              <p className="text-gray-400 text-xs font-light">
+                                {uploadProgress < 100 ? "Processing your track..." : "Upload complete!"}
                               </p>
                             </div>
                           </div>
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            onClick={removeFile}
-                            className="text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors"
-                          >
-                            <X className="w-5 h-5" />
-                          </Button>
-                        </div>
 
-                        {/* File display with enhanced styling */}
-                        <div className="space-y-2">
-                          <div className="flex items-center justify-between">
-                            <span className="text-white font-medium text-sm">Upload Progress</span>
-                            <span className="text-green-400 font-mono text-sm">{Math.round(uploadProgress)}%</span>
-                          </div>
-                          <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
-                            <div
-                              className="h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full transition-all duration-300 ease-out"
-                              style={{ width: `${uploadProgress}%` }}
-                            />
-                          </div>
-                          <p className="text-gray-400 text-xs font-light">
-                            {uploadProgress < 100 ? "Processing your track..." : "Upload complete!"}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Required Fields with enhanced styling */}
-                      <div className="space-y-6">
+                          {/* Required Fields with enhanced styling */}
+                          <div className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div className="space-y-3">
                             <Label htmlFor="track-title" className="text-white font-medium text-lg">
@@ -1281,22 +1272,102 @@ export default function Home() {
                           </div>
                         </div>
 
-                        {/* Submit Button */}
-                        <div className="pt-6">
+                          </div>
+                        </>
+                      )}
+
+                      {/* Submit Button */}
+                      <div className="pt-6 space-y-4">
+                        {submissionStatus.type !== "success" && (
                           <Button
                             onClick={handleSubmit}
-                            disabled={!isFormValid()}
+                            disabled={!isFormValid() || isUploading}
                             size="lg"
                             className={`w-full h-14 text-lg font-medium transition-all duration-300 ${
-                              isFormValid()
+                              isFormValid() && !isUploading
                                 ? "bg-white text-black hover:bg-gray-200 hover:scale-[1.02] shadow-lg"
                                 : "bg-gray-700 text-gray-400 cursor-not-allowed"
                             }`}
                           >
-                            Submit Demo
+                            {isUploading ? (
+                              <span className="flex items-center justify-center">
+                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-400 mr-2"></div>
+                                Submitting...
+                              </span>
+                            ) : (
+                              "Submit Demo"
+                            )}
                           </Button>
+                        )}
+
+                        {/* Success/Error Message Display */}
+                        {submissionStatus.type && (
+                            <div
+                              className={`animate-in slide-in-from-top-2 duration-500 p-6 rounded-lg border-2 ${
+                                submissionStatus.type === "success"
+                                  ? "bg-green-500/10 border-green-500/50 text-green-400"
+                                  : "bg-red-500/10 border-red-500/50 text-red-400"
+                              }`}
+                            >
+                              <div className="flex items-start space-x-3">
+                                <div className="flex-shrink-0 mt-1">
+                                  {submissionStatus.type === "success" ? (
+                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                      />
+                                    </svg>
+                                  ) : (
+                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                      />
+                                    </svg>
+                                  )}
+                                </div>
+                                <div className="flex-1">
+                                  <h4 className="font-display font-bold text-lg mb-1">
+                                    {submissionStatus.type === "success" ? "Success!" : "Error"}
+                                  </h4>
+                                  <p className="text-sm font-light mb-2">{submissionStatus.message}</p>
+                                  {submissionStatus.demoId && (
+                                    <p className="text-sm font-mono bg-black/30 px-3 py-2 rounded border border-green-500/30 mt-3">
+                                      <span className="font-bold">{submissionStatus.demoId}</span>
+                                    </p>
+                                  )}
+                                  {submissionStatus.type === "success" && (
+                                    <Button
+                                      onClick={() => {
+                                        setFormData({
+                                          trackTitle: "",
+                                          artistName: "",
+                                          fullName: "",
+                                          email: "",
+                                          instagram: "",
+                                          beatport: "",
+                                          facebook: "",
+                                          x: "",
+                                          audioFile: null,
+                                        })
+                                        setSubmissionStatus({ type: null, message: "" })
+                                        setUploadProgress(0)
+                                      }}
+                                      className="mt-4 bg-green-500 hover:bg-green-600 text-black font-medium"
+                                    >
+                                      Submit Another Demo
+                                    </Button>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          )}
                         </div>
-                      </div>
                     </div>
                   )}
                   {errors.audioFile && <p className="text-red-400 text-sm font-light">{errors.audioFile}</p>}

@@ -2,82 +2,93 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Play, Heart, Share2, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Play, Share2, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
-const releases = [
-	{
-		id: 1,
-		title: "Omri.",
-		artist: "Mission Impossible",
-		artwork: "/assets/missionimpossible.webp",
-		genre: "House",
-		releaseDate: "2024",
-		streams: "2.1M",
-		color: "from-purple-600 to-blue-600",
-	},
-	{
-		id: 2,
-		title: "Rafael, Sapian",
-		artist: "What What",
-		artwork: "/assets/whatwhat.webp",
-		genre: "Indie Dance",
-		releaseDate: "2024",
-		streams: "1.8M",
-		color: "from-orange-600 to-red-600",
-	},
-	{
-		id: 3,
-		title: "Cruisers EP",
-		artist: "Adaru",
-		artwork: "/assets/cruisersep.webp",
-		genre: "Electronic",
-		releaseDate: "2024",
-		streams: "1.3M",
-		color: "from-green-600 to-teal-600",
-	},
-	{
-		id: 4,
-		title: "Wanna Dance?",
-		artist: "The Botanist",
-		artwork: "/assets/wannadance.webp",
-		genre: "House",
-		releaseDate: "2024",
-		streams: "2.8M",
-		color: "from-pink-600 to-purple-600",
-	},
-	{
-		id: 5,
-		title: "Culture React",
-		artist: "Bonafique",
-		artwork: "/assets/culturereact.webp",
-		genre: "Techno",
-		releaseDate: "2024",
-		streams: "1.9M",
-		color: "from-blue-600 to-cyan-600",
-	},
-	{
-		id: 6,
-		title: "Chicken Bone",
-		artist: "TOBEHONEST",
-		artwork: "/assets/chickenbone.webp",
-		genre: "Bass",
-		releaseDate: "2024",
-		streams: "2.4M",
-		color: "from-yellow-600 to-orange-600",
-	},
+interface Release {
+	id: string
+	title: string
+	artist: string
+	artwork: string
+	genre: string
+	releaseDate: string
+	streams: string
+	color: string
+}
+
+// Color gradient options for variety
+const colorGradients = [
+	"from-purple-600 to-blue-600",
+	"from-orange-600 to-red-600",
+	"from-green-600 to-teal-600",
+	"from-pink-600 to-purple-600",
+	"from-blue-600 to-cyan-600",
+	"from-yellow-600 to-orange-600",
+	"from-red-600 to-pink-600",
+	"from-teal-600 to-green-600",
 ]
 
 export default function ReleasesCarousel() {
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const [isPlaying, setIsPlaying] = useState(true)
 	const [progress, setProgress] = useState(0)
+	const [releases, setReleases] = useState<Release[]>([])
+	const [isLoading, setIsLoading] = useState(true)
 	const intervalRef = useRef<NodeJS.Timeout | null>(null)
 	const progressIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
 	const SLIDE_DURATION = 4000 // 4 seconds
 	const PROGRESS_INTERVAL = 50 // Update progress every 50ms
+
+	// Fetch playlist data from Spotify API
+	useEffect(() => {
+		const fetchPlaylistData = async () => {
+			try {
+				setIsLoading(true)
+				const response = await fetch('/api/get-playlist-data')
+				const data = await response.json()
+
+				if (data.success && data.data.tracks) {
+					// Map Spotify tracks to release format
+					const mappedReleases: Release[] = data.data.tracks.map((track: any, index: number) => {
+						// Get the largest album image
+						const artwork = track.track.album.images[0]?.url || '/placeholder.svg'
+
+						// Get artists names
+						const artistNames = track.track.artists.map((artist: any) => artist.name).join(', ')
+
+						// Format release date (year only)
+						const releaseDate = track.track.album.release_date.split('-')[0]
+
+						// Format duration to minutes:seconds
+						const minutes = Math.floor(track.track.duration_ms / 60000)
+						const seconds = Math.floor((track.track.duration_ms % 60000) / 1000)
+						const duration = `${minutes}:${seconds.toString().padStart(2, '0')}`
+
+						return {
+							id: track.track.id,
+							title: track.track.name,
+							artist: artistNames,
+							artwork: artwork,
+							genre: 'Electronic', // Default genre, could be enhanced with Spotify API genre data
+							releaseDate: releaseDate,
+							streams: duration, // Using duration instead of streams
+							color: colorGradients[index % colorGradients.length],
+						}
+					})
+
+					setReleases(mappedReleases)
+				}
+			} catch (error) {
+				console.error('Error fetching playlist data:', error)
+			} finally {
+				setIsLoading(false)
+			}
+		}
+
+		fetchPlaylistData()
+	}, [])
 
 	const startAutoPlay = () => {
 		if (intervalRef.current) clearInterval(intervalRef.current)
@@ -108,6 +119,11 @@ export default function ReleasesCarousel() {
 	}
 
 	useEffect(() => {
+		// Don't start autoplay if there are no releases
+		if (releases.length === 0) {
+			return
+		}
+
 		if (isPlaying) {
 			startAutoPlay()
 		} else {
@@ -117,7 +133,7 @@ export default function ReleasesCarousel() {
 		return () => {
 			stopAutoPlay()
 		}
-	}, [isPlaying, currentIndex])
+	}, [isPlaying, currentIndex, releases.length])
 
 	const handlePrevious = () => {
 		setCurrentIndex((prev) => (prev - 1 + releases.length) % releases.length)
@@ -185,21 +201,46 @@ export default function ReleasesCarousel() {
 		}
 	}
 
+	// Show loading state
+	if (isLoading) {
+		return (
+			<div className="w-full max-w-6xl mx-auto px-8">
+				<div className="relative h-[500px] flex items-center justify-center">
+					<div className="flex flex-col items-center space-y-4">
+						<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+						<p className="text-gray-400 text-lg">Loading releases from Spotify...</p>
+					</div>
+				</div>
+			</div>
+		)
+	}
+
+	// Show message if no releases
+	if (!releases || releases.length === 0) {
+		return (
+			<div className="w-full max-w-6xl mx-auto px-8">
+				<div className="relative h-[500px] flex items-center justify-center">
+					<p className="text-gray-400 text-lg">No releases found</p>
+				</div>
+			</div>
+		)
+	}
+
 	return (
 		<div className="w-full max-w-6xl mx-auto px-8">
 			<div className="relative">
 				{/* Carousel Container */}
 				<div
-					className="relative h-[500px] overflow-hidden"
+					className="relative h-[530px] overflow-hidden"
 					onMouseEnter={() => setIsPlaying(false)}
 					onMouseLeave={() => setIsPlaying(true)}
 				>
 					{/* Cards */}
 					<div className="absolute inset-0 flex items-center justify-center">
 						{releases.map((release, index) => (
-							<Card 
-								key={release.id} 
-								className="absolute w-80 bg-gray-900 border-gray-800 overflow-hidden group hover:scale-105 transition-all duration-300" 
+							<Card
+								key={release.id}
+								className="absolute w-80 bg-gray-900 border-gray-800 overflow-hidden group transition-all duration-300"
 								style={getCardStyle(index)}
 							>
 								<div className="relative">
@@ -209,11 +250,12 @@ export default function ReleasesCarousel() {
 									/>
 
 									{/* Album Artwork */}
-									<div className="aspect-square relative overflow-hidden flex items-center justify-center">
+									<div className="aspect-square relative overflow-hidden flex items-center justify-center bg-gray-950">
 										<img
 											src={release.artwork || "/placeholder.svg"}
 											alt={`${release.title} by ${release.artist}`}
-											className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+											className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+											
 										/>
 
 										{/* Play Button Overlay */}
@@ -237,21 +279,13 @@ export default function ReleasesCarousel() {
 									</div>
 
 									<CardContent className="p-6">
-										<div className="flex justify-between items-start mb-3">
-											<div>
-												<h3 className="text-xl font-bold text-white mb-1">
-													{release.title}
-												</h3>
-												<p className="text-gray-300 text-lg">
-													{release.artist}
-												</p>
-											</div>
-											<Badge
-												variant="secondary"
-												className="bg-gray-800 text-gray-300"
-											>
-												{release.genre}
-											</Badge>
+										<div className="mb-3">
+											<h3 className="text-xl font-bold text-white mb-1">
+												{release.title}
+											</h3>
+											<p className="text-gray-300 text-lg">
+												{release.artist}
+											</p>
 										</div>
 
 										<div className="flex justify-between items-center mb-4">
@@ -259,20 +293,12 @@ export default function ReleasesCarousel() {
 												{release.releaseDate}
 											</span>
 											<span className="text-gray-300 font-semibold">
-												{release.streams} streams
+												{release.streams}
 											</span>
 										</div>
 
 										{/* Action Buttons */}
-										<div className="flex space-x-2">
-											<Button
-												variant="ghost"
-												size="sm"
-												className="text-gray-400 hover:text-white flex-1"
-											>
-												<Heart className="w-4 h-4 mr-2" />
-												Like
-											</Button>
+										<div className="flex">
 											<Button
 												variant="ghost"
 												size="sm"
@@ -305,22 +331,6 @@ export default function ReleasesCarousel() {
 					>
 						<ChevronRight className="h-4 w-4" />
 					</Button>
-				</div>
-
-				{/* Controls */}
-				<div className="flex items-center justify-between mt-6">
-					{/* Indicators */}
-					<div className="flex space-x-2">
-						{releases.map((_, index) => (
-							<button
-								key={index}
-								className={`w-3 h-3 rounded-full transition-all duration-300 ${
-									index === currentIndex ? "bg-white scale-125" : "bg-gray-600 hover:bg-gray-400"
-								}`}
-								onClick={() => handleIndicatorClick(index)}
-							/>
-						))}
-					</div>
 				</div>
 
 				{/* Progress Bar */}
