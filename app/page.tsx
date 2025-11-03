@@ -11,6 +11,7 @@ import ReleasesCarousel from "@/components/releases-carousel"
 import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import HorizontalSetsCarousel from "@/components/horizontal-sets-carousel"
+import { buildApiUrl } from '@/lib/api'
 
 // Custom icons for music platforms
 const BeatportIcon = () => (
@@ -100,7 +101,7 @@ export default function Home() {
     const fetchArtists = async () => {
       try {
         setIsLoadingArtists(true)
-        const response = await fetch('/api/get-artists-data')
+        const response = await fetch(buildApiUrl('/api/get-artists-data'))
         const data = await response.json()
 
         if (data.success && data.data) {
@@ -229,7 +230,7 @@ export default function Home() {
       }
 
       // Submit to API
-      const response = await fetch('/api/submit-demo', {
+      const response = await fetch(buildApiUrl('/api/submit-demo'), {
         method: 'POST',
         body: formDataToSubmit,
       })

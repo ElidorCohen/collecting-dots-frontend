@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Play, Share2, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import { buildApiUrl } from '@/lib/api'
 
 interface Release {
 	id: string
@@ -46,7 +47,7 @@ export default function ReleasesCarousel() {
 		const fetchPlaylistData = async () => {
 			try {
 				setIsLoading(true)
-				const response = await fetch('/api/get-playlist-data')
+				const response = await fetch(buildApiUrl('/api/get-playlist-data'))
 				const data = await response.json()
 
 				if (data.success && data.data.tracks) {
