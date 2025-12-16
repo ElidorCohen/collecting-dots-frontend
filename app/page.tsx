@@ -447,9 +447,6 @@ export default function Home() {
               <a href="#releases" className="text-gray-300 hover:text-white transition-colors font-medium">
                 Releases
               </a>
-              <a href="#sounds" className="text-gray-300 hover:text-white transition-colors font-medium">
-                Sounds
-              </a>
               <a href="#sets" className="text-gray-300 hover:text-white transition-colors font-medium">
                 Sets
               </a>
@@ -458,9 +455,6 @@ export default function Home() {
               </a>
               <a href="#events" className="text-gray-300 hover:text-white transition-colors font-medium">
                 Events
-              </a>
-              <a href="#merchandise" className="text-gray-300 hover:text-white transition-colors font-medium">
-                Merchandise
               </a>
               <a href="#demo-submission" className="text-gray-300 hover:text-white transition-colors font-medium">
                 Submit Demo
@@ -491,7 +485,7 @@ export default function Home() {
             <span className="block text-gray-300">dots</span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed font-light">
-            A music label curated by <span className="text-white font-medium">Omri.</span>
+            A music label curated by <span className="text-white font-medium">OMRI.</span>
             <br />
             Connecting the dots between sound and soul
           </p>
@@ -878,7 +872,8 @@ export default function Home() {
       </section>
 
       {/* Collecting Dots Sounds Section */}
-      <section id="sounds" className="py-24 px-4 bg-gray-950/30">
+      {/* Temporarily commented out - will be used in the future */}
+      {/* <section id="sounds" className="py-24 px-4 bg-gray-950/30">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="font-display font-bold mb-4 tracking-tight text-4xl">COLLECTING DOTS SOUNDS </h2>
@@ -951,7 +946,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Collecting Dots Sets Section */}
       <section id="sets" className="py-24 px-4">
@@ -1025,7 +1020,8 @@ export default function Home() {
       </section>
 
       {/* Collecting Dots Merchandise Section */}
-      <section id="merchandise" className="py-24 px-4">
+      {/* Temporarily commented out - will be used in the future */}
+      {/* <section id="merchandise" className="py-24 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="font-display font-bold mb-4 tracking-tight text-4xl">COLLECTING DOTS MERCHANDISE </h2>
@@ -1133,7 +1129,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Demo Submission Section */}
       <section id="demo-submission" className="py-24 px-4 bg-gray-950/50">
@@ -1488,7 +1484,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-6 md:mb-0">
               <h3 className="font-display text-2xl font-bold mb-2">COLLECTING DOTS RECORDS </h3>
-              <p className="text-gray-400 font-light">Curated by Omri.</p>
+              <p className="text-gray-400 font-light">Curated by OMRI.</p>
             </div>
 
             <div className="flex space-x-6">

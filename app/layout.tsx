@@ -24,14 +24,14 @@ const bnBobbieSans = localFont({
 
 export const metadata: Metadata = {
   title: "Collecting Dots - Electronic Music Label",
-  description: "Independent electronic music label curated by Omri. Discover cutting-edge tracks from emerging and established artists.",
+  description: "Independent electronic music label curated by OMRI. Discover cutting-edge tracks from emerging and established artists.",
   keywords: "electronic music, music label, house music, techno, ambient, collecting dots, omri",
   authors: [{ name: "Collecting Dots" }],
   creator: "Collecting Dots",
   publisher: "Collecting Dots",
   openGraph: {
     title: "Collecting Dots - Electronic Music Label",
-    description: "Independent electronic music label curated by Omri. Discover cutting-edge tracks from emerging and established artists.",
+    description: "Independent electronic music label curated by OMRI. Discover cutting-edge tracks from emerging and established artists.",
     url: "https://collectingdots.com",
     siteName: "Collecting Dots",
     images: [
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Collecting Dots - Electronic Music Label",
-    description: "Independent electronic music label curated by Omri. Discover cutting-edge tracks from emerging and established artists.",
+    description: "Independent electronic music label curated by OMRI. Discover cutting-edge tracks from emerging and established artists.",
     images: ["/assets/icon.png"],
   },
   robots: {

@@ -4,23 +4,19 @@
 
 /**
  * Get the base URL for API calls
- * In development, use relative paths (empty string)
- * In production, use the NEXT_PUBLIC_API_URL environment variable
+ * Always use relative paths to avoid CORS issues and domain mismatches
+ * This ensures API calls use the same domain as the page (www or non-www)
  */
 export function getApiBaseUrl(): string {
-  // In development (localhost), use relative paths
-  if (process.env.NODE_ENV === 'development') {
-    return '';
-  }
-  
-  // In production, use the environment variable or fallback to current domain
-  return process.env.NEXT_PUBLIC_API_URL || '';
+  // Always use relative paths to ensure same-origin requests
+  // This prevents CORS issues and domain redirect problems (www vs non-www)
+  return '';
 }
 
 /**
  * Build a complete API URL
  * @param endpoint - The API endpoint (e.g., '/api/get-artists-data')
- * @returns Complete URL for the API call
+ * @returns Complete URL for the API call (relative path)
  */
 export function buildApiUrl(endpoint: string): string {
   const baseUrl = getApiBaseUrl();

@@ -129,8 +129,74 @@ export class DropboxService {
         path: '/artists/artist_urls.json',
       });
 
-      // Extract the file content from fileBinary (Buffer in Node.js)
-      const buffer = response.result.fileBinary;
+      // Check if response exists
+      if (!response) {
+        throw new Error('No response from Dropbox');
+      }
+
+      // Try different ways to access the file content
+      // Dropbox SDK can return content in different formats depending on environment
+      let buffer: Buffer | undefined;
+      
+      // Try response.result.fileBlob (browser/Next.js environment - Blob object)
+      if (response.result?.fileBlob) {
+        const blob = response.result.fileBlob;
+        if (blob instanceof Blob) {
+          const arrayBuffer = await blob.arrayBuffer();
+          buffer = Buffer.from(arrayBuffer);
+        } else if (Buffer.isBuffer(blob)) {
+          buffer = blob;
+        } else {
+          // Try to convert if it's already a buffer-like object
+          buffer = Buffer.from(blob);
+        }
+      }
+      // Try response.result.fileBinary (Node.js standard)
+      else if (response.result?.fileBinary) {
+        buffer = response.result.fileBinary;
+      }
+      // Try response.fileBinary (alternative structure)
+      else if (response.fileBinary) {
+        buffer = response.fileBinary;
+      }
+      // Try response.result directly as buffer
+      else if (Buffer.isBuffer(response.result)) {
+        buffer = response.result;
+      }
+      // Try response.result as arrayBuffer and convert
+      else if (response.result instanceof ArrayBuffer) {
+        buffer = Buffer.from(response.result);
+      }
+      // Try accessing through response body if it's a Response object with buffer method (from custom fetch)
+      else if (response.result && typeof (response.result as any).buffer === 'function') {
+        buffer = await (response.result as any).buffer();
+      }
+      // Try accessing through response body if it's a Response object with arrayBuffer
+      else if (response.result && typeof response.result.arrayBuffer === 'function') {
+        const arrayBuffer = await response.result.arrayBuffer();
+        buffer = Buffer.from(arrayBuffer);
+      }
+      // Try response directly as buffer
+      else if (Buffer.isBuffer(response)) {
+        buffer = response;
+      }
+      // Try response.result as Uint8Array
+      else if (response.result instanceof Uint8Array) {
+        buffer = Buffer.from(response.result);
+      }
+
+      if (!buffer) {
+        // Log the response structure for debugging
+        console.error('Dropbox response structure:', {
+          hasResult: !!response.result,
+          resultKeys: response.result && typeof response.result === 'object' ? Object.keys(response.result) : [],
+          responseKeys: Object.keys(response),
+          resultType: typeof response.result,
+          resultConstructor: response.result?.constructor?.name,
+        });
+        throw new Error('File content not found in Dropbox response. Check response structure.');
+      }
+      
       const fileText = buffer.toString('utf-8');
 
       // Parse JSON
@@ -158,8 +224,9 @@ export class DropboxService {
         throw new Error('Invalid JSON format in artist data file');
       }
 
-      // Re-throw other errors
-      throw new Error(`Failed to read artist data from Dropbox: ${error.message}`);
+      // Re-throw other errors with safe error message extraction
+      const errorMessage = error?.message || error?.toString() || String(error) || 'Unknown error';
+      throw new Error(`Failed to read artist data from Dropbox: ${errorMessage}`);
     }
   }
 }

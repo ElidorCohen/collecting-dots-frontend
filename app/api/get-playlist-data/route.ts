@@ -13,23 +13,53 @@ export async function GET(request: NextRequest) {
     const spotifyService = new SpotifyService();
     const playlistData = await spotifyService.getPlaylistData(playlist_url);
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       data: playlistData,
       message: `Successfully retrieved data for playlist: ${playlistData.playlist_info.name}`,
     });
+
+    // Add CORS headers
+    const origin = request.headers.get('origin');
+    if (origin && (origin.includes('collectingdots.com') || origin.includes('localhost'))) {
+      response.headers.set('Access-Control-Allow-Origin', origin);
+      response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+      response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+    }
+
+    return response;
   } catch (error: any) {
     if (error.message.includes('Invalid')) {
-      return NextResponse.json(
+      const errorResponse = NextResponse.json(
         { error: 'Invalid playlist URL', message: error.message },
         { status: 400 }
       );
+      
+      // Add CORS headers to error response
+      const origin = request.headers.get('origin');
+      if (origin && (origin.includes('collectingdots.com') || origin.includes('localhost'))) {
+        errorResponse.headers.set('Access-Control-Allow-Origin', origin);
+        errorResponse.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        errorResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+      }
+      
+      return errorResponse;
     }
 
-    return NextResponse.json(
+    const errorResponse = NextResponse.json(
       { error: 'Failed to retrieve playlist data', message: error.message },
       { status: 500 }
     );
+    
+    // Add CORS headers to error response
+    const origin = request.headers.get('origin');
+    if (origin && (origin.includes('collectingdots.com') || origin.includes('localhost'))) {
+      errorResponse.headers.set('Access-Control-Allow-Origin', origin);
+      errorResponse.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+      errorResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+    }
+    
+    return errorResponse;
   }
 }
 
@@ -42,22 +72,66 @@ export async function POST(request: NextRequest) {
     const spotifyService = new SpotifyService();
     const playlistData = await spotifyService.getPlaylistData(playlist_url);
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       data: playlistData,
       message: `Successfully retrieved data for playlist: ${playlistData.playlist_info.name}`,
     });
+
+    // Add CORS headers
+    const origin = request.headers.get('origin');
+    if (origin && (origin.includes('collectingdots.com') || origin.includes('localhost'))) {
+      response.headers.set('Access-Control-Allow-Origin', origin);
+      response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+      response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+    }
+
+    return response;
   } catch (error: any) {
     if (error.message.includes('Invalid')) {
-      return NextResponse.json(
+      const errorResponse = NextResponse.json(
         { error: 'Invalid playlist URL', message: error.message },
         { status: 400 }
       );
+      
+      // Add CORS headers to error response
+      const origin = request.headers.get('origin');
+      if (origin && (origin.includes('collectingdots.com') || origin.includes('localhost'))) {
+        errorResponse.headers.set('Access-Control-Allow-Origin', origin);
+        errorResponse.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        errorResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+      }
+      
+      return errorResponse;
     }
 
-    return NextResponse.json(
+    const errorResponse = NextResponse.json(
       { error: 'Failed to retrieve playlist data', message: error.message },
       { status: 500 }
     );
+    
+    // Add CORS headers to error response
+    const origin = request.headers.get('origin');
+    if (origin && (origin.includes('collectingdots.com') || origin.includes('localhost'))) {
+      errorResponse.headers.set('Access-Control-Allow-Origin', origin);
+      errorResponse.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+      errorResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+    }
+    
+    return errorResponse;
   }
+}
+
+// Handle OPTIONS requests for CORS preflight
+export async function OPTIONS(request: NextRequest) {
+  const origin = request.headers.get('origin');
+  const response = new NextResponse(null, { status: 200 });
+  
+  if (origin && (origin.includes('collectingdots.com') || origin.includes('localhost'))) {
+    response.headers.set('Access-Control-Allow-Origin', origin);
+    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+  }
+  
+  return response;
 }
