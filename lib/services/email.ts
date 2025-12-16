@@ -51,6 +51,10 @@ export class EmailService {
       const data = await response.json();
       this.accessToken = data.access_token;
 
+      if (!this.accessToken) {
+        throw new Error('Failed to obtain access token');
+      }
+
       return this.accessToken;
     } catch (error) {
       console.error('Failed to refresh access token:', error);

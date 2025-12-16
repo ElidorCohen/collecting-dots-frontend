@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Music, Mail, Instagram, FileAudio, X, Users, Headphones, Star, MapPin } from "lucide-react"
 import ReleasesCarousel from "@/components/releases-carousel"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Badge } from "@/components/ui/badge"
 import HorizontalSetsCarousel from "@/components/horizontal-sets-carousel"
 import { buildApiUrl } from '@/lib/api'
@@ -63,7 +63,12 @@ export default function Home() {
   const [errors, setErrors] = useState({
     email: "",
     audioFile: "",
+    captcha: "",
   })
+
+  // Cloudflare Turnstile state
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const turnstileWidgetId = useRef<string | null>(null)
 
   // Email validation
   const validateEmail = (email: string) => {
@@ -117,6 +122,61 @@ export default function Home() {
     fetchArtists()
   }, [])
 
+  // Initialize Turnstile widget
+  useEffect(() => {
+    const initTurnstile = () => {
+      // Check if the widget element exists in the DOM
+      const widgetElement = document.getElementById('turnstile-widget')
+
+      if ((window as any).turnstile && !turnstileWidgetId.current && widgetElement) {
+        try {
+          const widgetId = (window as any).turnstile.render(widgetElement, {
+            sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+            callback: (token: string) => {
+              setCaptchaToken(token)
+              setErrors((prev) => ({ ...prev, captcha: "" }))
+            },
+            'error-callback': () => {
+              setCaptchaToken(null)
+              setErrors((prev) => ({ ...prev, captcha: "CAPTCHA verification failed. Please try again." }))
+            },
+            'expired-callback': () => {
+              setCaptchaToken(null)
+              setErrors((prev) => ({ ...prev, captcha: "CAPTCHA expired. Please verify again." }))
+            },
+            theme: 'dark',
+          })
+          turnstileWidgetId.current = widgetId
+        } catch (error) {
+          console.error('Failed to initialize Turnstile:', error)
+        }
+      }
+    }
+
+    // Check if Turnstile is loaded and DOM is ready
+    const checkAndInit = () => {
+      if ((window as any).turnstile && document.getElementById('turnstile-widget')) {
+        initTurnstile()
+      }
+    }
+
+    // Try immediate initialization
+    checkAndInit()
+
+    // Set up interval to check periodically
+    const checkInterval = setInterval(checkAndInit, 100)
+
+    // Clean up after 10 seconds
+    const timeout = setTimeout(() => {
+      clearInterval(checkInterval)
+    }, 10000)
+
+    return () => {
+      clearInterval(checkInterval)
+      clearTimeout(timeout)
+    }
+  }, [formData.audioFile])
+
   // Check if form is valid
   const isFormValid = () => {
     return (
@@ -127,8 +187,10 @@ export default function Home() {
       validateEmail(formData.email) &&
       formData.instagram.trim() !== "" &&
       formData.audioFile !== null &&
+      captchaToken !== null &&
       errors.email === "" &&
-      errors.audioFile === ""
+      errors.audioFile === "" &&
+      errors.captcha === ""
     )
   }
 
@@ -229,6 +291,11 @@ export default function Home() {
         formDataToSubmit.append('x_twitter', formData.x)
       }
 
+      // Add Turnstile CAPTCHA token
+      if (captchaToken) {
+        formDataToSubmit.append('cf_turnstile_response', captchaToken)
+      }
+
       // Submit to API
       const response = await fetch(buildApiUrl('/api/submit-demo'), {
         method: 'POST',
@@ -258,13 +325,25 @@ export default function Home() {
           x: "",
           audioFile: formData.audioFile, // Keep the file to maintain UI state
         })
-        setErrors({ email: "", audioFile: "" })
+        setErrors({ email: "", audioFile: "", captcha: "" })
+
+        // Reset Turnstile widget after successful submission
+        if (turnstileWidgetId.current && (window as any).turnstile) {
+          (window as any).turnstile.reset(turnstileWidgetId.current)
+          setCaptchaToken(null)
+        }
       } else {
         // Error
         setSubmissionStatus({
           type: "error",
           message: data.error || 'Unknown error occurred',
         })
+
+        // Reset CAPTCHA on error (especially for 403 CAPTCHA failures)
+        if (response.status === 403 && turnstileWidgetId.current && (window as any).turnstile) {
+          (window as any).turnstile.reset(turnstileWidgetId.current)
+          setCaptchaToken(null)
+        }
       }
     } catch (error: any) {
       console.error('Submission error:', error)
@@ -272,6 +351,12 @@ export default function Home() {
         type: "error",
         message: error.message || 'Network error occurred',
       })
+
+      // Reset CAPTCHA on network error
+      if (turnstileWidgetId.current && (window as any).turnstile) {
+        (window as any).turnstile.reset(turnstileWidgetId.current)
+        setCaptchaToken(null)
+      }
     } finally {
       setIsUploading(false)
     }
@@ -1122,9 +1207,9 @@ export default function Home() {
                                   <FileAudio className="w-6 h-6 text-green-400" />
                                 </div>
                                 <div>
-                                  <p className="text-white text-lg font-medium">{formData.audioFile.name}</p>
+                                  <p className="text-white text-lg font-medium">{formData.audioFile?.name}</p>
                                   <p className="text-gray-400 text-sm font-mono">
-                                    {formatFileSize(formData.audioFile.size)}
+                                    {formData.audioFile && formatFileSize(formData.audioFile.size)}
                                   </p>
                                 </div>
                               </div>
@@ -1273,6 +1358,17 @@ export default function Home() {
                           </div>
                         </div>
 
+                          {/* Turnstile CAPTCHA Widget */}
+                          <div className="space-y-3 pt-6 border-t border-gray-700/50">
+                            <Label className="text-white font-medium text-lg">
+                              Verification *
+                            </Label>
+                            <div id="turnstile-widget" className="flex justify-center"></div>
+                            {errors.captcha && (
+                              <p className="text-red-400 text-sm font-light text-center">{errors.captcha}</p>
+                            )}
+                          </div>
+
                           </div>
                         </>
                       )}
@@ -1306,7 +1402,7 @@ export default function Home() {
                             <div
                               className={`animate-in slide-in-from-top-2 duration-500 p-6 rounded-lg border-2 ${
                                 submissionStatus.type === "success"
-                                  ? "bg-green-500/10 border-green-500/50 text-green-400"
+                                  ? "bg-green-500/10 border-green-500/50 text-white"
                                   : "bg-red-500/10 border-red-500/50 text-red-400"
                               }`}
                             >
@@ -1338,7 +1434,7 @@ export default function Home() {
                                   </h4>
                                   <p className="text-sm font-light mb-2">{submissionStatus.message}</p>
                                   {submissionStatus.demoId && (
-                                    <p className="text-sm font-mono bg-black/30 px-3 py-2 rounded border border-green-500/30 mt-3">
+                                    <p className="text-sm font-mono bg-black/30 px-3 py-2 rounded border border-green-500/30 mt-3 text-white">
                                       <span className="font-bold">{submissionStatus.demoId}</span>
                                     </p>
                                   )}
@@ -1358,8 +1454,15 @@ export default function Home() {
                                         })
                                         setSubmissionStatus({ type: null, message: "" })
                                         setUploadProgress(0)
+                                        setErrors({ email: "", audioFile: "", captcha: "" })
+
+                                        // Reset Turnstile widget
+                                        if (turnstileWidgetId.current && (window as any).turnstile) {
+                                          (window as any).turnstile.reset(turnstileWidgetId.current)
+                                          setCaptchaToken(null)
+                                        }
                                       }}
-                                      className="mt-4 bg-green-500 hover:bg-green-600 text-black font-medium"
+                                      className="mt-4 bg-white hover:bg-gray-200 text-black font-medium border border-green-500/30"
                                     >
                                       Submit Another Demo
                                     </Button>

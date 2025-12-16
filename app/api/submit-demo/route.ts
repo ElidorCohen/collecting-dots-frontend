@@ -1,13 +1,39 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DropboxService } from '@/lib/services/dropbox';
 import { EmailService } from '@/lib/services/email';
+import { verifyTurnstileToken } from '@/lib/services/turnstile';
 
 export async function POST(request: NextRequest) {
   try {
     // Step 1: Parse multipart form data
     const formData = await request.formData();
 
-    // Step 2: Validate request
+    // Step 2: Verify Cloudflare Turnstile CAPTCHA
+    const captchaToken = formData.get('cf_turnstile_response') as string | null;
+
+    if (!captchaToken) {
+      return NextResponse.json(
+        { error: 'CAPTCHA verification is required' },
+        { status: 400 }
+      );
+    }
+
+    // Get remote IP from headers
+    const remoteIp =
+      request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+      request.headers.get('x-real-ip') ||
+      undefined;
+
+    const captchaResult = await verifyTurnstileToken(captchaToken, remoteIp);
+
+    if (!captchaResult.success) {
+      return NextResponse.json(
+        { error: captchaResult.error || 'CAPTCHA verification failed' },
+        { status: 403 }
+      );
+    }
+
+    // Step 3: Validate request
 
     // Check file exists
     const file = formData.get('demo_file') as File | null;
@@ -48,7 +74,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Step 3: Upload to Dropbox
+    // Step 4: Upload to Dropbox
 
     // Convert file to Buffer
     const arrayBuffer = await file.arrayBuffer();
@@ -75,7 +101,7 @@ export async function POST(request: NextRequest) {
       x_twitter
     );
 
-    // Step 4: Send confirmation email (non-blocking)
+    // Step 5: Send confirmation email (non-blocking)
     const emailService = new EmailService();
 
     try {
