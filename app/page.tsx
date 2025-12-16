@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Music, Mail, Instagram, FileAudio, X, Users, Headphones, Star, MapPin } from "lucide-react"
+import { Music, Mail, Instagram, FileAudio, X, MapPin } from "lucide-react"
 import ReleasesCarousel from "@/components/releases-carousel"
 import { useState, useEffect, useRef } from "react"
 import { Badge } from "@/components/ui/badge"
@@ -464,30 +464,23 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section with Background Image */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image Placeholder */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
-          style={{
-            backgroundImage: `url('/placeholder.svg?height=1080&width=1920')`,
-          }}
-        />
-        <div className="absolute inset-0 bg-black/40" />
-
+      {/* Hero Section */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
         {/* Hero Content */}
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <div className="mb-8">
-            <Music className="w-16 h-16 mx-auto mb-6 text-white" />
+          <div className="mb-12">
+            <img
+              src="/CD - main logo white.svg"
+              alt="Collecting Dots Logo"
+              className="h-24 md:h-32 mx-auto w-auto"
+            />
           </div>
-          <h1 className="font-display text-6xl md:text-8xl font-black mb-6 tracking-tight">
-            collecting
-            <span className="block text-gray-300">dots</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed font-light">
-            A music label curated by <span className="text-white font-medium">OMRI.</span>
+          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed font-light">
+            More than just a label—Collecting Dots is a living, breathing narrative.
             <br />
-            Connecting the dots between sound and soul
+            Each track, each artist, each soul on the dance floor is a dot, merging to form a bigger picture.
+            <br />
+            The music, the people, the moments—we're collecting them all.
           </p>
           <Button
             size="lg"
@@ -505,28 +498,13 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="font-display text-4xl md:text-5xl font-bold mb-6 tracking-tight">
-                Connecting Artists,
+                COLLECTING DOTS,
                 <br />
-                <span className="gradient-text">Curating Sound</span>
+                <span className="gradient-text">CURATING SOUND</span>
               </h2>
               <p className="text-lg text-gray-300 mb-8 font-light leading-relaxed">
-                Founded in 2018, Collecting Dots has become a beacon for innovative electronic music. We bridge the gap
-                between underground talent and global audiences, fostering a community where creativity knows no bounds.
+                This is where boundaries blur and creativity flows. Every beat is a pulse, every mix a thread, binding us in a shared rhythm. It's not just music; it's a culture, a movement. Join us as we push limits, redefine connection, and journey into a space where sound becomes meaning and every dot tells a story.
               </p>
-              <div className="grid grid-cols-2 gap-8">
-                {[
-                  { label: "Artists", value: "15+", icon: Users },
-                  { label: "Releases", value: "20+", icon: Music },
-                  { label: "Monthly Listeners", value: "110K", icon: Headphones },
-                  { label: "Rating", value: "5.0", icon: Star },
-                ].map((stat, index) => (
-                  <div key={index} className="text-center">
-                    <stat.icon className="w-8 h-8 mx-auto mb-3 text-gray-400" />
-                    <div className="font-display text-3xl font-bold mb-1 font-mono">{stat.value}</div>
-                    <div className="text-gray-400 font-medium">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
             </div>
             <div className="relative">
               <div className="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden glass">
