@@ -89,6 +89,19 @@ export default function Home() {
   }>>([])
   const [isLoadingArtists, setIsLoadingArtists] = useState(true)
 
+  // YouTube videos state
+  const [youtubeVideos, setYoutubeVideos] = useState<Array<{
+    artist?: string;
+    setName: string;
+    platform: string;
+    duration: string;
+    plays: string;
+    videoUrl?: string;
+    thumbnail?: string;
+    id?: string;
+  }>>([])
+  const [isLoadingVideos, setIsLoadingVideos] = useState(true)
+
   const toggleCardFlip = (index: number) => {
     setFlippedCards((prev) => {
       const newSet = new Set(prev)
@@ -120,6 +133,39 @@ export default function Home() {
     }
 
     fetchArtists()
+  }, [])
+
+  // Fetch YouTube videos from API
+  useEffect(() => {
+    const fetchYouTubeVideos = async () => {
+      try {
+        setIsLoadingVideos(true)
+        const response = await fetch(buildApiUrl('/api/get-youtube-videos'))
+        const data = await response.json()
+
+        if (data.success && data.data && data.data.videos) {
+          // Transform YouTube videos to match the Set interface
+          const videos = data.data.videos.map((video: any) => ({
+            setName: video.title,
+            platform: 'YouTube',
+            duration: video.duration,
+            plays: video.viewCount,
+            videoUrl: video.videoUrl,
+            thumbnail: video.thumbnail,
+            id: video.id, // Include video ID for easier embedding
+          }))
+          setYoutubeVideos(videos)
+        }
+      } catch (error) {
+        console.error('Error fetching YouTube videos:', error)
+        // On error, keep empty array or show fallback
+        setYoutubeVideos([])
+      } finally {
+        setIsLoadingVideos(false)
+      }
+    }
+
+    fetchYouTubeVideos()
   }, [])
 
   // Initialize Turnstile widget
@@ -934,66 +980,20 @@ export default function Home() {
             <p className="text-gray-300 text-lg font-light">Live DJ sets from Omri and our label artists</p>
           </div>
 
-          <HorizontalSetsCarousel
-            sets={[
-              {
-                artist: "Omri",
-                setName: "Melodic Journey #003",
-                platform: "SoundCloud",
-                duration: "78 min",
-                plays: "12.5K",
-              },
-              {
-                artist: "The Botanist",
-                setName: "Deep Vibes Session",
-                platform: "YouTube",
-                duration: "65 min",
-                plays: "8.2K",
-              },
-              {
-                artist: "Omri",
-                setName: "Rooftop Sessions Vol. 2",
-                platform: "SoundCloud",
-                duration: "92 min",
-                plays: "15.8K",
-              },
-              {
-                artist: "Bonafique",
-                setName: "Underground Frequencies",
-                platform: "YouTube",
-                duration: "71 min",
-                plays: "6.9K",
-              },
-              {
-                artist: "Omri",
-                setName: "Sunset Grooves #005",
-                platform: "SoundCloud",
-                duration: "85 min",
-                plays: "18.2K",
-              },
-              {
-                artist: "Adaru",
-                setName: "Electronic Horizons",
-                platform: "YouTube",
-                duration: "73 min",
-                plays: "9.1K",
-              },
-              {
-                artist: "TOBEHONEST",
-                setName: "Bass Frequencies Live",
-                platform: "SoundCloud",
-                duration: "68 min",
-                plays: "11.4K",
-              },
-              {
-                artist: "Rafael & Sapian",
-                setName: "Indie Dance Collective",
-                platform: "YouTube",
-                duration: "81 min",
-                plays: "7.8K",
-              },
-            ]}
-          />
+          {isLoadingVideos ? (
+            <div className="relative h-96 flex items-center justify-center">
+              <div className="flex flex-col items-center space-y-4">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+                <p className="text-gray-400 text-lg">Loading videos...</p>
+              </div>
+            </div>
+          ) : youtubeVideos.length === 0 ? (
+            <div className="relative h-96 flex items-center justify-center">
+              <p className="text-gray-400 text-lg">No videos found</p>
+            </div>
+          ) : (
+            <HorizontalSetsCarousel sets={youtubeVideos} />
+          )}
         </div>
       </section>
 
