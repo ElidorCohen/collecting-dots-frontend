@@ -522,11 +522,11 @@ export default function Home() {
             />
           </div>
           <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed font-light">
-            More than just a label—Collecting Dots is a living, breathing narrative.
+            More than just a label, Collecting Dots is a living, breathing narrative.
             <br />
             Each track, each artist, each soul on the dance floor is a dot, merging to form a bigger picture.
             <br />
-            The music, the people, the moments—we're collecting them all.
+            The music, the people, the moments, we're collecting them all.
           </p>
           <Button
             size="lg"
