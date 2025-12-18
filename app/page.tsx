@@ -502,6 +502,9 @@ export default function Home() {
               <a href="#events" className="text-gray-300 hover:text-white transition-colors font-medium">
                 Events
               </a>
+              <a href="#merchandise" className="text-gray-300 hover:text-white transition-colors font-medium">
+                Merchandise
+              </a>
               <a href="#demo-submission" className="text-gray-300 hover:text-white transition-colors font-medium">
                 Submit Demo
               </a>
@@ -998,116 +1001,93 @@ export default function Home() {
       </section>
 
       {/* Collecting Dots Merchandise Section */}
-      {/* Temporarily commented out - will be used in the future */}
-      {/* <section id="merchandise" className="py-24 px-4">
+      <section id="merchandise" className="py-24 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="font-display font-bold mb-4 tracking-tight text-4xl">COLLECTING DOTS MERCHANDISE </h2>
-            <p className="text-gray-300 text-lg font-light">
-              Premium apparel and accessories for the collecting dots community
+            <p className="text-gray-300 text-lg font-light mb-6">
+              Premium apparel and accessories in collaboration with Float Apparel
             </p>
+            <a
+              href="https://www.floatapparel.co.za/collections/collecting-dots-x-float"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Button className="bg-white text-black hover:bg-gray-200 font-medium px-8 py-3 text-lg">
+                Shop Full Collection →
+              </Button>
+            </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                name: "Classic Logo Tee",
-                price: "$35",
-                image: "/placeholder-1s2ow.png",
-                colors: ["Black", "White", "Gray"],
+                name: "COLLECTING DOTS X FLOAT WAVEFORM TEE",
+                price: "R 800.00",
+                image: "https://www.floatapparel.co.za/cdn/shop/files/FloatSS2526-88.jpg?v=1765538915",
               },
               {
-                name: "Dots Snapback",
-                price: "$28",
-                image: "/placeholder-1s2ow.png",
-                colors: ["Black", "Navy"],
+                name: "COLLECTING DOTS FLOAT LOGO CAP",
+                price: "R 1,000.00",
+                image: "https://www.floatapparel.co.za/cdn/shop/files/FloatSS2526-11.jpg?v=1765539824",
               },
               {
-                name: "Minimalist Hoodie",
-                price: "$65",
-                image: "/placeholder-1s2ow.png",
-                colors: ["Black", "Charcoal", "White"],
+                name: "COLLECTING DOTS X FLOAT MECHANIC BOWLER",
+                price: "R 600.00",
+                image: "https://www.floatapparel.co.za/cdn/shop/files/FloatSS2526-69.jpg?v=1765539570",
               },
               {
-                name: "Vinyl Sticker Pack",
-                price: "$12",
-                image: "/placeholder-1s2ow.png",
-                colors: ["Mixed"],
+                name: "COLLECTING DOTS X FLOAT QUILTED TOTE",
+                price: "R 600.00",
+                image: "https://www.floatapparel.co.za/cdn/shop/files/FloatSS2526-51.jpg?v=1765788189",
               },
               {
-                name: "Constellation Tote",
-                price: "$22",
-                image: "/placeholder-rnvk3.png",
-                colors: ["Black", "Natural"],
+                name: "COLLECTING DOTS X FLOAT PROTEA TEE",
+                price: "R 800.00",
+                image: "https://www.floatapparel.co.za/cdn/shop/files/FloatSS2526-62.jpg?v=1765538074",
               },
               {
-                name: "Logo Pin Set",
-                price: "$18",
-                image: "/placeholder-29ll1.png",
-                colors: ["Gold", "Silver"],
-              },
-              {
-                name: "Premium Crewneck",
-                price: "$55",
-                image: "/placeholder-i3d3c.png",
-                colors: ["Black", "Gray", "Navy"],
-              },
-              {
-                name: "Dots Beanie",
-                price: "$25",
-                image: "/placeholder-1s2ow.png",
-                colors: ["Black", "Gray"],
+                name: "COLLECTING DOTS FLOAT OVAL DOT CAP",
+                price: "R 600.00",
+                image: "https://www.floatapparel.co.za/cdn/shop/files/FloatSS2526-03.jpg?v=1765541687",
               },
             ].map((item, index) => (
-              <Card
+              <a
                 key={index}
-                className="bg-gray-900/80 border-gray-800/50 group hover:border-gray-700/50 transition-all duration-500 backdrop-blur-sm"
+                href="https://www.floatapparel.co.za/collections/collecting-dots-x-float"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
               >
-                <div className="aspect-square relative overflow-hidden">
-                  <img
-                    src={item.image || "/placeholder.svg"}
-                    alt={item.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
-                </div>
-                <CardContent className="p-4">
-                  <h3 className="font-display text-lg font-semibold text-white mb-2">{item.name}</h3>
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="font-mono text-xl font-bold text-white">{item.price}</span>
-                    <div className="flex space-x-1">
-                      {item.colors.slice(0, 3).map((color, colorIndex) => (
-                        <div
-                          key={colorIndex}
-                          className={`w-4 h-4 rounded-full border border-gray-600 ${
-                            color === "Black"
-                              ? "bg-black"
-                              : color === "White"
-                                ? "bg-white"
-                                : color === "Gray" || color === "Charcoal"
-                                  ? "bg-gray-500"
-                                  : color === "Navy"
-                                    ? "bg-blue-900"
-                                    : color === "Natural"
-                                      ? "bg-amber-100"
-                                      : color === "Gold"
-                                        ? "bg-yellow-500"
-                                        : color === "Silver"
-                                          ? "bg-gray-300"
-                                          : "bg-gradient-to-r from-purple-500 to-pink-500"
-                          }`}
-                        />
-                      ))}
-                    </div>
+                <Card className="bg-gray-900/80 border-gray-800/50 group hover:border-gray-700/50 transition-all duration-500 backdrop-blur-sm h-full flex flex-col">
+                  <div className="aspect-[4/5] relative overflow-hidden cursor-pointer bg-gray-800/50">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        // Fallback to placeholder if image fails to load
+                        e.currentTarget.src = "/placeholder.svg"
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
                   </div>
-                  <p className="text-gray-400 text-xs mb-3 font-light">Available in: {item.colors.join(", ")}</p>
-                  <Button className="w-full bg-white text-black hover:bg-gray-200 font-medium">Buy Now</Button>
-                </CardContent>
-              </Card>
+                  <CardContent className="p-4 flex flex-col flex-1">
+                    <h3 className="font-display text-lg font-semibold text-white mb-2">{item.name}</h3>
+                    <div className="flex justify-between items-center mb-3">
+                      <span className="font-mono text-xl font-bold text-white">{item.price}</span>
+                    </div>
+                    <Button className="w-full bg-white text-black hover:bg-gray-200 font-medium mt-auto">
+                      Buy Now
+                    </Button>
+                  </CardContent>
+                </Card>
+              </a>
             ))}
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* Demo Submission Section */}
       <section id="demo-submission" className="py-24 px-4 bg-gray-950/50">
