@@ -229,4 +229,122 @@ export class DropboxService {
       throw new Error(`Failed to read artist data from Dropbox: ${errorMessage}`);
     }
   }
+
+  /**
+   * Reads events data from a JSON file in Dropbox
+   * Expected format: JSON with events array containing event information
+   */
+  async readEventsData(): Promise<Array<{
+    event_title: string;
+    location: string;
+    date: string;
+    times: string;
+    artists: string;
+  }>> {
+    try {
+      // Download the file from Dropbox
+      const response: any = await this.dbx.filesDownload({
+        path: '/events/events.json',
+      });
+
+      // Check if response exists
+      if (!response) {
+        throw new Error('No response from Dropbox');
+      }
+
+      // Try different ways to access the file content
+      // Dropbox SDK can return content in different formats depending on environment
+      let buffer: Buffer | undefined;
+      
+      // Try response.result.fileBlob (browser/Next.js environment - Blob object)
+      if (response.result?.fileBlob) {
+        const blob = response.result.fileBlob;
+        if (blob instanceof Blob) {
+          const arrayBuffer = await blob.arrayBuffer();
+          buffer = Buffer.from(arrayBuffer);
+        } else if (Buffer.isBuffer(blob)) {
+          buffer = blob;
+        } else {
+          // Try to convert if it's already a buffer-like object
+          buffer = Buffer.from(blob);
+        }
+      }
+      // Try response.result.fileBinary (Node.js standard)
+      else if (response.result?.fileBinary) {
+        buffer = response.result.fileBinary;
+      }
+      // Try response.fileBinary (alternative structure)
+      else if (response.fileBinary) {
+        buffer = response.fileBinary;
+      }
+      // Try response.result directly as buffer
+      else if (Buffer.isBuffer(response.result)) {
+        buffer = response.result;
+      }
+      // Try response.result as arrayBuffer and convert
+      else if (response.result instanceof ArrayBuffer) {
+        buffer = Buffer.from(response.result);
+      }
+      // Try accessing through response body if it's a Response object with buffer method (from custom fetch)
+      else if (response.result && typeof (response.result as any).buffer === 'function') {
+        buffer = await (response.result as any).buffer();
+      }
+      // Try accessing through response body if it's a Response object with arrayBuffer
+      else if (response.result && typeof response.result.arrayBuffer === 'function') {
+        const arrayBuffer = await response.result.arrayBuffer();
+        buffer = Buffer.from(arrayBuffer);
+      }
+      // Try response directly as buffer
+      else if (Buffer.isBuffer(response)) {
+        buffer = response;
+      }
+      // Try response.result as Uint8Array
+      else if (response.result instanceof Uint8Array) {
+        buffer = Buffer.from(response.result);
+      }
+
+      if (!buffer) {
+        // Log the response structure for debugging
+        console.error('Dropbox response structure:', {
+          hasResult: !!response.result,
+          resultKeys: response.result && typeof response.result === 'object' ? Object.keys(response.result) : [],
+          responseKeys: Object.keys(response),
+          resultType: typeof response.result,
+          resultConstructor: response.result?.constructor?.name,
+        });
+        throw new Error('File content not found in Dropbox response. Check response structure.');
+      }
+      
+      const fileText = buffer.toString('utf-8');
+
+      // Parse JSON
+      const jsonData = JSON.parse(fileText);
+
+      // Validate structure
+      if (!jsonData.events || !Array.isArray(jsonData.events)) {
+        throw new Error('Invalid JSON structure: expected "events" array');
+      }
+
+      return jsonData.events;
+    } catch (error: any) {
+      // Handle Dropbox auth errors
+      if (error.status === 401) {
+        throw new Error('Dropbox authentication failed');
+      }
+
+      // Handle file not found
+      if (error.status === 409) {
+        throw new Error('Events data file not found in Dropbox at /events/events.json');
+      }
+
+      // Handle JSON parse errors
+      if (error instanceof SyntaxError) {
+        throw new Error('Invalid JSON format in events data file');
+      }
+
+      // Re-throw other errors with safe error message extraction
+      const errorMessage = error?.message || error?.toString() || String(error) || 'Unknown error';
+      throw new Error(`Failed to read events data from Dropbox: ${errorMessage}`);
+    }
+  }
 }

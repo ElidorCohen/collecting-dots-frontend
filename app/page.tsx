@@ -102,6 +102,25 @@ export default function Home() {
   }>>([])
   const [isLoadingVideos, setIsLoadingVideos] = useState(true)
 
+  // Events state
+  const [futureEvents, setFutureEvents] = useState<Array<{
+    title: string;
+    date: string;
+    time: string;
+    venue: string;
+    location: string;
+    artists: string[];
+  }>>([])
+  const [pastEvents, setPastEvents] = useState<Array<{
+    title: string;
+    date: string;
+    time: string;
+    venue: string;
+    location: string;
+    artists: string[];
+  }>>([])
+  const [isLoadingEvents, setIsLoadingEvents] = useState(true)
+
   const toggleCardFlip = (index: number) => {
     setFlippedCards((prev) => {
       const newSet = new Set(prev)
@@ -166,6 +185,150 @@ export default function Home() {
     }
 
     fetchYouTubeVideos()
+  }, [])
+
+  // Helper function to parse DD/MM/YYYY date format
+  const parseDate = (dateStr: string | undefined): Date | null => {
+    if (!dateStr || typeof dateStr !== 'string') {
+      return null
+    }
+    try {
+      const [day, month, year] = dateStr.split('/').map(Number)
+      if (day && month && year) {
+        return new Date(year, month - 1, day)
+      }
+      return null
+    } catch (error) {
+      console.error('Error parsing date:', dateStr, error)
+      return null
+    }
+  }
+
+  // Helper function to format date to "Month Day, Year" format
+  const formatDate = (dateStr: string | undefined): string => {
+    if (!dateStr) return ''
+    const date = parseDate(dateStr)
+    if (!date) return dateStr
+
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ]
+
+    return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
+  }
+
+  // Helper function to split location into venue and location
+  const splitLocation = (locationStr: string | undefined): { venue: string; location: string } => {
+    if (!locationStr || typeof locationStr !== 'string') {
+      return { venue: '', location: '' }
+    }
+    const parts = locationStr.split(',').map(s => s.trim())
+    if (parts.length >= 2) {
+      return {
+        venue: parts[0],
+        location: parts.slice(1).join(', ')
+      }
+    }
+    return {
+      venue: locationStr,
+      location: ''
+    }
+  }
+
+  // Fetch events data from API
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        setIsLoadingEvents(true)
+        const response = await fetch(buildApiUrl('/api/get-events-data'))
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        
+        const data = await response.json()
+
+        if (data.success && data.data && Array.isArray(data.data)) {
+          const now = new Date()
+          now.setHours(0, 0, 0, 0) // Set to start of day for comparison
+
+          const future: Array<{
+            title: string;
+            date: string;
+            time: string;
+            venue: string;
+            location: string;
+            artists: string[];
+            originalDate: Date;
+          }> = []
+          const past: Array<{
+            title: string;
+            date: string;
+            time: string;
+            venue: string;
+            location: string;
+            artists: string[];
+            originalDate: Date;
+          }> = []
+
+          data.data.forEach((event: any) => {
+            // Validate required fields
+            if (!event || !event.date || !event.event_title) {
+              return
+            }
+
+            const eventDate = parseDate(event.date)
+            if (!eventDate) {
+              return
+            }
+
+            // Set to start of day for comparison
+            const eventDateStart = new Date(eventDate)
+            eventDateStart.setHours(0, 0, 0, 0)
+
+            const { venue, location } = splitLocation(event.location)
+            const artists = event.artists 
+              ? event.artists.split(',').map((a: string) => a.trim()).filter((a: string) => a.length > 0)
+              : []
+
+            const transformedEvent = {
+              title: event.event_title || '',
+              date: formatDate(event.date),
+              time: event.times || '',
+              venue,
+              location,
+              artists,
+              originalDate: eventDate, // Store original date for sorting
+            }
+
+            if (eventDateStart >= now) {
+              future.push(transformedEvent)
+            } else {
+              past.push(transformedEvent)
+            }
+          })
+
+          // Sort future events by date (ascending)
+          future.sort((a, b) => a.originalDate.getTime() - b.originalDate.getTime())
+
+          // Sort past events by date (descending)
+          past.sort((a, b) => b.originalDate.getTime() - a.originalDate.getTime())
+
+          // Remove originalDate before setting state
+          setFutureEvents(future.map(({ originalDate, ...evt }) => evt))
+          setPastEvents(past.map(({ originalDate, ...evt }) => evt))
+        }
+      } catch (error) {
+        console.error('Error fetching events data:', error)
+        setFutureEvents([])
+        setPastEvents([])
+      } finally {
+        setIsLoadingEvents(false)
+      }
+    }
+
+    fetchEvents()
   }, [])
 
   // Initialize Turnstile widget
@@ -726,83 +889,55 @@ export default function Home() {
             <div className="flex flex-col">
               <h3 className="font-display text-2xl font-bold mb-8 text-center text-white">Future Events</h3>
               <div className="events-scroll-container overflow-y-auto pr-2 max-h-[480px]">
-                <div className="space-y-6 pb-4">
-                  {[
-                    {
-                      title: "Collecting Dots Showcase",
-                      date: "March 15, 2025",
-                      time: "22:00 - 06:00",
-                      venue: "Warehouse 23",
-                      location: "Berlin, Germany",
-                      artists: ["Omri", "The Botanist", "Bonafique"],
-                    },
-                    {
-                      title: "Electronic Nights Festival",
-                      date: "April 8, 2025",
-                      time: "20:00 - 04:00",
-                      venue: "Industrial Complex",
-                      location: "Amsterdam, Netherlands",
-                      artists: ["TOBEHONEST", "Adaru"],
-                    },
-                    {
-                      title: "Underground Sessions",
-                      date: "May 22, 2025",
-                      time: "23:00 - 07:00",
-                      venue: "Club Voltage",
-                      location: "London, UK",
-                      artists: ["Rafael & Sapian", "Omri"],
-                    },
-                    {
-                      title: "Summer Electronic Marathon",
-                      date: "June 14, 2025",
-                      time: "21:00 - 05:00",
-                      venue: "Open Air Arena",
-                      location: "Mykonos, Greece",
-                      artists: ["The Botanist", "Bonafique", "TOBEHONEST"],
-                    },
-                    {
-                      title: "Techno Revolution",
-                      date: "July 3, 2025",
-                      time: "23:30 - 08:00",
-                      venue: "Industrial Warehouse",
-                      location: "Detroit, USA",
-                      artists: ["Adaru", "Rafael & Sapian"],
-                    },
-                  ].map((event, index) => (
-                    <Card
-                      key={index}
-                      className="bg-gray-900/80 border-gray-800/50 hover:border-gray-700/50 transition-all duration-300 backdrop-blur-sm"
-                    >
-                      <CardContent className="p-6">
-                        <div className="flex justify-between items-start mb-4">
-                          <h4 className="font-display text-xl font-bold text-white">{event.title}</h4>
-                          <div className="text-right">
-                            <div className="text-sm text-gray-300">{event.date}</div>
-                            <div className="text-xs text-gray-400">{event.time}</div>
+                {isLoadingEvents ? (
+                  <div className="flex items-center justify-center py-12">
+                    <div className="flex flex-col items-center space-y-4">
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+                      <p className="text-gray-400 text-lg">Loading events...</p>
+                    </div>
+                  </div>
+                ) : futureEvents.length === 0 ? (
+                  <div className="flex items-center justify-center py-12">
+                    <p className="text-gray-400 text-lg">No upcoming events</p>
+                  </div>
+                ) : (
+                  <div className="space-y-6 pb-4">
+                    {futureEvents.map((event, index) => (
+                      <Card
+                        key={index}
+                        className="bg-gray-900/80 border-gray-800/50 hover:border-gray-700/50 transition-all duration-300 backdrop-blur-sm"
+                      >
+                        <CardContent className="p-6">
+                          <div className="flex justify-between items-start mb-4">
+                            <h4 className="font-display text-xl font-bold text-white">{event.title}</h4>
+                            <div className="text-right">
+                              <div className="text-sm text-gray-300">{event.date}</div>
+                              <div className="text-xs text-gray-400">{event.time}</div>
+                            </div>
                           </div>
-                        </div>
-                        <div className="space-y-2 mb-4">
-                          <div className="flex items-center text-gray-300">
-                            <MapPin className="w-4 h-4 mr-2" />
-                            <span className="text-sm">
-                              {event.venue}, {event.location}
-                            </span>
+                          <div className="space-y-2 mb-4">
+                            <div className="flex items-center text-gray-300">
+                              <MapPin className="w-4 h-4 mr-2" />
+                              <span className="text-sm">
+                                {event.location ? `${event.venue}, ${event.location}` : event.venue}
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                          {event.artists.map((artist, artistIndex) => (
-                            <span
-                              key={artistIndex}
-                              className="px-3 py-1 bg-gray-800/50 text-gray-300 text-xs rounded-full border border-gray-700/50"
-                            >
-                              {artist}
-                            </span>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
+                          <div className="flex flex-wrap gap-2">
+                            {event.artists.map((artist, artistIndex) => (
+                              <span
+                                key={artistIndex}
+                                className="px-3 py-1 bg-gray-800/50 text-gray-300 text-xs rounded-full border border-gray-700/50"
+                              >
+                                {artist}
+                              </span>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -810,88 +945,52 @@ export default function Home() {
             <div className="flex flex-col">
               <h3 className="font-display text-2xl font-bold mb-8 text-center text-gray-400">Past Events</h3>
               <div className="events-scroll-container overflow-y-auto pr-2 max-h-[480px]">
-                <div className="space-y-6 pb-4">
-                  {[
-                    {
-                      title: "New Year Electronic Celebration",
-                      date: "December 31, 2024",
-                      time: "23:00 - 08:00",
-                      venue: "Rooftop Terrace",
-                      location: "Tel Aviv, Israel",
-                      artists: ["Omri", "TOBEHONEST", "Adaru"],
-                    },
-                    {
-                      title: "Autumn Vibes Festival",
-                      date: "October 12, 2024",
-                      time: "21:00 - 05:00",
-                      venue: "Open Air Stage",
-                      location: "Barcelona, Spain",
-                      artists: ["The Botanist", "Rafael & Sapian"],
-                    },
-                    {
-                      title: "Summer Electronic Series",
-                      date: "August 5, 2024",
-                      time: "22:00 - 06:00",
-                      venue: "Beach Club Paradise",
-                      location: "Ibiza, Spain",
-                      artists: ["Bonafique", "Omri", "The Botanist"],
-                    },
-                    {
-                      title: "Spring Awakening Tour",
-                      date: "May 18, 2024",
-                      time: "20:00 - 03:00",
-                      venue: "Underground Vault",
-                      location: "Prague, Czech Republic",
-                      artists: ["TOBEHONEST", "Adaru"],
-                    },
-                    {
-                      title: "Winter Electronic Nights",
-                      date: "February 14, 2024",
-                      time: "22:00 - 06:00",
-                      venue: "Ice Palace Club",
-                      location: "Stockholm, Sweden",
-                      artists: ["The Botanist", "Omri"],
-                    },
-                    {
-                      title: "Electronic Music Conference",
-                      date: "January 20, 2024",
-                      time: "19:00 - 02:00",
-                      venue: "Convention Center",
-                      location: "Miami, USA",
-                      artists: ["Bonafique", "Rafael & Sapian", "Adaru"],
-                    },
-                  ].map((event, index) => (
-                    <Card key={index} className="bg-gray-900/60 border-gray-800/30 backdrop-blur-sm opacity-75">
-                      <CardContent className="p-6">
-                        <div className="flex justify-between items-start mb-4">
-                          <h4 className="font-display text-xl font-bold text-gray-300">{event.title}</h4>
-                          <div className="text-right">
-                            <div className="text-sm text-gray-400">{event.date}</div>
-                            <div className="text-xs text-gray-500">{event.time}</div>
+                {isLoadingEvents ? (
+                  <div className="flex items-center justify-center py-12">
+                    <div className="flex flex-col items-center space-y-4">
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-400"></div>
+                      <p className="text-gray-400 text-lg">Loading events...</p>
+                    </div>
+                  </div>
+                ) : pastEvents.length === 0 ? (
+                  <div className="flex items-center justify-center py-12">
+                    <p className="text-gray-400 text-lg">No past events</p>
+                  </div>
+                ) : (
+                  <div className="space-y-6 pb-4">
+                    {pastEvents.map((event, index) => (
+                      <Card key={index} className="bg-gray-900/60 border-gray-800/30 backdrop-blur-sm opacity-75">
+                        <CardContent className="p-6">
+                          <div className="flex justify-between items-start mb-4">
+                            <h4 className="font-display text-xl font-bold text-gray-300">{event.title}</h4>
+                            <div className="text-right">
+                              <div className="text-sm text-gray-400">{event.date}</div>
+                              <div className="text-xs text-gray-500">{event.time}</div>
+                            </div>
                           </div>
-                        </div>
-                        <div className="space-y-2 mb-4">
-                          <div className="flex items-center text-gray-400">
-                            <MapPin className="w-4 h-4 mr-2" />
-                            <span className="text-sm">
-                              {event.venue}, {event.location}
-                            </span>
+                          <div className="space-y-2 mb-4">
+                            <div className="flex items-center text-gray-400">
+                              <MapPin className="w-4 h-4 mr-2" />
+                              <span className="text-sm">
+                                {event.location ? `${event.venue}, ${event.location}` : event.venue}
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                          {event.artists.map((artist, artistIndex) => (
-                            <span
-                              key={artistIndex}
-                              className="px-3 py-1 bg-gray-800/30 text-gray-400 text-xs rounded-full border border-gray-700/30"
-                            >
-                              {artist}
-                            </span>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
+                          <div className="flex flex-wrap gap-2">
+                            {event.artists.map((artist, artistIndex) => (
+                              <span
+                                key={artistIndex}
+                                className="px-3 py-1 bg-gray-800/30 text-gray-400 text-xs rounded-full border border-gray-700/30"
+                              >
+                                {artist}
+                              </span>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
