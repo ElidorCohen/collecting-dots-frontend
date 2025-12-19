@@ -29,6 +29,14 @@ export const metadata: Metadata = {
   authors: [{ name: "Collecting Dots" }],
   creator: "Collecting Dots",
   publisher: "Collecting Dots",
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/icon.png", type: "image/png" },
+    ],
+  },
   openGraph: {
     title: "Collecting Dots - Electronic Music Label",
     description: "Independent electronic music label curated by OMRI. Discover cutting-edge tracks from emerging and established artists.",
