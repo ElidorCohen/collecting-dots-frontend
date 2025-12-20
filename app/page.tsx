@@ -1394,23 +1394,23 @@ export default function Home() {
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="font-display text-4xl font-bold mb-4 tracking-tight md:text-4xl">SUBMIT YOUR DEMO</h2>
-            <p className="text-gray-300 text-lg font-light">
-              Ready to become part of the constellation? Share your music with us.
+            <p className="text-gray-300 text-lg font-light uppercase">
+              READY TO BECOME PART OF THE CONSTELLATION? SHARE YOUR MUSIC WITH US.
             </p>
           </div>
 
-          <Card className="bg-gray-900/80 border-gray-800/50 backdrop-blur-sm">
+          <Card className="bg-gray-900/80 border-gray-800/50 backdrop-blur-sm uppercase">
             <CardHeader>
-              <CardTitle className="text-white font-display text-2xl">Demo Submission</CardTitle>
+              <CardTitle className="text-white font-display text-2xl">DEMO SUBMISSION</CardTitle>
               <CardDescription className="text-gray-400 font-light">
-                Fill out the form below and upload your track.
+                FILL OUT THE FORM BELOW AND UPLOAD YOUR TRACK.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* File Upload Section */}
               <div className="space-y-2">
                 <Label htmlFor="demo-file" className="text-white font-medium">
-                  Upload Demo Track * (MP3 or WAV only)
+                  UPLOAD DEMO TRACK * (MP3 OR WAV ONLY)
                 </Label>
                 <div className="space-y-3">
                   {!formData.audioFile && !isUploading ? (
@@ -1418,10 +1418,10 @@ export default function Home() {
                       <div className="transform transition-transform duration-300 hover:scale-105">
                         <FileAudio className="w-20 h-20 mx-auto mb-6 text-gray-400" />
                         <h3 className="text-white text-3xl font-display font-bold mb-3 tracking-tight">
-                          Drop it like it's dot
+                          DROP IT LIKE IT'S DOT
                         </h3>
-                        <p className="text-gray-400 text-lg mb-6 font-light">Share your sound with the constellation</p>
-                        <p className="text-xs text-gray-500 font-light mb-6">MP3 or WAV files only • Max 50MB</p>
+                        <p className="text-gray-400 text-lg mb-6 font-light normal-case">Share your sound with the constellation</p>
+                        <p className="text-xs text-gray-500 font-light mb-6">MP3 OR WAV FILES ONLY • MAX 50MB</p>
                         <Input
                           id="demo-file"
                           type="file"
@@ -1435,7 +1435,7 @@ export default function Home() {
                           className="bg-white text-black hover:bg-gray-200 font-medium px-8 py-3 text-lg"
                           onClick={() => document.getElementById("demo-file")?.click()}
                         >
-                          Choose Your Track
+                          CHOOSE YOUR TRACK
                         </Button>
                       </div>
                     </div>
@@ -1444,9 +1444,9 @@ export default function Home() {
                       <div className="flex flex-col items-center">
                         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mb-6"></div>
                         <h3 className="text-white text-2xl font-display font-bold mb-3 tracking-tight">
-                          Uploading your track...
+                          UPLOADING YOUR TRACK...
                         </h3>
-                        <p className="text-gray-400 text-lg font-light">Processing your audio file</p>
+                        <p className="text-gray-400 text-lg font-light">PROCESSING YOUR AUDIO FILE</p>
                       </div>
                     </div>
                   ) : (
@@ -1481,7 +1481,7 @@ export default function Home() {
                             {/* File display with enhanced styling */}
                             <div className="space-y-2">
                               <div className="flex items-center justify-between">
-                                <span className="text-white font-medium text-sm">Upload Progress</span>
+                                <span className="text-white font-medium text-sm">UPLOAD PROGRESS</span>
                                 <span className="text-green-400 font-mono text-sm">{Math.round(uploadProgress)}%</span>
                               </div>
                               <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
@@ -1491,7 +1491,7 @@ export default function Home() {
                                 />
                               </div>
                               <p className="text-gray-400 text-xs font-light">
-                                {uploadProgress < 100 ? "Processing your track..." : "Upload complete!"}
+                                {uploadProgress < 100 ? "PROCESSING YOUR TRACK..." : "UPLOAD COMPLETE!"}
                               </p>
                             </div>
                           </div>
@@ -1501,11 +1501,11 @@ export default function Home() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div className="space-y-3">
                             <Label htmlFor="track-title" className="text-white font-medium text-lg">
-                              Track Title *
+                              TRACK TITLE *
                             </Label>
                             <Input
                               id="track-title"
-                              placeholder="Name of your track"
+                              placeholder="NAME OF YOUR TRACK"
                               value={formData.trackTitle}
                               onChange={(e) => handleInputChange("trackTitle", e.target.value)}
                               className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
@@ -1513,11 +1513,11 @@ export default function Home() {
                           </div>
                           <div className="space-y-3">
                             <Label htmlFor="artist-name" className="text-white font-medium text-lg">
-                              Artist Name *
+                              ARTIST NAME *
                             </Label>
                             <Input
                               id="artist-name"
-                              placeholder="Your artist name"
+                              placeholder="YOUR ARTIST NAME"
                               value={formData.artistName}
                               onChange={(e) => handleInputChange("artistName", e.target.value)}
                               className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
@@ -1528,11 +1528,11 @@ export default function Home() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div className="space-y-3">
                             <Label htmlFor="full-name" className="text-white font-medium text-lg">
-                              Full Name *
+                              FULL NAME *
                             </Label>
                             <Input
                               id="full-name"
-                              placeholder="Your full name"
+                              placeholder="YOUR FULL NAME"
                               value={formData.fullName}
                               onChange={(e) => handleInputChange("fullName", e.target.value)}
                               className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
@@ -1540,29 +1540,29 @@ export default function Home() {
                           </div>
                           <div className="space-y-3">
                             <Label htmlFor="email" className="text-white font-medium text-lg">
-                              Email *
+                              EMAIL *
                             </Label>
                             <Input
                               id="email"
                               type="email"
-                              placeholder="your@email.com"
+                              placeholder="YOUR@EMAIL.COM"
                               value={formData.email}
                               onChange={(e) => handleInputChange("email", e.target.value)}
                               className={`bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors ${
                                 errors.email ? "border-red-500" : ""
                               }`}
                             />
-                            {errors.email && <p className="text-red-400 text-sm font-light">{errors.email}</p>}
+                            {errors.email && <p className="text-red-400 text-sm font-light uppercase">{errors.email}</p>}
                           </div>
                         </div>
 
                         <div className="space-y-3">
                           <Label htmlFor="instagram" className="text-white font-medium text-lg">
-                            Instagram *
+                            INSTAGRAM *
                           </Label>
                           <Input
                             id="instagram"
-                            placeholder="@yourusername or full Instagram URL"
+                            placeholder="@YOURUSERNAME OR FULL INSTAGRAM URL"
                             value={formData.instagram}
                             onChange={(e) => handleInputChange("instagram", e.target.value)}
                             className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
@@ -1574,11 +1574,11 @@ export default function Home() {
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-3">
                               <Label htmlFor="beatport" className="text-gray-300 font-medium">
-                                Beatport
+                                BEATPORT
                               </Label>
                               <Input
                                 id="beatport"
-                                placeholder="Beatport profile URL"
+                                placeholder="BEATPORT PROFILE URL"
                                 value={formData.beatport}
                                 onChange={(e) => handleInputChange("beatport", e.target.value)}
                                 className="bg-black/30 border-gray-700 text-white placeholder:text-gray-500 font-light h-11 focus:border-gray-500 transition-colors"
@@ -1586,11 +1586,11 @@ export default function Home() {
                             </div>
                             <div className="space-y-3">
                               <Label htmlFor="facebook" className="text-gray-300 font-medium">
-                                Facebook
+                                FACEBOOK
                               </Label>
                               <Input
                                 id="facebook"
-                                placeholder="Facebook page URL"
+                                placeholder="FACEBOOK PAGE URL"
                                 value={formData.facebook}
                                 onChange={(e) => handleInputChange("facebook", e.target.value)}
                                 className="bg-black/30 border-gray-700 text-white placeholder:text-gray-500 font-light h-11 focus:border-gray-500 transition-colors"
@@ -1600,11 +1600,11 @@ export default function Home() {
 
                           <div className="space-y-3">
                             <Label htmlFor="x" className="text-gray-300 font-medium">
-                              X (Twitter)
+                              X (TWITTER)
                             </Label>
                             <Input
                               id="x"
-                              placeholder="X/Twitter profile URL"
+                              placeholder="X/TWITTER PROFILE URL"
                               value={formData.x}
                               onChange={(e) => handleInputChange("x", e.target.value)}
                               className="bg-black/30 border-gray-700 text-white placeholder:text-gray-500 font-light h-11 focus:border-gray-500 transition-colors"
@@ -1615,11 +1615,11 @@ export default function Home() {
                           {/* Turnstile CAPTCHA Widget */}
                           <div className="space-y-3 pt-6 border-t border-gray-700/50">
                             <Label className="text-white font-medium text-lg">
-                              Verification *
+                              VERIFICATION *
                             </Label>
                             <div id="turnstile-widget" className="flex justify-center"></div>
                             {errors.captcha && (
-                              <p className="text-red-400 text-sm font-light text-center">{errors.captcha}</p>
+                              <p className="text-red-400 text-sm font-light text-center uppercase">{errors.captcha}</p>
                             )}
                           </div>
 
@@ -1643,10 +1643,10 @@ export default function Home() {
                             {isUploading ? (
                               <span className="flex items-center justify-center">
                                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-400 mr-2"></div>
-                                Submitting...
+                                SUBMITTING...
                               </span>
                             ) : (
-                              "Submit Demo"
+                              "SUBMIT DEMO"
                             )}
                           </Button>
                         )}
@@ -1684,7 +1684,7 @@ export default function Home() {
                                 </div>
                                 <div className="flex-1">
                                   <h4 className="font-display font-bold text-lg mb-1">
-                                    {submissionStatus.type === "success" ? "Success!" : "Error"}
+                                    {submissionStatus.type === "success" ? "SUCCESS!" : "ERROR"}
                                   </h4>
                                   <p className="text-sm font-light mb-2">{submissionStatus.message}</p>
                                   {submissionStatus.demoId && (
@@ -1718,7 +1718,7 @@ export default function Home() {
                                       }}
                                       className="mt-4 bg-white hover:bg-gray-200 text-black font-medium border border-green-500/30"
                                     >
-                                      Submit Another Demo
+                                      SUBMIT ANOTHER DEMO
                                     </Button>
                                   )}
                                 </div>
@@ -1728,7 +1728,7 @@ export default function Home() {
                         </div>
                     </div>
                   )}
-                  {errors.audioFile && <p className="text-red-400 text-sm font-light">{errors.audioFile}</p>}
+                  {errors.audioFile && <p className="text-red-400 text-sm font-light uppercase">{errors.audioFile}</p>}
                 </div>
               </div>
             </CardContent>
@@ -1746,7 +1746,12 @@ export default function Home() {
             </div>
 
             <div className="flex space-x-6">
-              <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="text-gray-400 hover:text-white"
+                onClick={() => window.open("mailto:office@collectingdots.com", "_blank")}
+              >
                 <Mail className="w-5 h-5" />
               </Button>
               <Button
@@ -1769,19 +1774,7 @@ export default function Home() {
                 variant="ghost"
                 size="icon"
                 className="text-gray-400 hover:text-white"
-                onClick={() => {
-                  /* Apple Music link to be added */
-                }}
-              >
-                <AppleMusicIcon />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-gray-400 hover:text-white"
-                onClick={() => {
-                  /* Spotify link to be added */
-                }}
+                onClick={() => window.open("https://open.spotify.com/playlist/253UKTc95dhq8FvVbLvroJ", "_blank")}
               >
                 <SpotifyIcon />
               </Button>
