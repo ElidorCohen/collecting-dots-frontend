@@ -240,6 +240,8 @@ export class DropboxService {
     date: string;
     times: string;
     artists: string;
+    event_external_url?: string;
+    event_instagram_post?: string;
   }>> {
     try {
       // Download the file from Dropbox

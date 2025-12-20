@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Music, Mail, Instagram, FileAudio, X, MapPin } from "lucide-react"
+import { Music, Mail, Instagram, FileAudio, X, MapPin, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react"
 import ReleasesCarousel from "@/components/releases-carousel"
 import { useState, useEffect, useRef } from "react"
 import { Badge } from "@/components/ui/badge"
@@ -78,6 +78,9 @@ export default function Home() {
 
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set())
 
+  // Mobile artists carousel navigation state
+  const [currentArtistIndex, setCurrentArtistIndex] = useState(0)
+
   // Artists data state
   const [artists, setArtists] = useState<Array<{
     artist_name: string;
@@ -110,6 +113,8 @@ export default function Home() {
     venue: string;
     location: string;
     artists: string[];
+    event_external_url?: string;
+    event_instagram_post?: string;
   }>>([])
   const [pastEvents, setPastEvents] = useState<Array<{
     title: string;
@@ -118,6 +123,8 @@ export default function Home() {
     venue: string;
     location: string;
     artists: string[];
+    event_external_url?: string;
+    event_instagram_post?: string;
   }>>([])
   const [isLoadingEvents, setIsLoadingEvents] = useState(true)
 
@@ -260,6 +267,8 @@ export default function Home() {
             venue: string;
             location: string;
             artists: string[];
+            event_external_url?: string;
+            event_instagram_post?: string;
             originalDate: Date;
           }> = []
           const past: Array<{
@@ -269,6 +278,8 @@ export default function Home() {
             venue: string;
             location: string;
             artists: string[];
+            event_external_url?: string;
+            event_instagram_post?: string;
             originalDate: Date;
           }> = []
 
@@ -299,6 +310,8 @@ export default function Home() {
               venue,
               location,
               artists,
+              event_external_url: event.event_external_url || undefined,
+              event_instagram_post: event.event_instagram_post || undefined,
               originalDate: eventDate, // Store original date for sorting
             }
 
@@ -768,110 +781,247 @@ export default function Home() {
               <p className="text-gray-400 text-lg">No artists found</p>
             </div>
           ) : (
-            /* Auto-moving Artists Carousel */
-            <div className="relative overflow-hidden">
-              <div className="flex space-x-8 animate-scroll-artists">
-                {/* Double artists array for seamless loop */}
-                {[...artists, ...artists].map((artist, index) => (
-                  <div
-                    key={index}
-                    className="flex-shrink-0 w-80 group perspective-1000 cursor-pointer"
-                    onClick={() => toggleCardFlip(index)}
+            <>
+              {/* Mobile Artists Carousel with Navigation */}
+              <div className="relative overflow-hidden md:hidden">
+                <div className="relative">
+                  <div 
+                    className="flex transition-transform duration-500 ease-in-out"
+                    style={{ transform: `translateX(-${currentArtistIndex * 100}%)` }}
                   >
-                    <div
-                      className={`relative w-full h-96 preserve-3d transition-transform duration-700 ${
-                        flippedCards.has(index) ? "rotate-y-180" : ""
-                      }`}
-                    >
-                      {/* Front of card */}
-                      <div className="absolute inset-0 w-full h-full backface-hidden">
-                        <Card className="w-full h-full bg-gray-900/80 border-gray-800/50 hover:border-gray-700/50 transition-all duration-500 backdrop-blur-sm overflow-hidden">
-                          <div className="relative h-full">
-                            <img
-                              src={artist.image || "/placeholder.svg"}
-                              alt={artist.artist_name}
-                              className="w-full h-full object-cover"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                            <div className="absolute bottom-0 left-0 right-0 p-6">
-                              <h3 className="font-display text-2xl font-bold text-white mb-2">{artist.artist_name}</h3>
+                    {artists.map((artist, index) => (
+                      <div
+                        key={index}
+                        className="w-full flex-shrink-0 px-4"
+                      >
+                        <div
+                          className="w-full group perspective-1000 cursor-pointer"
+                          onClick={() => toggleCardFlip(index)}
+                        >
+                          <div
+                            className={`relative w-full h-96 preserve-3d transition-transform duration-700 ${
+                              flippedCards.has(index) ? "rotate-y-180" : ""
+                            }`}
+                          >
+                            {/* Front of card */}
+                            <div className="absolute inset-0 w-full h-full backface-hidden">
+                              <Card className="w-full h-full bg-gray-900/80 border-gray-800/50 hover:border-gray-700/50 transition-all duration-500 backdrop-blur-sm overflow-hidden">
+                                <div className="relative h-full">
+                                  <img
+                                    src={artist.image || "/placeholder.svg"}
+                                    alt={artist.artist_name}
+                                    className="w-full h-full object-cover"
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                                    <h3 className="font-display text-2xl font-bold text-white mb-2">{artist.artist_name}</h3>
+                                  </div>
+                                  <div className="absolute top-4 right-4">
+                                    <div className="flex space-x-1">
+                                      <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                                      <div className="w-2 h-2 bg-white rounded-full animate-pulse delay-100" />
+                                      <div className="w-2 h-2 bg-white rounded-full animate-pulse delay-200" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </Card>
                             </div>
-                            <div className="absolute top-4 right-4">
-                              <div className="flex space-x-1">
-                                <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                                <div className="w-2 h-2 bg-white rounded-full animate-pulse delay-100" />
-                                <div className="w-2 h-2 bg-white rounded-full animate-pulse delay-200" />
-                              </div>
+
+                            {/* Back of card */}
+                            <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
+                              <Card className="w-full h-full bg-gray-900/90 border-gray-800/50 backdrop-blur-sm">
+                                <CardContent className="h-full flex flex-col items-center justify-center p-8">
+                                  <h3 className="font-display text-2xl font-bold text-white mb-6 text-center">
+                                    {artist.artist_name}
+                                  </h3>
+                                  <div className="grid grid-cols-2 gap-4 w-full">
+                                    <Button
+                                      variant="ghost"
+                                      size="lg"
+                                      className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
+                                      onClick={(e) => {
+                                        e.stopPropagation()
+                                        window.open(`https://instagram.com/${artist.artist_instagram_username}`, "_blank")
+                                      }}
+                                    >
+                                      <Instagram className="w-8 h-8" />
+                                      <span className="text-xs">Instagram</span>
+                                    </Button>
+                                    <Button
+                                      variant="ghost"
+                                      size="lg"
+                                      className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
+                                      onClick={(e) => {
+                                        e.stopPropagation()
+                                        window.open(artist.artist_soundcloud, "_blank")
+                                      }}
+                                    >
+                                      <Music className="w-8 h-8" />
+                                      <span className="text-xs">SoundCloud</span>
+                                    </Button>
+                                    <Button
+                                      variant="ghost"
+                                      size="lg"
+                                      className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
+                                      onClick={(e) => {
+                                        e.stopPropagation()
+                                        window.open(artist.artist_spotify, "_blank")
+                                      }}
+                                    >
+                                      <SpotifyIcon />
+                                      <span className="text-xs">Spotify</span>
+                                    </Button>
+                                    <Button
+                                      variant="ghost"
+                                      size="lg"
+                                      className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
+                                      onClick={(e) => {
+                                        e.stopPropagation()
+                                        window.open(artist.artist_beatport, "_blank")
+                                      }}
+                                    >
+                                      <BeatportIcon />
+                                      <span className="text-xs">Beatport</span>
+                                    </Button>
+                                  </div>
+                                </CardContent>
+                              </Card>
                             </div>
                           </div>
-                        </Card>
+                        </div>
                       </div>
+                    ))}
+                  </div>
 
-                      {/* Back of card */}
-                      <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
-                        <Card className="w-full h-full bg-gray-900/90 border-gray-800/50 backdrop-blur-sm">
-                          <CardContent className="h-full flex flex-col items-center justify-center p-8">
-                            <h3 className="font-display text-2xl font-bold text-white mb-6 text-center">
-                              {artist.artist_name}
-                            </h3>
-                            <div className="grid grid-cols-2 gap-4 w-full">
-                              <Button
-                                variant="ghost"
-                                size="lg"
-                                className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  window.open(`https://instagram.com/${artist.artist_instagram_username}`, "_blank")
-                                }}
-                              >
-                                <Instagram className="w-8 h-8" />
-                                <span className="text-xs">Instagram</span>
-                              </Button>
-                              <Button
-                                variant="ghost"
-                                size="lg"
-                                className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  window.open(artist.artist_soundcloud, "_blank")
-                                }}
-                              >
-                                <Music className="w-8 h-8" />
-                                <span className="text-xs">SoundCloud</span>
-                              </Button>
-                              <Button
-                                variant="ghost"
-                                size="lg"
-                                className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  window.open(artist.artist_spotify, "_blank")
-                                }}
-                              >
-                                <SpotifyIcon />
-                                <span className="text-xs">Spotify</span>
-                              </Button>
-                              <Button
-                                variant="ghost"
-                                size="lg"
-                                className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  window.open(artist.artist_beatport, "_blank")
-                                }}
-                              >
-                                <BeatportIcon />
-                                <span className="text-xs">Beatport</span>
-                              </Button>
+                  {/* Navigation Arrows - Mobile Only */}
+                  {artists.length > 1 && (
+                    <>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-gray-900/90 border-gray-700 text-white hover:bg-gray-800 hover:border-gray-600"
+                        onClick={() => setCurrentArtistIndex((prev) => (prev - 1 + artists.length) % artists.length)}
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-gray-900/90 border-gray-700 text-white hover:bg-gray-800 hover:border-gray-600"
+                        onClick={() => setCurrentArtistIndex((prev) => (prev + 1) % artists.length)}
+                      >
+                        <ChevronRight className="h-4 w-4" />
+                      </Button>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* Desktop Auto-moving Artists Carousel */}
+              <div className="hidden md:block relative overflow-hidden">
+                <div className="flex space-x-8 animate-scroll-artists">
+                  {/* Double artists array for seamless loop */}
+                  {[...artists, ...artists].map((artist, index) => (
+                    <div
+                      key={index}
+                      className="flex-shrink-0 w-80 group perspective-1000 cursor-pointer"
+                      onClick={() => toggleCardFlip(index)}
+                    >
+                      <div
+                        className={`relative w-full h-96 preserve-3d transition-transform duration-700 ${
+                          flippedCards.has(index) ? "rotate-y-180" : ""
+                        }`}
+                      >
+                        {/* Front of card */}
+                        <div className="absolute inset-0 w-full h-full backface-hidden">
+                          <Card className="w-full h-full bg-gray-900/80 border-gray-800/50 hover:border-gray-700/50 transition-all duration-500 backdrop-blur-sm overflow-hidden">
+                            <div className="relative h-full">
+                              <img
+                                src={artist.image || "/placeholder.svg"}
+                                alt={artist.artist_name}
+                                className="w-full h-full object-cover"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                              <div className="absolute bottom-0 left-0 right-0 p-6">
+                                <h3 className="font-display text-2xl font-bold text-white mb-2">{artist.artist_name}</h3>
+                              </div>
+                              <div className="absolute top-4 right-4">
+                                <div className="flex space-x-1">
+                                  <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                                  <div className="w-2 h-2 bg-white rounded-full animate-pulse delay-100" />
+                                  <div className="w-2 h-2 bg-white rounded-full animate-pulse delay-200" />
+                                </div>
+                              </div>
                             </div>
-                          </CardContent>
-                        </Card>
+                          </Card>
+                        </div>
+
+                        {/* Back of card */}
+                        <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
+                          <Card className="w-full h-full bg-gray-900/90 border-gray-800/50 backdrop-blur-sm">
+                            <CardContent className="h-full flex flex-col items-center justify-center p-8">
+                              <h3 className="font-display text-2xl font-bold text-white mb-6 text-center">
+                                {artist.artist_name}
+                              </h3>
+                              <div className="grid grid-cols-2 gap-4 w-full">
+                                <Button
+                                  variant="ghost"
+                                  size="lg"
+                                  className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    window.open(`https://instagram.com/${artist.artist_instagram_username}`, "_blank")
+                                  }}
+                                >
+                                  <Instagram className="w-8 h-8" />
+                                  <span className="text-xs">Instagram</span>
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="lg"
+                                  className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    window.open(artist.artist_soundcloud, "_blank")
+                                  }}
+                                >
+                                  <Music className="w-8 h-8" />
+                                  <span className="text-xs">SoundCloud</span>
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="lg"
+                                  className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    window.open(artist.artist_spotify, "_blank")
+                                  }}
+                                >
+                                  <SpotifyIcon />
+                                  <span className="text-xs">Spotify</span>
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="lg"
+                                  className="text-gray-300 hover:text-white hover:bg-gray-800/50 flex flex-col items-center space-y-2 h-auto py-4"
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    window.open(artist.artist_beatport, "_blank")
+                                  }}
+                                >
+                                  <BeatportIcon />
+                                  <span className="text-xs">Beatport</span>
+                                </Button>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            </>
           )}
         </div>
       </section>
@@ -905,11 +1055,21 @@ export default function Home() {
                     {futureEvents.map((event, index) => (
                       <Card
                         key={index}
-                        className="bg-gray-900/80 border-gray-800/50 hover:border-gray-700/50 transition-all duration-300 backdrop-blur-sm"
+                        className={`bg-gray-900/80 border-gray-800/50 hover:border-gray-700/50 transition-all duration-300 backdrop-blur-sm ${event.event_external_url ? 'cursor-pointer' : ''}`}
+                        onClick={() => {
+                          if (event.event_external_url) {
+                            window.open(event.event_external_url, '_blank', 'noopener,noreferrer')
+                          }
+                        }}
                       >
                         <CardContent className="p-6">
                           <div className="flex justify-between items-start mb-4">
-                            <h4 className="font-display text-xl font-bold text-white">{event.title}</h4>
+                            <div className="flex items-center gap-2">
+                              <h4 className="font-display text-xl font-bold text-white">{event.title}</h4>
+                              {event.event_external_url && (
+                                <ExternalLink className="w-4 h-4 text-gray-400" />
+                              )}
+                            </div>
                             <div className="text-right">
                               <div className="text-sm text-gray-300">{event.date}</div>
                               <div className="text-xs text-gray-400">{event.time}</div>
@@ -923,7 +1083,7 @@ export default function Home() {
                               </span>
                             </div>
                           </div>
-                          <div className="flex flex-wrap gap-2">
+                          <div className="flex flex-wrap gap-2 mb-3">
                             {event.artists.map((artist, artistIndex) => (
                               <span
                                 key={artistIndex}
@@ -933,6 +1093,20 @@ export default function Home() {
                               </span>
                             ))}
                           </div>
+                          {event.event_instagram_post && (
+                            <div className="mt-4 pt-4 border-t border-gray-800/50">
+                              <a
+                                href={event.event_instagram_post}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors text-sm"
+                              >
+                                <Instagram className="w-4 h-4" />
+                                <span>View Instagram Post</span>
+                              </a>
+                            </div>
+                          )}
                         </CardContent>
                       </Card>
                     ))}
@@ -959,10 +1133,23 @@ export default function Home() {
                 ) : (
                   <div className="space-y-6 pb-4">
                     {pastEvents.map((event, index) => (
-                      <Card key={index} className="bg-gray-900/60 border-gray-800/30 backdrop-blur-sm opacity-75">
+                      <Card 
+                        key={index} 
+                        className={`bg-gray-900/60 border-gray-800/30 backdrop-blur-sm opacity-75 ${event.event_external_url ? 'cursor-pointer hover:opacity-90' : ''}`}
+                        onClick={() => {
+                          if (event.event_external_url) {
+                            window.open(event.event_external_url, '_blank', 'noopener,noreferrer')
+                          }
+                        }}
+                      >
                         <CardContent className="p-6">
                           <div className="flex justify-between items-start mb-4">
-                            <h4 className="font-display text-xl font-bold text-gray-300">{event.title}</h4>
+                            <div className="flex items-center gap-2">
+                              <h4 className="font-display text-xl font-bold text-gray-300">{event.title}</h4>
+                              {event.event_external_url && (
+                                <ExternalLink className="w-4 h-4 text-gray-500" />
+                              )}
+                            </div>
                             <div className="text-right">
                               <div className="text-sm text-gray-400">{event.date}</div>
                               <div className="text-xs text-gray-500">{event.time}</div>
@@ -976,7 +1163,7 @@ export default function Home() {
                               </span>
                             </div>
                           </div>
-                          <div className="flex flex-wrap gap-2">
+                          <div className="flex flex-wrap gap-2 mb-3">
                             {event.artists.map((artist, artistIndex) => (
                               <span
                                 key={artistIndex}
@@ -986,6 +1173,20 @@ export default function Home() {
                               </span>
                             ))}
                           </div>
+                          {event.event_instagram_post && (
+                            <div className="mt-4 pt-4 border-t border-gray-800/30">
+                              <a
+                                href={event.event_instagram_post}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="flex items-center gap-2 text-gray-400 hover:text-gray-300 transition-colors text-sm"
+                              >
+                                <Instagram className="w-4 h-4" />
+                                <span>View Instagram Post</span>
+                              </a>
+                            </div>
+                          )}
                         </CardContent>
                       </Card>
                     ))}
