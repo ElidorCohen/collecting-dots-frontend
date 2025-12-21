@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { Card, CardContent } from "@/components/ui/card"
-import { Play, Share2, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Play, Pause, Share2, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { buildApiUrl } from '@/lib/api'
@@ -16,6 +16,7 @@ interface Release {
 	releaseDate: string
 	streams: string
 	color: string
+	previewUrl: string | null
 }
 
 // Color gradient options for variety
@@ -36,8 +37,11 @@ export default function ReleasesCarousel() {
 	const [progress, setProgress] = useState(0)
 	const [releases, setReleases] = useState<Release[]>([])
 	const [isLoading, setIsLoading] = useState(true)
+	const [playingTrackId, setPlayingTrackId] = useState<string | null>(null)
+	const [audioProgress, setAudioProgress] = useState(0)
 	const intervalRef = useRef<NodeJS.Timeout | null>(null)
 	const progressIntervalRef = useRef<NodeJS.Timeout | null>(null)
+	const audioRef = useRef<HTMLAudioElement | null>(null)
 
 	const SLIDE_DURATION = 4000 // 4 seconds
 	const PROGRESS_INTERVAL = 50 // Update progress every 50ms
@@ -76,6 +80,7 @@ export default function ReleasesCarousel() {
 							releaseDate: releaseDate,
 							streams: duration, // Using duration instead of streams
 							color: colorGradients[index % colorGradients.length],
+							previewUrl: track.track.preview_url || track.track.deezer_preview_url || null,
 						}
 					})
 
@@ -202,6 +207,66 @@ export default function ReleasesCarousel() {
 		}
 	}
 
+	// Handle audio playback
+	const handlePlayPause = useCallback((release: Release) => {
+		if (!release.previewUrl) {
+			console.log('No preview available for this track')
+			return
+		}
+
+		// If clicking on the same track that's playing, pause it
+		if (playingTrackId === release.id && audioRef.current) {
+			audioRef.current.pause()
+			setPlayingTrackId(null)
+			setAudioProgress(0)
+			return
+		}
+
+		// Stop any currently playing audio
+		if (audioRef.current) {
+			audioRef.current.pause()
+			audioRef.current.removeEventListener('ended', handleAudioEnded)
+			audioRef.current.removeEventListener('timeupdate', handleTimeUpdate)
+		}
+
+		// Create new audio element and play
+		const audio = new Audio(release.previewUrl)
+		audioRef.current = audio
+
+		audio.addEventListener('ended', handleAudioEnded)
+		audio.addEventListener('timeupdate', handleTimeUpdate)
+
+		audio.play().then(() => {
+			setPlayingTrackId(release.id)
+		}).catch((error) => {
+			console.error('Error playing audio:', error)
+			setPlayingTrackId(null)
+		})
+	}, [playingTrackId])
+
+	const handleAudioEnded = useCallback(() => {
+		setPlayingTrackId(null)
+		setAudioProgress(0)
+	}, [])
+
+	const handleTimeUpdate = useCallback(() => {
+		if (audioRef.current) {
+			const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
+			setAudioProgress(progress)
+		}
+	}, [])
+
+	// Cleanup audio on unmount
+	useEffect(() => {
+		return () => {
+			if (audioRef.current) {
+				audioRef.current.pause()
+				audioRef.current.removeEventListener('ended', handleAudioEnded)
+				audioRef.current.removeEventListener('timeupdate', handleTimeUpdate)
+			}
+		}
+	}, [handleAudioEnded, handleTimeUpdate])
+
 	// Show loading state
 	if (isLoading) {
 		return (
@@ -263,11 +328,31 @@ export default function ReleasesCarousel() {
 										<div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20 leading-10">
 											<Button
 												size="lg"
-												className="rounded-full bg-white text-black hover:bg-gray-200"
+												className={`rounded-full ${release.previewUrl ? 'bg-white text-black hover:bg-gray-200' : 'bg-gray-500 text-gray-300 cursor-not-allowed'}`}
+												onClick={(e) => {
+													e.stopPropagation()
+													handlePlayPause(release)
+												}}
+												disabled={!release.previewUrl}
+												title={release.previewUrl ? (playingTrackId === release.id ? 'Pause preview' : 'Play preview') : 'No preview available'}
 											>
-												<Play className="w-6 h-6 ml-1" />
+												{playingTrackId === release.id ? (
+													<Pause className="w-6 h-6" />
+												) : (
+													<Play className="w-6 h-6 ml-1" />
+												)}
 											</Button>
 										</div>
+										
+										{/* Audio Progress Bar (shown when playing) */}
+										{playingTrackId === release.id && (
+											<div className="absolute bottom-0 left-0 right-0 h-1 bg-black/50 z-30">
+												<div 
+													className="h-full bg-white transition-all duration-100"
+													style={{ width: `${audioProgress}%` }}
+												/>
+											</div>
+										)}
 
 										{/* Floating Dots Animation */}
 										<div className="absolute top-4 right-4 z-30">

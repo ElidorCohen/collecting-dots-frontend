@@ -30,6 +30,7 @@ interface Track {
     explicit: boolean;
     popularity: number;
     preview_url: string | null;
+    isrc: string | null;
     external_urls: { spotify: string };
   };
 }
@@ -197,6 +198,7 @@ export class SpotifyService {
               explicit: item.track.explicit,
               popularity: item.track.popularity,
               preview_url: item.track.preview_url,
+              isrc: item.track.external_ids?.isrc || null,
               external_urls: item.track.external_urls,
             },
           }));
