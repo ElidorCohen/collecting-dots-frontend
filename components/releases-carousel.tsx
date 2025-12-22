@@ -39,12 +39,28 @@ export default function ReleasesCarousel() {
 	const [isLoading, setIsLoading] = useState(true)
 	const [playingTrackId, setPlayingTrackId] = useState<string | null>(null)
 	const [audioProgress, setAudioProgress] = useState(0)
+	const [isMobile, setIsMobile] = useState(false)
+	const [hasPlayedAudioOnMobile, setHasPlayedAudioOnMobile] = useState(false)
 	const intervalRef = useRef<NodeJS.Timeout | null>(null)
 	const progressIntervalRef = useRef<NodeJS.Timeout | null>(null)
 	const audioRef = useRef<HTMLAudioElement | null>(null)
 
 	const SLIDE_DURATION = 4000 // 4 seconds
 	const PROGRESS_INTERVAL = 50 // Update progress every 50ms
+
+	// Detect mobile device
+	useEffect(() => {
+		const checkMobile = () => {
+			setIsMobile(window.innerWidth < 768) // md breakpoint
+		}
+		
+		checkMobile()
+		window.addEventListener('resize', checkMobile)
+		
+		return () => {
+			window.removeEventListener('resize', checkMobile)
+		}
+	}, [])
 
 	// Fetch playlist data from Spotify API
 	useEffect(() => {
@@ -130,7 +146,12 @@ export default function ReleasesCarousel() {
 			return
 		}
 
-		if (isPlaying) {
+		// On mobile, pause carousel when audio has been played (once user interacts with audio, stop auto-advance)
+		const shouldAutoPlay = isMobile 
+			? isPlaying && !hasPlayedAudioOnMobile // On mobile: only autoplay if audio hasn't been played yet
+			: isPlaying // On desktop: use hover state
+
+		if (shouldAutoPlay) {
 			startAutoPlay()
 		} else {
 			stopAutoPlay()
@@ -139,7 +160,7 @@ export default function ReleasesCarousel() {
 		return () => {
 			stopAutoPlay()
 		}
-	}, [isPlaying, currentIndex, releases.length])
+	}, [isPlaying, currentIndex, releases.length, isMobile, hasPlayedAudioOnMobile])
 
 	const handlePrevious = () => {
 		setCurrentIndex((prev) => (prev - 1 + releases.length) % releases.length)
@@ -219,6 +240,10 @@ export default function ReleasesCarousel() {
 			audioRef.current.pause()
 			setPlayingTrackId(null)
 			setAudioProgress(0)
+			// On mobile, resume carousel auto-advance when paused
+			if (isMobile) {
+				setHasPlayedAudioOnMobile(false)
+			}
 			return
 		}
 
@@ -227,27 +252,47 @@ export default function ReleasesCarousel() {
 			audioRef.current.pause()
 			audioRef.current.removeEventListener('ended', handleAudioEnded)
 			audioRef.current.removeEventListener('timeupdate', handleTimeUpdate)
+			audioRef.current = null
 		}
 
 		// Create new audio element and play
 		const audio = new Audio(release.previewUrl)
 		audioRef.current = audio
+		
+		// Set attributes for better mobile compatibility
+		audio.preload = 'auto'
+		audio.setAttribute('playsinline', 'true')
 
 		audio.addEventListener('ended', handleAudioEnded)
 		audio.addEventListener('timeupdate', handleTimeUpdate)
 
-		audio.play().then(() => {
-			setPlayingTrackId(release.id)
-		}).catch((error) => {
-			console.error('Error playing audio:', error)
-			setPlayingTrackId(null)
-		})
-	}, [playingTrackId])
+		// Play audio - mobile browsers require this to be in a user interaction handler
+		const playPromise = audio.play()
+		
+		if (playPromise !== undefined) {
+			playPromise.then(() => {
+				setPlayingTrackId(release.id)
+				// On mobile, mark that audio has been played to stop carousel auto-advance
+				if (isMobile) {
+					setHasPlayedAudioOnMobile(true)
+				}
+			}).catch((error) => {
+				console.error('Error playing audio:', error)
+				setPlayingTrackId(null)
+				// Reset audio ref on error
+				audioRef.current = null
+			})
+		}
+	}, [playingTrackId, isMobile])
 
 	const handleAudioEnded = useCallback(() => {
 		setPlayingTrackId(null)
 		setAudioProgress(0)
-	}, [])
+		// On mobile, resume carousel auto-advance when audio ends
+		if (isMobile) {
+			setHasPlayedAudioOnMobile(false)
+		}
+	}, [isMobile])
 
 	const handleTimeUpdate = useCallback(() => {
 		if (audioRef.current) {
@@ -324,13 +369,23 @@ export default function ReleasesCarousel() {
 											
 										/>
 
-										{/* Play Button Overlay */}
-										<div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20 leading-10">
+										{/* Play Button Overlay - Visible on mobile when card is centered, hover on desktop */}
+										<div className={`absolute inset-0 bg-black/40 transition-opacity duration-300 flex items-center justify-center z-20 leading-10 ${
+											index === currentIndex 
+												? 'opacity-100 md:opacity-0 md:group-hover:opacity-100' 
+												: 'opacity-0 group-hover:opacity-100'
+										}`}>
 											<Button
 												size="lg"
-												className={`rounded-full ${release.previewUrl ? 'bg-white text-black hover:bg-gray-200' : 'bg-gray-500 text-gray-300 cursor-not-allowed'}`}
+												className={`rounded-full ${release.previewUrl ? 'bg-white text-black hover:bg-gray-200 active:bg-gray-300' : 'bg-gray-500 text-gray-300 cursor-not-allowed'}`}
 												onClick={(e) => {
 													e.stopPropagation()
+													e.preventDefault()
+													handlePlayPause(release)
+												}}
+												onTouchEnd={(e) => {
+													e.stopPropagation()
+													e.preventDefault()
 													handlePlayPause(release)
 												}}
 												disabled={!release.previewUrl}
