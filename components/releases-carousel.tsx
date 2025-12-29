@@ -228,10 +228,83 @@ export default function ReleasesCarousel() {
 		}
 	}
 
+	// Audio event handlers - defined first so they can be referenced in handlePlayPause
+	const handleAudioEnded = useCallback(() => {
+		setPlayingTrackId(null)
+		setAudioProgress(0)
+		// On mobile, resume carousel auto-advance when audio ends
+		if (isMobile) {
+			setHasPlayedAudioOnMobile(false)
+		}
+	}, [isMobile])
+
+	const handleTimeUpdate = useCallback(() => {
+		if (audioRef.current) {
+			const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
+			setAudioProgress(progress)
+		}
+	}, [])
+
+	const handleAudioLoadStart = useCallback(() => {
+		// Audio started loading - this is good, no action needed
+		console.log('Audio load started')
+	}, [])
+
+	const handleAudioError = useCallback((event: Event) => {
+		const audio = event.target as HTMLAudioElement
+		const error = audio.error
+		
+		if (error) {
+			let errorMessage = 'Unknown error'
+			switch (error.code) {
+				case MediaError.MEDIA_ERR_ABORTED:
+					errorMessage = 'Playback aborted'
+					break
+				case MediaError.MEDIA_ERR_NETWORK:
+					errorMessage = 'Network error'
+					break
+				case MediaError.MEDIA_ERR_DECODE:
+					errorMessage = 'Decode error'
+					break
+				case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
+					errorMessage = 'Source not supported'
+					break
+			}
+			console.error('Audio playback error:', errorMessage, error.code, audio.src)
+		} else {
+			console.error('Audio playback error (no error code):', audio.src)
+		}
+		
+		setPlayingTrackId(null)
+		setAudioProgress(0)
+		
+		// Clean up - use refs directly to avoid circular dependencies
+		if (audioRef.current) {
+			audioRef.current.removeEventListener('error', handleAudioError)
+			audioRef.current.removeEventListener('ended', handleAudioEnded)
+			audioRef.current.removeEventListener('timeupdate', handleTimeUpdate)
+			audioRef.current.removeEventListener('loadstart', handleAudioLoadStart)
+			audioRef.current = null
+		}
+		
+		// On mobile, resume carousel auto-advance on error
+		if (isMobile) {
+			setHasPlayedAudioOnMobile(false)
+		}
+	}, [isMobile, handleAudioEnded, handleTimeUpdate, handleAudioLoadStart])
+
 	// Handle audio playback
-	const handlePlayPause = useCallback((release: Release) => {
+	const handlePlayPause = useCallback(async (release: Release) => {
 		if (!release.previewUrl) {
 			console.log('No preview available for this track')
+			return
+		}
+
+		// Validate URL format
+		try {
+			new URL(release.previewUrl)
+		} catch (error) {
+			console.error('Invalid preview URL format:', release.previewUrl, error)
 			return
 		}
 
@@ -252,6 +325,8 @@ export default function ReleasesCarousel() {
 			audioRef.current.pause()
 			audioRef.current.removeEventListener('ended', handleAudioEnded)
 			audioRef.current.removeEventListener('timeupdate', handleTimeUpdate)
+			audioRef.current.removeEventListener('error', handleAudioError)
+			audioRef.current.removeEventListener('loadstart', handleAudioLoadStart)
 			audioRef.current = null
 		}
 
@@ -262,9 +337,13 @@ export default function ReleasesCarousel() {
 		// Set attributes for better mobile compatibility
 		audio.preload = 'auto'
 		audio.setAttribute('playsinline', 'true')
+		// Note: Not setting crossOrigin to avoid CORS issues with Deezer
 
+		// Add event listeners
 		audio.addEventListener('ended', handleAudioEnded)
 		audio.addEventListener('timeupdate', handleTimeUpdate)
+		audio.addEventListener('error', handleAudioError)
+		audio.addEventListener('loadstart', handleAudioLoadStart)
 
 		// Play audio - mobile browsers require this to be in a user interaction handler
 		const playPromise = audio.play()
@@ -278,28 +357,14 @@ export default function ReleasesCarousel() {
 				}
 			}).catch((error) => {
 				console.error('Error playing audio:', error)
+				console.error('Failed URL:', release.previewUrl)
 				setPlayingTrackId(null)
+				setAudioProgress(0)
 				// Reset audio ref on error
 				audioRef.current = null
 			})
 		}
-	}, [playingTrackId, isMobile])
-
-	const handleAudioEnded = useCallback(() => {
-		setPlayingTrackId(null)
-		setAudioProgress(0)
-		// On mobile, resume carousel auto-advance when audio ends
-		if (isMobile) {
-			setHasPlayedAudioOnMobile(false)
-		}
-	}, [isMobile])
-
-	const handleTimeUpdate = useCallback(() => {
-		if (audioRef.current) {
-			const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
-			setAudioProgress(progress)
-		}
-	}, [])
+	}, [playingTrackId, isMobile, handleAudioEnded, handleTimeUpdate, handleAudioError, handleAudioLoadStart])
 
 	// Cleanup audio on unmount
 	useEffect(() => {
@@ -308,9 +373,11 @@ export default function ReleasesCarousel() {
 				audioRef.current.pause()
 				audioRef.current.removeEventListener('ended', handleAudioEnded)
 				audioRef.current.removeEventListener('timeupdate', handleTimeUpdate)
+				audioRef.current.removeEventListener('error', handleAudioError)
+				audioRef.current.removeEventListener('loadstart', handleAudioLoadStart)
 			}
 		}
-	}, [handleAudioEnded, handleTimeUpdate])
+	}, [handleAudioEnded, handleTimeUpdate, handleAudioError, handleAudioLoadStart])
 
 	// Show loading state
 	if (isLoading) {

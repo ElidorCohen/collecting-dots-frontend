@@ -76,8 +76,8 @@ export class DeezerService {
         headers: {
           'Accept': 'application/json',
         },
-        // Add cache to avoid hitting rate limits
-        next: { revalidate: 3600 }, // Cache for 1 hour
+        // Remove Next.js cache option as it may cause issues in API routes
+        cache: 'no-store', // Always fetch fresh data
       });
 
       if (!response.ok) {
@@ -101,11 +101,36 @@ export class DeezerService {
         };
       }
 
-      // Return the preview URL
+      // Validate preview URL before returning
+      const previewUrl = data.preview || null;
+      
+      // Check if preview URL is valid (not empty and is a valid URL)
+      if (previewUrl && previewUrl.trim() !== '') {
+        try {
+          // Validate URL format
+          new URL(previewUrl);
+          
+          return {
+            isrc,
+            previewUrl,
+            deezerTrackId: data.id || null,
+          };
+        } catch (urlError) {
+          console.warn(`Invalid preview URL format for ISRC ${isrc}:`, previewUrl);
+          return {
+            isrc,
+            previewUrl: null,
+            deezerTrackId: data.id || null,
+            error: 'Invalid preview URL format',
+          };
+        }
+      }
+      
       return {
         isrc,
-        previewUrl: data.preview || null,
+        previewUrl: null,
         deezerTrackId: data.id || null,
+        error: 'No preview URL available',
       };
     } catch (error: any) {
       console.error(`Error fetching Deezer preview for ISRC ${isrc}:`, error);
