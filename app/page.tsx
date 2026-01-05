@@ -1280,7 +1280,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="font-display font-bold mb-4 tracking-tight text-4xl">COLLECTING DOTS MEDIA ARCHIVE </h2>
-            <p className="text-gray-300 text-lg font-light">Live DJ sets from Omri and our label artists</p>
+            <p className="text-gray-300 text-lg font-light">Live sets from the DOT family</p>
           </div>
 
           {isLoadingVideos ? (
