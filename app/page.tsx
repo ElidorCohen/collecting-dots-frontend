@@ -524,7 +524,17 @@ export default function Home() {
         body: formDataToSubmit,
       })
 
-      const data = await response.json()
+      // Check if response is JSON before parsing
+      const contentType = response.headers.get('content-type')
+      let data: any
+      
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json()
+      } else {
+        // Non-JSON response (likely an error from proxy/server)
+        const textResponse = await response.text()
+        throw new Error(textResponse || `Server returned non-JSON response (${response.status})`)
+      }
 
       if (response.ok) {
         // Success
