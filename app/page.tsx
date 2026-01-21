@@ -249,11 +249,11 @@ export default function Home() {
       try {
         setIsLoadingEvents(true)
         const response = await fetch(buildApiUrl('/api/get-events-data'))
-        
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
-        
+
         const data = await response.json()
 
         if (data.success && data.data && Array.isArray(data.data)) {
@@ -299,7 +299,7 @@ export default function Home() {
             eventDateStart.setHours(0, 0, 0, 0)
 
             const { venue, location } = splitLocation(event.location)
-            const artists = event.artists 
+            const artists = event.artists
               ? event.artists.split(',').map((a: string) => a.trim()).filter((a: string) => a.length > 0)
               : []
 
@@ -397,7 +397,7 @@ export default function Home() {
       clearInterval(checkInterval)
       clearTimeout(timeout)
     }
-  }, [formData.audioFile])
+  }, [formData.audioFile, submissionStatus.type]) // Re-run when audioFile changes or when returning from success screen
 
   // Check if form is valid
   const isFormValid = () => {
@@ -433,6 +433,9 @@ export default function Home() {
   }
 
   // Handle file upload
+  // Max file size: 50MB
+  const MAX_FILE_SIZE = 50 * 1024 * 1024
+
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
@@ -445,30 +448,29 @@ export default function Home() {
 
       const fileExtension = file.name.toLowerCase().slice(file.name.lastIndexOf("."))
 
-      if (validTypes.includes(fileType) || validExtensions.includes(fileExtension)) {
-        const progressInterval = setInterval(() => {
-          setUploadProgress((prev) => {
-            if (prev >= 100) {
-              clearInterval(progressInterval)
-              return 100
-            }
-            return prev + Math.random() * 15 + 5 // Random increment between 5-20%
-          })
-        }, 200)
-
-        setTimeout(() => {
-          clearInterval(progressInterval)
-          setUploadProgress(100)
-          setFormData((prev) => ({ ...prev, audioFile: file }))
-          setErrors((prev) => ({ ...prev, audioFile: "" }))
-          setIsUploading(false)
-        }, 1500) // 1.5 second loading simulation
-      } else {
+      // Validate file type
+      if (!validTypes.includes(fileType) && !validExtensions.includes(fileExtension)) {
         setErrors((prev) => ({ ...prev, audioFile: "Please upload an MP3 or WAV file only" }))
         setIsUploading(false)
         setUploadProgress(0)
         event.target.value = "" // Clear the input
+        return
       }
+
+      // Validate file size (max 50MB)
+      if (file.size > MAX_FILE_SIZE) {
+        setErrors((prev) => ({ ...prev, audioFile: "File size must be under 50MB" }))
+        setIsUploading(false)
+        setUploadProgress(0)
+        event.target.value = "" // Clear the input
+        return
+      }
+
+      // File is valid - set it immediately (no fake progress, real upload happens on submit)
+      setFormData((prev) => ({ ...prev, audioFile: file }))
+      setErrors((prev) => ({ ...prev, audioFile: "" }))
+      setUploadProgress(0) // Keep at 0 - real progress shown during submission
+      setIsUploading(false)
     }
   }
 
@@ -480,103 +482,169 @@ export default function Home() {
   }
 
   // Handle form submission
+  // Upload step tracking for UI
+  const [uploadStep, setUploadStep] = useState<'idle' | 'getting_link' | 'uploading' | 'confirming'>('idle')
+
   const handleSubmit = async () => {
     if (!isFormValid()) return
 
     setIsUploading(true)
+    setUploadProgress(0)
     setSubmissionStatus({ type: null, message: "" })
+    setUploadStep('getting_link')
 
     try {
-      // Create FormData object for multipart/form-data
-      const formDataToSubmit = new FormData()
-
-      // Add file with the expected field name 'demo_file'
-      if (formData.audioFile) {
-        formDataToSubmit.append('demo_file', formData.audioFile)
-      }
-
-      // Add required fields
-      formDataToSubmit.append('artist_name', formData.artistName)
-      formDataToSubmit.append('track_title', formData.trackTitle)
-      formDataToSubmit.append('email', formData.email)
-      formDataToSubmit.append('full_name', formData.fullName)
-      formDataToSubmit.append('instagram_username', formData.instagram)
-
-      // Add optional fields only if they have values
-      if (formData.beatport) {
-        formDataToSubmit.append('beatport', formData.beatport)
-      }
-      if (formData.facebook) {
-        formDataToSubmit.append('facebook', formData.facebook)
-      }
-      if (formData.x) {
-        formDataToSubmit.append('x_twitter', formData.x)
-      }
-
-      // Add Turnstile CAPTCHA token
-      if (captchaToken) {
-        formDataToSubmit.append('cf_turnstile_response', captchaToken)
-      }
-
-      // Submit to API
-      const response = await fetch(buildApiUrl('/api/submit-demo'), {
+      // ============================================
+      // STEP 1: Get temporary upload link from API
+      // ============================================
+      const linkResponse = await fetch(buildApiUrl('/api/get-upload-link'), {
         method: 'POST',
-        body: formDataToSubmit,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          artist_name: formData.artistName,
+          track_title: formData.trackTitle,
+          cf_turnstile_response: captchaToken,
+        }),
       })
 
-      // Check if response is JSON before parsing
-      const contentType = response.headers.get('content-type')
-      let data: any
-      
-      if (contentType && contentType.includes('application/json')) {
-        data = await response.json()
+      // Check response
+      const linkContentType = linkResponse.headers.get('content-type')
+      let linkData: any
+
+      if (linkContentType && linkContentType.includes('application/json')) {
+        linkData = await linkResponse.json()
       } else {
-        // Non-JSON response (likely an error from proxy/server)
-        const textResponse = await response.text()
-        throw new Error(textResponse || `Server returned non-JSON response (${response.status})`)
+        const textResponse = await linkResponse.text()
+        throw new Error(textResponse || `Server returned non-JSON response (${linkResponse.status})`)
       }
 
-      if (response.ok) {
-        // Success
-        setSubmissionStatus({
-          type: "success",
-          message: "Demo submitted successfully!",
-          demoId: data.demo_id,
-        })
-
-        // Don't reset form immediately - let user see the success message
-        // Keep the form fields but clear their values
-        setFormData({
-          trackTitle: "",
-          artistName: "",
-          fullName: "",
-          email: "",
-          instagram: "",
-          beatport: "",
-          facebook: "",
-          x: "",
-          audioFile: formData.audioFile, // Keep the file to maintain UI state
-        })
-        setErrors({ email: "", audioFile: "", captcha: "" })
-
-        // Reset Turnstile widget after successful submission
-        if (turnstileWidgetId.current && (window as any).turnstile) {
-          (window as any).turnstile.reset(turnstileWidgetId.current)
-          setCaptchaToken(null)
-        }
-      } else {
-        // Error
-        setSubmissionStatus({
-          type: "error",
-          message: data.error || 'Unknown error occurred',
-        })
-
-        // Reset CAPTCHA on error (especially for 403 CAPTCHA failures)
-        if (response.status === 403 && turnstileWidgetId.current && (window as any).turnstile) {
-          (window as any).turnstile.reset(turnstileWidgetId.current)
-          setCaptchaToken(null)
-        }
+      if (!linkResponse.ok) {
+        throw new Error(linkData.error || 'Failed to get upload link')
       }
+
+      const { upload_url, file_path, session_id } = linkData
+
+      // ============================================
+      // STEP 2: Upload file directly to Dropbox
+      // This bypasses Vercel's 4.5MB limit!
+      // ============================================
+      setUploadStep('uploading')
+
+      // Use XMLHttpRequest for progress tracking
+      const uploadResult = await new Promise<{ content_hash?: string }>((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+
+        // Track upload progress
+        xhr.upload.addEventListener('progress', (event) => {
+          if (event.lengthComputable) {
+            const percentComplete = Math.round((event.loaded / event.total) * 100)
+            setUploadProgress(percentComplete)
+          }
+        })
+
+        xhr.addEventListener('load', () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            try {
+              const response = JSON.parse(xhr.responseText)
+              resolve({ content_hash: response.content_hash })
+            } catch {
+              // Dropbox might return empty response on success
+              resolve({})
+            }
+          } else if (xhr.status === 410) {
+            reject(new Error('Upload link expired. Please try again.'))
+          } else if (xhr.status === 409) {
+            reject(new Error('Upload conflict. Please try again with a different track name.'))
+          } else {
+            reject(new Error(`Upload failed with status ${xhr.status}`))
+          }
+        })
+
+        xhr.addEventListener('error', () => {
+          reject(new Error('Network error during upload. Please check your connection and try again.'))
+        })
+
+        xhr.addEventListener('abort', () => {
+          reject(new Error('Upload was cancelled.'))
+        })
+
+        // Open connection to Dropbox temporary upload URL
+        xhr.open('POST', upload_url)
+        xhr.setRequestHeader('Content-Type', 'application/octet-stream')
+
+        // Send the file directly (raw binary, not FormData)
+        xhr.send(formData.audioFile)
+      })
+
+      // ============================================
+      // STEP 3: Confirm upload and save metadata
+      // ============================================
+      setUploadStep('confirming')
+      setUploadProgress(100)
+
+      const confirmResponse = await fetch(buildApiUrl('/api/confirm-demo-upload'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          session_id: session_id,
+          file_path: file_path,
+          content_hash: uploadResult.content_hash || null,
+          artist_name: formData.artistName,
+          track_title: formData.trackTitle,
+          email: formData.email,
+          full_name: formData.fullName,
+          instagram_username: formData.instagram,
+          beatport: formData.beatport || undefined,
+          facebook: formData.facebook || undefined,
+          x_twitter: formData.x || undefined,
+        }),
+      })
+
+      // Check response
+      const confirmContentType = confirmResponse.headers.get('content-type')
+      let confirmData: any
+
+      if (confirmContentType && confirmContentType.includes('application/json')) {
+        confirmData = await confirmResponse.json()
+      } else {
+        const textResponse = await confirmResponse.text()
+        throw new Error(textResponse || `Server returned non-JSON response (${confirmResponse.status})`)
+      }
+
+      if (!confirmResponse.ok) {
+        throw new Error(confirmData.error || 'Failed to confirm upload')
+      }
+
+      // ============================================
+      // SUCCESS!
+      // ============================================
+      setSubmissionStatus({
+        type: "success",
+        message: "Demo submitted successfully!",
+        demoId: confirmData.demo_id,
+      })
+
+      // Don't reset form immediately - let user see the success message
+      // Keep the form fields but clear their values
+      setFormData({
+        trackTitle: "",
+        artistName: "",
+        fullName: "",
+        email: "",
+        instagram: "",
+        beatport: "",
+        facebook: "",
+        x: "",
+        audioFile: formData.audioFile, // Keep the file to maintain UI state
+      })
+      setErrors({ email: "", audioFile: "", captcha: "" })
+
+      // Reset Turnstile widget after successful submission
+      if (turnstileWidgetId.current && (window as any).turnstile) {
+        (window as any).turnstile.reset(turnstileWidgetId.current)
+        setCaptchaToken(null)
+      }
+
     } catch (error: any) {
       console.error('Submission error:', error)
       setSubmissionStatus({
@@ -584,13 +652,14 @@ export default function Home() {
         message: error.message || 'Network error occurred',
       })
 
-      // Reset CAPTCHA on network error
+      // Reset CAPTCHA on error
       if (turnstileWidgetId.current && (window as any).turnstile) {
         (window as any).turnstile.reset(turnstileWidgetId.current)
         setCaptchaToken(null)
       }
     } finally {
       setIsUploading(false)
+      setUploadStep('idle')
     }
   }
 
@@ -795,7 +864,7 @@ export default function Home() {
               {/* Mobile Artists Carousel with Navigation */}
               <div className="relative overflow-hidden md:hidden">
                 <div className="relative">
-                  <div 
+                  <div
                     className="flex transition-transform duration-500 ease-in-out"
                     style={{ transform: `translateX(-${currentArtistIndex * 100}%)` }}
                   >
@@ -809,9 +878,8 @@ export default function Home() {
                           onClick={() => toggleCardFlip(index)}
                         >
                           <div
-                            className={`relative w-full h-96 preserve-3d transition-transform duration-700 ${
-                              flippedCards.has(index) ? "rotate-y-180" : ""
-                            }`}
+                            className={`relative w-full h-96 preserve-3d transition-transform duration-700 ${flippedCards.has(index) ? "rotate-y-180" : ""
+                              }`}
                           >
                             {/* Front of card */}
                             <div className="absolute inset-0 w-full h-full backface-hidden">
@@ -938,9 +1006,8 @@ export default function Home() {
                       onClick={() => toggleCardFlip(index)}
                     >
                       <div
-                        className={`relative w-full h-96 preserve-3d transition-transform duration-700 ${
-                          flippedCards.has(index) ? "rotate-y-180" : ""
-                        }`}
+                        className={`relative w-full h-96 preserve-3d transition-transform duration-700 ${flippedCards.has(index) ? "rotate-y-180" : ""
+                          }`}
                       >
                         {/* Front of card */}
                         <div className="absolute inset-0 w-full h-full backface-hidden">
@@ -1143,8 +1210,8 @@ export default function Home() {
                 ) : (
                   <div className="space-y-6 pb-4">
                     {pastEvents.map((event, index) => (
-                      <Card 
-                        key={index} 
+                      <Card
+                        key={index}
                         className={`bg-gray-900/60 border-gray-800/30 backdrop-blur-sm opacity-75 ${event.event_external_url ? 'cursor-pointer hover:opacity-90' : ''}`}
                         onClick={() => {
                           if (event.event_external_url) {
@@ -1449,14 +1516,14 @@ export default function Home() {
                         </Button>
                       </div>
                     </div>
-                  ) : isUploading ? (
+                  ) : isUploading && !formData.audioFile ? (
                     <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 text-center">
                       <div className="flex flex-col items-center">
                         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mb-6"></div>
                         <h3 className="text-white text-2xl font-display font-bold mb-3 tracking-tight">
-                          UPLOADING YOUR TRACK...
+                          VALIDATING FILE...
                         </h3>
-                        <p className="text-gray-400 text-lg font-light">PROCESSING YOUR AUDIO FILE</p>
+                        <p className="text-gray-400 text-lg font-light">CHECKING YOUR AUDIO FILE</p>
                       </div>
                     </div>
                   ) : (
@@ -1488,150 +1555,167 @@ export default function Home() {
                               </Button>
                             </div>
 
-                            {/* File display with enhanced styling */}
-                            <div className="space-y-2">
-                              <div className="flex items-center justify-between">
-                                <span className="text-white font-medium text-sm">UPLOAD PROGRESS</span>
-                                <span className="text-green-400 font-mono text-sm">{Math.round(uploadProgress)}%</span>
+                            {/* File display with upload progress - only show during active upload */}
+                            {uploadStep !== 'idle' && (
+                              <div className="space-y-2">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-white font-medium text-sm">
+                                    {uploadStep === 'getting_link' ? 'PREPARING UPLOAD...' :
+                                      uploadStep === 'uploading' ? 'UPLOADING TO DROPBOX...' :
+                                        uploadStep === 'confirming' ? 'FINALIZING...' :
+                                          'UPLOAD PROGRESS'}
+                                  </span>
+                                  <span className="text-green-400 font-mono text-sm">{Math.round(uploadProgress)}%</span>
+                                </div>
+                                <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                                  <div
+                                    className="h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full transition-all duration-300 ease-out"
+                                    style={{ width: `${uploadProgress}%` }}
+                                  />
+                                </div>
+                                <p className="text-gray-400 text-xs font-light">
+                                  {uploadStep === 'getting_link' ? 'PREPARING SECURE UPLOAD LINK...' :
+                                    uploadStep === 'uploading' ? 'UPLOADING YOUR TRACK DIRECTLY TO DROPBOX...' :
+                                      uploadStep === 'confirming' ? 'SAVING METADATA AND SENDING CONFIRMATION...' :
+                                        'PROCESSING...'}
+                                </p>
                               </div>
-                              <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
-                                <div
-                                  className="h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full transition-all duration-300 ease-out"
-                                  style={{ width: `${uploadProgress}%` }}
-                                />
+                            )}
+                            {uploadStep === 'idle' && (
+                              <div className="flex items-center space-x-2 text-green-400">
+                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span className="text-sm font-medium">FILE READY - FILL IN THE FORM AND SUBMIT</span>
                               </div>
-                              <p className="text-gray-400 text-xs font-light">
-                                {uploadProgress < 100 ? "PROCESSING YOUR TRACK..." : "UPLOAD COMPLETE!"}
-                              </p>
-                            </div>
+                            )}
                           </div>
 
                           {/* Required Fields with enhanced styling */}
                           <div className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div className="space-y-3">
-                            <Label htmlFor="track-title" className="text-white font-medium text-lg">
-                              TRACK TITLE *
-                            </Label>
-                            <Input
-                              id="track-title"
-                              placeholder="NAME OF YOUR TRACK"
-                              value={formData.trackTitle}
-                              onChange={(e) => handleInputChange("trackTitle", e.target.value)}
-                              className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
-                            />
-                          </div>
-                          <div className="space-y-3">
-                            <Label htmlFor="artist-name" className="text-white font-medium text-lg">
-                              ARTIST NAME *
-                            </Label>
-                            <Input
-                              id="artist-name"
-                              placeholder="YOUR ARTIST NAME"
-                              value={formData.artistName}
-                              onChange={(e) => handleInputChange("artistName", e.target.value)}
-                              className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
-                            />
-                          </div>
-                        </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                              <div className="space-y-3">
+                                <Label htmlFor="track-title" className="text-white font-medium text-lg">
+                                  TRACK TITLE *
+                                </Label>
+                                <Input
+                                  id="track-title"
+                                  placeholder="NAME OF YOUR TRACK"
+                                  value={formData.trackTitle}
+                                  onChange={(e) => handleInputChange("trackTitle", e.target.value)}
+                                  className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
+                                />
+                              </div>
+                              <div className="space-y-3">
+                                <Label htmlFor="artist-name" className="text-white font-medium text-lg">
+                                  ARTIST NAME *
+                                </Label>
+                                <Input
+                                  id="artist-name"
+                                  placeholder="YOUR ARTIST NAME"
+                                  value={formData.artistName}
+                                  onChange={(e) => handleInputChange("artistName", e.target.value)}
+                                  className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
+                                />
+                              </div>
+                            </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div className="space-y-3">
-                            <Label htmlFor="full-name" className="text-white font-medium text-lg">
-                              FULL NAME *
-                            </Label>
-                            <Input
-                              id="full-name"
-                              placeholder="YOUR FULL NAME"
-                              value={formData.fullName}
-                              onChange={(e) => handleInputChange("fullName", e.target.value)}
-                              className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
-                            />
-                          </div>
-                          <div className="space-y-3">
-                            <Label htmlFor="email" className="text-white font-medium text-lg">
-                              EMAIL *
-                            </Label>
-                            <Input
-                              id="email"
-                              type="email"
-                              placeholder="YOUR@EMAIL.COM"
-                              value={formData.email}
-                              onChange={(e) => handleInputChange("email", e.target.value)}
-                              className={`bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors ${
-                                errors.email ? "border-red-500" : ""
-                              }`}
-                            />
-                            {errors.email && <p className="text-red-400 text-sm font-light uppercase">{errors.email}</p>}
-                          </div>
-                        </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                              <div className="space-y-3">
+                                <Label htmlFor="full-name" className="text-white font-medium text-lg">
+                                  FULL NAME *
+                                </Label>
+                                <Input
+                                  id="full-name"
+                                  placeholder="YOUR FULL NAME"
+                                  value={formData.fullName}
+                                  onChange={(e) => handleInputChange("fullName", e.target.value)}
+                                  className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
+                                />
+                              </div>
+                              <div className="space-y-3">
+                                <Label htmlFor="email" className="text-white font-medium text-lg">
+                                  EMAIL *
+                                </Label>
+                                <Input
+                                  id="email"
+                                  type="email"
+                                  placeholder="YOUR@EMAIL.COM"
+                                  value={formData.email}
+                                  onChange={(e) => handleInputChange("email", e.target.value)}
+                                  className={`bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors ${errors.email ? "border-red-500" : ""
+                                    }`}
+                                />
+                                {errors.email && <p className="text-red-400 text-sm font-light uppercase">{errors.email}</p>}
+                              </div>
+                            </div>
 
-                        <div className="space-y-3">
-                          <Label htmlFor="instagram" className="text-white font-medium text-lg">
-                            INSTAGRAM *
-                          </Label>
-                          <Input
-                            id="instagram"
-                            placeholder="@YOURUSERNAME OR FULL INSTAGRAM URL"
-                            value={formData.instagram}
-                            onChange={(e) => handleInputChange("instagram", e.target.value)}
-                            className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
-                          />
-                        </div>
-
-                        {/* Optional Social Media Fields - removed header text */}
-                        <div className="space-y-4 pt-4 border-t border-gray-700/50">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-3">
-                              <Label htmlFor="beatport" className="text-gray-300 font-medium">
-                                BEATPORT
+                              <Label htmlFor="instagram" className="text-white font-medium text-lg">
+                                INSTAGRAM *
                               </Label>
                               <Input
-                                id="beatport"
-                                placeholder="BEATPORT PROFILE URL"
-                                value={formData.beatport}
-                                onChange={(e) => handleInputChange("beatport", e.target.value)}
-                                className="bg-black/30 border-gray-700 text-white placeholder:text-gray-500 font-light h-11 focus:border-gray-500 transition-colors"
+                                id="instagram"
+                                placeholder="@YOURUSERNAME OR FULL INSTAGRAM URL"
+                                value={formData.instagram}
+                                onChange={(e) => handleInputChange("instagram", e.target.value)}
+                                className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
                               />
                             </div>
-                            <div className="space-y-3">
-                              <Label htmlFor="facebook" className="text-gray-300 font-medium">
-                                FACEBOOK
+
+                            {/* Optional Social Media Fields - removed header text */}
+                            <div className="space-y-4 pt-4 border-t border-gray-700/50">
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="space-y-3">
+                                  <Label htmlFor="beatport" className="text-gray-300 font-medium">
+                                    BEATPORT
+                                  </Label>
+                                  <Input
+                                    id="beatport"
+                                    placeholder="BEATPORT PROFILE URL"
+                                    value={formData.beatport}
+                                    onChange={(e) => handleInputChange("beatport", e.target.value)}
+                                    className="bg-black/30 border-gray-700 text-white placeholder:text-gray-500 font-light h-11 focus:border-gray-500 transition-colors"
+                                  />
+                                </div>
+                                <div className="space-y-3">
+                                  <Label htmlFor="facebook" className="text-gray-300 font-medium">
+                                    FACEBOOK
+                                  </Label>
+                                  <Input
+                                    id="facebook"
+                                    placeholder="FACEBOOK PAGE URL"
+                                    value={formData.facebook}
+                                    onChange={(e) => handleInputChange("facebook", e.target.value)}
+                                    className="bg-black/30 border-gray-700 text-white placeholder:text-gray-500 font-light h-11 focus:border-gray-500 transition-colors"
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="space-y-3">
+                                <Label htmlFor="x" className="text-gray-300 font-medium">
+                                  X (TWITTER)
+                                </Label>
+                                <Input
+                                  id="x"
+                                  placeholder="X/TWITTER PROFILE URL"
+                                  value={formData.x}
+                                  onChange={(e) => handleInputChange("x", e.target.value)}
+                                  className="bg-black/30 border-gray-700 text-white placeholder:text-gray-500 font-light h-11 focus:border-gray-500 transition-colors"
+                                />
+                              </div>
+                            </div>
+
+                            {/* Turnstile CAPTCHA Widget */}
+                            <div className="space-y-3 pt-6 border-t border-gray-700/50">
+                              <Label className="text-white font-medium text-lg">
+                                VERIFICATION *
                               </Label>
-                              <Input
-                                id="facebook"
-                                placeholder="FACEBOOK PAGE URL"
-                                value={formData.facebook}
-                                onChange={(e) => handleInputChange("facebook", e.target.value)}
-                                className="bg-black/30 border-gray-700 text-white placeholder:text-gray-500 font-light h-11 focus:border-gray-500 transition-colors"
-                              />
+                              <div id="turnstile-widget" className="flex justify-center"></div>
+                              {errors.captcha && (
+                                <p className="text-red-400 text-sm font-light text-center uppercase">{errors.captcha}</p>
+                              )}
                             </div>
-                          </div>
-
-                          <div className="space-y-3">
-                            <Label htmlFor="x" className="text-gray-300 font-medium">
-                              X (TWITTER)
-                            </Label>
-                            <Input
-                              id="x"
-                              placeholder="X/TWITTER PROFILE URL"
-                              value={formData.x}
-                              onChange={(e) => handleInputChange("x", e.target.value)}
-                              className="bg-black/30 border-gray-700 text-white placeholder:text-gray-500 font-light h-11 focus:border-gray-500 transition-colors"
-                            />
-                          </div>
-                        </div>
-
-                          {/* Turnstile CAPTCHA Widget */}
-                          <div className="space-y-3 pt-6 border-t border-gray-700/50">
-                            <Label className="text-white font-medium text-lg">
-                              VERIFICATION *
-                            </Label>
-                            <div id="turnstile-widget" className="flex justify-center"></div>
-                            {errors.captcha && (
-                              <p className="text-red-400 text-sm font-light text-center uppercase">{errors.captcha}</p>
-                            )}
-                          </div>
 
                           </div>
                         </>
@@ -1644,16 +1728,18 @@ export default function Home() {
                             onClick={handleSubmit}
                             disabled={!isFormValid() || isUploading}
                             size="lg"
-                            className={`w-full h-14 text-lg font-medium transition-all duration-300 ${
-                              isFormValid() && !isUploading
-                                ? "bg-white text-black hover:bg-gray-200 hover:scale-[1.02] shadow-lg"
-                                : "bg-gray-700 text-gray-400 cursor-not-allowed"
-                            }`}
+                            className={`w-full h-14 text-lg font-medium transition-all duration-300 ${isFormValid() && !isUploading
+                              ? "bg-white text-black hover:bg-gray-200 hover:scale-[1.02] shadow-lg"
+                              : "bg-gray-700 text-gray-400 cursor-not-allowed"
+                              }`}
                           >
                             {isUploading ? (
                               <span className="flex items-center justify-center">
                                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-400 mr-2"></div>
-                                SUBMITTING...
+                                {uploadStep === 'getting_link' ? 'PREPARING...' :
+                                  uploadStep === 'uploading' ? `UPLOADING ${uploadProgress}%` :
+                                    uploadStep === 'confirming' ? 'FINALIZING...' :
+                                      'SUBMITTING...'}
                               </span>
                             ) : (
                               "SUBMIT DEMO"
@@ -1663,79 +1749,102 @@ export default function Home() {
 
                         {/* Success/Error Message Display */}
                         {submissionStatus.type && (
-                            <div
-                              className={`animate-in slide-in-from-top-2 duration-500 p-6 rounded-lg border-2 ${
-                                submissionStatus.type === "success"
-                                  ? "bg-green-500/10 border-green-500/50 text-white"
-                                  : "bg-red-500/10 border-red-500/50 text-red-400"
+                          <div
+                            className={`animate-in slide-in-from-top-2 duration-500 p-6 rounded-lg border-2 ${submissionStatus.type === "success"
+                              ? "bg-green-500/10 border-green-500/50 text-white"
+                              : "bg-red-500/10 border-red-500/50 text-red-400"
                               }`}
-                            >
-                              <div className="flex items-start space-x-3">
-                                <div className="flex-shrink-0 mt-1">
-                                  {submissionStatus.type === "success" ? (
-                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                                      />
-                                    </svg>
-                                  ) : (
-                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                      />
-                                    </svg>
-                                  )}
-                                </div>
-                                <div className="flex-1">
-                                  <h4 className="font-display font-bold text-lg mb-1">
-                                    {submissionStatus.type === "success" ? "SUCCESS!" : "ERROR"}
-                                  </h4>
-                                  <p className="text-sm font-light mb-2">{submissionStatus.message}</p>
-                                  {submissionStatus.demoId && (
-                                    <p className="text-sm font-mono bg-black/30 px-3 py-2 rounded border border-green-500/30 mt-3 text-white">
-                                      <span className="font-bold">{submissionStatus.demoId}</span>
-                                    </p>
-                                  )}
-                                  {submissionStatus.type === "success" && (
-                                    <Button
-                                      onClick={() => {
-                                        setFormData({
-                                          trackTitle: "",
-                                          artistName: "",
-                                          fullName: "",
-                                          email: "",
-                                          instagram: "",
-                                          beatport: "",
-                                          facebook: "",
-                                          x: "",
-                                          audioFile: null,
-                                        })
-                                        setSubmissionStatus({ type: null, message: "" })
-                                        setUploadProgress(0)
-                                        setErrors({ email: "", audioFile: "", captcha: "" })
+                          >
+                            <div className="flex items-start space-x-3">
+                              <div className="flex-shrink-0 mt-1">
+                                {submissionStatus.type === "success" ? (
+                                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    />
+                                  </svg>
+                                ) : (
+                                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    />
+                                  </svg>
+                                )}
+                              </div>
+                              <div className="flex-1">
+                                <h4 className="font-display font-bold text-lg mb-1">
+                                  {submissionStatus.type === "success" ? "SUCCESS!" : "ERROR"}
+                                </h4>
+                                <p className="text-sm font-light mb-2">{submissionStatus.message}</p>
+                                {submissionStatus.demoId && (
+                                  <p className="text-sm font-mono bg-black/30 px-3 py-2 rounded border border-green-500/30 mt-3 text-white">
+                                    <span className="font-bold">{submissionStatus.demoId}</span>
+                                  </p>
+                                )}
+                                {submissionStatus.type === "success" && (
+                                  <Button
+                                    onClick={() => {
+                                      setFormData({
+                                        trackTitle: "",
+                                        artistName: "",
+                                        fullName: "",
+                                        email: "",
+                                        instagram: "",
+                                        beatport: "",
+                                        facebook: "",
+                                        x: "",
+                                        audioFile: null,
+                                      })
+                                      setSubmissionStatus({ type: null, message: "" })
+                                      setUploadProgress(0)
+                                      setUploadStep('idle')
+                                      setErrors({ email: "", audioFile: "", captcha: "" })
+                                      setCaptchaToken(null)
 
-                                        // Reset Turnstile widget
-                                        if (turnstileWidgetId.current && (window as any).turnstile) {
+                                      // Clear the widget ID so it re-initializes when form re-renders
+                                      // The old widget was removed from DOM when success screen showed
+                                      turnstileWidgetId.current = null
+                                    }}
+                                    className="mt-4 bg-white hover:bg-gray-200 text-black font-medium border border-green-500/30"
+                                  >
+                                    SUBMIT ANOTHER DEMO
+                                  </Button>
+                                )}
+                                {submissionStatus.type === "error" && (
+                                  <Button
+                                    onClick={() => {
+                                      // Clear error and allow retry
+                                      setSubmissionStatus({ type: null, message: "" })
+                                      setUploadProgress(0)
+                                      setUploadStep('idle')
+                                      setCaptchaToken(null)
+
+                                      // Reset Turnstile widget for new attempt
+                                      if (turnstileWidgetId.current && (window as any).turnstile) {
+                                        try {
                                           (window as any).turnstile.reset(turnstileWidgetId.current)
-                                          setCaptchaToken(null)
+                                        } catch {
+                                          // Widget may have been removed, clear the ref so it re-initializes
+                                          turnstileWidgetId.current = null
                                         }
-                                      }}
-                                      className="mt-4 bg-white hover:bg-gray-200 text-black font-medium border border-green-500/30"
-                                    >
-                                      SUBMIT ANOTHER DEMO
-                                    </Button>
-                                  )}
-                                </div>
+                                      }
+                                    }}
+                                    className="mt-4 bg-red-500/20 hover:bg-red-500/30 text-white font-medium border border-red-500/30"
+                                  >
+                                    TRY AGAIN
+                                  </Button>
+                                )}
                               </div>
                             </div>
-                          )}
-                        </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   )}
                   {errors.audioFile && <p className="text-red-400 text-sm font-light uppercase">{errors.audioFile}</p>}
@@ -1756,9 +1865,9 @@ export default function Home() {
             </div>
 
             <div className="flex space-x-6">
-              <Button 
-                variant="ghost" 
-                size="icon" 
+              <Button
+                variant="ghost"
+                size="icon"
                 className="text-gray-400 hover:text-white"
                 onClick={() => window.open("mailto:office@collectingdots.com", "_blank")}
               >

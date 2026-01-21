@@ -1,5 +1,20 @@
 import { Dropbox } from 'dropbox';
 
+// Type for demo metadata
+export interface DemoMetadata {
+  artist_name: string;
+  track_title: string;
+  email: string;
+  full_name: string;
+  instagram_username: string;
+  beatport?: string | null;
+  facebook?: string | null;
+  x_twitter?: string | null;
+  submitted_at: string;
+  demo_id: string;
+  content_hash?: string;
+}
+
 // Custom fetch wrapper that adds buffer() method to Response
 const customFetch = async (url: RequestInfo | URL, init?: RequestInit) => {
   const response = await fetch(url, init);
@@ -137,7 +152,7 @@ export class DropboxService {
       // Try different ways to access the file content
       // Dropbox SDK can return content in different formats depending on environment
       let buffer: Buffer | undefined;
-      
+
       // Try response.result.fileBlob (browser/Next.js environment - Blob object)
       if (response.result?.fileBlob) {
         const blob = response.result.fileBlob;
@@ -196,7 +211,7 @@ export class DropboxService {
         });
         throw new Error('File content not found in Dropbox response. Check response structure.');
       }
-      
+
       const fileText = buffer.toString('utf-8');
 
       // Parse JSON
@@ -257,7 +272,7 @@ export class DropboxService {
       // Try different ways to access the file content
       // Dropbox SDK can return content in different formats depending on environment
       let buffer: Buffer | undefined;
-      
+
       // Try response.result.fileBlob (browser/Next.js environment - Blob object)
       if (response.result?.fileBlob) {
         const blob = response.result.fileBlob;
@@ -316,7 +331,7 @@ export class DropboxService {
         });
         throw new Error('File content not found in Dropbox response. Check response structure.');
       }
-      
+
       const fileText = buffer.toString('utf-8');
 
       // Parse JSON
@@ -347,6 +362,105 @@ export class DropboxService {
       // Re-throw other errors with safe error message extraction
       const errorMessage = error?.message || error?.toString() || String(error) || 'Unknown error';
       throw new Error(`Failed to read events data from Dropbox: ${errorMessage}`);
+    }
+  }
+
+  /**
+   * Generates a sanitized filename from artist name and track title
+   * Removes special characters that could cause issues with file paths
+   */
+  private sanitizeFilename(artistName: string, trackTitle: string): { filename: string; demoId: string } {
+    // Remove or replace problematic characters for filenames
+    const sanitize = (str: string) =>
+      str
+        .replace(/[<>:"/\\|?*]/g, '') // Remove invalid filename chars
+        .replace(/\.\./g, '') // Prevent path traversal
+        .replace(/\s+/g, '_') // Replace spaces with underscores
+        .trim();
+
+    const safeArtist = sanitize(artistName);
+    const safeTitle = sanitize(trackTitle);
+    const demoId = `${safeArtist} - ${safeTitle}`;
+    const filename = `${demoId}.mp3`;
+
+    return { filename, demoId };
+  }
+
+  /**
+   * Generates a temporary upload link for direct browser-to-Dropbox uploads
+   * This bypasses the serverless function payload limit (4.5MB)
+   * Link is valid for 4 hours and is single-use
+   */
+  async getTemporaryUploadLink(
+    artistName: string,
+    trackTitle: string
+  ): Promise<{ uploadUrl: string; path: string; demoId: string }> {
+    try {
+      const { filename, demoId } = this.sanitizeFilename(artistName, trackTitle);
+      const path = `/demos/submitted/${filename}`;
+
+      // Call Dropbox API to get temporary upload link
+      const response = await this.dbx.filesGetTemporaryUploadLink({
+        commit_info: {
+          path: path,
+          mode: { '.tag': 'overwrite' },
+          autorename: false,
+          mute: false,
+          strict_conflict: false,
+        },
+      });
+
+      if (!response.result?.link) {
+        throw new Error('Failed to get upload link from Dropbox');
+      }
+
+      return {
+        uploadUrl: response.result.link,
+        path: path,
+        demoId: demoId,
+      };
+    } catch (error: any) {
+      // Handle Dropbox auth errors
+      if (error.status === 401) {
+        throw new Error('Dropbox authentication failed');
+      }
+
+      // Re-throw with context
+      const errorMessage = error?.message || error?.toString() || String(error) || 'Unknown error';
+      throw new Error(`Failed to generate upload link: ${errorMessage}`);
+    }
+  }
+
+  /**
+   * Saves metadata JSON to Dropbox (without the audio file)
+   * Called after direct upload completes to store submission details
+   */
+  async saveMetadata(
+    filePath: string,
+    metadata: DemoMetadata
+  ): Promise<string> {
+    try {
+      // Create metadata JSON path (same as audio file + .metadata.json)
+      const metadataPath = `${filePath}.metadata.json`;
+
+      // Upload metadata JSON to Dropbox
+      const metadataBuffer = Buffer.from(JSON.stringify(metadata, null, 2));
+      await this.dbx.filesUpload({
+        path: metadataPath,
+        contents: metadataBuffer,
+        mode: { '.tag': 'overwrite' },
+      });
+
+      return metadata.demo_id;
+    } catch (error: any) {
+      // Handle Dropbox auth errors
+      if (error.status === 401) {
+        throw new Error('Dropbox authentication failed');
+      }
+
+      // Re-throw with context
+      const errorMessage = error?.message || error?.toString() || String(error) || 'Unknown error';
+      throw new Error(`Failed to save metadata: ${errorMessage}`);
     }
   }
 }
