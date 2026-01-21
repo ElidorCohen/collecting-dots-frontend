@@ -1561,7 +1561,7 @@ export default function Home() {
                                 <div className="flex items-center justify-between">
                                   <span className="text-white font-medium text-sm">
                                     {uploadStep === 'getting_link' ? 'PREPARING UPLOAD...' :
-                                      uploadStep === 'uploading' ? 'UPLOADING TO DROPBOX...' :
+                                      uploadStep === 'uploading' ? 'UPLOADING YOUR DEMO...' :
                                         uploadStep === 'confirming' ? 'FINALIZING...' :
                                           'UPLOAD PROGRESS'}
                                   </span>
@@ -1575,7 +1575,7 @@ export default function Home() {
                                 </div>
                                 <p className="text-gray-400 text-xs font-light">
                                   {uploadStep === 'getting_link' ? 'PREPARING SECURE UPLOAD LINK...' :
-                                    uploadStep === 'uploading' ? 'UPLOADING YOUR TRACK DIRECTLY TO DROPBOX...' :
+                                    uploadStep === 'uploading' ? 'UPLOADING YOUR DEMO...' :
                                       uploadStep === 'confirming' ? 'SAVING METADATA AND SENDING CONFIRMATION...' :
                                         'PROCESSING...'}
                                 </p>
