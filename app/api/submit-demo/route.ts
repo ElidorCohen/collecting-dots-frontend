@@ -82,10 +82,13 @@ export async function POST(request: NextRequest) {
       return addCorsHeaders(response, request);
     }
 
+    const fileNameLower = file.name.toLowerCase();
+    const fileExtension = fileNameLower.endsWith('.wav') ? '.wav' : fileNameLower.endsWith('.mp3') ? '.mp3' : null;
+
     // Validate file type
-    if (!file.name.toLowerCase().endsWith('.mp3')) {
+    if (!fileExtension) {
       const response = NextResponse.json(
-        { error: 'Only MP3 files are allowed' },
+        { error: 'Only MP3 and WAV files are allowed' },
         { status: 400 }
       );
       return addCorsHeaders(response, request);
@@ -115,7 +118,8 @@ export async function POST(request: NextRequest) {
       instagram_username,
       beatport,
       facebook,
-      x_twitter
+      x_twitter,
+      fileExtension as '.mp3' | '.wav'
     );
 
     // Step 5: Send confirmation email (non-blocking)

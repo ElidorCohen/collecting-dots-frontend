@@ -13,6 +13,16 @@ import { Badge } from "@/components/ui/badge"
 import HorizontalSetsCarousel from "@/components/horizontal-sets-carousel"
 import { buildApiUrl } from '@/lib/api'
 
+type UploadedAudioFile = {
+  file: File
+  trackTitle: string
+}
+
+const MAX_FILES_PER_BATCH = 10
+const MAX_FILE_SIZE_BYTES = 150 * 1024 * 1024
+const VALID_AUDIO_TYPES = ["audio/mpeg", "audio/wav", "audio/mp3"]
+const VALID_AUDIO_EXTENSIONS = [".mp3", ".wav"]
+
 // Custom icons for music platforms
 const BeatportIcon = () => (
   <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
@@ -35,7 +45,6 @@ const SpotifyIcon = () => (
 export default function Home() {
   // Form state
   const [formData, setFormData] = useState({
-    trackTitle: "",
     artistName: "",
     fullName: "",
     email: "",
@@ -43,7 +52,7 @@ export default function Home() {
     beatport: "",
     facebook: "",
     x: "",
-    audioFile: null as File | null,
+    audioFiles: [] as UploadedAudioFile[],
   })
 
   const [isUploading, setIsUploading] = useState(false)
@@ -397,23 +406,35 @@ export default function Home() {
       clearInterval(checkInterval)
       clearTimeout(timeout)
     }
-  }, [formData.audioFile, submissionStatus.type]) // Re-run when audioFile changes or when returning from success screen
+  }, [formData.audioFiles.length, submissionStatus.type]) // Re-run when files change or when returning from success screen
 
   // Check if form is valid
   const isFormValid = () => {
     return (
-      formData.trackTitle.trim() !== "" &&
       formData.artistName.trim() !== "" &&
       formData.fullName.trim() !== "" &&
       formData.email.trim() !== "" &&
       validateEmail(formData.email) &&
       formData.instagram.trim() !== "" &&
-      formData.audioFile !== null &&
+      formData.audioFiles.length > 0 &&
+      formData.audioFiles.every((audioFile) => audioFile.trackTitle.trim() !== "") &&
       captchaToken !== null &&
       errors.email === "" &&
       errors.audioFile === "" &&
       errors.captcha === ""
     )
+  }
+
+  const getFileExtension = (fileName: string) => {
+    const extensionIndex = fileName.lastIndexOf(".")
+    if (extensionIndex === -1) return ""
+    return fileName.toLowerCase().slice(extensionIndex)
+  }
+
+  const getTrackTitleFromFilename = (fileName: string) => {
+    const extension = getFileExtension(fileName)
+    if (!extension) return fileName
+    return fileName.slice(0, -extension.length)
   }
 
   // Handle input changes
@@ -433,50 +454,97 @@ export default function Home() {
   }
 
   // Handle file upload
-  // Max file size: 50MB
-  const MAX_FILE_SIZE = 50 * 1024 * 1024
-
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (file) {
-      setIsUploading(true)
-      setUploadProgress(0)
+    const selectedFiles = Array.from(event.target.files ?? [])
+    if (!selectedFiles.length) return
 
-      const fileType = file.type
-      const validTypes = ["audio/mpeg", "audio/wav", "audio/mp3"]
-      const validExtensions = [".mp3", ".wav"]
+    setIsUploading(true)
+    setUploadProgress(0)
+    const remainingSlots = MAX_FILES_PER_BATCH - formData.audioFiles.length
+    const acceptedFiles: UploadedAudioFile[] = []
+    const invalidTypeFiles: string[] = []
+    const tooLargeFiles: string[] = []
+    const overLimitFiles: string[] = []
 
-      const fileExtension = file.name.toLowerCase().slice(file.name.lastIndexOf("."))
-
-      // Validate file type
-      if (!validTypes.includes(fileType) && !validExtensions.includes(fileExtension)) {
-        setErrors((prev) => ({ ...prev, audioFile: "Please upload an MP3 or WAV file only" }))
-        setIsUploading(false)
-        setUploadProgress(0)
-        event.target.value = "" // Clear the input
-        return
+    for (const file of selectedFiles) {
+      if (acceptedFiles.length >= remainingSlots) {
+        overLimitFiles.push(file.name)
+        continue
       }
 
-      // Validate file size (max 50MB)
-      if (file.size > MAX_FILE_SIZE) {
-        setErrors((prev) => ({ ...prev, audioFile: "File size must be under 50MB" }))
-        setIsUploading(false)
-        setUploadProgress(0)
-        event.target.value = "" // Clear the input
-        return
+      const fileExtension = getFileExtension(file.name)
+      if (!VALID_AUDIO_TYPES.includes(file.type) && !VALID_AUDIO_EXTENSIONS.includes(fileExtension)) {
+        invalidTypeFiles.push(file.name)
+        continue
       }
 
-      // File is valid - set it immediately (no fake progress, real upload happens on submit)
-      setFormData((prev) => ({ ...prev, audioFile: file }))
-      setErrors((prev) => ({ ...prev, audioFile: "" }))
-      setUploadProgress(0) // Keep at 0 - real progress shown during submission
-      setIsUploading(false)
+      if (file.size > MAX_FILE_SIZE_BYTES) {
+        tooLargeFiles.push(file.name)
+        continue
+      }
+
+      acceptedFiles.push({
+        file,
+        trackTitle: getTrackTitleFromFilename(file.name),
+      })
     }
+
+    const errorMessages: string[] = []
+    if (invalidTypeFiles.length > 0) {
+      errorMessages.push(
+        `${invalidTypeFiles.length} file(s) skipped (invalid type): ${invalidTypeFiles.join(", ")}`
+      )
+    }
+    if (tooLargeFiles.length > 0) {
+      errorMessages.push(
+        `${tooLargeFiles.length} file(s) skipped (>150MB): ${tooLargeFiles.join(", ")}`
+      )
+    }
+    if (overLimitFiles.length > 0) {
+      errorMessages.push(
+        `${overLimitFiles.length} file(s) skipped (max ${MAX_FILES_PER_BATCH} files per batch): ${overLimitFiles.join(", ")}`
+      )
+    }
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      audioFile: errorMessages.join(" | "),
+    }))
+
+    if (acceptedFiles.length > 0) {
+      setFormData((prev) => ({
+        ...prev,
+        audioFiles: [...prev.audioFiles, ...acceptedFiles],
+      }))
+    }
+
+    setIsUploading(false)
+    setUploadProgress(0)
+
+    event.target.value = ""
+  }
+
+  const updateTrackTitleForFile = (fileIndex: number, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      audioFiles: prev.audioFiles.map((audioFile, index) =>
+        index === fileIndex ? { ...audioFile, trackTitle: value } : audioFile
+      ),
+    }))
   }
 
   // Remove uploaded file
-  const removeFile = () => {
-    setFormData((prev) => ({ ...prev, audioFile: null }))
+  const removeFile = (fileIndex: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      audioFiles: prev.audioFiles.filter((_, index) => index !== fileIndex),
+    }))
+    setErrors((prev) => ({ ...prev, audioFile: "" }))
+    setUploadProgress(0)
+  }
+
+  const removeAllFiles = () => {
+    setFormData((prev) => ({ ...prev, audioFiles: [] }))
     setErrors((prev) => ({ ...prev, audioFile: "" }))
     setUploadProgress(0)
   }
@@ -484,6 +552,8 @@ export default function Home() {
   // Handle form submission
   // Upload step tracking for UI
   const [uploadStep, setUploadStep] = useState<'idle' | 'getting_link' | 'uploading' | 'confirming'>('idle')
+  const [currentUploadFileIndex, setCurrentUploadFileIndex] = useState(0)
+  const [currentUploadFileName, setCurrentUploadFileName] = useState("")
 
   const handleSubmit = async () => {
     if (!isFormValid()) return
@@ -494,125 +564,149 @@ export default function Home() {
     setUploadStep('getting_link')
 
     try {
-      // ============================================
-      // STEP 1: Get temporary upload link from API
-      // ============================================
-      const linkResponse = await fetch(buildApiUrl('/api/get-upload-link'), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          artist_name: formData.artistName,
-          track_title: formData.trackTitle,
-          cf_turnstile_response: captchaToken,
-        }),
-      })
+      let lastDemoId: string | undefined
+      const totalFiles = formData.audioFiles.length
 
-      // Check response
-      const linkContentType = linkResponse.headers.get('content-type')
-      let linkData: any
+      for (let index = 0; index < totalFiles; index++) {
+        const audioFile = formData.audioFiles[index]
+        const fileExtension = getFileExtension(audioFile.file.name)
 
-      if (linkContentType && linkContentType.includes('application/json')) {
-        linkData = await linkResponse.json()
-      } else {
-        const textResponse = await linkResponse.text()
-        throw new Error(textResponse || `Server returned non-JSON response (${linkResponse.status})`)
-      }
+        if (!VALID_AUDIO_EXTENSIONS.includes(fileExtension)) {
+          throw new Error(`Invalid extension for ${audioFile.file.name}`)
+        }
 
-      if (!linkResponse.ok) {
-        throw new Error(linkData.error || 'Failed to get upload link')
-      }
+        setCurrentUploadFileIndex(index + 1)
+        setCurrentUploadFileName(audioFile.file.name)
 
-      const { upload_url, file_path, session_id } = linkData
+        try {
+          // ============================================
+          // STEP 1: Get temporary upload link from API
+          // ============================================
+          const linkResponse = await fetch(buildApiUrl('/api/get-upload-link'), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              artist_name: formData.artistName,
+              track_title: audioFile.trackTitle,
+              file_extension: fileExtension,
+              cf_turnstile_response: captchaToken,
+            }),
+          })
 
-      // ============================================
-      // STEP 2: Upload file directly to Dropbox
-      // This bypasses Vercel's 4.5MB limit!
-      // ============================================
-      setUploadStep('uploading')
+          // Check response
+          const linkContentType = linkResponse.headers.get('content-type')
+          let linkData: any
 
-      // Use XMLHttpRequest for progress tracking
-      const uploadResult = await new Promise<{ content_hash?: string }>((resolve, reject) => {
-        const xhr = new XMLHttpRequest()
-
-        // Track upload progress
-        xhr.upload.addEventListener('progress', (event) => {
-          if (event.lengthComputable) {
-            const percentComplete = Math.round((event.loaded / event.total) * 100)
-            setUploadProgress(percentComplete)
-          }
-        })
-
-        xhr.addEventListener('load', () => {
-          if (xhr.status >= 200 && xhr.status < 300) {
-            try {
-              const response = JSON.parse(xhr.responseText)
-              resolve({ content_hash: response.content_hash })
-            } catch {
-              // Dropbox might return empty response on success
-              resolve({})
-            }
-          } else if (xhr.status === 410) {
-            reject(new Error('Upload link expired. Please try again.'))
-          } else if (xhr.status === 409) {
-            reject(new Error('Upload conflict. Please try again with a different track name.'))
+          if (linkContentType && linkContentType.includes('application/json')) {
+            linkData = await linkResponse.json()
           } else {
-            reject(new Error(`Upload failed with status ${xhr.status}`))
+            const textResponse = await linkResponse.text()
+            throw new Error(textResponse || `Server returned non-JSON response (${linkResponse.status})`)
           }
-        })
 
-        xhr.addEventListener('error', () => {
-          reject(new Error('Network error during upload. Please check your connection and try again.'))
-        })
+          if (!linkResponse.ok) {
+            throw new Error(linkData.error || 'Failed to get upload link')
+          }
 
-        xhr.addEventListener('abort', () => {
-          reject(new Error('Upload was cancelled.'))
-        })
+          const { upload_url, file_path, session_id } = linkData
 
-        // Open connection to Dropbox temporary upload URL
-        xhr.open('POST', upload_url)
-        xhr.setRequestHeader('Content-Type', 'application/octet-stream')
+          // ============================================
+          // STEP 2: Upload file directly to Dropbox
+          // This bypasses Vercel's 4.5MB limit!
+          // ============================================
+          setUploadStep('uploading')
 
-        // Send the file directly (raw binary, not FormData)
-        xhr.send(formData.audioFile)
-      })
+          // Use XMLHttpRequest for progress tracking
+          const uploadResult = await new Promise<{ content_hash?: string }>((resolve, reject) => {
+            const xhr = new XMLHttpRequest()
 
-      // ============================================
-      // STEP 3: Confirm upload and save metadata
-      // ============================================
-      setUploadStep('confirming')
-      setUploadProgress(100)
+            // Track upload progress
+            xhr.upload.addEventListener('progress', (event) => {
+              if (event.lengthComputable) {
+                const filePercent = event.loaded / event.total
+                const batchPercent = Math.round(((index + filePercent) / totalFiles) * 100)
+                setUploadProgress(batchPercent)
+              }
+            })
 
-      const confirmResponse = await fetch(buildApiUrl('/api/confirm-demo-upload'), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          session_id: session_id,
-          file_path: file_path,
-          content_hash: uploadResult.content_hash || null,
-          artist_name: formData.artistName,
-          track_title: formData.trackTitle,
-          email: formData.email,
-          full_name: formData.fullName,
-          instagram_username: formData.instagram,
-          beatport: formData.beatport || undefined,
-          facebook: formData.facebook || undefined,
-          x_twitter: formData.x || undefined,
-        }),
-      })
+            xhr.addEventListener('load', () => {
+              if (xhr.status >= 200 && xhr.status < 300) {
+                try {
+                  const response = JSON.parse(xhr.responseText)
+                  resolve({ content_hash: response.content_hash })
+                } catch {
+                  // Dropbox might return empty response on success
+                  resolve({})
+                }
+              } else if (xhr.status === 410) {
+                reject(new Error('Upload link expired. Please try again.'))
+              } else if (xhr.status === 409) {
+                reject(new Error('Upload conflict. Please try again with a different track name.'))
+              } else {
+                reject(new Error(`Upload failed with status ${xhr.status}`))
+              }
+            })
 
-      // Check response
-      const confirmContentType = confirmResponse.headers.get('content-type')
-      let confirmData: any
+            xhr.addEventListener('error', () => {
+              reject(new Error('Network error during upload. Please check your connection and try again.'))
+            })
 
-      if (confirmContentType && confirmContentType.includes('application/json')) {
-        confirmData = await confirmResponse.json()
-      } else {
-        const textResponse = await confirmResponse.text()
-        throw new Error(textResponse || `Server returned non-JSON response (${confirmResponse.status})`)
-      }
+            xhr.addEventListener('abort', () => {
+              reject(new Error('Upload was cancelled.'))
+            })
 
-      if (!confirmResponse.ok) {
-        throw new Error(confirmData.error || 'Failed to confirm upload')
+            // Open connection to Dropbox temporary upload URL
+            xhr.open('POST', upload_url)
+            xhr.setRequestHeader('Content-Type', 'application/octet-stream')
+
+            // Send the file directly (raw binary, not FormData)
+            xhr.send(audioFile.file)
+          })
+
+          // ============================================
+          // STEP 3: Confirm upload and save metadata
+          // ============================================
+          setUploadStep('confirming')
+          setUploadProgress(Math.round(((index + 1) / totalFiles) * 100))
+
+          const confirmResponse = await fetch(buildApiUrl('/api/confirm-demo-upload'), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              session_id: session_id,
+              file_path: file_path,
+              content_hash: uploadResult.content_hash || null,
+              suppress_email: index < totalFiles - 1,
+              artist_name: formData.artistName,
+              track_title: audioFile.trackTitle,
+              email: formData.email,
+              full_name: formData.fullName,
+              instagram_username: formData.instagram,
+              beatport: formData.beatport || undefined,
+              facebook: formData.facebook || undefined,
+              x_twitter: formData.x || undefined,
+            }),
+          })
+
+          // Check response
+          const confirmContentType = confirmResponse.headers.get('content-type')
+          let confirmData: any
+
+          if (confirmContentType && confirmContentType.includes('application/json')) {
+            confirmData = await confirmResponse.json()
+          } else {
+            const textResponse = await confirmResponse.text()
+            throw new Error(textResponse || `Server returned non-JSON response (${confirmResponse.status})`)
+          }
+
+          if (!confirmResponse.ok) {
+            throw new Error(confirmData.error || 'Failed to confirm upload')
+          }
+
+          lastDemoId = confirmData.demo_id
+        } catch (error: any) {
+          throw new Error(`Failed on "${audioFile.file.name}": ${error?.message || "Unknown upload error"}`)
+        }
       }
 
       // ============================================
@@ -620,14 +714,13 @@ export default function Home() {
       // ============================================
       setSubmissionStatus({
         type: "success",
-        message: "Demo submitted successfully!",
-        demoId: confirmData.demo_id,
+        message: `${formData.audioFiles.length} demo file(s) submitted successfully!`,
+        demoId: lastDemoId,
       })
 
       // Don't reset form immediately - let user see the success message
       // Keep the form fields but clear their values
       setFormData({
-        trackTitle: "",
         artistName: "",
         fullName: "",
         email: "",
@@ -635,7 +728,7 @@ export default function Home() {
         beatport: "",
         facebook: "",
         x: "",
-        audioFile: formData.audioFile, // Keep the file to maintain UI state
+        audioFiles: formData.audioFiles, // Keep files to maintain UI state
       })
       setErrors({ email: "", audioFile: "", captcha: "" })
 
@@ -660,6 +753,8 @@ export default function Home() {
     } finally {
       setIsUploading(false)
       setUploadStep('idle')
+      setCurrentUploadFileIndex(0)
+      setCurrentUploadFileName("")
     }
   }
 
@@ -1490,7 +1585,7 @@ export default function Home() {
                   UPLOAD DEMO TRACK * (MP3 OR WAV ONLY)
                 </Label>
                 <div className="space-y-3">
-                  {!formData.audioFile && !isUploading ? (
+                  {formData.audioFiles.length === 0 && !isUploading ? (
                     <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 text-center hover:border-gray-500 transition-all duration-300 hover:bg-gray-800/20">
                       <div className="transform transition-transform duration-300 hover:scale-105">
                         <FileAudio className="w-20 h-20 mx-auto mb-6 text-gray-400" />
@@ -1498,11 +1593,12 @@ export default function Home() {
                           DROP IT LIKE IT'S DOT
                         </h3>
                         <p className="text-gray-400 text-lg mb-6 font-light normal-case">Share your sound with the constellation</p>
-                        <p className="text-xs text-gray-500 font-light mb-6">MP3 OR WAV FILES ONLY • MAX 50MB</p>
+                        <p className="text-xs text-gray-500 font-light mb-6">MP3 OR WAV ONLY • UP TO 10 FILES • MAX 150MB EACH</p>
                         <Input
                           id="demo-file"
                           type="file"
                           accept=".mp3,.wav,audio/mpeg,audio/wav"
+                          multiple
                           onChange={handleFileUpload}
                           className="hidden"
                         />
@@ -1516,7 +1612,7 @@ export default function Home() {
                         </Button>
                       </div>
                     </div>
-                  ) : isUploading && !formData.audioFile ? (
+                  ) : isUploading && formData.audioFiles.length === 0 ? (
                     <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 text-center">
                       <div className="flex flex-col items-center">
                         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mb-6"></div>
@@ -1532,27 +1628,82 @@ export default function Home() {
                       {submissionStatus.type !== "success" && (
                         <>
                           <div className="bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600 rounded-lg p-6 backdrop-blur-sm">
-                            <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center justify-between mb-4 gap-4">
                               <div className="flex items-center space-x-4">
                                 <div className="p-3 bg-green-500/20 rounded-full">
                                   <FileAudio className="w-6 h-6 text-green-400" />
                                 </div>
                                 <div>
-                                  <p className="text-white text-lg font-medium">{formData.audioFile?.name}</p>
+                                  <p className="text-white text-lg font-medium">{formData.audioFiles.length} FILE(S) READY</p>
                                   <p className="text-gray-400 text-sm font-mono">
-                                    {formData.audioFile && formatFileSize(formData.audioFile.size)}
+                                    {formData.audioFiles.reduce((sum, audioFile) => sum + audioFile.file.size, 0) > 0
+                                      ? formatFileSize(formData.audioFiles.reduce((sum, audioFile) => sum + audioFile.file.size, 0))
+                                      : "0 Bytes"}
                                   </p>
                                 </div>
                               </div>
-                              <Button
-                                type="button"
-                                variant="ghost"
-                                size="sm"
-                                onClick={removeFile}
-                                className="text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors"
-                              >
-                                <X className="w-5 h-5" />
-                              </Button>
+                              <div className="flex items-center gap-2">
+                                <Button
+                                  type="button"
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => document.getElementById("demo-file")?.click()}
+                                  disabled={formData.audioFiles.length >= MAX_FILES_PER_BATCH || isUploading}
+                                  className="border-gray-600 text-white hover:bg-gray-700/50"
+                                >
+                                  ADD MORE
+                                </Button>
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={removeAllFiles}
+                                  className="text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors"
+                                >
+                                  CLEAR ALL
+                                </Button>
+                              </div>
+                            </div>
+
+                            <Input
+                              id="demo-file"
+                              type="file"
+                              accept=".mp3,.wav,audio/mpeg,audio/wav"
+                              multiple
+                              onChange={handleFileUpload}
+                              className="hidden"
+                            />
+
+                            <div className="space-y-3 mb-4 max-h-72 overflow-y-auto pr-1">
+                              {formData.audioFiles.map((audioFile, index) => (
+                                <div key={`${audioFile.file.name}-${audioFile.file.lastModified}-${index}`} className="border border-gray-700 rounded-md p-3">
+                                  <div className="flex items-center justify-between gap-3 mb-2">
+                                    <div className="min-w-0">
+                                      <p className="text-white text-sm font-medium truncate">{audioFile.file.name}</p>
+                                      <p className="text-gray-400 text-xs font-mono">{formatFileSize(audioFile.file.size)}</p>
+                                    </div>
+                                    <Button
+                                      type="button"
+                                      variant="ghost"
+                                      size="sm"
+                                      onClick={() => removeFile(index)}
+                                      className="text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors"
+                                    >
+                                      <X className="w-4 h-4" />
+                                    </Button>
+                                  </div>
+                                  <Label htmlFor={`track-title-${index}`} className="text-gray-300 text-xs">
+                                    TRACK TITLE *
+                                  </Label>
+                                  <Input
+                                    id={`track-title-${index}`}
+                                    value={audioFile.trackTitle}
+                                    onChange={(event) => updateTrackTitleForFile(index, event.target.value)}
+                                    placeholder="TRACK TITLE"
+                                    className="mt-1 bg-black/40 border-gray-700 text-white placeholder:text-gray-500 font-light h-10 text-sm focus:border-white/50 transition-colors"
+                                  />
+                                </div>
+                              ))}
                             </div>
 
                             {/* File display with upload progress - only show during active upload */}
@@ -1574,6 +1725,11 @@ export default function Home() {
                                   />
                                 </div>
                                 <p className="text-gray-400 text-xs font-light">
+                                  {currentUploadFileIndex > 0 && currentUploadFileName
+                                    ? `FILE ${currentUploadFileIndex}/${formData.audioFiles.length}: ${currentUploadFileName}`
+                                    : ""}
+                                </p>
+                                <p className="text-gray-400 text-xs font-light">
                                   {uploadStep === 'getting_link' ? 'PREPARING SECURE UPLOAD LINK...' :
                                     uploadStep === 'uploading' ? 'UPLOADING YOUR DEMO...' :
                                       uploadStep === 'confirming' ? 'SAVING METADATA AND SENDING CONFIRMATION...' :
@@ -1593,19 +1749,7 @@ export default function Home() {
 
                           {/* Required Fields with enhanced styling */}
                           <div className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                              <div className="space-y-3">
-                                <Label htmlFor="track-title" className="text-white font-medium text-lg">
-                                  TRACK TITLE *
-                                </Label>
-                                <Input
-                                  id="track-title"
-                                  placeholder="NAME OF YOUR TRACK"
-                                  value={formData.trackTitle}
-                                  onChange={(e) => handleInputChange("trackTitle", e.target.value)}
-                                  className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 font-light h-12 text-lg focus:border-white/50 transition-colors"
-                                />
-                              </div>
+                            <div className="grid grid-cols-1 gap-6">
                               <div className="space-y-3">
                                 <Label htmlFor="artist-name" className="text-white font-medium text-lg">
                                   ARTIST NAME *
@@ -1791,7 +1935,6 @@ export default function Home() {
                                   <Button
                                     onClick={() => {
                                       setFormData({
-                                        trackTitle: "",
                                         artistName: "",
                                         fullName: "",
                                         email: "",
@@ -1799,7 +1942,7 @@ export default function Home() {
                                         beatport: "",
                                         facebook: "",
                                         x: "",
-                                        audioFile: null,
+                                        audioFiles: [],
                                       })
                                       setSubmissionStatus({ type: null, message: "" })
                                       setUploadProgress(0)

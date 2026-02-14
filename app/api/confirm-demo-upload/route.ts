@@ -27,6 +27,7 @@ export async function POST(request: NextRequest) {
         const email = body.email as string | null;
         const fullName = body.full_name as string | null;
         const instagramUsername = body.instagram_username as string | null;
+        const suppressEmail = Boolean(body.suppress_email);
 
         // Optional fields
         const beatport = (body.beatport as string | null) || null;
@@ -55,7 +56,8 @@ export async function POST(request: NextRequest) {
         }
 
         // Validate file path (security check - must be in expected directory)
-        if (!filePath.startsWith('/demos/submitted/') || !filePath.endsWith('.mp3')) {
+        const hasAllowedExtension = filePath.endsWith('.mp3') || filePath.endsWith('.wav');
+        if (!filePath.startsWith('/demos/submitted/') || !hasAllowedExtension) {
             const response = NextResponse.json(
                 { error: 'Invalid file path' },
                 { status: 400 }
@@ -96,23 +98,28 @@ export async function POST(request: NextRequest) {
         await dropboxService.saveMetadata(filePath, metadata);
 
         // Step 5: Send confirmation email (non-blocking)
-        const emailService = new EmailService();
         let emailSent = false;
         let emailError: string | null = null;
+        let emailSkipped = false;
 
-        try {
-            emailSent = await emailService.sendDemoSubmissionConfirmation(
-                email,
-                artistName,
-                trackTitle,
-                demoId
-            );
-            if (!emailSent) {
-                emailError = 'Failed to send confirmation email';
+        if (suppressEmail) {
+            emailSkipped = true;
+        } else {
+            const emailService = new EmailService();
+            try {
+                emailSent = await emailService.sendDemoSubmissionConfirmation(
+                    email,
+                    artistName,
+                    trackTitle,
+                    demoId
+                );
+                if (!emailSent) {
+                    emailError = 'Failed to send confirmation email';
+                }
+            } catch (emailErr: any) {
+                console.error('Email error:', emailErr);
+                emailError = emailErr.message || 'Failed to send confirmation email';
             }
-        } catch (emailErr: any) {
-            console.error('Email error:', emailErr);
-            emailError = emailErr.message || 'Failed to send confirmation email';
         }
 
         // Return success response
@@ -123,6 +130,7 @@ export async function POST(request: NextRequest) {
                 email_status: {
                     confirmation_sent: emailSent,
                     email_error: emailError,
+                    skipped: emailSkipped,
                 },
             },
             { status: 201 }

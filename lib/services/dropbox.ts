@@ -67,7 +67,8 @@ export class DropboxService {
     instagramUsername: string,
     beatport?: string,
     facebook?: string,
-    xTwitter?: string
+    xTwitter?: string,
+    fileExtension: '.mp3' | '.wav' = '.mp3'
   ): Promise<string> {
     try {
       // Generate timestamp for metadata
@@ -82,7 +83,7 @@ export class DropboxService {
       const safeArtist = artistName.replace(/ /g, '_');
       const safeTitle = trackTitle.replace(/ /g, '_');
       const demo_id = `${safeArtist} - ${safeTitle}`;
-      const filename = `${demo_id}.mp3`;
+      const filename = `${demo_id}${fileExtension}`;
 
       // Upload audio file to Dropbox
       await this.dbx.filesUpload({
@@ -369,7 +370,11 @@ export class DropboxService {
    * Generates a sanitized filename from artist name and track title
    * Removes special characters that could cause issues with file paths
    */
-  private sanitizeFilename(artistName: string, trackTitle: string): { filename: string; demoId: string } {
+  private sanitizeFilename(
+    artistName: string,
+    trackTitle: string,
+    fileExtension: '.mp3' | '.wav' = '.mp3'
+  ): { filename: string; demoId: string } {
     // Remove or replace problematic characters for filenames
     const sanitize = (str: string) =>
       str
@@ -381,7 +386,7 @@ export class DropboxService {
     const safeArtist = sanitize(artistName);
     const safeTitle = sanitize(trackTitle);
     const demoId = `${safeArtist} - ${safeTitle}`;
-    const filename = `${demoId}.mp3`;
+    const filename = `${demoId}${fileExtension}`;
 
     return { filename, demoId };
   }
@@ -393,10 +398,11 @@ export class DropboxService {
    */
   async getTemporaryUploadLink(
     artistName: string,
-    trackTitle: string
+    trackTitle: string,
+    fileExtension: '.mp3' | '.wav' = '.mp3'
   ): Promise<{ uploadUrl: string; path: string; demoId: string }> {
     try {
-      const { filename, demoId } = this.sanitizeFilename(artistName, trackTitle);
+      const { filename, demoId } = this.sanitizeFilename(artistName, trackTitle, fileExtension);
       const path = `/demos/submitted/${filename}`;
 
       // Call Dropbox API to get temporary upload link

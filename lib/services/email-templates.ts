@@ -62,7 +62,7 @@ While we can't provide individual feedback due to the high volume of demos, plea
 
 Submission Guidelines:
 • Full tracks only - complete versions work best
-• Maximum 3 tracks - quality over quantity
+• Maximum 10 tracks - quality over quantity
 • Clear file naming - include artist name and track title
 
 If your track fits our vision, we'll contact you to discuss next steps.

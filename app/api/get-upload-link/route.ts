@@ -49,6 +49,7 @@ export async function POST(request: NextRequest) {
         // Step 2: Validate required fields
         const artistName = body.artist_name as string | null;
         const trackTitle = body.track_title as string | null;
+        const fileExtension = ((body.file_extension as string | null) || '.mp3').toLowerCase();
 
         if (!artistName || !trackTitle) {
             const response = NextResponse.json(
@@ -67,11 +68,22 @@ export async function POST(request: NextRequest) {
             return addCorsHeaders(response, request);
         }
 
+        const allowedFileExtensions = ['.mp3', '.wav'] as const;
+        if (!allowedFileExtensions.includes(fileExtension as (typeof allowedFileExtensions)[number])) {
+            const response = NextResponse.json(
+                { error: 'Invalid file extension. Only .mp3 and .wav are allowed' },
+                { status: 400 }
+            );
+            return addCorsHeaders(response, request);
+        }
+        const normalizedFileExtension = fileExtension as (typeof allowedFileExtensions)[number];
+
         // Step 3: Generate temporary upload link from Dropbox
         const dropboxService = new DropboxService();
         const { uploadUrl, path, demoId } = await dropboxService.getTemporaryUploadLink(
             artistName,
-            trackTitle
+            trackTitle,
+            normalizedFileExtension
         );
 
         // Generate session ID for tracking this upload
