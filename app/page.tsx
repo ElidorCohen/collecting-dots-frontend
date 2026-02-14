@@ -22,6 +22,7 @@ const MAX_FILES_PER_BATCH = 10
 const MAX_FILE_SIZE_BYTES = 150 * 1024 * 1024
 const VALID_AUDIO_TYPES = ["audio/mpeg", "audio/wav", "audio/mp3"]
 const VALID_AUDIO_EXTENSIONS = [".mp3", ".wav"]
+const DEMO_SUBMISSION_DISABLED_MESSAGE = "We're currently under high load and will be accepting demos again soon."
 
 // Custom icons for music platforms
 const BeatportIcon = () => (
@@ -136,6 +137,8 @@ export default function Home() {
     event_instagram_post?: string;
   }>>([])
   const [isLoadingEvents, setIsLoadingEvents] = useState(true)
+  const [isLoadingDemoSubmissionSetting, setIsLoadingDemoSubmissionSetting] = useState(true)
+  const [isDemoSubmissionEnabled, setIsDemoSubmissionEnabled] = useState(true)
 
   const toggleCardFlip = (index: number) => {
     setFlippedCards((prev) => {
@@ -351,6 +354,33 @@ export default function Home() {
     }
 
     fetchEvents()
+  }, [])
+
+  // Fetch demo submission availability setting
+  useEffect(() => {
+    const fetchDemoSubmissionSetting = async () => {
+      try {
+        setIsLoadingDemoSubmissionSetting(true)
+        const response = await fetch(buildApiUrl('/api/settings/demo-submission-enabled'), {
+          cache: 'no-store',
+        })
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch demo submission setting: ${response.status}`)
+        }
+
+        const data = await response.json()
+        setIsDemoSubmissionEnabled(Boolean(data.enabled))
+      } catch (error) {
+        console.error('Error fetching demo submission setting:', error)
+        // Default to enabled if the setting endpoint is unavailable
+        setIsDemoSubmissionEnabled(true)
+      } finally {
+        setIsLoadingDemoSubmissionSetting(false)
+      }
+    }
+
+    fetchDemoSubmissionSetting()
   }, [])
 
   // Initialize Turnstile widget
@@ -1571,6 +1601,25 @@ export default function Home() {
             </p>
           </div>
 
+          {isLoadingDemoSubmissionSetting ? (
+            <Card className="bg-gray-900/80 border-gray-800/50 backdrop-blur-sm">
+              <CardContent className="py-12">
+                <div className="flex flex-col items-center gap-4 text-center">
+                  <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-white"></div>
+                  <p className="text-gray-300 text-sm uppercase">Checking demo submission availability...</p>
+                </div>
+              </CardContent>
+            </Card>
+          ) : !isDemoSubmissionEnabled ? (
+            <Card className="bg-gray-900/80 border-gray-800/50 backdrop-blur-sm">
+              <CardContent className="py-12">
+                <div className="text-center space-y-4">
+                  <h3 className="text-2xl font-display font-bold text-white uppercase">Demo submissions are temporarily closed</h3>
+                  <p className="text-gray-300 text-base">{DEMO_SUBMISSION_DISABLED_MESSAGE}</p>
+                </div>
+              </CardContent>
+            </Card>
+          ) : (
           <Card className="bg-gray-900/80 border-gray-800/50 backdrop-blur-sm uppercase">
             <CardHeader>
               <CardTitle className="text-white font-display text-2xl">DEMO SUBMISSION</CardTitle>
@@ -1995,6 +2044,7 @@ export default function Home() {
               </div>
             </CardContent>
           </Card>
+          )}
         </div>
       </section>
 

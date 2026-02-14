@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DropboxService, DemoMetadata } from '@/lib/services/dropbox';
 import { EmailService } from '@/lib/services/email';
+import { getDemoSubmissionEnabled } from '@/lib/redis';
+
+const DEMO_SUBMISSION_DISABLED_MESSAGE = "We're currently under high load and will be accepting demos again soon.";
 
 // Helper function to add CORS headers
 function addCorsHeaders(response: NextResponse, request: NextRequest): NextResponse {
@@ -15,6 +18,15 @@ function addCorsHeaders(response: NextResponse, request: NextRequest): NextRespo
 
 export async function POST(request: NextRequest) {
     try {
+        const isDemoSubmissionEnabled = await getDemoSubmissionEnabled();
+        if (!isDemoSubmissionEnabled) {
+            const response = NextResponse.json(
+                { error: DEMO_SUBMISSION_DISABLED_MESSAGE },
+                { status: 503 }
+            );
+            return addCorsHeaders(response, request);
+        }
+
         // Parse JSON body (small payload - only metadata, no file)
         const body = await request.json();
 
