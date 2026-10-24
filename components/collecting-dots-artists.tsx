@@ -178,8 +178,11 @@ function ArtistDetails({ selection, onClose }: { selection: ArtistSelection; onC
     const pieces = Array.from(content.querySelectorAll<HTMLElement>("[data-detail-reveal]"))
     let closing = false
     origin.style.visibility = "hidden"
-    const timeline = gsap.timeline({ defaults: { ease: "power3.inOut" } })
+    // Rising lines briefly overflow the panel; keep its scrollbar hidden until they settle.
+    const settle = () => content.style.removeProperty("overflow-y")
+    const timeline = gsap.timeline({ defaults: { ease: "power3.inOut" }, onComplete: settle })
     if (!reduced) {
+      content.style.overflowY = "hidden"
       timeline.fromTo(backdrop, { opacity: 0 }, { opacity: 1, duration: .55 }, 0)
         .fromTo(image, { x: bounds.left - target.left, y: bounds.top - target.top, scaleX: bounds.width / target.width, scaleY: bounds.height / target.height, transformOrigin: "0 0" }, { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: .8 }, 0)
         .fromTo(pieces, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: .5, stagger: .065, ease: "power2.out" }, .3)
@@ -190,6 +193,7 @@ function ArtistDetails({ selection, onClose }: { selection: ArtistSelection; onC
       closing = true
       timeline.kill()
       if (reduced) { finish(); return }
+      content.style.overflowY = "hidden"
       // Page scroll stays locked: measure the same tile and return the photograph to it.
       const tile = origin.querySelector<HTMLElement>("[data-portrait-frame]")?.getBoundingClientRect()
       const destination = tile || bounds
@@ -209,6 +213,7 @@ function ArtistDetails({ selection, onClose }: { selection: ArtistSelection; onC
     return () => {
       window.removeEventListener("resize", resize)
       requestClose.current = () => undefined
+      settle()
       origin.style.visibility = originalVisibility
       body.style.overflow = original.overflow; body.style.paddingRight = original.paddingRight
       dialog.close()

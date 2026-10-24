@@ -87,7 +87,8 @@
 .detailKicker > span { width: 6px; height: 6px; background: #fa553c; border-radius: 50%; }
 .detailRole { margin: 0 0 10px; color: #a8b09e; font: 9px/1.4 var(--font-jetbrains-mono), monospace; text-transform: uppercase; }
 .detailContent h3 { margin: 0 0 32px; font: 400 clamp(50px, 7vw, 126px)/.88 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.04em; overflow-wrap: anywhere; }
-.detailLinks { border-top: 1px solid #53604b; }
+/* The top rule belongs to the first link so it reveals and hides with the list. */
+.detailLinks a:first-child { border-top: 1px solid #53604b; }
 .detailLinks a { display: flex; align-items: center; gap: 25px; border-bottom: 1px solid #53604b; min-height: clamp(52px, 7dvh, 68px); font-size: clamp(16px, 1.7vw, 23px); letter-spacing: -.025em; }
 .detailLinks a > svg { margin-left: auto; transition: transform .25s, color .25s; }
 .detailLinks a:hover > svg { transform: translate(3px, -3px); color: #fa553c; }

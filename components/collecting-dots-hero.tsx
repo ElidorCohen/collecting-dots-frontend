@@ -166,12 +166,13 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
       const lightbox = story?.querySelector<HTMLElement>("[data-story-lightbox]")
       const filmCaption = story?.querySelector<HTMLElement>("[data-story-film-caption]")
       const next = story?.querySelector<HTMLElement>("[data-story-next]")
+      const drawing = story?.querySelector<HTMLElement>("[data-story-geometry]")
       const photos = Array.from(story?.querySelectorAll<HTMLElement>("[data-story-photo]") ?? [])
       const alpha = (node: HTMLElement | null | undefined) => node ? {
         opacity: gsap.quickSetter(node, "opacity"), visibility: gsap.quickSetter(node, "visibility"),
       } : undefined
       const storyAlpha = alpha(story), curatorAlpha = alpha(curator), lightboxAlpha = alpha(lightbox)
-      const filmCaptionAlpha = alpha(filmCaption), nextAlpha = alpha(next)
+      const filmCaptionAlpha = alpha(filmCaption), nextAlpha = alpha(next), drawingAlpha = alpha(drawing)
       const curatorClip = curator ? gsap.quickSetter(curator, "clipPath") : undefined
       const lightboxY = lightbox ? gsap.quickSetter(lightbox, "y", "px") : undefined
       const photoScale = photos.map(photo => ({ x: gsap.quickSetter(photo, "scaleX"), y: gsap.quickSetter(photo, "scaleY") }))
@@ -210,7 +211,8 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
           const lightboxReveal = smoothstep(clamp((progress - 1.34) / .16))
           reveal(storyAlpha, smoothstep(clamp((progress - 1.08) / .04)))
           reveal(curatorAlpha, curatorReveal)
-          curatorClip?.(reduced ? "none" : `inset(${100 * (1 - curatorReveal)}% 0% 0% 0%)`)
+          // Release the clip once revealed so the hovered photo can tilt past its edges.
+          curatorClip?.(reduced || curatorReveal >= 1 ? "none" : `inset(${100 * (1 - curatorReveal)}% 0% 0% 0%)`)
           reveal(lightboxAlpha, lightboxReveal)
           lightboxY?.(reduced ? 0 : 32 * (1 - lightboxReveal))
           photoScale.forEach((set, index) => {
@@ -219,6 +221,7 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
           })
           reveal(filmCaptionAlpha, smoothstep(clamp((progress - 1.27) / .08)))
           reveal(nextAlpha, smoothstep(clamp((progress - 1.43) / .07)))
+          reveal(drawingAlpha, smoothstep(clamp((progress - 1.32) / .16)))
         }
 
         let path = progress >= JOURNEY.film ? "M0 0H1V1H0Z" : "M0 0Z"
@@ -361,7 +364,7 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
       render()
       return () => {
         renderCurrent = () => undefined; trigger = undefined
-        for (const node of [story, curator, lightbox, filmCaption, next]) {
+        for (const node of [story, curator, lightbox, filmCaption, next, drawing]) {
           node?.style.removeProperty("opacity"); node?.style.removeProperty("visibility")
         }
         curator?.style.removeProperty("clip-path")
