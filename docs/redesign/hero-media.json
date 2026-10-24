@@ -1,0 +1,374 @@
+{
+  "source": {
+    "title": "AFTERMOVIE - COLLECTING DOTS - no sfx.mp4",
+    "url": "https://drive.google.com/file/d/1GR86OwlyC-PVO_zfLvKC9rarJbfi21Eg/view",
+    "sha256": "7754d89b52301e699cb4515d5b57a1368b91894dd13cb8f41726880be8c9a1e3",
+    "width": 1920,
+    "height": 1080,
+    "fps": 24
+  },
+  "poster": {
+    "path": "/media/hero/cd-hero-poster-v3.webp",
+    "source_frame": 271,
+    "encoding": "Lossless WebP, original resolution"
+  },
+  "film": {
+    "path": "/media/hero/cd-hero-scroll-v3-1080.mp4",
+    "encoding": "H.264 CRF16 directly from original source; native 1920x1080 at 24fps; GOP 6, no B frames, fast start, no audio",
+    "duration_seconds": 8.583333333333334,
+    "shots": [
+      {
+        "description": "OMRI at decks: reversed camera move from crowd to close-up",
+        "start_frame": 227,
+        "end_frame_exclusive": 272,
+        "start_seconds": 9.458333333333334,
+        "end_seconds": 11.333333333333334,
+        "playback": "reverse"
+      },
+      {
+        "description": "Approved OMRI and crowd",
+        "start_frame": 426,
+        "end_frame_exclusive": 452,
+        "start_seconds": 17.75,
+        "end_seconds": 18.833333333333332
+      },
+      {
+        "description": "Physical label sign",
+        "start_frame": 60,
+        "end_frame_exclusive": 77,
+        "start_seconds": 2.5,
+        "end_seconds": 3.2083333333333335
+      },
+      {
+        "description": "Dance floor",
+        "start_frame": 0,
+        "end_frame_exclusive": 23,
+        "start_seconds": 0.0,
+        "end_seconds": 0.9583333333333334
+      },
+      {
+        "description": "Traffic lights and crowd",
+        "start_frame": 517,
+        "end_frame_exclusive": 546,
+        "start_seconds": 21.541666666666668,
+        "end_seconds": 22.75
+      },
+      {
+        "description": "Booth and crowd",
+        "start_frame": 546,
+        "end_frame_exclusive": 567,
+        "start_seconds": 22.75,
+        "end_seconds": 23.625
+      },
+      {
+        "description": "People and performance",
+        "start_frame": 272,
+        "end_frame_exclusive": 317,
+        "start_seconds": 11.333333333333334,
+        "end_seconds": 13.208333333333334
+      }
+    ]
+  },
+  "processing": "Approved collecting portrait followed by approved short-prompt flick. Baked beads are removed only from empty-wall regions in the collecting clip and the first eight continuation frames, including their brief inherited fade. Twelve website graphic dots become twelve ribbons of the real aftermovie, with the first two shots exchanged at the user\u2019s request.",
+  "authorization": "Hero only. Existing real shot order retained. Integration of the approved Higgsfield portrait with cleaner dots and a hand-led transition authorized 2026-10-20. User approved swapping visible shots 1 and 2 on 2026-10-20; shots 3\u20139 stay in place. User approved reversing only the first shot to move from far to close; the arms-raised shot stays second and all later shots stay as they are.",
+  "mobile": {
+    "film": "/media/hero/cd-hero-scroll-v3-portrait.mp4",
+    "poster": "/media/hero/cd-hero-poster-v3-portrait.webp",
+    "width": 608,
+    "height": 1080,
+    "encoding": "H.264 CRF16 directly from original source; native 608x1080 crops at 24fps; GOP 6, no B frames, fast start, no audio",
+    "crop_left_by_shot": [
+      656,
+      220,
+      656,
+      620,
+      720,
+      656,
+      688
+    ],
+    "crop_top": 0,
+    "note": "Same edit and timing as desktop; each shot is reframed from the original to keep the subject visible on phones."
+  },
+  "assets": [
+    {
+      "path": "/media/hero/cd-hero-poster-v3-portrait.webp",
+      "bytes": 354232,
+      "sha256": "83e7f00923e48a127a81d453dc4be234188849507af4a8d02ee488f0680d676e"
+    },
+    {
+      "path": "/media/hero/cd-hero-poster-v3.webp",
+      "bytes": 982148,
+      "sha256": "7796921fd458277600aaf51da12a07f9cf7515f3c220e3982519b386315a97fa"
+    },
+    {
+      "path": "/media/hero/cd-hero-scroll-v3-1080.mp4",
+      "bytes": 24161025,
+      "sha256": "9a339d1ac100c3ccf73b84976a87aca09d84ed20a1ab78d4f8ee1cea535528c1"
+    },
+    {
+      "path": "/media/hero/cd-hero-scroll-v3-portrait.mp4",
+      "bytes": 8324135,
+      "sha256": "10a622f7c66234cc6038a2369564ed8ae8b26c5b44c9498103693e7e0a9798d7"
+    },
+    {
+      "path": "/media/hero/omri-editorial-original.jpg",
+      "bytes": 2290338,
+      "sha256": "683aca74e870595c9996093453afb34ed023988031de413a7ea8dc6d1a0487d5"
+    },
+    {
+      "path": "/media/hero/omri-motion-clean-scroll.mp4",
+      "bytes": 4535304,
+      "sha256": "200bb336384ba1d16c823a1ca66a2615ac2e90bc817de6a8f5ae064718765ed6"
+    },
+    {
+      "path": "/media/hero/omri-motion-poster.webp",
+      "bytes": 636954,
+      "sha256": "1c822068596e2f3111b984d5e089787a6589d0833a80f965f6570920415ef80e"
+    },
+    {
+      "path": "/media/hero/omri-gather-flick-v2-clean-scroll-r3.mp4",
+      "bytes": 7779797,
+      "sha256": "c85d3d5477e012a56f48e8c65675b293b93138328cc47e7cbcfba52eda982bd7"
+    }
+  ],
+  "editorial_portrait": {
+    "filename": "B97A4949.jpg",
+    "drive_url": "https://drive.google.com/file/d/18adaW4abZtGRmAU--cHBFLHT2wr0odMp/view",
+    "role": "Recommended identity master and storyboard portrait",
+    "dimensions": [
+      3648,
+      5472
+    ],
+    "bytes": 2290338,
+    "sha256": "683aca74e870595c9996093453afb34ed023988031de413a7ea8dc6d1a0487d5",
+    "path": "/media/hero/omri-editorial-original.jpg",
+    "processing": "Unmodified original JPEG. Camera movement, masking and shading are applied in CSS; no generated portrait or raster retouching."
+  },
+  "journey": {
+    "mode": "One component-scoped GSAP timeline, driven by ScrollTrigger scrub:true. CSS sticky holds the stage; no additional pin spacer. Both videos remain paused and frame-seeked at 24fps by the existing native controller. No autoplay, looping, inertial catch-up, snapping or independent playback clock.",
+    "portrait_scroll_start": 0.055,
+    "portrait_scroll_end": 0.615,
+    "film_strip_reveal_start": 0.493,
+    "film_strip_reveal_end": 0.65,
+    "event_video_scroll_start": 0.65,
+    "event_video_scroll_end": 0.99,
+    "reduced_motion": "Stationary portrait, no particles, no film-strip mask or camera animation; crossfade to paused scroll-controlled real footage on a shorter timeline.",
+    "portrait_duration_seconds": 9.041667,
+    "dot_count": 12,
+    "hand_collection_native_seconds": [
+      3.8,
+      4.9
+    ],
+    "flick_release_native_seconds": 6.791666666666667,
+    "dot_release_scroll_start": 0.4775925925925926,
+    "transition": "Twelve departing dots stretch into rounded horizontal film windows, then fill the viewport. One continuous real video behind one compound SVG mask.",
+    "runtime": {
+      "gsap": "3.15.0",
+      "@gsap/react": "2.1.2"
+    },
+    "performance": "Cache responsive stage, portrait and title geometry on layout changes; fixed 8px graphic dots sized with scale; no layout reads or width/height writes in the scroll renderer; compound SVG path updates only during the reveal; offscreen initial media stays deferred.",
+    "rollback": "/Users/elidorcohen/collectingdots/media-inbox/hero/gsap-opener-pass/before",
+    "verification": "/Users/elidorcohen/collectingdots/media-inbox/hero/gsap-opener-pass/scroll-verification.json",
+    "dot_arrivals": {
+      "origins": "Eleven white graphic dots begin outside the clipped viewport: eight from the left, one above, one below and one from the lower right. The orange graphic dot begins exactly at the label punctuation.",
+      "paths": "Deterministic quadratic curves for white dots, individually staggered from 6.5% of scroll and complete by 34.4%. Orange departure follows the original 2.5\u201320.5% scroll arc. Direct GSAP scrubbing; no independent playback.",
+      "title": "The orange punctuation separates from COLLECTING DOTS and follows the original arc into the hand. Its initial center and radius match the label exactly; the original punctuation is hidden only once the graphic is placed. Reversing restores it to the title.",
+      "rollback": "/Users/elidorcohen/collectingdots/media-inbox/hero/dot-arrivals-pass/before",
+      "verification": "/Users/elidorcohen/collectingdots/media-inbox/hero/dot-arrivals-pass/scroll-verification.json"
+    },
+    "label_continuation": {
+      "enabled_on": [
+        "homepage",
+        "/opener"
+      ],
+      "opener_units": [
+        0,
+        1
+      ],
+      "label_units": [
+        1,
+        1.65
+      ],
+      "desktop_height_svh": 1255,
+      "phone_height_svh": 1189,
+      "reduced_motion_height_svh": 628,
+      "handoff": "The same paused real-footage element pulls back uniformly into the label composition. No duplicate film, crop distortion or new clip. All original opener timing remains unchanged in absolute scroll distance.",
+      "media_record": "docs/redesign/about-media.json",
+      "verification": "/Users/elidorcohen/collectingdots/media-inbox/about/scroll-verification.json"
+    }
+  },
+  "previous_review_assets": [
+    "/Users/elidorcohen/collectingdots/media-inbox/hero/opener-preview/previous-autoplay-assets/cd-hero-film-1080.mp4",
+    "/Users/elidorcohen/collectingdots/media-inbox/hero/opener-preview/previous-autoplay-assets/cd-hero-film-portrait.mp4"
+  ],
+  "portrait_motion": {
+    "source_title": "OMRI collecting dots \u2014 original Higgsfield test",
+    "higgsfield_job_id": "abe2065f-ca76-4e74-aaf2-8a7ee396ae37",
+    "archive": "/Users/elidorcohen/collectingdots/media-inbox/hero/approved-motion/omri-collecting-dots-original-2026-10-20.mp4",
+    "original_sha256": "a0a79088a300796d90876e422d6379da6ba96b07c09d687969eadc844587034b",
+    "source_image": "https://drive.google.com/file/d/18adaW4abZtGRmAU--cHBFLHT2wr0odMp/view",
+    "width": 1248,
+    "height": 1664,
+    "fps": 24,
+    "duration_seconds": 5.041667,
+    "film": "/media/hero/omri-motion-clean-scroll.mp4",
+    "poster": "/media/hero/omri-motion-poster.webp",
+    "cleanup": "Detected bead regions only, within the empty-wall rectangle x=0..450, y=250..850. Feathered clean-plate patches from original frame 0, matched to local brightness. No geometric changes or retouching of the person. Original source remains intact.",
+    "processing": "Native dimensions and frame rate. H.264 CRF16, GOP6, no B frames, fast start, no audio. Lossless WebP frame-0 poster. No upscaling or new AI generation.",
+    "dot_tracks": "components/omri-dot-tracks.json",
+    "reproducible_script": "/Users/elidorcohen/collectingdots/media-inbox/hero/approved-motion/clean-motion.py",
+    "cleanup_record": "/Users/elidorcohen/collectingdots/media-inbox/hero/approved-motion/dot-tracking.json",
+    "rollback": "/Users/elidorcohen/collectingdots/media-inbox/hero/approved-motion/pre-motion-opener",
+    "status": "Preserved preceding five-second collecting take; active movie now includes approved flick continuation."
+  },
+  "approved_flick": {
+    "higgsfield_job_id": "9cb688b8-3f2d-4748-a251-361053d11672",
+    "model": "seedance_2_5",
+    "mode": "video_extension",
+    "resolution_tier": "1080p",
+    "bitrate_mode": "high",
+    "quoted_credits": 64,
+    "balance_before": 155,
+    "balance_after": 91,
+    "user_approval": "This is just EXCELLENT! The outcome is amazing!",
+    "source_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3HPW2i231aH4w2HsLtdV8VrxgNM/hf_20261020_193149_9cb688b8-3f2d-4748-a251-361053d11672.mp4",
+    "archive": "/Users/elidorcohen/collectingdots/media-inbox/hero/approved-flick/omri-flick-approved-original.mp4",
+    "original_sha256": "28c15f8674a3f692aa9db694f8711592e645ce57e7fc6292d0726471049fbf18",
+    "width": 1248,
+    "height": 1664,
+    "fps": 24,
+    "duration_seconds": 4,
+    "joined_film": "/media/hero/omri-gather-flick-v2-clean-scroll-r3.mp4",
+    "joined_duration_seconds": 9.041666666666666,
+    "cleanup_record": "/Users/elidorcohen/collectingdots/media-inbox/hero/approved-flick/cleanup-provenance.json",
+    "join_verification": "/Users/elidorcohen/collectingdots/media-inbox/hero/approved-flick/join-cleanup-verification.json",
+    "script": "/Users/elidorcohen/collectingdots/media-inbox/hero/approved-flick/prepare-approved-motion-color-match.py",
+    "rollback": "/Users/elidorcohen/collectingdots/media-inbox/hero/approved-flick/pre-flick-integration",
+    "prompt": "From the open-palm pose, he curls his right fingers, then sharply flicks his wrist and fingers toward camera-left, like flicking water off his fingertips. Clear preparation, a quick visible snap, and follow-through. Keep his hand raised afterward. Same man and studio. Locked camera. One continuous silent shot.",
+    "color_matching": "One union cleanup mask prevents color accumulation where bead repairs overlap. Per-channel robust quadratic illumination fit from bead-free neutral wall pixels matches the clean plate to every frame. Wide smoothstep feathers remove warm halos; the patch fades to the native clean wall over the end of the join fade. No global color filter, sharpening or person retouch."
+  },
+  "shot_order_revision": {
+    "visible_order_from_previous_edit": [
+      2,
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "total_frames": 206,
+    "fps": 24,
+    "unchanged_from_frame": 71,
+    "backup": "/Users/elidorcohen/collectingdots/media-inbox/hero/shot-order-v2/before",
+    "encoding": "Rebuilt directly from the original source at the same dimensions, native frame rate and CRF16 settings; no generation, interpolation or upscaling."
+  },
+  "shot_direction_revision": {
+    "first_shot_source_frame_order": [
+      271,
+      227
+    ],
+    "first_shot_frames": 45,
+    "first_shot_seconds": 1.875,
+    "remaining_output_frames": [
+      45,
+      206
+    ],
+    "total_frames": 206,
+    "fps": 24,
+    "backup": "/Users/elidorcohen/collectingdots/media-inbox/hero/shot-order-v3/before",
+    "note": "Reverse actual source frames only. No generated movement, interpolation, speed change, upscaling or scroll timing change."
+  },
+  "smooth_first_shot_trial": {
+    "route": "/opener",
+    "baseline_route": "/opener/original",
+    "homepage_uses": "original approved v3",
+    "frame_rate": 96,
+    "first_shot_original_frames": 45,
+    "first_shot_output_frames": 180,
+    "first_shot_distinct_frames": 177,
+    "scroll_distance_multiplier": 2,
+    "interpolation": "FFmpeg motion-compensated bidirectional optical flow, adaptive overlapping blocks and variable-size compensation, full native 1920x1080. No interpolation across scene cuts; other shots repeat native frames in the 96fps stream.",
+    "control": "One direct scrub:true driver seeks the paused scene timeline; only the first real shot uses twice its former scroll distance. Film scrubber quantizes to 1/96s. Portrait remains at 24fps.",
+    "originals_preserved": true,
+    "backup": "/Users/elidorcohen/collectingdots/media-inbox/hero/smooth-first-shot/before",
+    "scripts": [
+      "/Users/elidorcohen/collectingdots/media-inbox/hero/smooth-first-shot/interpolate.py",
+      "/Users/elidorcohen/collectingdots/media-inbox/hero/smooth-first-shot/assemble.py"
+    ],
+    "assets": [
+      {
+        "path": "/media/hero/cd-hero-smooth-first-1080.mp4",
+        "bytes": 24984415,
+        "sha256": "3b81fb6a62c8fe7026fe258c99df8eec6b6b232f673e211f8d4dd9983493f4f9",
+        "frames": 824,
+        "fps": 96,
+        "duration_seconds": 8.583333333333334,
+        "source_samples": [
+          {
+            "output_frame": 0,
+            "source_frame": 271,
+            "mean_rgb_error": 0.40863168239593506
+          },
+          {
+            "output_frame": 176,
+            "source_frame": 227,
+            "mean_rgb_error": 0.41671809554100037
+          },
+          {
+            "output_frame": 180,
+            "source_frame": 426,
+            "mean_rgb_error": 0.437633752822876
+          },
+          {
+            "output_frame": 284,
+            "source_frame": 60,
+            "mean_rgb_error": 0.14191357791423798
+          },
+          {
+            "output_frame": 823,
+            "source_frame": 316,
+            "mean_rgb_error": 0.38529834151268005
+          }
+        ]
+      },
+      {
+        "path": "/media/hero/cd-hero-smooth-first-portrait.mp4",
+        "bytes": 8642913,
+        "sha256": "1592327fea47fbd91f4518afefd7215d2886cc5e67557a263bc31ae1d5c8950e",
+        "frames": 824,
+        "fps": 96,
+        "duration_seconds": 8.583333333333334,
+        "source_samples": [
+          {
+            "output_frame": 0,
+            "source_frame": 271,
+            "mean_rgb_error": 0.6443827152252197
+          },
+          {
+            "output_frame": 176,
+            "source_frame": 227,
+            "mean_rgb_error": 0.6891666650772095
+          },
+          {
+            "output_frame": 180,
+            "source_frame": 426,
+            "mean_rgb_error": 0.6710391044616699
+          },
+          {
+            "output_frame": 284,
+            "source_frame": 60,
+            "mean_rgb_error": 0.18399177491664886
+          },
+          {
+            "output_frame": 823,
+            "source_frame": 316,
+            "mean_rgb_error": 0.5551851987838745
+          }
+        ]
+      }
+    ]
+  }
+}

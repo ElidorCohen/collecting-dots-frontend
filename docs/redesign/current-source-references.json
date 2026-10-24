@@ -1,0 +1,208 @@
+{
+  "capturedOn": "2026-10-14",
+  "description": "Source code URL references and local public asset fingerprints before redesign. URLs in comments and templates are retained verbatim as references, not all are live destinations. Public API data is in current-public-data.json. No credentials or private demo data are included.",
+  "references": [
+    {
+      "file": "collecting-dots-frontend/app/api/get-playlist-data/route.ts",
+      "line": 6,
+      "url": "https://open.spotify.com/playlist/253UKTc95dhq8FvVbLvroJ"
+    },
+    {
+      "file": "collecting-dots-frontend/app/layout.tsx",
+      "line": 43,
+      "url": "https://collectingdots.com"
+    },
+    {
+      "file": "collecting-dots-frontend/app/layout.tsx",
+      "line": 87,
+      "url": "https://challenges.cloudflare.com/turnstile/v0/api.js"
+    },
+    {
+      "file": "collecting-dots-frontend/app/page.tsx",
+      "line": 807,
+      "url": "http://www.w3.org/2000/svg"
+    },
+    {
+      "file": "collecting-dots-frontend/app/page.tsx",
+      "line": 943,
+      "url": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lightbox%20design%202-tLk2nI9k00LkPEO5mMmfreb7XvAS5e.png"
+    },
+    {
+      "file": "collecting-dots-frontend/app/page.tsx",
+      "line": 1047,
+      "url": "https://instagram.com/${artist.artist_instagram_username}"
+    },
+    {
+      "file": "collecting-dots-frontend/app/page.tsx",
+      "line": 1175,
+      "url": "https://instagram.com/${artist.artist_instagram_username}"
+    },
+    {
+      "file": "collecting-dots-frontend/app/page.tsx",
+      "line": 1514,
+      "url": "https://www.floatapparel.co.za/collections/collecting-dots-x-float"
+    },
+    {
+      "file": "collecting-dots-frontend/app/page.tsx",
+      "line": 1530,
+      "url": "https://www.floatapparel.co.za/cdn/shop/files/FloatSS2526-88.jpg?v=1765538915"
+    },
+    {
+      "file": "collecting-dots-frontend/app/page.tsx",
+      "line": 1535,
+      "url": "https://www.floatapparel.co.za/cdn/shop/files/FloatSS2526-11.jpg?v=1765539824"
+    },
+    {
+      "file": "collecting-dots-frontend/app/page.tsx",
+      "line": 1540,
+      "url": "https://www.floatapparel.co.za/cdn/shop/files/FloatSS2526-69.jpg?v=1765539570"
+    },
+    {
+      "file": "collecting-dots-frontend/app/page.tsx",
+      "line": 1545,
+      "url": "https://www.floatapparel.co.za/cdn/shop/files/FloatSS2526-51.jpg?v=1765788189"
+    },
+    {
+      "file": "collecting-dots-frontend/app/page.tsx",
+      "line": 1550,
+      "url": "https://www.floatapparel.co.za/cdn/shop/files/FloatSS2526-62.jpg?v=1765538074"
+    },
+    {
+      "file": "collecting-dots-frontend/app/page.tsx",
+      "line": 1555,
+      "url": "https://www.floatapparel.co.za/cdn/shop/files/FloatSS2526-03.jpg?v=1765541687"
+    },
+    {
+      "file": "collecting-dots-frontend/app/page.tsx",
+      "line": 1560,
+      "url": "https://www.floatapparel.co.za/collections/collecting-dots-x-float"
+    },
+    {
+      "file": "collecting-dots-frontend/app/page.tsx",
+      "line": 2073,
+      "url": "https://www.instagram.com/collectingdotsrecords/"
+    },
+    {
+      "file": "collecting-dots-frontend/app/page.tsx",
+      "line": 2081,
+      "url": "https://www.beatport.com/label/collecting-dots/126941"
+    },
+    {
+      "file": "collecting-dots-frontend/app/page.tsx",
+      "line": 2089,
+      "url": "https://open.spotify.com/playlist/253UKTc95dhq8FvVbLvroJ"
+    },
+    {
+      "file": "collecting-dots-frontend/components/horizontal-sets-carousel.tsx",
+      "line": 45,
+      "url": "https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0"
+    },
+    {
+      "file": "collecting-dots-frontend/lib/services/deezer.ts",
+      "line": 57,
+      "url": "https://api.deezer.com/2.0"
+    },
+    {
+      "file": "collecting-dots-frontend/lib/services/email.ts",
+      "line": 35,
+      "url": "https://oauth2.googleapis.com/token"
+    },
+    {
+      "file": "collecting-dots-frontend/lib/services/email.ts",
+      "line": 108,
+      "url": "https://gmail.googleapis.com/gmail/v1/users/me/messages/send"
+    },
+    {
+      "file": "collecting-dots-frontend/lib/services/turnstile.ts",
+      "line": 59,
+      "url": "https://challenges.cloudflare.com/turnstile/v0/siteverify"
+    },
+    {
+      "file": "collecting-dots-frontend/lib/services/youtube.ts",
+      "line": 47,
+      "url": "https://www.youtube.com/@${handle}"
+    },
+    {
+      "file": "collecting-dots-frontend/lib/services/youtube.ts",
+      "line": 111,
+      "url": "https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}"
+    },
+    {
+      "file": "collecting-dots-frontend/lib/services/youtube.ts",
+      "line": 149,
+      "url": "https://img.youtube.com/vi/${videoId}/hqdefault.jpg"
+    },
+    {
+      "file": "collecting-dots-frontend/lib/services/youtube.ts",
+      "line": 159,
+      "url": "https://www.youtube.com/watch?v=${videoId}"
+    },
+    {
+      "file": "collecting-dots-frontend/lib/services/youtube.ts",
+      "line": 174,
+      "url": "https://www.youtube.com/@${handle}/videos"
+    },
+    {
+      "file": "collecting-dots-frontend/lib/services/youtube.ts",
+      "line": 224,
+      "url": "https://img.youtube.com/vi/${videoId}/hqdefault.jpg"
+    },
+    {
+      "file": "collecting-dots-frontend/lib/services/youtube.ts",
+      "line": 251,
+      "url": "https://www.youtube.com/watch?v=${videoId}"
+    },
+    {
+      "file": "collecting-dots-frontend/lib/services/youtube.ts",
+      "line": 277,
+      "url": "https://www.youtube.com/@${handle}"
+    }
+  ],
+  "localAssets": [
+    {
+      "path": "collecting-dots-frontend/public/.DS_Store",
+      "bytes": 6148,
+      "sha256": "d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3"
+    },
+    {
+      "path": "collecting-dots-frontend/public/CD - main logo white.svg",
+      "bytes": 3499,
+      "sha256": "187e3c12cf3ad8754270e33e3577bd9d5111833e6f8d0faa30ce2abcea62e6ba"
+    },
+    {
+      "path": "collecting-dots-frontend/public/CD_icon.png",
+      "bytes": 5876,
+      "sha256": "189fd7513d46002fa57abfe62681cbd8029e43ac86f05f73e2dd987faf3cc174"
+    },
+    {
+      "path": "collecting-dots-frontend/public/fonts/BNBobbieSans.otf",
+      "bytes": 103136,
+      "sha256": "648bcfbf2a0a5d1fc4b345145cc7dea0f42b5b1c9dc0dbdc1d7ed33b077666f7"
+    },
+    {
+      "path": "collecting-dots-frontend/public/placeholder-logo.png",
+      "bytes": 568,
+      "sha256": "d7c39d978af643ba9525de6fb8171e0f834882db4110c82ecad0df3f4f69551a"
+    },
+    {
+      "path": "collecting-dots-frontend/public/placeholder-logo.svg",
+      "bytes": 3208,
+      "sha256": "19a9e968f4656d52a4c249b4056117ad109370ba9da51cdc630ddded74cec73b"
+    },
+    {
+      "path": "collecting-dots-frontend/public/placeholder-user.jpg",
+      "bytes": 1635,
+      "sha256": "22be067d748175598a5e00123902f5c8332dd7f101de03dfb92ec08d85bb5e53"
+    },
+    {
+      "path": "collecting-dots-frontend/public/placeholder.jpg",
+      "bytes": 1064,
+      "sha256": "14be0c7aa11cca1e78f0966176b286a6d36d00ec64be027775dfeb33d8e2dfdf"
+    },
+    {
+      "path": "collecting-dots-frontend/public/placeholder.svg",
+      "bytes": 3253,
+      "sha256": "64badf7aabda0b9630b87020ffb6095cb858ccbcf66b355c2aa08b1063954d3b"
+    }
+  ]
+}

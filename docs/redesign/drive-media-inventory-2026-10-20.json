@@ -1,0 +1,1278 @@
+{
+  "checkedOn": "2026-10-20",
+  "sourceFolder": "https://drive.google.com/drive/folders/1HlSzzCo4_PBK1bucvYhF6UQr6JV9MC3Z",
+  "currentFileCount": 93,
+  "newVideoCount": 13,
+  "newVideos": [
+    {
+      "id": "1yB4jNl5Fx4mfBPsv8eG39r59VS7Cjayg",
+      "title": "Omri Socials - Breaking The Rules 1.2.MP4",
+      "mime_type": "video/mp4",
+      "size": "28465557",
+      "url": "https://drive.google.com/file/d/1yB4jNl5Fx4mfBPsv8eG39r59VS7Cjayg/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:09:10.613Z",
+      "modified_time": "2025-11-22T02:33:06.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 73.49
+      }
+    },
+    {
+      "id": "1aqP0KFTzfaXV794KfMcIJuPLDoy5gCDi",
+      "title": "Omri Socials - Sacrifices.MP4",
+      "mime_type": "video/mp4",
+      "size": "23142291",
+      "url": "https://drive.google.com/file/d/1aqP0KFTzfaXV794KfMcIJuPLDoy5gCDi/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:07:50.697Z",
+      "modified_time": "2025-11-20T22:44:26.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 60.03
+      }
+    },
+    {
+      "id": "1BTZ5ai0cs2AlEofJ3BuCG7qq0LROHQgj",
+      "title": "Omri Socials - Whatever.MP4",
+      "mime_type": "video/mp4",
+      "size": "21856481",
+      "url": "https://drive.google.com/file/d/1BTZ5ai0cs2AlEofJ3BuCG7qq0LROHQgj/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:10:00.269Z",
+      "modified_time": "2025-11-20T22:21:05.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 57.11
+      }
+    },
+    {
+      "id": "1QRJcKOAIGItLAXIBql8p93ueQIISTWKi",
+      "title": "Omri Socials - Release The Pressure.MP4",
+      "mime_type": "video/mp4",
+      "size": "23262582",
+      "url": "https://drive.google.com/file/d/1QRJcKOAIGItLAXIBql8p93ueQIISTWKi/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:07:35.625Z",
+      "modified_time": "2025-11-20T22:09:34.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 60.33
+      }
+    },
+    {
+      "id": "1ME-RZtyjl1qiMiQY7GhKmx3P60Ta2ZMl",
+      "title": "Omri Socials - What U Gonna Do.MP4",
+      "mime_type": "video/mp4",
+      "size": "17313639",
+      "url": "https://drive.google.com/file/d/1ME-RZtyjl1qiMiQY7GhKmx3P60Ta2ZMl/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:09:36.067Z",
+      "modified_time": "2025-11-20T21:53:49.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 44.82
+      }
+    },
+    {
+      "id": "11ncTRr7hZXssGoBl3OouA4skSQUK3p-r",
+      "title": "Omri Socials - Good Girls.MP4",
+      "mime_type": "video/mp4",
+      "size": "23223149",
+      "url": "https://drive.google.com/file/d/11ncTRr7hZXssGoBl3OouA4skSQUK3p-r/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:08:55.423Z",
+      "modified_time": "2025-11-20T21:35:59.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 60.29
+      }
+    },
+    {
+      "id": "1XpLm053xOOj38oov7WvEWluRnE5zCaWA",
+      "title": "Omri Socials - Activate.MP4",
+      "mime_type": "video/mp4",
+      "size": "13679346",
+      "url": "https://drive.google.com/file/d/1XpLm053xOOj38oov7WvEWluRnE5zCaWA/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:08:31.079Z",
+      "modified_time": "2025-11-20T20:54:11.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 35.5
+      }
+    },
+    {
+      "id": "1JTrtMtTGIkj_EUijCDQdEdJruvULjjyY",
+      "title": "Omri Socials - Japan Tu Teman.MP4",
+      "mime_type": "video/mp4",
+      "size": "23107791",
+      "url": "https://drive.google.com/file/d/1JTrtMtTGIkj_EUijCDQdEdJruvULjjyY/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:08:04.013Z",
+      "modified_time": "2025-11-20T20:41:06.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 59.95
+      }
+    },
+    {
+      "id": "1DQ8NZtwlg1k2ULElczHSPgqwMziMh_SE",
+      "title": "Omri Socials - Breakfast Club.MP4",
+      "mime_type": "video/mp4",
+      "size": "21539770",
+      "url": "https://drive.google.com/file/d/1DQ8NZtwlg1k2ULElczHSPgqwMziMh_SE/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:08:42.536Z",
+      "modified_time": "2025-11-20T20:24:40.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 55.76
+      }
+    },
+    {
+      "id": "1UUAC3Pm5PneTaBtxQt3--bith2GSEqgP",
+      "title": "Omri Socials - Infected.MP4",
+      "mime_type": "video/mp4",
+      "size": "32596483",
+      "url": "https://drive.google.com/file/d/1UUAC3Pm5PneTaBtxQt3--bith2GSEqgP/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:08:22.009Z",
+      "modified_time": "2025-11-20T20:07:57.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 84.91
+      }
+    },
+    {
+      "id": "1Y5R0Zhh0uYO6vZ5-u2qrvytB97FPBkvQ",
+      "title": "Omri Socials - Untitled.MP4",
+      "mime_type": "video/mp4",
+      "size": "21896531",
+      "url": "https://drive.google.com/file/d/1Y5R0Zhh0uYO6vZ5-u2qrvytB97FPBkvQ/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:09:48.292Z",
+      "modified_time": "2025-11-20T18:46:48.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 56.75
+      }
+    },
+    {
+      "id": "1F7c-bxRK2_mXnLvYjIBRP-ib9jxxg6rn",
+      "title": "Omri Socials - Cruisers.MP4",
+      "mime_type": "video/mp4",
+      "size": "21918898",
+      "url": "https://drive.google.com/file/d/1F7c-bxRK2_mXnLvYjIBRP-ib9jxxg6rn/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:09:25.527Z",
+      "modified_time": "2025-11-20T11:05:49.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 56.96
+      }
+    },
+    {
+      "id": "15JlGmslDVIY6stQNMJA15z3zJdTAAwxR",
+      "title": "Omri Socials - Musk.MP4",
+      "mime_type": "video/mp4",
+      "size": "24037847",
+      "url": "https://drive.google.com/file/d/15JlGmslDVIY6stQNMJA15z3zJdTAAwxR/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:07:19.773Z",
+      "modified_time": "2025-11-20T09:33:44.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 62.08
+      }
+    }
+  ],
+  "files": [
+    {
+      "id": "1o3Vih6N2hls5CPBXHxydCKYjS9oWpfHg",
+      "title": "002_14 (NO BLACK BORDERS)",
+      "mime_type": "video/quicktime",
+      "size": "61135141",
+      "url": "https://drive.google.com/file/d/1o3Vih6N2hls5CPBXHxydCKYjS9oWpfHg/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-15T17:34:46.082Z",
+      "modified_time": "2026-10-15T17:35:03.590Z"
+    },
+    {
+      "id": "1frepEqPFj_ZZdsjCBnWZ2CXIXwsrZlR4",
+      "title": "OMRI7-COLORCHECK.mov",
+      "mime_type": "video/quicktime",
+      "size": "106814100",
+      "url": "https://drive.google.com/file/d/1frepEqPFj_ZZdsjCBnWZ2CXIXwsrZlR4/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-15T06:42:25.842Z",
+      "modified_time": "2026-10-15T06:40:08.745Z"
+    },
+    {
+      "id": "1T-Hbxdj2LUztZdcdp3HArYrZrA85XiPv",
+      "title": "OMRI4-COLORCHECK.mov",
+      "mime_type": "video/quicktime",
+      "size": "140544962",
+      "url": "https://drive.google.com/file/d/1T-Hbxdj2LUztZdcdp3HArYrZrA85XiPv/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-15T06:40:59.601Z",
+      "modified_time": "2026-10-15T06:38:11.094Z"
+    },
+    {
+      "id": "1ggkm6jIs-JhKBAFpGH5QWjJ8mq8Xi8Q_",
+      "title": "OMRI1-COLORCHECK.mov",
+      "mime_type": "video/quicktime",
+      "size": "93546822",
+      "url": "https://drive.google.com/file/d/1ggkm6jIs-JhKBAFpGH5QWjJ8mq8Xi8Q_/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-15T06:38:40.437Z",
+      "modified_time": "2026-10-15T06:36:44.475Z"
+    },
+    {
+      "id": "1GR86OwlyC-PVO_zfLvKC9rarJbfi21Eg",
+      "title": "AFTERMOVIE - COLLECTING DOTS - no sfx.mp4",
+      "mime_type": "video/mp4",
+      "size": "53074103",
+      "url": "https://drive.google.com/file/d/1GR86OwlyC-PVO_zfLvKC9rarJbfi21Eg/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-15T06:31:47.552Z",
+      "modified_time": "2026-10-15T06:29:01.162Z"
+    },
+    {
+      "id": "1CZFiX_T1aqiUbylqVmwvnZqWOLvIJZjX",
+      "title": "ad6c299c5c8446c68dfe1794b96f893d.MP4",
+      "mime_type": "video/mp4",
+      "size": "68050932",
+      "url": "https://drive.google.com/file/d/1CZFiX_T1aqiUbylqVmwvnZqWOLvIJZjX/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-15T06:31:09.611Z",
+      "modified_time": "2026-10-15T06:27:26.000Z"
+    },
+    {
+      "id": "1_XWrAkGR4VZNvH96Ca9yN9gD1XlmH5CI",
+      "title": "002_14.mp4",
+      "mime_type": "video/mp4",
+      "size": "187693821",
+      "url": "https://drive.google.com/file/d/1_XWrAkGR4VZNvH96Ca9yN9gD1XlmH5CI/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-15T06:30:15.017Z",
+      "modified_time": "2026-10-15T06:26:43.382Z"
+    },
+    {
+      "id": "1JOL9QG5PoNEvmcEILyWOQkve5lI4MLs5",
+      "title": "002_12.mp4",
+      "mime_type": "video/mp4",
+      "size": "176253823",
+      "url": "https://drive.google.com/file/d/1JOL9QG5PoNEvmcEILyWOQkve5lI4MLs5/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-15T06:27:57.251Z",
+      "modified_time": "2026-10-15T06:24:15.366Z"
+    },
+    {
+      "id": "1yB4jNl5Fx4mfBPsv8eG39r59VS7Cjayg",
+      "title": "Omri Socials - Breaking The Rules 1.2.MP4",
+      "mime_type": "video/mp4",
+      "size": "28465557",
+      "url": "https://drive.google.com/file/d/1yB4jNl5Fx4mfBPsv8eG39r59VS7Cjayg/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:09:10.613Z",
+      "modified_time": "2025-11-22T02:33:06.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 73.49
+      }
+    },
+    {
+      "id": "1aqP0KFTzfaXV794KfMcIJuPLDoy5gCDi",
+      "title": "Omri Socials - Sacrifices.MP4",
+      "mime_type": "video/mp4",
+      "size": "23142291",
+      "url": "https://drive.google.com/file/d/1aqP0KFTzfaXV794KfMcIJuPLDoy5gCDi/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:07:50.697Z",
+      "modified_time": "2025-11-20T22:44:26.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 60.03
+      }
+    },
+    {
+      "id": "1BTZ5ai0cs2AlEofJ3BuCG7qq0LROHQgj",
+      "title": "Omri Socials - Whatever.MP4",
+      "mime_type": "video/mp4",
+      "size": "21856481",
+      "url": "https://drive.google.com/file/d/1BTZ5ai0cs2AlEofJ3BuCG7qq0LROHQgj/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:10:00.269Z",
+      "modified_time": "2025-11-20T22:21:05.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 57.11
+      }
+    },
+    {
+      "id": "1QRJcKOAIGItLAXIBql8p93ueQIISTWKi",
+      "title": "Omri Socials - Release The Pressure.MP4",
+      "mime_type": "video/mp4",
+      "size": "23262582",
+      "url": "https://drive.google.com/file/d/1QRJcKOAIGItLAXIBql8p93ueQIISTWKi/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:07:35.625Z",
+      "modified_time": "2025-11-20T22:09:34.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 60.33
+      }
+    },
+    {
+      "id": "1ME-RZtyjl1qiMiQY7GhKmx3P60Ta2ZMl",
+      "title": "Omri Socials - What U Gonna Do.MP4",
+      "mime_type": "video/mp4",
+      "size": "17313639",
+      "url": "https://drive.google.com/file/d/1ME-RZtyjl1qiMiQY7GhKmx3P60Ta2ZMl/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:09:36.067Z",
+      "modified_time": "2025-11-20T21:53:49.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 44.82
+      }
+    },
+    {
+      "id": "11ncTRr7hZXssGoBl3OouA4skSQUK3p-r",
+      "title": "Omri Socials - Good Girls.MP4",
+      "mime_type": "video/mp4",
+      "size": "23223149",
+      "url": "https://drive.google.com/file/d/11ncTRr7hZXssGoBl3OouA4skSQUK3p-r/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:08:55.423Z",
+      "modified_time": "2025-11-20T21:35:59.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 60.29
+      }
+    },
+    {
+      "id": "1XpLm053xOOj38oov7WvEWluRnE5zCaWA",
+      "title": "Omri Socials - Activate.MP4",
+      "mime_type": "video/mp4",
+      "size": "13679346",
+      "url": "https://drive.google.com/file/d/1XpLm053xOOj38oov7WvEWluRnE5zCaWA/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:08:31.079Z",
+      "modified_time": "2025-11-20T20:54:11.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 35.5
+      }
+    },
+    {
+      "id": "1JTrtMtTGIkj_EUijCDQdEdJruvULjjyY",
+      "title": "Omri Socials - Japan Tu Teman.MP4",
+      "mime_type": "video/mp4",
+      "size": "23107791",
+      "url": "https://drive.google.com/file/d/1JTrtMtTGIkj_EUijCDQdEdJruvULjjyY/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:08:04.013Z",
+      "modified_time": "2025-11-20T20:41:06.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 59.95
+      }
+    },
+    {
+      "id": "1DQ8NZtwlg1k2ULElczHSPgqwMziMh_SE",
+      "title": "Omri Socials - Breakfast Club.MP4",
+      "mime_type": "video/mp4",
+      "size": "21539770",
+      "url": "https://drive.google.com/file/d/1DQ8NZtwlg1k2ULElczHSPgqwMziMh_SE/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:08:42.536Z",
+      "modified_time": "2025-11-20T20:24:40.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 55.76
+      }
+    },
+    {
+      "id": "1UUAC3Pm5PneTaBtxQt3--bith2GSEqgP",
+      "title": "Omri Socials - Infected.MP4",
+      "mime_type": "video/mp4",
+      "size": "32596483",
+      "url": "https://drive.google.com/file/d/1UUAC3Pm5PneTaBtxQt3--bith2GSEqgP/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:08:22.009Z",
+      "modified_time": "2025-11-20T20:07:57.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 84.91
+      }
+    },
+    {
+      "id": "1Y5R0Zhh0uYO6vZ5-u2qrvytB97FPBkvQ",
+      "title": "Omri Socials - Untitled.MP4",
+      "mime_type": "video/mp4",
+      "size": "21896531",
+      "url": "https://drive.google.com/file/d/1Y5R0Zhh0uYO6vZ5-u2qrvytB97FPBkvQ/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:09:48.292Z",
+      "modified_time": "2025-11-20T18:46:48.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 56.75
+      }
+    },
+    {
+      "id": "1F7c-bxRK2_mXnLvYjIBRP-ib9jxxg6rn",
+      "title": "Omri Socials - Cruisers.MP4",
+      "mime_type": "video/mp4",
+      "size": "21918898",
+      "url": "https://drive.google.com/file/d/1F7c-bxRK2_mXnLvYjIBRP-ib9jxxg6rn/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:09:25.527Z",
+      "modified_time": "2025-11-20T11:05:49.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 56.96
+      }
+    },
+    {
+      "id": "15JlGmslDVIY6stQNMJA15z3zJdTAAwxR",
+      "title": "Omri Socials - Musk.MP4",
+      "mime_type": "video/mp4",
+      "size": "24037847",
+      "url": "https://drive.google.com/file/d/15JlGmslDVIY6stQNMJA15z3zJdTAAwxR/view?usp=drivesdk",
+      "parentFolder": "1k5tFT0d5DbmEZmqAys-N9bkvktQEsNFV",
+      "created_time": "2026-10-20T12:07:19.773Z",
+      "modified_time": "2025-11-20T09:33:44.000Z",
+      "video": {
+        "size": [
+          1024,
+          1280
+        ],
+        "fps": 24.0,
+        "duration": 62.08
+      }
+    },
+    {
+      "id": "1cM1Uz93UJCp8eyPJZe4hfyiT4AtzdwKq",
+      "title": "B97A4863.jpg",
+      "mime_type": "image/jpeg",
+      "size": "2790760",
+      "url": "https://drive.google.com/file/d/1cM1Uz93UJCp8eyPJZe4hfyiT4AtzdwKq/view?usp=drivesdk",
+      "parentFolder": "1hwZcE068WsmODBaqOGllxDYkgazRiXmF",
+      "created_time": "2026-10-15T17:46:57.338Z",
+      "modified_time": "2026-10-15T17:44:39.161Z"
+    },
+    {
+      "id": "1HyZqWJLyZIaFP574kCY3o7JafEsuARWz",
+      "title": "B97A4862.jpg",
+      "mime_type": "image/jpeg",
+      "size": "2396075",
+      "url": "https://drive.google.com/file/d/1HyZqWJLyZIaFP574kCY3o7JafEsuARWz/view?usp=drivesdk",
+      "parentFolder": "1hwZcE068WsmODBaqOGllxDYkgazRiXmF",
+      "created_time": "2026-10-15T17:47:04.993Z",
+      "modified_time": "2026-10-15T17:44:35.229Z"
+    },
+    {
+      "id": "1R72ztJbDdvMZo1vAyRrUDq43-xyfVZtU",
+      "title": "B97A4712.jpg",
+      "mime_type": "image/jpeg",
+      "size": "3995505",
+      "url": "https://drive.google.com/file/d/1R72ztJbDdvMZo1vAyRrUDq43-xyfVZtU/view?usp=drivesdk",
+      "parentFolder": "1hwZcE068WsmODBaqOGllxDYkgazRiXmF",
+      "created_time": "2026-10-15T17:47:12.463Z",
+      "modified_time": "2026-10-15T17:44:27.005Z"
+    },
+    {
+      "id": "1vJWFkP0fisS_0FBEXU0VCXzWalOaLvui",
+      "title": "B97A5733 1.jpg",
+      "mime_type": "image/jpeg",
+      "size": "5779326",
+      "url": "https://drive.google.com/file/d/1vJWFkP0fisS_0FBEXU0VCXzWalOaLvui/view?usp=drivesdk",
+      "parentFolder": "1hwZcE068WsmODBaqOGllxDYkgazRiXmF",
+      "created_time": "2026-10-15T17:46:45.625Z",
+      "modified_time": "2026-10-15T17:42:47.871Z"
+    },
+    {
+      "id": "1BjAhlorKP47Ge8wFIUO2DTjGhIL7nKwQ",
+      "title": "B97A5330.jpg",
+      "mime_type": "image/jpeg",
+      "size": "4522604",
+      "url": "https://drive.google.com/file/d/1BjAhlorKP47Ge8wFIUO2DTjGhIL7nKwQ/view?usp=drivesdk",
+      "parentFolder": "1hwZcE068WsmODBaqOGllxDYkgazRiXmF",
+      "created_time": "2026-10-15T17:46:38.177Z",
+      "modified_time": "2026-10-15T17:42:41.606Z"
+    },
+    {
+      "id": "1FOMuP73zJdTDtMsFeWJpENNrN8sIn8Z6",
+      "title": "B97A5162.jpg",
+      "mime_type": "image/jpeg",
+      "size": "1428203",
+      "url": "https://drive.google.com/file/d/1FOMuP73zJdTDtMsFeWJpENNrN8sIn8Z6/view?usp=drivesdk",
+      "parentFolder": "1hwZcE068WsmODBaqOGllxDYkgazRiXmF",
+      "created_time": "2026-10-15T17:46:31.049Z",
+      "modified_time": "2026-10-15T17:42:33.402Z"
+    },
+    {
+      "id": "1cvzfpH7oRANnmlO7SIG5iv-CtYGmDYAc",
+      "title": "B97A5001.jpg",
+      "mime_type": "image/jpeg",
+      "size": "1635706",
+      "url": "https://drive.google.com/file/d/1cvzfpH7oRANnmlO7SIG5iv-CtYGmDYAc/view?usp=drivesdk",
+      "parentFolder": "1hwZcE068WsmODBaqOGllxDYkgazRiXmF",
+      "created_time": "2026-10-15T17:46:26.108Z",
+      "modified_time": "2026-10-15T17:42:29.122Z"
+    },
+    {
+      "id": "18adaW4abZtGRmAU--cHBFLHT2wr0odMp",
+      "title": "B97A4949.jpg",
+      "mime_type": "image/jpeg",
+      "size": "2290338",
+      "url": "https://drive.google.com/file/d/18adaW4abZtGRmAU--cHBFLHT2wr0odMp/view?usp=drivesdk",
+      "parentFolder": "1hwZcE068WsmODBaqOGllxDYkgazRiXmF",
+      "created_time": "2026-10-15T17:46:21.702Z",
+      "modified_time": "2026-10-15T17:42:21.421Z"
+    },
+    {
+      "id": "1fkxqFxW8lAo0aWHADnAVQFYkbIragcJx",
+      "title": "B97A4622 1.jpg",
+      "mime_type": "image/jpeg",
+      "size": "4852501",
+      "url": "https://drive.google.com/file/d/1fkxqFxW8lAo0aWHADnAVQFYkbIragcJx/view?usp=drivesdk",
+      "parentFolder": "1hwZcE068WsmODBaqOGllxDYkgazRiXmF",
+      "created_time": "2026-10-15T17:46:16.199Z",
+      "modified_time": "2026-10-15T17:42:15.042Z"
+    },
+    {
+      "id": "1cCYrCruZYsuZmrQgea0JcFHF4UyMZE3p",
+      "title": "B97A4281 1.jpg",
+      "mime_type": "image/jpeg",
+      "size": "2796048",
+      "url": "https://drive.google.com/file/d/1cCYrCruZYsuZmrQgea0JcFHF4UyMZE3p/view?usp=drivesdk",
+      "parentFolder": "1hwZcE068WsmODBaqOGllxDYkgazRiXmF",
+      "created_time": "2026-10-15T17:46:10.177Z",
+      "modified_time": "2026-10-15T17:42:04.761Z"
+    },
+    {
+      "id": "1F3lKd7Asmr7EQJN4vBhxEgZiQS6gwYly",
+      "title": "B97A4165 1.jpg",
+      "mime_type": "image/jpeg",
+      "size": "4556938",
+      "url": "https://drive.google.com/file/d/1F3lKd7Asmr7EQJN4vBhxEgZiQS6gwYly/view?usp=drivesdk",
+      "parentFolder": "1hwZcE068WsmODBaqOGllxDYkgazRiXmF",
+      "created_time": "2026-10-15T17:46:04.827Z",
+      "modified_time": "2026-10-15T17:42:01.045Z"
+    },
+    {
+      "id": "1bhVRg3bINMv4rWHSC_V8pwfoUv-ObLI1",
+      "title": "RP_20251115_DotsOnCapeTown_2762.jpg",
+      "mime_type": "image/jpeg",
+      "size": "677014",
+      "url": "https://drive.google.com/file/d/1bhVRg3bINMv4rWHSC_V8pwfoUv-ObLI1/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:55:54.049Z",
+      "modified_time": "2026-10-15T06:55:50.089Z"
+    },
+    {
+      "id": "1KkWnA-PqF-Cs2bU8U5p0_4D2uMFwx7nU",
+      "title": "RP_20251115_DotsOnCapeTown_1983.jpg",
+      "mime_type": "image/jpeg",
+      "size": "1106435",
+      "url": "https://drive.google.com/file/d/1KkWnA-PqF-Cs2bU8U5p0_4D2uMFwx7nU/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:54:55.589Z",
+      "modified_time": "2026-10-15T06:54:47.439Z"
+    },
+    {
+      "id": "1qKqPLdjlpDg9acK5mkBKMO9LrktIWgAT",
+      "title": "DSC07798.jpg",
+      "mime_type": "image/jpeg",
+      "size": "1612712",
+      "url": "https://drive.google.com/file/d/1qKqPLdjlpDg9acK5mkBKMO9LrktIWgAT/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:50:49.232Z",
+      "modified_time": "2026-10-15T06:50:43.754Z"
+    },
+    {
+      "id": "1Zy_xXp2AqjDGUYdNYIxtUb3f-WqtNENe",
+      "title": "DSC07677-2.jpg",
+      "mime_type": "image/jpeg",
+      "size": "1234163",
+      "url": "https://drive.google.com/file/d/1Zy_xXp2AqjDGUYdNYIxtUb3f-WqtNENe/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:50:31.506Z",
+      "modified_time": "2026-10-15T06:50:26.051Z"
+    },
+    {
+      "id": "1QZlNoJVFe-UiVjYkn0f4bSrzljbD25f4",
+      "title": "DSC07580.jpg",
+      "mime_type": "image/jpeg",
+      "size": "1442887",
+      "url": "https://drive.google.com/file/d/1QZlNoJVFe-UiVjYkn0f4bSrzljbD25f4/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:50:18.526Z",
+      "modified_time": "2026-10-15T06:50:12.988Z"
+    },
+    {
+      "id": "1vRc8pXWK3r3iUuLdqpnazLj56nnmy83-",
+      "title": "DSC07360.jpg",
+      "mime_type": "image/jpeg",
+      "size": "1792710",
+      "url": "https://drive.google.com/file/d/1vRc8pXWK3r3iUuLdqpnazLj56nnmy83-/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:49:50.313Z",
+      "modified_time": "2026-10-15T06:49:22.284Z"
+    },
+    {
+      "id": "1fb7na3tloA0i-Mk8EZFpuNHaqKb6u-l9",
+      "title": "DSC08134.jpg",
+      "mime_type": "image/jpeg",
+      "size": "1684927",
+      "url": "https://drive.google.com/file/d/1fb7na3tloA0i-Mk8EZFpuNHaqKb6u-l9/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:35:30.189Z",
+      "modified_time": "2026-10-15T06:35:22.303Z"
+    },
+    {
+      "id": "12A_0RZYv7laHDD5TU2Fk8EMsRET-ahj5",
+      "title": "DSC07861.jpg",
+      "mime_type": "image/jpeg",
+      "size": "9593520",
+      "url": "https://drive.google.com/file/d/12A_0RZYv7laHDD5TU2Fk8EMsRET-ahj5/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:35:40.701Z",
+      "modified_time": "2026-10-15T06:35:01.091Z"
+    },
+    {
+      "id": "1aivIXyU5o9theACwTjCo32CR0baj-NJL",
+      "title": "_DSC4638.jpg",
+      "mime_type": "image/jpeg",
+      "size": "23816481",
+      "url": "https://drive.google.com/file/d/1aivIXyU5o9theACwTjCo32CR0baj-NJL/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:22:35.965Z",
+      "modified_time": "2026-10-15T06:22:14.643Z"
+    },
+    {
+      "id": "1GZ51a3T4QUZLTXckqvHrCDZ4Z9iefQh6",
+      "title": "_DSC4524.jpg",
+      "mime_type": "image/jpeg",
+      "size": "24225363",
+      "url": "https://drive.google.com/file/d/1GZ51a3T4QUZLTXckqvHrCDZ4Z9iefQh6/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:22:11.014Z",
+      "modified_time": "2026-10-15T06:21:50.145Z"
+    },
+    {
+      "id": "1IdeNiCZLs2S-Q-O0TYiOZaEub_T42Mvo",
+      "title": "_DSC4216.jpg",
+      "mime_type": "image/jpeg",
+      "size": "27757850",
+      "url": "https://drive.google.com/file/d/1IdeNiCZLs2S-Q-O0TYiOZaEub_T42Mvo/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:21:34.216Z",
+      "modified_time": "2026-10-15T06:21:09.552Z"
+    },
+    {
+      "id": "1MWRgSUnq1TyZp_5nvEEgmA6mxHSHHG8G",
+      "title": "_DSC4054.jpg",
+      "mime_type": "image/jpeg",
+      "size": "22422874",
+      "url": "https://drive.google.com/file/d/1MWRgSUnq1TyZp_5nvEEgmA6mxHSHHG8G/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:21:04.060Z",
+      "modified_time": "2026-10-15T06:20:36.764Z"
+    },
+    {
+      "id": "1_WFl_6Jn2R80nxcDNOI0Ryzx96pbpqws",
+      "title": "_DSC3456.jpg",
+      "mime_type": "image/jpeg",
+      "size": "25996560",
+      "url": "https://drive.google.com/file/d/1_WFl_6Jn2R80nxcDNOI0Ryzx96pbpqws/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:20:32.010Z",
+      "modified_time": "2026-10-15T06:20:04.677Z"
+    },
+    {
+      "id": "19FhWe1Sc9nPfNqETuM8sWXQOTcevZkpJ",
+      "title": "_DSC3453.jpg",
+      "mime_type": "image/jpeg",
+      "size": "21319759",
+      "url": "https://drive.google.com/file/d/19FhWe1Sc9nPfNqETuM8sWXQOTcevZkpJ/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:20:00.293Z",
+      "modified_time": "2026-10-15T06:19:38.857Z"
+    },
+    {
+      "id": "14uOMiOJi92_OjdfexkuXyDUkXQ4KmsJ1",
+      "title": "DSC08545.jpg",
+      "mime_type": "image/jpeg",
+      "size": "3871451",
+      "url": "https://drive.google.com/file/d/14uOMiOJi92_OjdfexkuXyDUkXQ4KmsJ1/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:16:16.285Z",
+      "modified_time": "2026-10-15T06:16:08.590Z"
+    },
+    {
+      "id": "19Uy-GDEgMefNLKRceSHq9Bntkc4NxguU",
+      "title": "RP_20251115_DotsOnCapeTown_2936-Copy1.jpg",
+      "mime_type": "image/jpeg",
+      "size": "768941",
+      "url": "https://drive.google.com/file/d/19Uy-GDEgMefNLKRceSHq9Bntkc4NxguU/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:12:06.921Z",
+      "modified_time": "2026-10-15T06:12:01.880Z"
+    },
+    {
+      "id": "1Qd3eozbiayrGoSlTffFcJmAzU6ZJNHvZ",
+      "title": "RP_20251115_DotsOnCapeTown_2691.jpg",
+      "mime_type": "image/jpeg",
+      "size": "788146",
+      "url": "https://drive.google.com/file/d/1Qd3eozbiayrGoSlTffFcJmAzU6ZJNHvZ/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:10:33.496Z",
+      "modified_time": "2026-10-15T06:10:08.336Z"
+    },
+    {
+      "id": "1nnN4K6Zs3P-f1_de-51vD4WChudlbsLx",
+      "title": "RP_20251115_DotsOnCapeTown_2690.jpg",
+      "mime_type": "image/jpeg",
+      "size": "1676250",
+      "url": "https://drive.google.com/file/d/1nnN4K6Zs3P-f1_de-51vD4WChudlbsLx/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:09:54.158Z",
+      "modified_time": "2026-10-15T06:09:47.801Z"
+    },
+    {
+      "id": "1hIWWuOZb_Lj2NrNwovVRO68gT73S10Ug",
+      "title": "RP_20251115_DotsOnCapeTown_2613.jpg",
+      "mime_type": "image/jpeg",
+      "size": "439115",
+      "url": "https://drive.google.com/file/d/1hIWWuOZb_Lj2NrNwovVRO68gT73S10Ug/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:09:15.201Z",
+      "modified_time": "2026-10-15T06:09:10.969Z"
+    },
+    {
+      "id": "1Dg4L9UACqmWt3-6b3mN05rR7Gl-UuaMo",
+      "title": "RP_20251115_DotsOnCapeTown_2502.jpg",
+      "mime_type": "image/jpeg",
+      "size": "468688",
+      "url": "https://drive.google.com/file/d/1Dg4L9UACqmWt3-6b3mN05rR7Gl-UuaMo/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:05:28.620Z",
+      "modified_time": "2026-10-15T06:05:18.230Z"
+    },
+    {
+      "id": "1sTS4Ctp5XWdWEKHociszkJYlph8-oAKV",
+      "title": "RP_20251115_DotsOnCapeTown_2045.jpg",
+      "mime_type": "image/jpeg",
+      "size": "917955",
+      "url": "https://drive.google.com/file/d/1sTS4Ctp5XWdWEKHociszkJYlph8-oAKV/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:03:04.748Z",
+      "modified_time": "2026-10-15T06:03:00.513Z"
+    },
+    {
+      "id": "1WWmUgqjJBOrht3Y_R2CBZqAxjIGTrP64",
+      "title": "RP_20251115_DotsOnCapeTown_1833.jpg",
+      "mime_type": "image/jpeg",
+      "size": "328523",
+      "url": "https://drive.google.com/file/d/1WWmUgqjJBOrht3Y_R2CBZqAxjIGTrP64/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T06:01:33.305Z",
+      "modified_time": "2026-10-15T06:01:29.483Z"
+    },
+    {
+      "id": "1gz593iPrn_5GG5tv1K4B3deyooaWOqpi",
+      "title": "RP_20251115_DotsOnCapeTown_1547 (1).jpg",
+      "mime_type": "image/jpeg",
+      "size": "668332",
+      "url": "https://drive.google.com/file/d/1gz593iPrn_5GG5tv1K4B3deyooaWOqpi/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T05:59:43.176Z",
+      "modified_time": "2026-10-15T05:59:35.452Z"
+    },
+    {
+      "id": "1YQ5omNK3OTnnMcu13Gx1YK3-wVizQgiF",
+      "title": "RP_20251115_DotsOnCapeTown_1349.jpg",
+      "mime_type": "image/jpeg",
+      "size": "943931",
+      "url": "https://drive.google.com/file/d/1YQ5omNK3OTnnMcu13Gx1YK3-wVizQgiF/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T05:58:22.583Z",
+      "modified_time": "2026-10-15T05:58:19.487Z"
+    },
+    {
+      "id": "1oshw72XYZuaoVPSbpAj2IGw5v5eIkdQv",
+      "title": "RP_20251115_DotsOnCapeTown_1346.jpg",
+      "mime_type": "image/jpeg",
+      "size": "850049",
+      "url": "https://drive.google.com/file/d/1oshw72XYZuaoVPSbpAj2IGw5v5eIkdQv/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T05:58:05.826Z",
+      "modified_time": "2026-10-15T05:58:02.463Z"
+    },
+    {
+      "id": "1jSKJEC9aFS073W7aMVlMU4PK7LJDMrPx",
+      "title": "RP_20251115_DotsOnCapeTown_1176.jpg",
+      "mime_type": "image/jpeg",
+      "size": "948516",
+      "url": "https://drive.google.com/file/d/1jSKJEC9aFS073W7aMVlMU4PK7LJDMrPx/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T05:57:24.814Z",
+      "modified_time": "2026-10-15T05:57:18.601Z"
+    },
+    {
+      "id": "1wwajpOlu6aw7qMMFZ7y2MUxZcJfmQ_Ym",
+      "title": "RP_20251115_DotsOnCapeTown_3232.jpg",
+      "mime_type": "image/jpeg",
+      "size": "608292",
+      "url": "https://drive.google.com/file/d/1wwajpOlu6aw7qMMFZ7y2MUxZcJfmQ_Ym/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T05:52:40.169Z",
+      "modified_time": "2026-10-15T05:52:36.927Z"
+    },
+    {
+      "id": "17Bsdl7qhXsFh1MbzY-KMD48nK4CjvLek",
+      "title": "RP_20251115_DotsOnCapeTown_3353.jpg",
+      "mime_type": "image/jpeg",
+      "size": "382051",
+      "url": "https://drive.google.com/file/d/17Bsdl7qhXsFh1MbzY-KMD48nK4CjvLek/view?usp=drivesdk",
+      "parentFolder": "1IGW16vw2hXPWVEWm9mcng_3wfpq4gbhr",
+      "created_time": "2026-10-15T05:52:18.001Z",
+      "modified_time": "2026-10-15T05:52:08.314Z"
+    },
+    {
+      "id": "1vsLcJLLD31gbTwOg77mekKJGzdbUFYKy",
+      "title": "RP_20251115_DotsOnCapeTown_3303.jpg",
+      "mime_type": "image/jpeg",
+      "size": "1313055",
+      "url": "https://drive.google.com/file/d/1vsLcJLLD31gbTwOg77mekKJGzdbUFYKy/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:56:27.796Z",
+      "modified_time": "2026-10-15T06:56:21.346Z"
+    },
+    {
+      "id": "130Q1Dc3mavnpjBcIHfZJ7vseJBeL3889",
+      "title": "DSC08183.jpg",
+      "mime_type": "image/jpeg",
+      "size": "2047318",
+      "url": "https://drive.google.com/file/d/130Q1Dc3mavnpjBcIHfZJ7vseJBeL3889/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:51:36.485Z",
+      "modified_time": "2026-10-15T06:51:26.707Z"
+    },
+    {
+      "id": "1YWKDz5nxiwXUbo37N19CKgTpcsWG9JlB",
+      "title": "DSC07980.jpg",
+      "mime_type": "image/jpeg",
+      "size": "2262571",
+      "url": "https://drive.google.com/file/d/1YWKDz5nxiwXUbo37N19CKgTpcsWG9JlB/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:51:11.840Z",
+      "modified_time": "2026-10-15T06:51:01.152Z"
+    },
+    {
+      "id": "1GtlRASSJC_aFyQOt5FTVxoXppEKhRuUi",
+      "title": "_DSC2858.jpg",
+      "mime_type": "image/jpeg",
+      "size": "13352848",
+      "url": "https://drive.google.com/file/d/1GtlRASSJC_aFyQOt5FTVxoXppEKhRuUi/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:47:48.974Z",
+      "modified_time": "2026-10-15T06:47:29.582Z"
+    },
+    {
+      "id": "1VTpaPxHDSD6qI9668h9VRrCR53qQQtry",
+      "title": "_DSC2741.jpg",
+      "mime_type": "image/jpeg",
+      "size": "11217638",
+      "url": "https://drive.google.com/file/d/1VTpaPxHDSD6qI9668h9VRrCR53qQQtry/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:19:03.886Z",
+      "modified_time": "2026-10-15T06:18:51.158Z"
+    },
+    {
+      "id": "1x0A0nH0BLW_C9q-cdBpGVTySc-t8ehF1",
+      "title": "CD PROFILE PHOTO  (1).jpg",
+      "mime_type": "image/jpeg",
+      "size": "20519888",
+      "url": "https://drive.google.com/file/d/1x0A0nH0BLW_C9q-cdBpGVTySc-t8ehF1/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:18:03.572Z",
+      "modified_time": "2026-10-15T06:17:41.188Z"
+    },
+    {
+      "id": "1r6RRCDBr5TkoWCFw4fXovKhDMfLCWgaI",
+      "title": "CD PROFILE PHOTO.jpg",
+      "mime_type": "image/jpeg",
+      "size": "14104890",
+      "url": "https://drive.google.com/file/d/1r6RRCDBr5TkoWCFw4fXovKhDMfLCWgaI/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:17:37.386Z",
+      "modified_time": "2026-10-15T06:17:23.290Z"
+    },
+    {
+      "id": "1sL7j9J7XssH87Bbbho7kewgd0bBGOE8D",
+      "title": "DSC08715.jpg",
+      "mime_type": "image/jpeg",
+      "size": "2472427",
+      "url": "https://drive.google.com/file/d/1sL7j9J7XssH87Bbbho7kewgd0bBGOE8D/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:16:42.271Z",
+      "modified_time": "2026-10-15T06:16:35.805Z"
+    },
+    {
+      "id": "1XnlNqR208UE6v70sAVLMIuvLzSP7bYnV",
+      "title": "DSC07536 (1).jpg",
+      "mime_type": "image/jpeg",
+      "size": "2260518",
+      "url": "https://drive.google.com/file/d/1XnlNqR208UE6v70sAVLMIuvLzSP7bYnV/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:15:28.129Z",
+      "modified_time": "2026-10-15T06:15:21.184Z"
+    },
+    {
+      "id": "1trHEnEi-OC59rNWD5Gbf-J57WT10kBXn",
+      "title": "DSC07398.jpg",
+      "mime_type": "image/jpeg",
+      "size": "7673046",
+      "url": "https://drive.google.com/file/d/1trHEnEi-OC59rNWD5Gbf-J57WT10kBXn/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:15:06.769Z",
+      "modified_time": "2026-10-15T06:14:53.183Z"
+    },
+    {
+      "id": "1CBnkKBHFa-zzWfvDkRTBvfc0BE9KPC6y",
+      "title": "DSC07395.jpg",
+      "mime_type": "image/jpeg",
+      "size": "1608587",
+      "url": "https://drive.google.com/file/d/1CBnkKBHFa-zzWfvDkRTBvfc0BE9KPC6y/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:14:45.704Z",
+      "modified_time": "2026-10-15T06:14:40.131Z"
+    },
+    {
+      "id": "1CfPqDJKbXCPgA3T7iqitHRwA87mu2ifS",
+      "title": "DSC07178.jpg",
+      "mime_type": "image/jpeg",
+      "size": "2248120",
+      "url": "https://drive.google.com/file/d/1CfPqDJKbXCPgA3T7iqitHRwA87mu2ifS/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:14:23.838Z",
+      "modified_time": "2026-10-15T06:14:14.390Z"
+    },
+    {
+      "id": "1qeUjxdEiMZMR00YbODGEu8RPq4iNsgZ8",
+      "title": "DSC07163.jpg",
+      "mime_type": "image/jpeg",
+      "size": "2610378",
+      "url": "https://drive.google.com/file/d/1qeUjxdEiMZMR00YbODGEu8RPq4iNsgZ8/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:14:10.072Z",
+      "modified_time": "2026-10-15T06:13:58.234Z"
+    },
+    {
+      "id": "1sjPG2VnaN4-yqejloDAJH_1SkkBQGjDh",
+      "title": "RP_20251115_DotsOnCapeTown_2858.jpg",
+      "mime_type": "image/jpeg",
+      "size": "413341",
+      "url": "https://drive.google.com/file/d/1sjPG2VnaN4-yqejloDAJH_1SkkBQGjDh/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:11:27.785Z",
+      "modified_time": "2026-10-15T06:11:23.884Z"
+    },
+    {
+      "id": "1mrv1mZEt7Qpj8ZvZMFpvJt1BwUJyFpen",
+      "title": "RP_20251115_DotsOnCapeTown_2816.jpg",
+      "mime_type": "image/jpeg",
+      "size": "292108",
+      "url": "https://drive.google.com/file/d/1mrv1mZEt7Qpj8ZvZMFpvJt1BwUJyFpen/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:11:09.645Z",
+      "modified_time": "2026-10-15T06:11:06.408Z"
+    },
+    {
+      "id": "1BDmh8zjwTtB4Q2hG7Bq7BtRd1e8_M8Ug",
+      "title": "RP_20251115_DotsOnCapeTown_1929.jpg",
+      "mime_type": "image/jpeg",
+      "size": "690093",
+      "url": "https://drive.google.com/file/d/1BDmh8zjwTtB4Q2hG7Bq7BtRd1e8_M8Ug/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:02:19.065Z",
+      "modified_time": "2026-10-15T06:02:15.633Z"
+    },
+    {
+      "id": "1NuB2uEXd7PVVOEnG27PZ9wnmbJj-TB6S",
+      "title": "RP_20251115_DotsOnCapeTown_1910.jpg",
+      "mime_type": "image/jpeg",
+      "size": "961209",
+      "url": "https://drive.google.com/file/d/1NuB2uEXd7PVVOEnG27PZ9wnmbJj-TB6S/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T06:02:06.786Z",
+      "modified_time": "2026-10-15T06:01:57.378Z"
+    },
+    {
+      "id": "1mXOawIADLb9bMHO_KIcuhTVpSwK3-Zpv",
+      "title": "RP_20251115_DotsOnCapeTown_0536.jpg",
+      "mime_type": "image/jpeg",
+      "size": "520389",
+      "url": "https://drive.google.com/file/d/1mXOawIADLb9bMHO_KIcuhTVpSwK3-Zpv/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T05:55:33.129Z",
+      "modified_time": "2026-10-15T05:55:28.512Z"
+    },
+    {
+      "id": "1T3purzrt0HqYibghYpyygin8MJGz_7mW",
+      "title": "RP_20251115_DotsOnCapeTown_0487.jpg",
+      "mime_type": "image/jpeg",
+      "size": "406085",
+      "url": "https://drive.google.com/file/d/1T3purzrt0HqYibghYpyygin8MJGz_7mW/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T05:55:20.033Z",
+      "modified_time": "2026-10-15T05:55:06.795Z"
+    },
+    {
+      "id": "1Tv4W8W2y8dLIhkzgz8vZaryQR1nH4EMJ",
+      "title": "RP_20251115_DotsOnCapeTown_0121.jpg",
+      "mime_type": "image/jpeg",
+      "size": "662255",
+      "url": "https://drive.google.com/file/d/1Tv4W8W2y8dLIhkzgz8vZaryQR1nH4EMJ/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T05:53:50.052Z",
+      "modified_time": "2026-10-15T05:53:45.155Z"
+    },
+    {
+      "id": "1UbfFEkmFVF5GhlzRViW2RC_hGOYRWPOd",
+      "title": "collectingST_20251115_DotsOnCapeTown_0135.jpg",
+      "mime_type": "image/jpeg",
+      "size": "187209",
+      "url": "https://drive.google.com/file/d/1UbfFEkmFVF5GhlzRViW2RC_hGOYRWPOd/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T05:53:16.495Z",
+      "modified_time": "2026-10-15T05:53:08.689Z"
+    },
+    {
+      "id": "19WngNQhgUXYRVqLfzNJ9wkIje67OwOgx",
+      "title": "RP_20251115_DotsOnCapeTown_3598.jpg",
+      "mime_type": "image/jpeg",
+      "size": "477062",
+      "url": "https://drive.google.com/file/d/19WngNQhgUXYRVqLfzNJ9wkIje67OwOgx/view?usp=drivesdk",
+      "parentFolder": "1ZK4wTJexOgIhSA57w77_X7t4Uu89FIGr",
+      "created_time": "2026-10-15T05:51:23.970Z",
+      "modified_time": "2026-10-15T05:50:55.363Z"
+    },
+    {
+      "id": "1Vznq_yn9OVTYS84mh7dVJkVShCqfLVCx",
+      "title": "Collecting Dots Full Scale Event Brief_compressed.pdf",
+      "mime_type": "application/pdf",
+      "size": "2229081",
+      "url": "https://drive.google.com/file/d/1Vznq_yn9OVTYS84mh7dVJkVShCqfLVCx/view?usp=drivesdk",
+      "parentFolder": "1XxavhY2hcFbrfFKWR8W30voGqdBNq-za",
+      "created_time": "2026-10-15T05:47:37.914Z",
+      "modified_time": "2026-10-15T00:48:33.000Z"
+    },
+    {
+      "id": "1DeU64CTpn_4oaREAuetTarGQfmbZ4l35",
+      "title": "BNBobbieSans.otf",
+      "mime_type": "font/otf",
+      "size": "103136",
+      "url": "https://drive.google.com/file/d/1DeU64CTpn_4oaREAuetTarGQfmbZ4l35/view?usp=drivesdk",
+      "parentFolder": "13Zk7k_zO8sEwKWe9tsra-FFPSXqRGjOu",
+      "created_time": "2026-10-15T05:48:53.596Z",
+      "modified_time": "2026-08-19T05:19:01.000Z"
+    },
+    {
+      "id": "1JqT-nCWAFWHzvZ06AlYjeLcJYBEQ5HKH",
+      "title": "CD - main logo black.svg",
+      "mime_type": "image/svg+xml",
+      "size": "3249",
+      "url": "https://drive.google.com/file/d/1JqT-nCWAFWHzvZ06AlYjeLcJYBEQ5HKH/view?usp=drivesdk",
+      "parentFolder": "13Zk7k_zO8sEwKWe9tsra-FFPSXqRGjOu",
+      "created_time": "2026-10-15T05:48:53.292Z",
+      "modified_time": "2026-08-19T05:18:56.000Z"
+    },
+    {
+      "id": "1yIkKLeCzpnF_JcptIlFsO_08rj1r_1s8",
+      "title": "CD - main logo white.svg",
+      "mime_type": "image/svg+xml",
+      "size": "3499",
+      "url": "https://drive.google.com/file/d/1yIkKLeCzpnF_JcptIlFsO_08rj1r_1s8/view?usp=drivesdk",
+      "parentFolder": "13Zk7k_zO8sEwKWe9tsra-FFPSXqRGjOu",
+      "created_time": "2026-10-15T05:48:53.347Z",
+      "modified_time": "2026-08-19T05:18:56.000Z"
+    },
+    {
+      "id": "10dr20NCQWzvp-Ei1FF8cU9OKGCb0dIi1",
+      "title": "CD - main_logo_black.png",
+      "mime_type": "image/png",
+      "size": "30632",
+      "url": "https://drive.google.com/file/d/10dr20NCQWzvp-Ei1FF8cU9OKGCb0dIi1/view?usp=drivesdk",
+      "parentFolder": "13Zk7k_zO8sEwKWe9tsra-FFPSXqRGjOu",
+      "created_time": "2026-10-15T05:48:53.598Z",
+      "modified_time": "2026-08-19T05:18:56.000Z"
+    },
+    {
+      "id": "1ZRfY4iVAy34iJoAq3PktKxYpKp3eKWB5",
+      "title": "CD - main_logo_white.png",
+      "mime_type": "image/png",
+      "size": "28231",
+      "url": "https://drive.google.com/file/d/1ZRfY4iVAy34iJoAq3PktKxYpKp3eKWB5/view?usp=drivesdk",
+      "parentFolder": "13Zk7k_zO8sEwKWe9tsra-FFPSXqRGjOu",
+      "created_time": "2026-10-15T05:48:53.385Z",
+      "modified_time": "2026-08-19T05:18:56.000Z"
+    },
+    {
+      "id": "1kMudhmCoCOf-3c9vM1rsLcmIdnQG0ozy",
+      "title": "CD_icon.png",
+      "mime_type": "image/png",
+      "size": "5876",
+      "url": "https://drive.google.com/file/d/1kMudhmCoCOf-3c9vM1rsLcmIdnQG0ozy/view?usp=drivesdk",
+      "parentFolder": "13Zk7k_zO8sEwKWe9tsra-FFPSXqRGjOu",
+      "created_time": "2026-10-15T05:48:53.275Z",
+      "modified_time": "2026-08-19T05:18:56.000Z"
+    },
+    {
+      "id": "14Vwe4Opphs29ZJb1bIY1JH8BLHxcgdxq",
+      "title": "cd_icon+monotype.png",
+      "mime_type": "image/png",
+      "size": "14589",
+      "url": "https://drive.google.com/file/d/14Vwe4Opphs29ZJb1bIY1JH8BLHxcgdxq/view?usp=drivesdk",
+      "parentFolder": "13Zk7k_zO8sEwKWe9tsra-FFPSXqRGjOu",
+      "created_time": "2026-10-15T05:48:53.373Z",
+      "modified_time": "2026-08-19T05:18:56.000Z"
+    },
+    {
+      "id": "1QWbII8WnHzv0XiS5ahae925HpsPTVEi8",
+      "title": "CD_icon+type.png",
+      "mime_type": "image/png",
+      "size": "18733",
+      "url": "https://drive.google.com/file/d/1QWbII8WnHzv0XiS5ahae925HpsPTVEi8/view?usp=drivesdk",
+      "parentFolder": "13Zk7k_zO8sEwKWe9tsra-FFPSXqRGjOu",
+      "created_time": "2026-10-15T05:48:53.391Z",
+      "modified_time": "2026-08-19T05:18:56.000Z"
+    },
+    {
+      "id": "1-1pSfjp7-kgRieXIw7-KTwOd8kvFNuln",
+      "title": "CD_monotype.png",
+      "mime_type": "image/png",
+      "size": "30593",
+      "url": "https://drive.google.com/file/d/1-1pSfjp7-kgRieXIw7-KTwOd8kvFNuln/view?usp=drivesdk",
+      "parentFolder": "13Zk7k_zO8sEwKWe9tsra-FFPSXqRGjOu",
+      "created_time": "2026-10-15T05:48:53.523Z",
+      "modified_time": "2026-08-19T05:18:56.000Z"
+    },
+    {
+      "id": "10-4SWjuG941vJeXwR0UTc_9OAOJK53h-",
+      "title": "CD_type.png",
+      "mime_type": "image/png",
+      "size": "34680",
+      "url": "https://drive.google.com/file/d/10-4SWjuG941vJeXwR0UTc_9OAOJK53h-/view?usp=drivesdk",
+      "parentFolder": "13Zk7k_zO8sEwKWe9tsra-FFPSXqRGjOu",
+      "created_time": "2026-10-15T05:48:53.638Z",
+      "modified_time": "2026-08-19T05:18:56.000Z"
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "assets": [
+    {
+      "original": "/Users/elidorcohen/collectingdots/media-inbox/about/originals/B97A4862.jpg",
+      "drive_url": "https://drive.google.com/file/d/1HyZqWJLyZIaFP574kCY3o7JafEsuARWz/view",
+      "sha256": "da0faa765b3db8bea057773873559cd78e5fc22a99e20b04dc400bdebd1e29fc",
+      "dimensions": [
+        3648,
+        5472
+      ],
+      "derivatives": [
+        {
+          "path": "/media/about/omri-editorial-640.webp",
+          "dimensions": [
+            640,
+            960
+          ],
+          "bytes": 47638,
+          "sha256": "82af7795cc5f7090ca85de48958439d034672ee6372ff3a52c9fc36c37ced571"
+        },
+        {
+          "path": "/media/about/omri-editorial-1280.webp",
+          "dimensions": [
+            1280,
+            1920
+          ],
+          "bytes": 307660,
+          "sha256": "98492e72dc1fa82db6223442a4b8e40da8141994fdf8f39618240b7bda389929"
+        },
+        {
+          "path": "/media/about/omri-editorial-1920.webp",
+          "dimensions": [
+            1920,
+            2880
+          ],
+          "bytes": 763696,
+          "sha256": "233c881379d06e65c35b48831cce61e176c1f01659be1aa6f06e704db83424e4"
+        }
+      ]
+    },
+    {
+      "original": "/Users/elidorcohen/collectingdots/media-inbox/about/originals/CD PROFILE PHOTO.jpg",
+      "drive_url": "https://drive.google.com/file/d/1r6RRCDBr5TkoWCFw4fXovKhDMfLCWgaI/view",
+      "sha256": "bc57b29f1e3c166fc622189b670e25fbe0dadf95b8325f55ac1955bd2938cefa",
+      "dimensions": [
+        3915,
+        5872
+      ],
+      "derivatives": [
+        {
+          "path": "/media/about/label-lightbox-640.webp",
+          "dimensions": [
+            640,
+            960
+          ],
+          "bytes": 189608,
+          "sha256": "869dd0a588091d60903d20d2653e357c1321c62a4c60e92d9426be20f602c074"
+        },
+        {
+          "path": "/media/about/label-lightbox-1280.webp",
+          "dimensions": [
+            1280,
+            1920
+          ],
+          "bytes": 904054,
+          "sha256": "379ebf2b469e791911d2c675e486fa923251e00d398830d16230835c882c446a"
+        },
+        {
+          "path": "/media/about/label-lightbox-1920.webp",
+          "dimensions": [
+            1920,
+            2880
+          ],
+          "bytes": 2165100,
+          "sha256": "523b5620b885dd8feb6c986a7b7f32bccf49b725f0583a7ffb6677406a6c3a6e"
+        }
+      ]
+    }
+  ],
+  "processing": "Originals preserved; EXIF orientation applied, proportional Lanczos resizing, WebP quality 95, embedded source ICC retained when present. CSS crops only; no generated photos, regrading, face editing or upscaling.",
+  "additional_download": "_DSC4054.jpg archived for later use; not used in this chapter.",
+  "rollback": "/Users/elidorcohen/collectingdots/media-inbox/about/before",
+  "replaces": {
+    "source_url": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lightbox%20design%202-tLk2nI9k00LkPEO5mMmfreb7XvAS5e.png",
+    "previous_about_copy_and_markup": "/Users/elidorcohen/collectingdots/media-inbox/about/before/app/page.tsx"
+  },
+  "additional_archived_source": {
+    "path": "/Users/elidorcohen/collectingdots/media-inbox/about/originals/_DSC4054.jpg",
+    "drive_url": "https://drive.google.com/file/d/1MWRgSUnq1TyZp_5nvEEgmA6mxHSHHG8G/view",
+    "sha256": "c91b1723f4b949972caa61bc846cf1deafa5197738f8669b529291086a6f9d6e",
+    "used_in_chapter": false
+  }
+}

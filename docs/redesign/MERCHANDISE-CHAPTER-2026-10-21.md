@@ -1,0 +1,11 @@
+# Merchandise chapter — 21 October 2026
+
+A warm paper lookbook follows the dark media archive. Three paper columns rise at slightly different times; the archive record light follows a curved path into the garment tag. The hero photograph, secondary photograph and product list arrive in sequence. The narrative clock is directly scrubbed, without playback or time-based smoothing: stopping holds the composition and reverse scrolling restores the archive.
+
+The six existing products and original Float collection destination remain. The main photograph starts on the Waveform Tee back print. Each product has two original Float views; selecting a row or the next-piece photograph changes the product without another pinned scrolling sequence. Mobile uses a compact six-item grid. Image sizes are responsive up to the original 1440 × 1920 source; photographs retain their native aspect ratio. Sizes, stock and current prices are handled at Float rather than presented as a live local inventory. The original source block, including its old prices, is preserved in media-inbox/merchandise/before/home-page.tsx.
+
+Source records and exact image URLs: merchandise-media.json. UI product data: lib/merchandise.json. Component: components/collecting-dots-merchandise.tsx and matching CSS module. Included on the home page and both opener previews. Archive changes are two handoff data markers plus departure visibility. Header colour and local preview navigation now include merchandise. Demo submission and subsequent home-page content remain byte-for-byte unchanged from the pre-merchandise backup.
+
+Validation: production build and standalone TypeScript check; all six original product images and collection URL checked against the previous source; all twelve full-size photographs loaded in-browser; six product selectors, alternate views and next-piece navigation exercised; paused dot position and narrative progress unchanged between observations; reverse scrolling restores the archive record light. Responsive visual checks at 1440 × 900, 1280 × 720, 768 × 1024, 390 × 844 and 320 × 568. Additional final-build screenshots saved in media-inbox/merchandise/review.
+
+No deployment, new packages, generated images or dashboard/data-feed changes.

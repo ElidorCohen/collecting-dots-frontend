@@ -1,0 +1,210 @@
+{
+  "capturedOn": "2026-10-20",
+  "rosterSource": {
+    "publicEndpoint": "https://www.collectingdots.com/api/get-artists-data",
+    "productionEndpoint": "/api/get-artists-data",
+    "localReviewEndpoint": "/api/artists-preview",
+    "origin": "Dashboard artist records stored in Dropbox, enriched with Spotify profile images. Production API unchanged."
+  },
+  "editorialOverride": {
+    "filename": "B97A4165 1.jpg",
+    "drive_url": "https://drive.google.com/file/d/1F3lKd7Asmr7EQJN4vBhxEgZiQS6gwYly/view",
+    "original": "/Users/elidorcohen/collectingdots/media-inbox/artists/originals/B97A4165 1.jpg",
+    "dimensions": [
+      3648,
+      5472
+    ],
+    "bytes": 4556938,
+    "sha256": "b3014da28b1a9fb2be6ad7fb22d9b7e5fbc34b0498537a5214e95dc94b60af6f",
+    "appliesToSpotifyId": "36jn1T9teX1BHEJYcPoazX",
+    "processing": "EXIF orientation; proportional Lanczos resizing, WebP quality 95, source ICC retained. No generation, retouch, upscaling or source crop. Original retained.",
+    "derivatives": [
+      {
+        "path": "/media/artists/omri-seated-640.webp",
+        "bytes": 95726,
+        "sha256": "b2515744aa437cba643f735ae04abf563525b1f5b4522d3bf82ea614abcf24e1"
+      },
+      {
+        "path": "/media/artists/omri-seated-1280.webp",
+        "bytes": 404126,
+        "sha256": "d8ce5e42a9484f6ab9b1983dccbc628e2f7c6247fdc28ef7a2641af932fea0b6"
+      },
+      {
+        "path": "/media/artists/omri-seated-1920.webp",
+        "bytes": 1094124,
+        "sha256": "e843600b893986396399346c3fbd6ee16f72ba078890a5f4d9df7f4db4e21fab"
+      }
+    ]
+  },
+  "artists": [
+    {
+      "name": "OMRI.",
+      "spotify": "https://open.spotify.com/artist/36jn1T9teX1BHEJYcPoazX?si=Zn5VjN0pQgGomI5tMUEhDA",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5eb06b08bc598832401202aa41b",
+      "displaySource": "Supplied B97A4949.jpg"
+    },
+    {
+      "name": "Rafael",
+      "spotify": "https://open.spotify.com/artist/3DHC2ZUVADRKLSmqPcqvc6?si=4hYmJIlmQ1KGOyOFuQkCPw",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5ebcebd6c5f54188a4e2c2b6cce",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "TOBEHONEST",
+      "spotify": "https://open.spotify.com/artist/5aE4f6qwsXT5hACySkxJQo?si=rRT-EW4GSg6fWyF6wAmxKg",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5eb3e14fb2f37429db6bed45571",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "The Botanist",
+      "spotify": "https://open.spotify.com/artist/15ZbPLr8nbvNDZ1vaqr75W?si=paVuS7oUSOWGRgE1ibnetQ",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5ebfa2d34229aa29944bd4f32f1",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "Adaru",
+      "spotify": "https://open.spotify.com/artist/6w8EDSvxku1HxRykFvPVDL?si=hEOorTGbSFOcLFVZLPk3_A",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5ebb8aaf406c51406f9a18d879c",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "Dor Danino",
+      "spotify": "https://open.spotify.com/artist/5OT75tS8Kr97I3OPJvIRBs?si=d6MvF0j8SJuW1SyizEmjiw",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5eb1619cf7360d0adf41b7feb65",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "N.O.Y",
+      "spotify": "https://open.spotify.com/artist/0hqXTlQAEAtkUw1QIveElr?si=xqiI5Dc7R-WQUi-Cb1Oh9g",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5ebb077c5183d14a12dc2d60182",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "Balanka",
+      "spotify": "https://open.spotify.com/artist/4F47V8rO8pOERTLQNXCo3v?si=ntBYFUdpTi2l-W1DEm4m-A",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5eb3830fb2955ef9732a0d3d5b6",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "Bonafique",
+      "spotify": "https://open.spotify.com/artist/4iYZQBR8znMgLUEM949803?si=zyLf5oHtSUeWiLXOmYJ-lQ",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5eb6d46eba60972d0ce0f5e6544",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "Sapian",
+      "spotify": "https://open.spotify.com/artist/4hWjDdwaSTU6SgOk5ZP3GT?si=nPPvPrkMRLa2U63QzVueig",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5eb8e2815d53fb2b8d9fa99ee3a",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "Rave Rae",
+      "spotify": "https://open.spotify.com/artist/72I24QKKHBlfjLwDH359MG?si=t8YJ4EdhSy25E0DN2Ex4AQ/",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5eb2a822ad40fca65e08bcacda5",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "NAAR (US)",
+      "spotify": "https://open.spotify.com/artist/2MNWqxfraxtx61tyxwzyqq?si=9g3s3JReRfu0nWgOrpq9vA",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5eb8eebe3bb1d469e17d4434cb9",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "Parker Page",
+      "spotify": "https://open.spotify.com/artist/1jRRjPpIYv5Wzbu4oyNSwb?si=LAgA4cvoTHSfllyAjz7wGA",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5eb5fd5151e4652999e3aa8c63e",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "Panna",
+      "spotify": "https://open.spotify.com/artist/34YgnaBrdRLtuwExinbk0t?si=WaZYxuH_TgOvNsMGhnGTxQ",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5ebdc67e8be6ec6b8f1aa9942cf",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "Record Club",
+      "spotify": "https://open.spotify.com/artist/4cArYfwQ0BrfSEhaDwhVYQ?si=dBv3SsV_RRiwslRf7QN-rw",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5ebc61f8360def3c456b17a4f18",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "Magos",
+      "spotify": "https://open.spotify.com/artist/5yaXT63tlm1c2yn8aV0bOI?si=3IWeULumR7-dSLFJoUYC6A",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5eb7b82d79f1bd5a36d9b3773b5",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "Sadro",
+      "spotify": "https://open.spotify.com/artist/4rn0HDcr0dkfAd5XwrHrkY?si=5drZ1CODSSSAM8LvT80LwA",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5ebb35ea4ad5898c8b03e437874",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "Mosard",
+      "spotify": "https://open.spotify.com/artist/7LMTCzHMeJywCQJFETsdnh?si=BQGHWEEgQh6G3ZRRRnk4kQ",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5eb00a58ec116aac0bd9fe2e31e",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "Jackie",
+      "spotify": "https://open.spotify.com/artist/5bKh6DOIC8AJZwHDtRAg1d?si=PpJ1pu_jRT-OgCPU2nKThA",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5eb4c78551cfd785aa15de1364d",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "Baaronn",
+      "spotify": "https://open.spotify.com/artist/2sTTvurvyqdMORsz3tMZYM?si=RjnJFvLUSjiXt3IQbeYLRQ",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5eb6dc7169c4166cc472cf3269f",
+      "displaySource": "Spotify profile image from existing live API"
+    },
+    {
+      "name": "Abel",
+      "spotify": "https://open.spotify.com/artist/2EsYY7ZHoWaQgPFwWgbyMe?si=74biAOQVRX-I8x_oVUcLiA",
+      "spotifyImage": "https://i.scdn.co/image/ab6761610000e5eb9153d0045892d2d2ed418651",
+      "displaySource": "Spotify profile image from existing live API"
+    }
+  ],
+  "previousEditorialOverride": {
+    "filename": "B97A4949.jpg",
+    "drive_url": "https://drive.google.com/file/d/18adaW4abZtGRmAU--cHBFLHT2wr0odMp/view",
+    "role": "Recommended identity master and storyboard portrait",
+    "dimensions": [
+      3648,
+      5472
+    ],
+    "bytes": 2290338,
+    "sha256": "683aca74e870595c9996093453afb34ed023988031de413a7ea8dc6d1a0487d5",
+    "path": "/media/hero/omri-editorial-original.jpg",
+    "processing": "Unmodified original JPEG. Camera movement, masking and shading are applied in CSS; no generated portrait or raster retouching.",
+    "appliesToSpotifyId": "36jn1T9teX1BHEJYcPoazX",
+    "derivatives": [
+      {
+        "path": "/media/artists/omri-editorial-1440.webp",
+        "dimensions": [
+          1440,
+          2160
+        ],
+        "bytes": 275796,
+        "encoding": "WebP quality 95; resized with Lanczos; source crop unchanged"
+      },
+      {
+        "path": "/media/artists/omri-editorial-1920.webp",
+        "dimensions": [
+          1920,
+          2880
+        ],
+        "bytes": 515948,
+        "encoding": "WebP quality 95; resized with Lanczos; source crop unchanged"
+      },
+      {
+        "path": "/media/artists/omri-editorial-960.webp",
+        "dimensions": [
+          960,
+          1440
+        ],
+        "bytes": 117480,
+        "encoding": "WebP quality 95; resized with Lanczos; source crop unchanged"
+      }
+    ]
+  }
+}

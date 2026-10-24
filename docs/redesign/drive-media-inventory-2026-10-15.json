@@ -1,0 +1,736 @@
+{
+  "reviewedOn": "2026-10-15",
+  "sourceFolder": "https://drive.google.com/drive/folders/1HlSzzCo4_PBK1bucvYhF6UQr6JV9MC3Z",
+  "scope": "All five supplied folders listed; all 50 photos and logo raster variants visually inspected; sequences sampled every two seconds from all seven videos; selected original frames inspected; 23-page brief extracted and rendered. Video soundtracks were not audited. No source files altered or uploaded to Higgsfield.",
+  "files": [
+    {
+      "id": "1CfPqDJKbXCPgA3T7iqitHRwA87mu2ifS",
+      "title": "DSC07178.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "2248120",
+      "url": "https://drive.google.com/file/d/1CfPqDJKbXCPgA3T7iqitHRwA87mu2ifS/view?usp=drivesdk",
+      "width": 5874,
+      "height": 7343
+    },
+    {
+      "id": "1Vznq_yn9OVTYS84mh7dVJkVShCqfLVCx",
+      "title": "Collecting Dots Full Scale Event Brief_compressed.pdf",
+      "folder": "EVENT BRIEF",
+      "mime_type": "application/pdf",
+      "size": "2229081",
+      "url": "https://drive.google.com/file/d/1Vznq_yn9OVTYS84mh7dVJkVShCqfLVCx/view?usp=drivesdk"
+    },
+    {
+      "id": "1vsLcJLLD31gbTwOg77mekKJGzdbUFYKy",
+      "title": "RP_20251115_DotsOnCapeTown_3303.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "1313055",
+      "url": "https://drive.google.com/file/d/1vsLcJLLD31gbTwOg77mekKJGzdbUFYKy/view?usp=drivesdk",
+      "width": 2048,
+      "height": 3072
+    },
+    {
+      "id": "130Q1Dc3mavnpjBcIHfZJ7vseJBeL3889",
+      "title": "DSC08183.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "2047318",
+      "url": "https://drive.google.com/file/d/130Q1Dc3mavnpjBcIHfZJ7vseJBeL3889/view?usp=drivesdk",
+      "width": 6336,
+      "height": 8448
+    },
+    {
+      "id": "1YWKDz5nxiwXUbo37N19CKgTpcsWG9JlB",
+      "title": "DSC07980.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "2262571",
+      "url": "https://drive.google.com/file/d/1YWKDz5nxiwXUbo37N19CKgTpcsWG9JlB/view?usp=drivesdk",
+      "width": 6336,
+      "height": 8448
+    },
+    {
+      "id": "1GtlRASSJC_aFyQOt5FTVxoXppEKhRuUi",
+      "title": "_DSC2858.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "13352848",
+      "url": "https://drive.google.com/file/d/1GtlRASSJC_aFyQOt5FTVxoXppEKhRuUi/view?usp=drivesdk",
+      "width": 4000,
+      "height": 6000
+    },
+    {
+      "id": "1VTpaPxHDSD6qI9668h9VRrCR53qQQtry",
+      "title": "_DSC2741.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "11217638",
+      "url": "https://drive.google.com/file/d/1VTpaPxHDSD6qI9668h9VRrCR53qQQtry/view?usp=drivesdk",
+      "width": 4000,
+      "height": 6000
+    },
+    {
+      "id": "1x0A0nH0BLW_C9q-cdBpGVTySc-t8ehF1",
+      "title": "CD PROFILE PHOTO  (1).jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "20519888",
+      "url": "https://drive.google.com/file/d/1x0A0nH0BLW_C9q-cdBpGVTySc-t8ehF1/view?usp=drivesdk",
+      "width": 4000,
+      "height": 6000
+    },
+    {
+      "id": "1r6RRCDBr5TkoWCFw4fXovKhDMfLCWgaI",
+      "title": "CD PROFILE PHOTO.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "14104890",
+      "url": "https://drive.google.com/file/d/1r6RRCDBr5TkoWCFw4fXovKhDMfLCWgaI/view?usp=drivesdk",
+      "width": 3915,
+      "height": 5872
+    },
+    {
+      "id": "1sL7j9J7XssH87Bbbho7kewgd0bBGOE8D",
+      "title": "DSC08715.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "2472427",
+      "url": "https://drive.google.com/file/d/1sL7j9J7XssH87Bbbho7kewgd0bBGOE8D/view?usp=drivesdk",
+      "width": 6336,
+      "height": 8448
+    },
+    {
+      "id": "1XnlNqR208UE6v70sAVLMIuvLzSP7bYnV",
+      "title": "DSC07536 (1).jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "2260518",
+      "url": "https://drive.google.com/file/d/1XnlNqR208UE6v70sAVLMIuvLzSP7bYnV/view?usp=drivesdk",
+      "width": 6336,
+      "height": 8448
+    },
+    {
+      "id": "1trHEnEi-OC59rNWD5Gbf-J57WT10kBXn",
+      "title": "DSC07398.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "7673046",
+      "url": "https://drive.google.com/file/d/1trHEnEi-OC59rNWD5Gbf-J57WT10kBXn/view?usp=drivesdk",
+      "width": 6336,
+      "height": 8448
+    },
+    {
+      "id": "1CBnkKBHFa-zzWfvDkRTBvfc0BE9KPC6y",
+      "title": "DSC07395.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "1608587",
+      "url": "https://drive.google.com/file/d/1CBnkKBHFa-zzWfvDkRTBvfc0BE9KPC6y/view?usp=drivesdk",
+      "width": 6336,
+      "height": 8448
+    },
+    {
+      "id": "1qeUjxdEiMZMR00YbODGEu8RPq4iNsgZ8",
+      "title": "DSC07163.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "2610378",
+      "url": "https://drive.google.com/file/d/1qeUjxdEiMZMR00YbODGEu8RPq4iNsgZ8/view?usp=drivesdk",
+      "width": 6320,
+      "height": 8426
+    },
+    {
+      "id": "1sjPG2VnaN4-yqejloDAJH_1SkkBQGjDh",
+      "title": "RP_20251115_DotsOnCapeTown_2858.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "413341",
+      "url": "https://drive.google.com/file/d/1sjPG2VnaN4-yqejloDAJH_1SkkBQGjDh/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1mrv1mZEt7Qpj8ZvZMFpvJt1BwUJyFpen",
+      "title": "RP_20251115_DotsOnCapeTown_2816.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "292108",
+      "url": "https://drive.google.com/file/d/1mrv1mZEt7Qpj8ZvZMFpvJt1BwUJyFpen/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1BDmh8zjwTtB4Q2hG7Bq7BtRd1e8_M8Ug",
+      "title": "RP_20251115_DotsOnCapeTown_1929.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "690093",
+      "url": "https://drive.google.com/file/d/1BDmh8zjwTtB4Q2hG7Bq7BtRd1e8_M8Ug/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1NuB2uEXd7PVVOEnG27PZ9wnmbJj-TB6S",
+      "title": "RP_20251115_DotsOnCapeTown_1910.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "961209",
+      "url": "https://drive.google.com/file/d/1NuB2uEXd7PVVOEnG27PZ9wnmbJj-TB6S/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1mXOawIADLb9bMHO_KIcuhTVpSwK3-Zpv",
+      "title": "RP_20251115_DotsOnCapeTown_0536.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "520389",
+      "url": "https://drive.google.com/file/d/1mXOawIADLb9bMHO_KIcuhTVpSwK3-Zpv/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1T3purzrt0HqYibghYpyygin8MJGz_7mW",
+      "title": "RP_20251115_DotsOnCapeTown_0487.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "406085",
+      "url": "https://drive.google.com/file/d/1T3purzrt0HqYibghYpyygin8MJGz_7mW/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1Tv4W8W2y8dLIhkzgz8vZaryQR1nH4EMJ",
+      "title": "RP_20251115_DotsOnCapeTown_0121.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "662255",
+      "url": "https://drive.google.com/file/d/1Tv4W8W2y8dLIhkzgz8vZaryQR1nH4EMJ/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1UbfFEkmFVF5GhlzRViW2RC_hGOYRWPOd",
+      "title": "collectingST_20251115_DotsOnCapeTown_0135.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "187209",
+      "url": "https://drive.google.com/file/d/1UbfFEkmFVF5GhlzRViW2RC_hGOYRWPOd/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "19WngNQhgUXYRVqLfzNJ9wkIje67OwOgx",
+      "title": "RP_20251115_DotsOnCapeTown_3598.jpg",
+      "folder": "BRANDED TEXTURES",
+      "mime_type": "image/jpeg",
+      "size": "477062",
+      "url": "https://drive.google.com/file/d/19WngNQhgUXYRVqLfzNJ9wkIje67OwOgx/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1JqT-nCWAFWHzvZ06AlYjeLcJYBEQ5HKH",
+      "title": "CD - main logo black.svg",
+      "folder": "LOGOS",
+      "mime_type": "image/svg+xml",
+      "size": "3249",
+      "url": "https://drive.google.com/file/d/1JqT-nCWAFWHzvZ06AlYjeLcJYBEQ5HKH/view?usp=drivesdk"
+    },
+    {
+      "id": "1yIkKLeCzpnF_JcptIlFsO_08rj1r_1s8",
+      "title": "CD - main logo white.svg",
+      "folder": "LOGOS",
+      "mime_type": "image/svg+xml",
+      "size": "3499",
+      "url": "https://drive.google.com/file/d/1yIkKLeCzpnF_JcptIlFsO_08rj1r_1s8/view?usp=drivesdk"
+    },
+    {
+      "id": "10dr20NCQWzvp-Ei1FF8cU9OKGCb0dIi1",
+      "title": "CD - main_logo_black.png",
+      "folder": "LOGOS",
+      "mime_type": "image/png",
+      "size": "30632",
+      "url": "https://drive.google.com/file/d/10dr20NCQWzvp-Ei1FF8cU9OKGCb0dIi1/view?usp=drivesdk",
+      "width": 2192,
+      "height": 452
+    },
+    {
+      "id": "1ZRfY4iVAy34iJoAq3PktKxYpKp3eKWB5",
+      "title": "CD - main_logo_white.png",
+      "folder": "LOGOS",
+      "mime_type": "image/png",
+      "size": "28231",
+      "url": "https://drive.google.com/file/d/1ZRfY4iVAy34iJoAq3PktKxYpKp3eKWB5/view?usp=drivesdk",
+      "width": 2193,
+      "height": 451
+    },
+    {
+      "id": "1kMudhmCoCOf-3c9vM1rsLcmIdnQG0ozy",
+      "title": "CD_icon.png",
+      "folder": "LOGOS",
+      "mime_type": "image/png",
+      "size": "5876",
+      "url": "https://drive.google.com/file/d/1kMudhmCoCOf-3c9vM1rsLcmIdnQG0ozy/view?usp=drivesdk",
+      "width": 721,
+      "height": 721
+    },
+    {
+      "id": "14Vwe4Opphs29ZJb1bIY1JH8BLHxcgdxq",
+      "title": "cd_icon+monotype.png",
+      "folder": "LOGOS",
+      "mime_type": "image/png",
+      "size": "14589",
+      "url": "https://drive.google.com/file/d/14Vwe4Opphs29ZJb1bIY1JH8BLHxcgdxq/view?usp=drivesdk",
+      "width": 781,
+      "height": 854
+    },
+    {
+      "id": "1QWbII8WnHzv0XiS5ahae925HpsPTVEi8",
+      "title": "CD_icon+type.png",
+      "folder": "LOGOS",
+      "mime_type": "image/png",
+      "size": "18733",
+      "url": "https://drive.google.com/file/d/1QWbII8WnHzv0XiS5ahae925HpsPTVEi8/view?usp=drivesdk",
+      "width": 781,
+      "height": 998
+    },
+    {
+      "id": "1-1pSfjp7-kgRieXIw7-KTwOd8kvFNuln",
+      "title": "CD_monotype.png",
+      "folder": "LOGOS",
+      "mime_type": "image/png",
+      "size": "30593",
+      "url": "https://drive.google.com/file/d/1-1pSfjp7-kgRieXIw7-KTwOd8kvFNuln/view?usp=drivesdk",
+      "width": 3010,
+      "height": 254
+    },
+    {
+      "id": "10-4SWjuG941vJeXwR0UTc_9OAOJK53h-",
+      "title": "CD_type.png",
+      "folder": "LOGOS",
+      "mime_type": "image/png",
+      "size": "34680",
+      "url": "https://drive.google.com/file/d/10-4SWjuG941vJeXwR0UTc_9OAOJK53h-/view?usp=drivesdk",
+      "width": 2111,
+      "height": 541
+    },
+    {
+      "id": "1bhVRg3bINMv4rWHSC_V8pwfoUv-ObLI1",
+      "title": "RP_20251115_DotsOnCapeTown_2762.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "677014",
+      "url": "https://drive.google.com/file/d/1bhVRg3bINMv4rWHSC_V8pwfoUv-ObLI1/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1KkWnA-PqF-Cs2bU8U5p0_4D2uMFwx7nU",
+      "title": "RP_20251115_DotsOnCapeTown_1983.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "1106435",
+      "url": "https://drive.google.com/file/d/1KkWnA-PqF-Cs2bU8U5p0_4D2uMFwx7nU/view?usp=drivesdk",
+      "width": 2048,
+      "height": 3072
+    },
+    {
+      "id": "1qKqPLdjlpDg9acK5mkBKMO9LrktIWgAT",
+      "title": "DSC07798.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "1612712",
+      "url": "https://drive.google.com/file/d/1qKqPLdjlpDg9acK5mkBKMO9LrktIWgAT/view?usp=drivesdk",
+      "width": 8448,
+      "height": 6336
+    },
+    {
+      "id": "1Zy_xXp2AqjDGUYdNYIxtUb3f-WqtNENe",
+      "title": "DSC07677-2.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "1234163",
+      "url": "https://drive.google.com/file/d/1Zy_xXp2AqjDGUYdNYIxtUb3f-WqtNENe/view?usp=drivesdk",
+      "width": 6336,
+      "height": 8448
+    },
+    {
+      "id": "1QZlNoJVFe-UiVjYkn0f4bSrzljbD25f4",
+      "title": "DSC07580.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "1442887",
+      "url": "https://drive.google.com/file/d/1QZlNoJVFe-UiVjYkn0f4bSrzljbD25f4/view?usp=drivesdk",
+      "width": 6336,
+      "height": 8448
+    },
+    {
+      "id": "1vRc8pXWK3r3iUuLdqpnazLj56nnmy83-",
+      "title": "DSC07360.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "1792710",
+      "url": "https://drive.google.com/file/d/1vRc8pXWK3r3iUuLdqpnazLj56nnmy83-/view?usp=drivesdk",
+      "width": 5754,
+      "height": 7926
+    },
+    {
+      "id": "1fb7na3tloA0i-Mk8EZFpuNHaqKb6u-l9",
+      "title": "DSC08134.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "1684927",
+      "url": "https://drive.google.com/file/d/1fb7na3tloA0i-Mk8EZFpuNHaqKb6u-l9/view?usp=drivesdk",
+      "width": 6336,
+      "height": 8448
+    },
+    {
+      "id": "12A_0RZYv7laHDD5TU2Fk8EMsRET-ahj5",
+      "title": "DSC07861.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "9593520",
+      "url": "https://drive.google.com/file/d/12A_0RZYv7laHDD5TU2Fk8EMsRET-ahj5/view?usp=drivesdk",
+      "width": 6336,
+      "height": 8448
+    },
+    {
+      "id": "1aivIXyU5o9theACwTjCo32CR0baj-NJL",
+      "title": "_DSC4638.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "23816481",
+      "url": "https://drive.google.com/file/d/1aivIXyU5o9theACwTjCo32CR0baj-NJL/view?usp=drivesdk",
+      "width": 5810,
+      "height": 3873
+    },
+    {
+      "id": "1GZ51a3T4QUZLTXckqvHrCDZ4Z9iefQh6",
+      "title": "_DSC4524.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "24225363",
+      "url": "https://drive.google.com/file/d/1GZ51a3T4QUZLTXckqvHrCDZ4Z9iefQh6/view?usp=drivesdk",
+      "width": 4000,
+      "height": 6000
+    },
+    {
+      "id": "1IdeNiCZLs2S-Q-O0TYiOZaEub_T42Mvo",
+      "title": "_DSC4216.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "27757850",
+      "url": "https://drive.google.com/file/d/1IdeNiCZLs2S-Q-O0TYiOZaEub_T42Mvo/view?usp=drivesdk",
+      "width": 4000,
+      "height": 6000
+    },
+    {
+      "id": "1MWRgSUnq1TyZp_5nvEEgmA6mxHSHHG8G",
+      "title": "_DSC4054.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "22422874",
+      "url": "https://drive.google.com/file/d/1MWRgSUnq1TyZp_5nvEEgmA6mxHSHHG8G/view?usp=drivesdk",
+      "width": 6000,
+      "height": 4000
+    },
+    {
+      "id": "1_WFl_6Jn2R80nxcDNOI0Ryzx96pbpqws",
+      "title": "_DSC3456.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "25996560",
+      "url": "https://drive.google.com/file/d/1_WFl_6Jn2R80nxcDNOI0Ryzx96pbpqws/view?usp=drivesdk",
+      "width": 5750,
+      "height": 3833
+    },
+    {
+      "id": "19FhWe1Sc9nPfNqETuM8sWXQOTcevZkpJ",
+      "title": "_DSC3453.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "21319759",
+      "url": "https://drive.google.com/file/d/19FhWe1Sc9nPfNqETuM8sWXQOTcevZkpJ/view?usp=drivesdk",
+      "width": 5810,
+      "height": 3873
+    },
+    {
+      "id": "14uOMiOJi92_OjdfexkuXyDUkXQ4KmsJ1",
+      "title": "DSC08545.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "3871451",
+      "url": "https://drive.google.com/file/d/14uOMiOJi92_OjdfexkuXyDUkXQ4KmsJ1/view?usp=drivesdk",
+      "width": 6336,
+      "height": 8448
+    },
+    {
+      "id": "19Uy-GDEgMefNLKRceSHq9Bntkc4NxguU",
+      "title": "RP_20251115_DotsOnCapeTown_2936-Copy1.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "768941",
+      "url": "https://drive.google.com/file/d/19Uy-GDEgMefNLKRceSHq9Bntkc4NxguU/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1Qd3eozbiayrGoSlTffFcJmAzU6ZJNHvZ",
+      "title": "RP_20251115_DotsOnCapeTown_2691.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "788146",
+      "url": "https://drive.google.com/file/d/1Qd3eozbiayrGoSlTffFcJmAzU6ZJNHvZ/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1nnN4K6Zs3P-f1_de-51vD4WChudlbsLx",
+      "title": "RP_20251115_DotsOnCapeTown_2690.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "1676250",
+      "url": "https://drive.google.com/file/d/1nnN4K6Zs3P-f1_de-51vD4WChudlbsLx/view?usp=drivesdk",
+      "width": 2048,
+      "height": 3072
+    },
+    {
+      "id": "1hIWWuOZb_Lj2NrNwovVRO68gT73S10Ug",
+      "title": "RP_20251115_DotsOnCapeTown_2613.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "439115",
+      "url": "https://drive.google.com/file/d/1hIWWuOZb_Lj2NrNwovVRO68gT73S10Ug/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1Dg4L9UACqmWt3-6b3mN05rR7Gl-UuaMo",
+      "title": "RP_20251115_DotsOnCapeTown_2502.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "468688",
+      "url": "https://drive.google.com/file/d/1Dg4L9UACqmWt3-6b3mN05rR7Gl-UuaMo/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1sTS4Ctp5XWdWEKHociszkJYlph8-oAKV",
+      "title": "RP_20251115_DotsOnCapeTown_2045.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "917955",
+      "url": "https://drive.google.com/file/d/1sTS4Ctp5XWdWEKHociszkJYlph8-oAKV/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1WWmUgqjJBOrht3Y_R2CBZqAxjIGTrP64",
+      "title": "RP_20251115_DotsOnCapeTown_1833.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "328523",
+      "url": "https://drive.google.com/file/d/1WWmUgqjJBOrht3Y_R2CBZqAxjIGTrP64/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1gz593iPrn_5GG5tv1K4B3deyooaWOqpi",
+      "title": "RP_20251115_DotsOnCapeTown_1547 (1).jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "668332",
+      "url": "https://drive.google.com/file/d/1gz593iPrn_5GG5tv1K4B3deyooaWOqpi/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1YQ5omNK3OTnnMcu13Gx1YK3-wVizQgiF",
+      "title": "RP_20251115_DotsOnCapeTown_1349.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "943931",
+      "url": "https://drive.google.com/file/d/1YQ5omNK3OTnnMcu13Gx1YK3-wVizQgiF/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1oshw72XYZuaoVPSbpAj2IGw5v5eIkdQv",
+      "title": "RP_20251115_DotsOnCapeTown_1346.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "850049",
+      "url": "https://drive.google.com/file/d/1oshw72XYZuaoVPSbpAj2IGw5v5eIkdQv/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1jSKJEC9aFS073W7aMVlMU4PK7LJDMrPx",
+      "title": "RP_20251115_DotsOnCapeTown_1176.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "948516",
+      "url": "https://drive.google.com/file/d/1jSKJEC9aFS073W7aMVlMU4PK7LJDMrPx/view?usp=drivesdk",
+      "width": 2048,
+      "height": 3072
+    },
+    {
+      "id": "1wwajpOlu6aw7qMMFZ7y2MUxZcJfmQ_Ym",
+      "title": "RP_20251115_DotsOnCapeTown_3232.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "608292",
+      "url": "https://drive.google.com/file/d/1wwajpOlu6aw7qMMFZ7y2MUxZcJfmQ_Ym/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "17Bsdl7qhXsFh1MbzY-KMD48nK4CjvLek",
+      "title": "RP_20251115_DotsOnCapeTown_3353.jpg",
+      "folder": "CROWD / VENUE PHOTOS",
+      "mime_type": "image/jpeg",
+      "size": "382051",
+      "url": "https://drive.google.com/file/d/17Bsdl7qhXsFh1MbzY-KMD48nK4CjvLek/view?usp=drivesdk",
+      "width": 2048,
+      "height": 1365
+    },
+    {
+      "id": "1frepEqPFj_ZZdsjCBnWZ2CXIXwsrZlR4",
+      "title": "OMRI7-COLORCHECK.mov",
+      "folder": "VIDEO OPTIONS",
+      "mime_type": "video/quicktime",
+      "size": "106814100",
+      "url": "https://drive.google.com/file/d/1frepEqPFj_ZZdsjCBnWZ2CXIXwsrZlR4/view?usp=drivesdk",
+      "video": {
+        "size": [
+          1080,
+          1350
+        ],
+        "fps": 23.98,
+        "duration": 32.78,
+        "codec": "hevc",
+        "audio_codec": "pcm_s24le"
+      }
+    },
+    {
+      "id": "1T-Hbxdj2LUztZdcdp3HArYrZrA85XiPv",
+      "title": "OMRI4-COLORCHECK.mov",
+      "folder": "VIDEO OPTIONS",
+      "mime_type": "video/quicktime",
+      "size": "140544962",
+      "url": "https://drive.google.com/file/d/1T-Hbxdj2LUztZdcdp3HArYrZrA85XiPv/view?usp=drivesdk",
+      "video": {
+        "size": [
+          1080,
+          1350
+        ],
+        "fps": 23.98,
+        "duration": 40.87,
+        "codec": "hevc",
+        "audio_codec": "pcm_s24le"
+      }
+    },
+    {
+      "id": "1ggkm6jIs-JhKBAFpGH5QWjJ8mq8Xi8Q_",
+      "title": "OMRI1-COLORCHECK.mov",
+      "folder": "VIDEO OPTIONS",
+      "mime_type": "video/quicktime",
+      "size": "93546822",
+      "url": "https://drive.google.com/file/d/1ggkm6jIs-JhKBAFpGH5QWjJ8mq8Xi8Q_/view?usp=drivesdk",
+      "video": {
+        "size": [
+          1080,
+          1350
+        ],
+        "fps": 23.98,
+        "duration": 27.28,
+        "codec": "hevc",
+        "audio_codec": "pcm_s24le"
+      }
+    },
+    {
+      "id": "1GR86OwlyC-PVO_zfLvKC9rarJbfi21Eg",
+      "title": "AFTERMOVIE - COLLECTING DOTS - no sfx.mp4",
+      "folder": "VIDEO OPTIONS",
+      "mime_type": "video/mp4",
+      "size": "53074103",
+      "url": "https://drive.google.com/file/d/1GR86OwlyC-PVO_zfLvKC9rarJbfi21Eg/view?usp=drivesdk",
+      "video": {
+        "size": [
+          1920,
+          1080
+        ],
+        "fps": 24.0,
+        "duration": 25.63,
+        "codec": "h264",
+        "audio_codec": "aac"
+      }
+    },
+    {
+      "id": "1CZFiX_T1aqiUbylqVmwvnZqWOLvIJZjX",
+      "title": "ad6c299c5c8446c68dfe1794b96f893d.MP4",
+      "folder": "VIDEO OPTIONS",
+      "mime_type": "video/mp4",
+      "size": "68050932",
+      "url": "https://drive.google.com/file/d/1CZFiX_T1aqiUbylqVmwvnZqWOLvIJZjX/view?usp=drivesdk",
+      "video": {
+        "size": [
+          720,
+          1280
+        ],
+        "fps": 25.56,
+        "duration": 37.13,
+        "codec": "hevc",
+        "audio_codec": "aac"
+      }
+    },
+    {
+      "id": "1_XWrAkGR4VZNvH96Ca9yN9gD1XlmH5CI",
+      "title": "002_14.mp4",
+      "folder": "VIDEO OPTIONS",
+      "mime_type": "video/mp4",
+      "size": "187693821",
+      "url": "https://drive.google.com/file/d/1_XWrAkGR4VZNvH96Ca9yN9gD1XlmH5CI/view?usp=drivesdk",
+      "video": {
+        "size": [
+          2160,
+          3840
+        ],
+        "fps": 23.98,
+        "duration": 47.05,
+        "codec": "h264",
+        "audio_codec": "aac"
+      }
+    },
+    {
+      "id": "1JOL9QG5PoNEvmcEILyWOQkve5lI4MLs5",
+      "title": "002_12.mp4",
+      "folder": "VIDEO OPTIONS",
+      "mime_type": "video/mp4",
+      "size": "176253823",
+      "url": "https://drive.google.com/file/d/1JOL9QG5PoNEvmcEILyWOQkve5lI4MLs5/view?usp=drivesdk",
+      "video": {
+        "size": [
+          2160,
+          3840
+        ],
+        "fps": 23.98,
+        "duration": 23.02,
+        "codec": "h264",
+        "audio_codec": "aac"
+      }
+    },
+    {
+      "id": "1DeU64CTpn_4oaREAuetTarGQfmbZ4l35",
+      "title": "BNBobbieSans.otf",
+      "folder": "LOGOS",
+      "mime_type": "font/otf",
+      "size": "103136",
+      "url": "https://drive.google.com/file/d/1DeU64CTpn_4oaREAuetTarGQfmbZ4l35/view",
+      "review": "Listed in supplied folder; no font installation performed."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+# Drop your dot — 21 October 2026
+
+The last story chapter moves from the warm merchandise lookbook into an orange-and-ink record sleeve. The orange dot leaves the Float garment tag, arcs across the incoming chapter and lands in the centre of the record. Orange type enters from the left while the sleeve settles from below. A direct, paused GSAP clock with scrub:true controls every narrative transform; there is no autoplay, numeric scrub delay or snapping. Entrance: 95svh; short reading hold: 12svh. Reverse scrolling restores the garment-tag dot. Reduced-motion users get a static chapter and the same controls.
+
+Selecting the sleeve opens a native dialog. The form supports local drag/drop and the native file chooser, up to ten MP3/WAV files at 150 MB each, editable individual track titles, artist name, full name, email, required Instagram, and optional Beatport/Facebook/X. Drafts persist across close/reopen. Submission locks file editing and dialog dismissal until the request finishes; progress includes the current file and total percentage. Success shows a receipt and demo reference; failures remain visible with the draft retained. No personal information or audio is placed in browser storage.
+
+Existing backend and dashboard contracts remain unchanged:
+- GET /api/settings/demo-submission-enabled reads the existing Redis/dashboard switch, with the previous enabled-on-unavailable fallback.
+- POST /api/get-upload-link receives artist_name, track_title, file_extension and cf_turnstile_response.
+- XMLHttpRequest sends raw audio directly to the temporary Dropbox URL as application/octet-stream, avoiding Vercel's request-size limit.
+- POST /api/confirm-demo-upload receives the existing metadata, content hash, path and session ID. suppress_email remains true for all but the final track. Existing server code saves the metadata and sends confirmation.
+
+The previous form reused one Turnstile token for every upload-link call. The new form resets the mounted widget and waits for a fresh token for each later track. Tokens are single-use: https://developers.cloudflare.com/turnstile/get-started/server-side-validation/ . The widget is removed/recreated correctly across dialog and receipt states. Compact sizing fits narrow phones; explicit script rendering matches its conditional mounting: https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/widget-configurations/ . No CAPTCHA or server validation is bypassed.
+
+Implementation: collecting-dots-demos.tsx, demo-submission-form.tsx, the matching CSS module, lib/demo-submission.ts and lib/demo-upload.ts. The chapter is included on home and both opener previews. Existing #demo-submission links remain valid; preview navigation stays on the preview route. Merchandise changes are one stage marker and the departing-dot visibility rule. Footer markup is preserved. Prior source is saved under media-inbox/demos/before.
+
+Validation: production build, standalone TypeScript, and five focused tests (file limits/types/titles; mandatory details; two-track metadata/token/progress/email contracts; closed-inbox rejection; raw binary transfer/expired-link handling). Browser checks cover file chooser selection of two synthetic local WAVs, title editing, invalid/valid email, optional-profile expansion, track removal, draft preservation and body-scroll restoration. No real audio upload or confirmation email was sent. Local Turnstile keys are absent, so live verification and sending cannot be exercised in this preview; the send button remains disabled with a clear verification-unavailable message. The existing production environment keys are still used after deployment.
+
+Responsive visual checks: desktop 1440 × 900, tablet 768 × 1024, phones 390 × 844 and 320 × 568. The narrow phone dialog has equal client/scroll widths (no horizontal overflow), and the close button remains visible while it scrolls. At a partly revealed chapter, progress and all motion styles remained identical across idle observations; reverse scrolling restored the tag dot. Final connector centre matched the record hole and its size reached 16 px. Browser console had no errors.
+
+No new packages, generated media, deployment or dashboard changes. New artwork is CSS and scales without a bitmap source. Final review screenshots are under media-inbox/demos/review.

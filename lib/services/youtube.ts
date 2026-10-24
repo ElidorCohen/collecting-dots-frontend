@@ -1,331 +1,132 @@
-interface YouTubeVideo {
-  id: string;
-  title: string;
-  description: string;
-  thumbnail: string;
-  publishedAt: string;
-  duration: string;
-  viewCount: string;
-  videoUrl: string;
+import savedArchive from "@/lib/youtube-archive-snapshot.json"
+
+export interface YouTubeVideo {
+  id: string
+  title: string
+  description: string
+  thumbnail: string
+  publishedAt: string
+  duration: string
+  viewCount: string
+  videoUrl: string
+}
+export interface YouTubeChannelVideosResponse {
+  videos: YouTubeVideo[]
+  channelId: string
+  channelTitle: string
+  totalVideos: number
+  source: "channel" | "feed" | "saved"
+  fetchedAt: string
 }
 
-interface YouTubeChannelVideosResponse {
-  videos: YouTubeVideo[];
-  channelId: string;
-  channelTitle: string;
-  totalVideos: number;
+export const DEFAULT_CHANNEL_HANDLE = "@CollectingDotsRecords"
+const VIDEO_ID = /^[\w-]{11}$/
+const CHANNEL_ID = /^UC[\w-]{22}$/
+const text = (value: any): string => typeof value === "string" ? value : value?.simpleText || value?.content || value?.runs?.map((run: any) => run.text || "").join("") || ""
+const decodeXml = (value: string) => value.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").replace(/&(#x[\da-f]+|#\d+|amp|lt|gt|quot|apos);/gi, (entity, code: string) => {
+  const named: Record<string, string> = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'" }
+  if (!code.startsWith("#")) return named[code.toLowerCase()] || entity
+  const number = code[1].toLowerCase() === "x" ? parseInt(code.slice(2), 16) : parseInt(code.slice(1), 10)
+  return number > 0 && number <= 0x10ffff ? String.fromCodePoint(number) : entity
+})
+
+export function channelPath(input: string): string {
+  let value = input.trim()
+  if (/^https?:\/\//i.test(value)) {
+    const url = new URL(value)
+    if (!["youtube.com", "www.youtube.com", "m.youtube.com"].includes(url.hostname)) throw new Error("Invalid YouTube channel")
+    value = url.pathname.replace(/^\/+|\/+$/g, "").replace(/\/(videos|featured|streams|shorts)$/, "")
+  }
+  if (CHANNEL_ID.test(value)) return `channel/${value}`
+  if (/^(channel\/UC[\w-]{22}|(?:c|user)\/[\w.-]+)$/.test(value)) return value
+  value = value.replace(/^@/, "")
+  if (!/^[\p{L}\p{N}_.-]{3,100}$/u.test(value)) throw new Error("Invalid YouTube channel")
+  return `@${encodeURIComponent(value)}`
+}
+
+// Read balanced JSON: scripts may span lines and contain braces inside strings.
+export function extractInitialData(html: string): any {
+  const assignment = /(?:var\s+ytInitialData|window\[\s*["']ytInitialData["']\s*\]|ytInitialData)\s*=\s*/g.exec(html)
+  if (!assignment) return null
+  const start = html.indexOf("{", assignment.index + assignment[0].length)
+  let depth = 0, quoted = false, escaped = false
+  for (let i = start; i >= 0 && i < html.length; i++) {
+    const char = html[i]
+    if (quoted) { if (escaped) escaped = false; else if (char === "\\") escaped = true; else if (char === '"') quoted = false; continue }
+    if (char === '"') quoted = true
+    else if (char === "{") depth++
+    else if (char === "}" && --depth === 0) { try { return JSON.parse(html.slice(start, i + 1)) } catch { return null } }
+  }
+  return null
+}
+
+export function parseChannelVideos(data: any, limit = 50): YouTubeVideo[] {
+  const tabs = data?.contents?.twoColumnBrowseResultsRenderer?.tabs || []
+  const tab = tabs.find((item: any) => item.tabRenderer?.selected)?.tabRenderer || tabs.find((item: any) => item.tabRenderer?.content)?.tabRenderer
+  const videos: YouTubeVideo[] = [], seen = new Set<string>()
+  const add = (id: string, title: string, duration: string, viewCount: string, publishedAt: string, thumbnail: string) => {
+    if (!VIDEO_ID.test(id || "") || !title || seen.has(id) || videos.length >= limit) return
+    seen.add(id); videos.push({ id, title, duration, viewCount, publishedAt, thumbnail: thumbnail || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`, description: "", videoUrl: `https://www.youtube.com/watch?v=${id}` })
+  }
+  const walk = (node: any) => {
+    if (!node || typeof node !== "object" || videos.length >= limit) return
+    if (node.videoRenderer) {
+      const video = node.videoRenderer
+      add(video.videoId, text(video.title), text(video.lengthText), text(video.viewCountText).replace(/\s+views?$/i, ""), text(video.publishedTimeText), video.thumbnail?.thumbnails?.at(-1)?.url || "")
+      return
+    }
+    if (node.lockupViewModel) {
+      const video = node.lockupViewModel, metadata = video.metadata?.lockupMetadataViewModel
+      const parts = metadata?.metadata?.contentMetadataViewModel?.metadataRows?.flatMap((row: any) => row.metadataParts || []) || []
+      const badges = video.contentImage?.thumbnailViewModel?.overlays?.flatMap((overlay: any) => overlay.thumbnailBottomOverlayViewModel?.badges || []) || []
+      add(video.contentId, text(metadata?.title), text(badges.find((badge: any) => /^\d+(?::\d{2}){1,2}$/.test(badge.thumbnailBadgeViewModel?.text || ""))?.thumbnailBadgeViewModel?.text), text(parts.find((part: any) => /views?/i.test(part.accessibilityLabel || ""))?.text), text(parts.find((part: any) => /ago/i.test(part.accessibilityLabel || ""))?.text), video.contentImage?.thumbnailViewModel?.image?.sources?.at(-1)?.url || "")
+      return
+    }
+    Object.values(node).forEach(walk)
+  }
+  walk(tab?.content)
+  return videos
+}
+
+export function parseVideoFeed(xml: string): YouTubeVideo[] {
+  const value = (entry: string, tag: string) => decodeXml(entry.match(new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`))?.[1] || "")
+  return Array.from(xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)).flatMap(match => {
+    const entry = match[1], id = value(entry, "yt:videoId")
+    if (!VIDEO_ID.test(id)) return []
+    return [{ id, title: value(entry, "title"), description: value(entry, "media:description"), publishedAt: value(entry, "published"), thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`, duration: "", viewCount: "", videoUrl: `https://www.youtube.com/watch?v=${id}` }]
+  })
 }
 
 export class YouTubeService {
-  /**
-   * Extracts channel handle from URL or returns handle as-is
-   */
-  private extractHandle(channelHandle: string): string {
-    let handle = channelHandle.trim();
-    
-    // If it's a full URL, extract the handle
-    if (handle.includes('youtube.com')) {
-      // Match patterns like: youtube.com/@handle or youtube.com/c/channel or youtube.com/channel/ID
-      const urlMatch = handle.match(/youtube\.com\/(?:@|c\/|channel\/|user\/)([^\/\s?]+)/);
-      if (urlMatch) {
-        handle = urlMatch[1];
-      } else {
-        throw new Error(`Invalid YouTube channel URL format: ${channelHandle}`);
-      }
+  async getChannelVideos(input = DEFAULT_CHANNEL_HANDLE, maxResults = 50): Promise<YouTubeChannelVideosResponse> {
+    const path = channelPath(input), limit = Math.max(1, Math.min(50, Math.floor(maxResults) || 50))
+    const defaultChannel = path.toLowerCase() === "@collectingdotsrecords" || path === `channel/${savedArchive.channelId}`
+    let channelId = path.startsWith("channel/") ? path.slice(8) : defaultChannel ? savedArchive.channelId : ""
+    let channelTitle = defaultChannel ? savedArchive.channelTitle : input
+    const request = async (url: string) => {
+      const response = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0", "Accept-Language": "en-US,en;q=0.9" }, signal: AbortSignal.timeout(10000), next: { revalidate: 900 } })
+      if (!response.ok) throw new Error(`YouTube returned ${response.status}`)
+      return response.text()
     }
-    
-    // Remove @ symbol if present
-    handle = handle.replace(/^@/, '');
-    return handle;
-  }
-
-  /**
-   * Gets channel ID from channel handle by scraping the channel page
-   */
-  private async getChannelIdFromHandle(channelHandle: string): Promise<string> {
-    const handle = this.extractHandle(channelHandle);
-    const channelUrl = `https://www.youtube.com/@${handle}`;
-
     try {
-      const response = await fetch(channelUrl, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch channel page: ${response.statusText}`);
-      }
-
-      const html = await response.text();
-      
-      // Extract channel ID from the page HTML
-      // YouTube embeds the channel ID in various places in the HTML
-      const channelIdMatch = html.match(/"channelId":"([^"]+)"/) || 
-                            html.match(/channelId["\s]*:["\s]*"([^"]+)"/) ||
-                            html.match(/<link rel="canonical" href="https:\/\/www\.youtube\.com\/channel\/([^"]+)"/);
-      
-      if (channelIdMatch && channelIdMatch[1]) {
-        return channelIdMatch[1];
-      }
-
-      throw new Error(`Could not extract channel ID from page`);
-    } catch (error: any) {
-      throw new Error(`Failed to get channel ID: ${error.message}`);
-    }
-  }
-
-  /**
-   * Formats duration from seconds to readable format
-   */
-  private formatDuration(seconds: number): string {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-
-    if (hours > 0) {
-      return `${hours}h ${minutes}m ${secs}s`;
-    } else if (minutes > 0) {
-      return `${minutes}m ${secs}s`;
-    } else {
-      return `${secs}s`;
-    }
-  }
-
-  /**
-   * Formats view count to readable format (e.g., 1250 -> 1.2K)
-   */
-  private formatViewCount(count: number): string {
-    if (count >= 1000000) {
-      return `${(count / 1000000).toFixed(1)}M`;
-    } else if (count >= 1000) {
-      return `${(count / 1000).toFixed(1)}K`;
-    }
-    return count.toString();
-  }
-
-  /**
-   * Parses YouTube RSS feed to get video information
-   */
-  private async parseRSSFeed(channelId: string): Promise<YouTubeVideo[]> {
-    const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-
-    try {
-      const response = await fetch(rssUrl);
-      
-      if (!response.ok) {
-        throw new Error(`Failed to fetch RSS feed: ${response.statusText}`);
-      }
-
-      const xmlText = await response.text();
-      
-      // Parse XML to extract video information
-      const videos: YouTubeVideo[] = [];
-      const videoMatches = xmlText.matchAll(/<entry>([\s\S]*?)<\/entry>/g);
-
-      for (const match of videoMatches) {
-        const entry = match[1];
-        
-        // Extract video ID
-        const videoIdMatch = entry.match(/<yt:videoId>([^<]+)<\/yt:videoId>/);
-        if (!videoIdMatch) continue;
-        
-        const videoId = videoIdMatch[1];
-        
-        // Extract title
-        const titleMatch = entry.match(/<title>([^<]+)<\/title>/);
-        const title = titleMatch ? titleMatch[1] : 'Untitled';
-        
-        // Extract description
-        const descMatch = entry.match(/<media:description>([^<]*)<\/media:description>/);
-        const description = descMatch ? descMatch[1] : '';
-        
-        // Extract published date
-        const publishedMatch = entry.match(/<published>([^<]+)<\/published>/);
-        const publishedAt = publishedMatch ? publishedMatch[1] : '';
-        
-        // Extract thumbnail
-        const thumbnailMatch = entry.match(/<media:thumbnail url="([^"]+)"/);
-        const thumbnail = thumbnailMatch ? thumbnailMatch[1] : `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-        
-        videos.push({
-          id: videoId,
-          title,
-          description,
-          thumbnail,
-          publishedAt,
-          duration: '', // RSS doesn't include duration
-          viewCount: '', // RSS doesn't include view count
-          videoUrl: `https://www.youtube.com/watch?v=${videoId}`,
-        });
-      }
-
-      return videos;
-    } catch (error: any) {
-      throw new Error(`Failed to parse RSS feed: ${error.message}`);
-    }
-  }
-
-  /**
-   * Scrapes video details from YouTube channel page (includes view counts and durations)
-   */
-  private async scrapeChannelVideos(channelHandle: string, maxResults: number = 50): Promise<YouTubeVideo[]> {
-    const handle = this.extractHandle(channelHandle);
-    const channelUrl = `https://www.youtube.com/@${handle}/videos`;
-
-    try {
-      const response = await fetch(channelUrl, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch channel videos page: ${response.statusText}`);
-      }
-
-      const html = await response.text();
-      
-      // Extract JSON data from the page (YouTube embeds initial data in script tags)
-      const jsonMatch = html.match(/var ytInitialData = ({.+?});/);
-      if (!jsonMatch) {
-        // Fallback: try RSS feed if scraping fails
-        const channelId = await this.getChannelIdFromHandle(channelHandle);
-        return this.parseRSSFeed(channelId);
-      }
-
+      const html = await request(`https://www.youtube.com/${path}/videos`), data = extractInitialData(html)
+      const metadata = data?.metadata?.channelMetadataRenderer
+      channelId = metadata?.externalId || channelId
+      channelTitle = metadata?.title || channelTitle
+      const videos = parseChannelVideos(data, limit)
+      // Empty parser output must not become a successful empty archive.
+      if (videos.length) return { videos, channelId, channelTitle, totalVideos: videos.length, source: "channel", fetchedAt: new Date().toISOString() }
+    } catch { /* Try the official feed next. */ }
+    if (CHANNEL_ID.test(channelId)) {
       try {
-        const data = JSON.parse(jsonMatch[1]);
-        
-        // Navigate through YouTube's data structure to find videos
-        const tabs = data?.contents?.twoColumnBrowseResultsRenderer?.tabs;
-        if (!tabs) {
-          throw new Error('Could not find video data structure');
-        }
-
-        const videosTab = tabs.find((tab: any) => 
-          tab.tabRenderer?.content?.richGridRenderer?.contents
-        );
-
-        if (!videosTab) {
-          throw new Error('Could not find videos tab');
-        }
-
-        const contents = videosTab.tabRenderer.content.richGridRenderer.contents;
-        const videos: YouTubeVideo[] = [];
-
-        for (const item of contents.slice(0, maxResults)) {
-          const videoRenderer = item?.richItemRenderer?.content?.videoRenderer;
-          if (!videoRenderer) continue;
-
-          const videoId = videoRenderer.videoId;
-          const title = videoRenderer.title?.runs?.[0]?.text || videoRenderer.title?.simpleText || 'Untitled';
-          const thumbnail = videoRenderer.thumbnail?.thumbnails?.[videoRenderer.thumbnail.thumbnails.length - 1]?.url || 
-                           `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-          
-          // Extract view count
-          const viewCountText = videoRenderer.viewCountText?.simpleText || videoRenderer.viewCountText?.runs?.[0]?.text || '0';
-          const viewCountMatch = viewCountText.match(/([\d,]+)/);
-          const viewCount = viewCountMatch ? parseInt(viewCountMatch[1].replace(/,/g, ''), 10) : 0;
-          
-          // Extract duration
-          const lengthText = videoRenderer.lengthText?.simpleText || '';
-          const durationMatch = lengthText.match(/(\d+):(\d+)(?::(\d+))?/);
-          let duration = '';
-          if (durationMatch) {
-            const hours = durationMatch[3] ? parseInt(durationMatch[1], 10) : 0;
-            const minutes = durationMatch[3] ? parseInt(durationMatch[2], 10) : parseInt(durationMatch[1], 10);
-            const seconds = durationMatch[3] ? parseInt(durationMatch[3], 10) : parseInt(durationMatch[2], 10);
-            const totalSeconds = hours * 3600 + minutes * 60 + seconds;
-            duration = this.formatDuration(totalSeconds);
-          }
-
-          videos.push({
-            id: videoId,
-            title,
-            description: '',
-            thumbnail,
-            publishedAt: videoRenderer.publishedTimeText?.simpleText || '',
-            duration,
-            viewCount: this.formatViewCount(viewCount),
-            videoUrl: `https://www.youtube.com/watch?v=${videoId}`,
-          });
-        }
-
-        return videos;
-      } catch (parseError) {
-        // If JSON parsing fails, fallback to RSS feed
-        const channelId = await this.getChannelIdFromHandle(channelHandle);
-        return this.parseRSSFeed(channelId);
-      }
-    } catch (error: any) {
-      // Fallback to RSS feed if scraping fails
-      try {
-        const channelId = await this.getChannelIdFromHandle(channelHandle);
-        return this.parseRSSFeed(channelId);
-      } catch (rssError: any) {
-        throw new Error(`Failed to fetch videos: ${error.message}`);
-      }
+        const videos = parseVideoFeed(await request(`https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`)).slice(0, limit)
+        if (videos.length) return { videos, channelId, channelTitle, totalVideos: videos.length, source: "feed", fetchedAt: new Date().toISOString() }
+      } catch { /* The verified selection is available for the default channel. */ }
     }
-  }
-
-  /**
-   * Gets channel title from channel handle
-   */
-  private async getChannelTitle(channelHandle: string): Promise<string> {
-    const handle = this.extractHandle(channelHandle);
-    const channelUrl = `https://www.youtube.com/@${handle}`;
-
-    try {
-      const response = await fetch(channelUrl, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        },
-      });
-
-      if (!response.ok) {
-        return 'Unknown Channel';
-      }
-
-      const html = await response.text();
-      const titleMatch = html.match(/<title>([^<]+)<\/title>/);
-      
-      if (titleMatch) {
-        // Remove " - YouTube" suffix
-        return titleMatch[1].replace(/\s*-\s*YouTube$/, '').trim();
-      }
-
-      return 'Unknown Channel';
-    } catch (error) {
-      return 'Unknown Channel';
+    if (defaultChannel) {
+      const videos = savedArchive.videos.slice(0, limit)
+      return { videos, channelId, channelTitle, totalVideos: videos.length, source: "saved", fetchedAt: savedArchive.checkedAt }
     }
-  }
-
-  /**
-   * Fetches videos from a YouTube channel without using API
-   */
-  async getChannelVideos(
-    channelHandle: string,
-    maxResults: number = 50
-  ): Promise<YouTubeChannelVideosResponse> {
-    try {
-      // Get channel ID
-      const channelId = await this.getChannelIdFromHandle(channelHandle);
-      
-      // Get channel title
-      const channelTitle = await this.getChannelTitle(channelHandle);
-      
-      // Scrape videos from channel page
-      const videos = await this.scrapeChannelVideos(channelHandle, maxResults);
-
-      return {
-        videos,
-        channelId,
-        channelTitle,
-        totalVideos: videos.length,
-      };
-    } catch (error: any) {
-      throw new Error(`Failed to fetch YouTube videos: ${error.message}`);
-    }
+    throw new Error("The YouTube archive is temporarily unavailable")
   }
 }

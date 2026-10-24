@@ -1,0 +1,123 @@
+{
+  "assets": [
+    {
+      "original": "/Users/elidorcohen/collectingdots/media-inbox/about/originals/_DSC4054.jpg",
+      "source_url": "https://drive.google.com/file/d/1MWRgSUnq1TyZp_5nvEEgmA6mxHSHHG8G/view",
+      "dimensions": [
+        6000,
+        4000
+      ],
+      "bytes": 22422874,
+      "sha256": "c91b1723f4b949972caa61bc846cf1deafa5197738f8669b529291086a6f9d6e",
+      "derivatives": [
+        {
+          "path": "/media/events/gathering-960.webp",
+          "dimensions": [
+            960,
+            640
+          ],
+          "bytes": 241900,
+          "sha256": "d124e3d9b24963b2552646a5381822a29b6a4fbc329c11e0de2c318337931eb8"
+        },
+        {
+          "path": "/media/events/gathering-1600.webp",
+          "dimensions": [
+            1600,
+            1067
+          ],
+          "bytes": 663802,
+          "sha256": "79519d85064a2ded27e563516cf73806054ead6e98c6e5fca93ea8bc8b98af70"
+        },
+        {
+          "path": "/media/events/gathering-2400.webp",
+          "dimensions": [
+            2400,
+            1600
+          ],
+          "bytes": 1541140,
+          "sha256": "8432f24da1297fbaf9b577b792408f40d56363104e62318263833203096f5dda"
+        }
+      ]
+    },
+    {
+      "original": "/Users/elidorcohen/collectingdots/media-inbox/events/originals/DSC07861.jpg",
+      "source_url": "https://drive.google.com/file/d/12A_0RZYv7laHDD5TU2Fk8EMsRET-ahj5/view",
+      "dimensions": [
+        6336,
+        8448
+      ],
+      "bytes": 9593520,
+      "sha256": "b6a5b7205521bded2ba6b02ae041fe7a9732246ba4f5a7c7d8c58c5a2efc2de1",
+      "derivatives": [
+        {
+          "path": "/media/events/after-dark-960.webp",
+          "dimensions": [
+            960,
+            1280
+          ],
+          "bytes": 283320,
+          "sha256": "79dc8dcc9ab0b252f3743bec8edbb4e134bf49415b4a76b6070f5100f5af7ef8"
+        },
+        {
+          "path": "/media/events/after-dark-1600.webp",
+          "dimensions": [
+            1600,
+            2133
+          ],
+          "bytes": 884808,
+          "sha256": "530101fa5c432e63436cfbf677ce94edcc87dfa6447e11312484d614d70958c7"
+        },
+        {
+          "path": "/media/events/after-dark-2400.webp",
+          "dimensions": [
+            2400,
+            3200
+          ],
+          "bytes": 2487178,
+          "sha256": "0c372a6cba1d55c4f16e44718724045018caebd0737de77e3a11d7925a760381"
+        }
+      ]
+    },
+    {
+      "original": "/Users/elidorcohen/collectingdots/media-inbox/events/originals/RP_20251115_DotsOnCapeTown_2690.jpg",
+      "source_url": "https://drive.google.com/file/d/1nnN4K6Zs3P-f1_de-51vD4WChudlbsLx/view",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "bytes": 1676250,
+      "sha256": "ddcf8e15fdb4723a150fedb506f41b9156df2154d01069feea41493ededf1a85",
+      "derivatives": [
+        {
+          "path": "/media/events/cape-dusk-960.webp",
+          "dimensions": [
+            960,
+            1440
+          ],
+          "bytes": 505188,
+          "sha256": "ac8b4cdad2a61646e4d42bfe48483c4fe8f421c9b9474d0a523b83152d93dd76"
+        },
+        {
+          "path": "/media/events/cape-dusk-1600.webp",
+          "dimensions": [
+            1600,
+            2400
+          ],
+          "bytes": 1528364,
+          "sha256": "fd8cc77a069762ce6aa4aff95a0192de740912b77109f465667b1d92f5c27251"
+        },
+        {
+          "path": "/media/events/cape-dusk-2048.webp",
+          "dimensions": [
+            2048,
+            3072
+          ],
+          "bytes": 2368992,
+          "sha256": "2e9b0b727297f3965c3508b8153aeb08fcbd693737989aa9ac2046278e4708ce"
+        }
+      ]
+    }
+  ],
+  "processing": "Originals retained. EXIF orientation, proportional Lanczos resizing, quality-95 WebP, source ICC retained. No generation, retouching or upscaling. CSS crops only.",
+  "usage": "Archive photographs provide atmosphere for clearly labelled fictional preview events; photographs do not confirm those dates or venues."
+}

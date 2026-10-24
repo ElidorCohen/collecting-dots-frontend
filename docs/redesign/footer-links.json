@@ -1,0 +1,11 @@
+{
+  "source": "Original app/page.tsx footer, backed up under media-inbox/footer/before/home-page.tsx",
+  "destinations": [
+    "mailto:office@collectingdots.com",
+    "https://www.instagram.com/collectingdotsrecords/",
+    "https://www.beatport.com/label/collecting-dots/126941",
+    "https://open.spotify.com/playlist/253UKTc95dhq8FvVbLvroJ"
+  ],
+  "addedInternalLink": "#top",
+  "newArtwork": "Live HTML/CSS wordmark and dot; no new external media."
+}

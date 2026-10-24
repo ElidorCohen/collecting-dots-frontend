@@ -1,0 +1,93 @@
+{
+  "checkedAt": "2026-10-21T16:18:01.878Z",
+  "channel": {
+    "title": "Collecting Dots Records",
+    "id": "UCaGuYQtXVNBHV2Ko2VcSB1Q",
+    "url": "https://www.youtube.com/@CollectingDotsRecords/videos",
+    "feed": "https://www.youtube.com/feeds/videos.xml?channel_id=UCaGuYQtXVNBHV2Ko2VcSB1Q"
+  },
+  "recordings": [
+    {
+      "id": "KDMoWIpuitA",
+      "title": "Dor Danino | Dots On Cape Town | DHL Stadium | Folks | South Africa",
+      "watchUrl": "https://www.youtube.com/watch?v=KDMoWIpuitA",
+      "duration": "1:22:24",
+      "publishedAt": "2026-01-21T17:42:37+00:00",
+      "cover": {
+        "url": "https://i.ytimg.com/vi/KDMoWIpuitA/maxresdefault.jpg",
+        "verifiedWidth": 1280,
+        "verifiedHeight": 720,
+        "provider": "YouTube",
+        "treatment": "Original provider image; no local download, generation or upscale"
+      }
+    },
+    {
+      "id": "1zMYUk8E3Mw",
+      "title": "OMRI. | Dots On Cape Town | DHL Stadium | Folks | South Africa",
+      "watchUrl": "https://www.youtube.com/watch?v=1zMYUk8E3Mw",
+      "duration": "2:41:36",
+      "publishedAt": "2025-12-10T16:16:00+00:00",
+      "cover": {
+        "url": "https://i.ytimg.com/vi/1zMYUk8E3Mw/maxresdefault.jpg",
+        "verifiedWidth": 1280,
+        "verifiedHeight": 720,
+        "provider": "YouTube",
+        "treatment": "Original provider image; no local download, generation or upscale"
+      }
+    },
+    {
+      "id": "oLuQXGdWsgc",
+      "title": "OMRI. | Dots En LooLoo | LooLoo | Mexico City",
+      "watchUrl": "https://www.youtube.com/watch?v=oLuQXGdWsgc",
+      "duration": "2:32:37",
+      "publishedAt": "2025-06-04T14:47:31+00:00",
+      "cover": {
+        "url": "https://i.ytimg.com/vi/oLuQXGdWsgc/maxresdefault.jpg",
+        "verifiedWidth": 1280,
+        "verifiedHeight": 720,
+        "provider": "YouTube",
+        "treatment": "Original provider image; no local download, generation or upscale"
+      }
+    },
+    {
+      "id": "8FIIqSgCi8w",
+      "title": "OMRI. | Dots On Melrose | Est.Today | Stranger Than | Los Angeles",
+      "watchUrl": "https://www.youtube.com/watch?v=8FIIqSgCi8w",
+      "duration": "1:36:06",
+      "publishedAt": "2025-03-20T16:50:29+00:00",
+      "cover": {
+        "url": "https://i.ytimg.com/vi/8FIIqSgCi8w/maxresdefault.jpg",
+        "verifiedWidth": 1280,
+        "verifiedHeight": 720,
+        "provider": "YouTube",
+        "treatment": "Original provider image; no local download, generation or upscale"
+      }
+    }
+  ],
+  "transition": {
+    "image": "/media/events/cape-dusk-2048.webp",
+    "sourceManifest": "events-media.json",
+    "sourceOriginal": "RP_20251115_DotsOnCapeTown_2690.jpg",
+    "sourceUrl": "https://drive.google.com/file/d/1nnN4K6Zs3P-f1_de-51vD4WChudlbsLx/view",
+    "note": "Uses the final event backdrop, measured from the event stage; no additional archive media was generated."
+  },
+  "playback": {
+    "embed": "Official YouTube iframe player loaded only after a user chooses a recording.",
+    "limitation": "The numeric local origin 127.0.0.1 rejected these recordings. All four recordings played in the archive on localhost. Public production playback has not been rechecked in this pass.",
+    "documentation": "https://developers.google.com/youtube/iframe_api_reference#onError",
+    "previousObservation": "Local in-app browser returned YouTube error 150 for OMRI Cape Town, Dor Danino Cape Town and OMRI Mexico City; direct OMRI Cape Town watch page played successfully. The UI replaces rejected/blocked players with a cover and original-watch link. Chrome also stalled on the embed; a 15-second timeout now avoids indefinite loading.",
+    "resolution": {
+      "verifiedAt": "2026-10-21T16:50:40.042Z",
+      "cause": "Numeric loopback embedding origin; same player and videos succeed on localhost.",
+      "fix": "Local page requests on 127.0.0.1 are redirected to localhost, preserving port, path, query and browser fragment. Public hosts and API/assets/writes are untouched.",
+      "verifiedIds": [
+        "1zMYUk8E3Mw",
+        "KDMoWIpuitA",
+        "oLuQXGdWsgc",
+        "8FIIqSgCi8w"
+      ],
+      "playerState": "playing",
+      "detailsDocument": "ARCHIVE-PLAYBACK-FIX-2026-10-21.md"
+    }
+  }
+}

@@ -1,0 +1,2519 @@
+{
+  "capturedOn": "2026-10-14",
+  "sources": [
+    {
+      "endpoint": "https://www.collectingdots.com/api/get-youtube-videos",
+      "status": 200,
+      "success": true,
+      "data": {
+        "videos": [],
+        "channelId": "UCaGuYQtXVNBHV2Ko2VcSB1Q",
+        "channelTitle": "Collecting Dots Records",
+        "totalVideos": 0
+      }
+    },
+    {
+      "endpoint": "https://www.collectingdots.com/api/get-artists-data",
+      "status": 200,
+      "success": true,
+      "data": [
+        {
+          "artist_name": "OMRI.",
+          "artist_instagram_username": "its_omri_dot",
+          "artist_soundcloud": "https://on.soundcloud.com/r5oXQYen8g76sRjuMX",
+          "artist_spotify": "https://open.spotify.com/artist/36jn1T9teX1BHEJYcPoazX?si=Zn5VjN0pQgGomI5tMUEhDA",
+          "artist_beatport": "https://www.beatport.com/artist/omri/887147",
+          "image": "https://i.scdn.co/image/ab6761610000e5eb06b08bc598832401202aa41b"
+        },
+        {
+          "artist_name": "Rafael",
+          "artist_instagram_username": "rafael___music",
+          "artist_soundcloud": "https://on.soundcloud.com/qow7BedNGYrvgW8FGI",
+          "artist_spotify": "https://open.spotify.com/artist/3DHC2ZUVADRKLSmqPcqvc6?si=4hYmJIlmQ1KGOyOFuQkCPw",
+          "artist_beatport": "https://www.beatport.com/artist/rafael/249577",
+          "image": "https://i.scdn.co/image/ab6761610000e5ebcebd6c5f54188a4e2c2b6cce"
+        },
+        {
+          "artist_name": "TOBEHONEST",
+          "artist_instagram_username": "TOBEHONEST",
+          "artist_soundcloud": "https://on.soundcloud.com/V1PNaMFypsybU2LSDG",
+          "artist_spotify": "https://open.spotify.com/artist/5aE4f6qwsXT5hACySkxJQo?si=rRT-EW4GSg6fWyF6wAmxKg",
+          "artist_beatport": "https://www.beatport.com/artist/tobehonest/1017304",
+          "image": "https://i.scdn.co/image/ab6761610000e5eb3e14fb2f37429db6bed45571"
+        },
+        {
+          "artist_name": "The Botanist",
+          "artist_instagram_username": "thebotanistmusic",
+          "artist_soundcloud": "https://on.soundcloud.com/iV8q75jYHkzYmTGaQJ",
+          "artist_spotify": "https://open.spotify.com/artist/15ZbPLr8nbvNDZ1vaqr75W?si=paVuS7oUSOWGRgE1ibnetQ",
+          "artist_beatport": "https://www.beatport.com/artist/the-botanist/867855",
+          "image": "https://i.scdn.co/image/ab6761610000e5ebfa2d34229aa29944bd4f32f1"
+        },
+        {
+          "artist_name": "Adaru",
+          "artist_instagram_username": "its_adaru",
+          "artist_soundcloud": "https://on.soundcloud.com/u3hCuBLHQEcVbEmkFq",
+          "artist_spotify": "https://open.spotify.com/artist/6w8EDSvxku1HxRykFvPVDL?si=hEOorTGbSFOcLFVZLPk3_A",
+          "artist_beatport": "https://www.beatport.com/artist/adaru/1316429",
+          "image": "https://i.scdn.co/image/ab6761610000e5ebb8aaf406c51406f9a18d879c"
+        },
+        {
+          "artist_name": "Dor Danino",
+          "artist_instagram_username": "Dor Danino",
+          "artist_soundcloud": "https://on.soundcloud.com/Lg3nHcmZqh6FmOJD2b",
+          "artist_spotify": "https://open.spotify.com/artist/5OT75tS8Kr97I3OPJvIRBs?si=d6MvF0j8SJuW1SyizEmjiw",
+          "artist_beatport": "https://www.beatport.com/artist/dor-danino/682713",
+          "image": "https://i.scdn.co/image/ab6761610000e5ebbbeaefed5ae64bf377ffdee2"
+        },
+        {
+          "artist_name": "N.O.Y",
+          "artist_instagram_username": "noymusicc",
+          "artist_soundcloud": "https://on.soundcloud.com/wZBYEQfx08cZA80JaJ",
+          "artist_spotify": "https://open.spotify.com/artist/0hqXTlQAEAtkUw1QIveElr?si=xqiI5Dc7R-WQUi-Cb1Oh9g",
+          "artist_beatport": "https://www.beatport.com/artist/noy/40031",
+          "image": "https://i.scdn.co/image/ab6761610000e5ebb077c5183d14a12dc2d60182"
+        },
+        {
+          "artist_name": "Balanka",
+          "artist_instagram_username": "balankamusic",
+          "artist_soundcloud": "https://on.soundcloud.com/Ghtt0rvqwqlz3jyF44",
+          "artist_spotify": "https://open.spotify.com/artist/4F47V8rO8pOERTLQNXCo3v?si=ntBYFUdpTi2l-W1DEm4m-A",
+          "artist_beatport": "https://www.beatport.com/artist/balanka/1216580",
+          "image": "https://i.scdn.co/image/ab6761610000e5eb3830fb2955ef9732a0d3d5b6"
+        },
+        {
+          "artist_name": "Bonafique",
+          "artist_instagram_username": "bonafique_",
+          "artist_soundcloud": "https://on.soundcloud.com/jzdrjXIy68nwbX3AEj",
+          "artist_spotify": "https://open.spotify.com/artist/4iYZQBR8znMgLUEM949803?si=zyLf5oHtSUeWiLXOmYJ-lQ",
+          "artist_beatport": "https://www.beatport.com/artist/bonafique/1057196",
+          "image": "https://i.scdn.co/image/ab6761610000e5eb6d46eba60972d0ce0f5e6544"
+        },
+        {
+          "artist_name": "Sapian",
+          "artist_instagram_username": "sapian.dj",
+          "artist_soundcloud": "https://on.soundcloud.com/c1T3GbPO7ZvkSZQnAW",
+          "artist_spotify": "https://open.spotify.com/artist/4hWjDdwaSTU6SgOk5ZP3GT?si=nPPvPrkMRLa2U63QzVueig",
+          "artist_beatport": "https://www.beatport.com/artist/sapian/1196206",
+          "image": "https://i.scdn.co/image/ab6761610000e5eb8e2815d53fb2b8d9fa99ee3a"
+        },
+        {
+          "artist_name": "Rave Rae",
+          "artist_instagram_username": "raveraemusic",
+          "artist_soundcloud": "https://on.soundcloud.com/rwISAo3jaPGzcLfgI9",
+          "artist_spotify": "https://open.spotify.com/artist/72I24QKKHBlfjLwDH359MG?si=t8YJ4EdhSy25E0DN2Ex4AQ/",
+          "artist_beatport": "https://www.beatport.com/artist/rave-rae/1159108",
+          "image": "https://i.scdn.co/image/ab6761610000e5eb2a822ad40fca65e08bcacda5"
+        },
+        {
+          "artist_name": "NAAR (US)",
+          "artist_instagram_username": "naar.us",
+          "artist_soundcloud": "https://on.soundcloud.com/kzBsMUuHu1DeNxXBia",
+          "artist_spotify": "https://open.spotify.com/artist/2MNWqxfraxtx61tyxwzyqq?si=9g3s3JReRfu0nWgOrpq9vA",
+          "artist_beatport": "https://www.beatport.com/artist/naar-us/1262881",
+          "image": "https://i.scdn.co/image/ab6761610000e5eb8eebe3bb1d469e17d4434cb9"
+        },
+        {
+          "artist_name": "Parker Page",
+          "artist_instagram_username": "itsparkerpage",
+          "artist_soundcloud": "https://on.soundcloud.com/cAD1aufc2gYMEKLm1S",
+          "artist_spotify": "https://open.spotify.com/artist/1jRRjPpIYv5Wzbu4oyNSwb?si=LAgA4cvoTHSfllyAjz7wGA",
+          "artist_beatport": "https://www.beatport.com/artist/parker-page/1093604",
+          "image": "https://i.scdn.co/image/ab6761610000e5eb5fd5151e4652999e3aa8c63e"
+        },
+        {
+          "artist_name": "Panna",
+          "artist_instagram_username": "panna.music",
+          "artist_soundcloud": "https://on.soundcloud.com/F4dMfmyBqqCxH1IOQL",
+          "artist_spotify": "https://open.spotify.com/artist/34YgnaBrdRLtuwExinbk0t?si=WaZYxuH_TgOvNsMGhnGTxQ",
+          "artist_beatport": "https://www.beatport.com/artist/panna-br/1101485",
+          "image": "https://i.scdn.co/image/ab6761610000e5ebdc67e8be6ec6b8f1aa9942cf"
+        },
+        {
+          "artist_name": "Record Club",
+          "artist_instagram_username": "recordclubmusic",
+          "artist_soundcloud": "https://on.soundcloud.com/CKcM5HmyMyDxRNerAd",
+          "artist_spotify": "https://open.spotify.com/artist/4cArYfwQ0BrfSEhaDwhVYQ?si=dBv3SsV_RRiwslRf7QN-rw",
+          "artist_beatport": "https://www.beatport.com/artist/record-club/894543",
+          "image": "https://i.scdn.co/image/ab6761610000e5ebc61f8360def3c456b17a4f18"
+        },
+        {
+          "artist_name": "Magos",
+          "artist_instagram_username": "magos_music",
+          "artist_soundcloud": "https://on.soundcloud.com/T9J99XXeg0fAZ92oto",
+          "artist_spotify": "https://open.spotify.com/artist/5yaXT63tlm1c2yn8aV0bOI?si=3IWeULumR7-dSLFJoUYC6A",
+          "artist_beatport": "https://www.beatport.com/artist/magos/1072209",
+          "image": "https://i.scdn.co/image/ab6761610000e5eb7b82d79f1bd5a36d9b3773b5"
+        },
+        {
+          "artist_name": "Sadro",
+          "artist_instagram_username": "djsadro",
+          "artist_soundcloud": "https://on.soundcloud.com/AowQA8Jdt0y8Y91AMY",
+          "artist_spotify": "https://open.spotify.com/artist/4rn0HDcr0dkfAd5XwrHrkY?si=5drZ1CODSSSAM8LvT80LwA",
+          "artist_beatport": "https://www.beatport.com/artist/sadro/1306923",
+          "image": "https://i.scdn.co/image/ab6761610000e5ebb35ea4ad5898c8b03e437874"
+        },
+        {
+          "artist_name": "Mosard",
+          "artist_instagram_username": "mosardmusique",
+          "artist_soundcloud": "https://on.soundcloud.com/0rlYLF8WNrKgOy2WO6",
+          "artist_spotify": "https://open.spotify.com/artist/7LMTCzHMeJywCQJFETsdnh?si=BQGHWEEgQh6G3ZRRRnk4kQ",
+          "artist_beatport": "https://www.beatport.com/artist/msard/1265020",
+          "image": "https://i.scdn.co/image/ab6761610000e5eb00a58ec116aac0bd9fe2e31e"
+        },
+        {
+          "artist_name": "Jackie",
+          "artist_instagram_username": "jackie__music",
+          "artist_soundcloud": "https://on.soundcloud.com/bC58eb6rkaT1mmITBe",
+          "artist_spotify": "https://open.spotify.com/artist/5bKh6DOIC8AJZwHDtRAg1d?si=PpJ1pu_jRT-OgCPU2nKThA",
+          "artist_beatport": "https://www.beatport.com/artist/jackie-it/1324276",
+          "image": "https://i.scdn.co/image/ab6761610000e5eb4c78551cfd785aa15de1364d"
+        },
+        {
+          "artist_name": "Baaronn",
+          "artist_instagram_username": "baaronn___",
+          "artist_soundcloud": "https://on.soundcloud.com/C9d6FzzdKhGeliclr4",
+          "artist_spotify": "https://open.spotify.com/artist/2sTTvurvyqdMORsz3tMZYM?si=RjnJFvLUSjiXt3IQbeYLRQ",
+          "artist_beatport": "https://www.beatport.com/artist/baaronn/1309726",
+          "image": "https://i.scdn.co/image/ab6761610000e5eb6dc7169c4166cc472cf3269f"
+        },
+        {
+          "artist_name": "Abel",
+          "artist_instagram_username": "_abel_dj",
+          "artist_soundcloud": "https://on.soundcloud.com/4eRDwE9z1ggRurknjy",
+          "artist_spotify": "https://open.spotify.com/artist/2EsYY7ZHoWaQgPFwWgbyMe?si=74biAOQVRX-I8x_oVUcLiA",
+          "artist_beatport": "https://www.beatport.com/artist/abel-uk/1209895",
+          "image": "https://i.scdn.co/image/ab6761610000e5eb9153d0045892d2d2ed418651"
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.collectingdots.com/api/get-events-data",
+      "status": 200,
+      "success": true,
+      "data": [
+        {
+          "event_title": "DOTS ON CAPE TOWN",
+          "location": "DHL Stadium, Cape Town, South Africa",
+          "date": "15/11/2025",
+          "times": "12:00 - 22:00",
+          "artists": "OMRI., Dor Danino",
+          "event_external_url": "https://www.google.com",
+          "event_instagram_post": "https://www.google.com"
+        },
+        {
+          "event_title": "DOTS ON VAGALUME",
+          "location": "Vagalume, Tulum, Mexico",
+          "date": "07/01/2026",
+          "times": "18:00 - 01:00",
+          "artists": "OMRI., Tom & Collins, Rafael, Dor Danino",
+          "event_external_url": "https://mandalatickets.com/es/tulum/events/vagalume/collecting-dots-jan7",
+          "event_instagram_post": "https://www.instagram.com/p/DSJFhosjb9G/?igsh=NTc4MTIwNjQ2YQ=="
+        },
+        {
+          "event_title": "DOTS ON THE GROUND",
+          "location": "THE GROUND, Downtown Miami, USA",
+          "date": "23/05/2026",
+          "times": "11PM",
+          "artists": "OMRI. , AJK , SADRO , SHIR MIYA",
+          "event_external_url": "https://link.dice.fm/collectingdotsground",
+          "event_instagram_post": "http://www.instagram.com/p/DXZhdUEjUUS/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.collectingdots.com/api/get-playlist-data",
+      "status": 200,
+      "success": true,
+      "data": {
+        "playlist": {
+          "id": "253UKTc95dhq8FvVbLvroJ",
+          "name": "Collecting Dots",
+          "description": "Collecting Dots from around the world  🌍❣️",
+          "owner": {
+            "id": "ow4yob2xknh4byrbk9csxnxuk",
+            "display_name": "OMRI."
+          },
+          "followers": 465,
+          "public": true,
+          "images": [
+            {
+              "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da849c6fb5337ab7cc513705991a",
+              "height": 0,
+              "width": 0
+            }
+          ],
+          "external_urls": {
+            "spotify": "https://open.spotify.com/playlist/253UKTc95dhq8FvVbLvroJ"
+          }
+        },
+        "tracks": [
+          {
+            "id": "6dJbGyWK8Whqwv8j8NFe81",
+            "name": "Mission Impossible",
+            "artists": [
+              {
+                "id": "36jn1T9teX1BHEJYcPoazX",
+                "name": "OMRI."
+              }
+            ],
+            "album": {
+              "id": "4vKDovrAZbqsJV8fmMOqYe",
+              "name": "Mission Impossible",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273fd74f70c6e7cfc64c61950e6",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02fd74f70c6e7cfc64c61950e6",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851fd74f70c6e7cfc64c61950e6",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-01-31"
+            },
+            "spotify": "https://open.spotify.com/track/6dJbGyWK8Whqwv8j8NFe81",
+            "isrc": "GBLV62422470",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3165917761
+          },
+          {
+            "id": "5uK52amH0J7Xt0XfNIg3Hb",
+            "name": "What What",
+            "artists": [
+              {
+                "id": "3DHC2ZUVADRKLSmqPcqvc6",
+                "name": "Rafael"
+              },
+              {
+                "id": "4hWjDdwaSTU6SgOk5ZP3GT",
+                "name": "Sapian"
+              }
+            ],
+            "album": {
+              "id": "3GmH2BBmW6hi6WK8ZOWTdr",
+              "name": "What What",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b2736218141d2d690bd3d4ec7c35",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e026218141d2d690bd3d4ec7c35",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d000048516218141d2d690bd3d4ec7c35",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-02-21"
+            },
+            "spotify": "https://open.spotify.com/track/5uK52amH0J7Xt0XfNIg3Hb",
+            "isrc": "GBKQU2511764",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3221475471
+          },
+          {
+            "id": "1i8c7DxlfnqrS1iTivDWiw",
+            "name": "Chicken Bone",
+            "artists": [
+              {
+                "id": "5aE4f6qwsXT5hACySkxJQo",
+                "name": "TOBEHONEST"
+              }
+            ],
+            "album": {
+              "id": "6DwT1HWM4RkVziCDDjEz39",
+              "name": "Chicken Bone",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273e2a4e85e09676d9f0902ad51",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02e2a4e85e09676d9f0902ad51",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851e2a4e85e09676d9f0902ad51",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-03-28"
+            },
+            "spotify": "https://open.spotify.com/track/1i8c7DxlfnqrS1iTivDWiw",
+            "isrc": "GBKQU2522439",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3266484721
+          },
+          {
+            "id": "6nMhkurw2FQsYBxnCy64oz",
+            "name": "Culture React",
+            "artists": [
+              {
+                "id": "4iYZQBR8znMgLUEM949803",
+                "name": "Bonafique"
+              }
+            ],
+            "album": {
+              "id": "1dkLFuWBA6xiWu7T5YU0Ok",
+              "name": "Culture React",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273b3eae3297b4ace5f86ef8ccb",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02b3eae3297b4ace5f86ef8ccb",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851b3eae3297b4ace5f86ef8ccb",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-04-18"
+            },
+            "spotify": "https://open.spotify.com/track/6nMhkurw2FQsYBxnCy64oz",
+            "isrc": "GBKQU2532470",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3309788081
+          },
+          {
+            "id": "7laooKGjdqsweRJOHleJ8G",
+            "name": "G Walk",
+            "artists": [
+              {
+                "id": "4iYZQBR8znMgLUEM949803",
+                "name": "Bonafique"
+              }
+            ],
+            "album": {
+              "id": "1dkLFuWBA6xiWu7T5YU0Ok",
+              "name": "Culture React",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273b3eae3297b4ace5f86ef8ccb",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02b3eae3297b4ace5f86ef8ccb",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851b3eae3297b4ace5f86ef8ccb",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-04-18"
+            },
+            "spotify": "https://open.spotify.com/track/7laooKGjdqsweRJOHleJ8G",
+            "isrc": "GBKQU2532471",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3309788091
+          },
+          {
+            "id": "1PktMabp8knfy5tey2xdSl",
+            "name": "Wanna Dance?",
+            "artists": [
+              {
+                "id": "15ZbPLr8nbvNDZ1vaqr75W",
+                "name": "The Botanist"
+              }
+            ],
+            "album": {
+              "id": "0DuEvxLIfxyHCJzAeR8HUn",
+              "name": "Wanna Dance?",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273db767152a9e214bd56e2b788",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02db767152a9e214bd56e2b788",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851db767152a9e214bd56e2b788",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-05-16"
+            },
+            "spotify": "https://open.spotify.com/track/1PktMabp8knfy5tey2xdSl",
+            "isrc": "GBKQU2539867",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3343724851
+          },
+          {
+            "id": "26KG3TfQu8m1tSC2fm7l31",
+            "name": "Can't Stop",
+            "artists": [
+              {
+                "id": "6w8EDSvxku1HxRykFvPVDL",
+                "name": "Adaru"
+              }
+            ],
+            "album": {
+              "id": "4eADGrIwMSvvQB7loOcqPz",
+              "name": "Cruisers EP",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27372651d20a383dab468db91c5",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0272651d20a383dab468db91c5",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485172651d20a383dab468db91c5",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-06-13"
+            },
+            "spotify": "https://open.spotify.com/track/26KG3TfQu8m1tSC2fm7l31",
+            "isrc": "GBKQU2548316",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3380122331
+          },
+          {
+            "id": "17xEKlDlRsAG0zvEQ5VxxW",
+            "name": "Cruisers",
+            "artists": [
+              {
+                "id": "6w8EDSvxku1HxRykFvPVDL",
+                "name": "Adaru"
+              }
+            ],
+            "album": {
+              "id": "4eADGrIwMSvvQB7loOcqPz",
+              "name": "Cruisers EP",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27372651d20a383dab468db91c5",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0272651d20a383dab468db91c5",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485172651d20a383dab468db91c5",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-06-13"
+            },
+            "spotify": "https://open.spotify.com/track/17xEKlDlRsAG0zvEQ5VxxW",
+            "isrc": "GBKQU2548314",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3380122311
+          },
+          {
+            "id": "4QPPGFOfOKf77Zeu3BCsZp",
+            "name": "Mess",
+            "artists": [
+              {
+                "id": "6w8EDSvxku1HxRykFvPVDL",
+                "name": "Adaru"
+              }
+            ],
+            "album": {
+              "id": "4eADGrIwMSvvQB7loOcqPz",
+              "name": "Cruisers EP",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27372651d20a383dab468db91c5",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0272651d20a383dab468db91c5",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485172651d20a383dab468db91c5",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-06-13"
+            },
+            "spotify": "https://open.spotify.com/track/4QPPGFOfOKf77Zeu3BCsZp",
+            "isrc": "GBKQU2548315",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3380122321
+          },
+          {
+            "id": "6ai2ciGZxh9soQMcatQJyK",
+            "name": "Play This Record",
+            "artists": [
+              {
+                "id": "5OT75tS8Kr97I3OPJvIRBs",
+                "name": "Dor Danino"
+              }
+            ],
+            "album": {
+              "id": "2eQWgGu2pDKC7QpS5f19a9",
+              "name": "Play This Record",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273b58939f01abbae562228b348",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02b58939f01abbae562228b348",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851b58939f01abbae562228b348",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-06-27"
+            },
+            "spotify": "https://open.spotify.com/track/6ai2ciGZxh9soQMcatQJyK",
+            "isrc": "GBKQU2555104",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3406352531
+          },
+          {
+            "id": "3ZV2xKqFYJJrY0A8cRYrst",
+            "name": "Voices",
+            "artists": [
+              {
+                "id": "0hqXTlQAEAtkUw1QIveElr",
+                "name": "N.O.Y"
+              }
+            ],
+            "album": {
+              "id": "3zoKWfqbxUglFaUKJv35dI",
+              "name": "Voices EP",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273227cf5cfefc72059e0772d0f",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02227cf5cfefc72059e0772d0f",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851227cf5cfefc72059e0772d0f",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-07-11"
+            },
+            "spotify": "https://open.spotify.com/track/3ZV2xKqFYJJrY0A8cRYrst",
+            "isrc": "GBKQU2563003",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3432623101
+          },
+          {
+            "id": "0i7pjUx32JhfN4mgoPspfr",
+            "name": "Scratch",
+            "artists": [
+              {
+                "id": "0hqXTlQAEAtkUw1QIveElr",
+                "name": "N.O.Y"
+              }
+            ],
+            "album": {
+              "id": "3zoKWfqbxUglFaUKJv35dI",
+              "name": "Voices EP",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273227cf5cfefc72059e0772d0f",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02227cf5cfefc72059e0772d0f",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851227cf5cfefc72059e0772d0f",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-07-11"
+            },
+            "spotify": "https://open.spotify.com/track/0i7pjUx32JhfN4mgoPspfr",
+            "isrc": "GBKQU2563004",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3432623111
+          },
+          {
+            "id": "5smyVf3wio2CecKzCaZYTA",
+            "name": "Activator",
+            "artists": [
+              {
+                "id": "15ZbPLr8nbvNDZ1vaqr75W",
+                "name": "The Botanist"
+              }
+            ],
+            "album": {
+              "id": "29johym52GDlOr7UhwCa2m",
+              "name": "Activator EP",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273073eb88030f1b698d440fdb0",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02073eb88030f1b698d440fdb0",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851073eb88030f1b698d440fdb0",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-08-01"
+            },
+            "spotify": "https://open.spotify.com/track/5smyVf3wio2CecKzCaZYTA",
+            "isrc": "GBKQU2573952",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3459029701
+          },
+          {
+            "id": "5erpaM6M5Po8O3gxufkb2h",
+            "name": "Feeling It",
+            "artists": [
+              {
+                "id": "15ZbPLr8nbvNDZ1vaqr75W",
+                "name": "The Botanist"
+              }
+            ],
+            "album": {
+              "id": "29johym52GDlOr7UhwCa2m",
+              "name": "Activator EP",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273073eb88030f1b698d440fdb0",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02073eb88030f1b698d440fdb0",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851073eb88030f1b698d440fdb0",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-08-01"
+            },
+            "spotify": "https://open.spotify.com/track/5erpaM6M5Po8O3gxufkb2h",
+            "isrc": "GBKQU2573954",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3459029711
+          },
+          {
+            "id": "2VnnJr6BJ83XexSbYFIBG5",
+            "name": "Unholy",
+            "artists": [
+              {
+                "id": "36jn1T9teX1BHEJYcPoazX",
+                "name": "OMRI."
+              },
+              {
+                "id": "2zzpznMuhKlKlqh1ma7Sms",
+                "name": "Dakota"
+              }
+            ],
+            "album": {
+              "id": "3Ht1fU7M26suobWo5P9Gz8",
+              "name": "Unholy",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27306c629547e5e1876f93c30b5",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0206c629547e5e1876f93c30b5",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485106c629547e5e1876f93c30b5",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-08-22"
+            },
+            "spotify": "https://open.spotify.com/track/2VnnJr6BJ83XexSbYFIBG5",
+            "isrc": "GBKQU2580982",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3494274101
+          },
+          {
+            "id": "32JcoEdyKk1tgY6ID8YFAP",
+            "name": "I Can't W8",
+            "artists": [
+              {
+                "id": "4F47V8rO8pOERTLQNXCo3v",
+                "name": "Balanka"
+              }
+            ],
+            "album": {
+              "id": "05u46tHlBARXjl8kYtvEqz",
+              "name": "Shut Up",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273c653c2fd5551d42b19007e41",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02c653c2fd5551d42b19007e41",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851c653c2fd5551d42b19007e41",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-09-12"
+            },
+            "spotify": "https://open.spotify.com/track/32JcoEdyKk1tgY6ID8YFAP",
+            "isrc": "GBKQU2587565",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3518845521
+          },
+          {
+            "id": "5RU2KyE0YzSDEs3xCjjx3B",
+            "name": "Shut Up",
+            "artists": [
+              {
+                "id": "4F47V8rO8pOERTLQNXCo3v",
+                "name": "Balanka"
+              }
+            ],
+            "album": {
+              "id": "05u46tHlBARXjl8kYtvEqz",
+              "name": "Shut Up",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273c653c2fd5551d42b19007e41",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02c653c2fd5551d42b19007e41",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851c653c2fd5551d42b19007e41",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-09-12"
+            },
+            "spotify": "https://open.spotify.com/track/5RU2KyE0YzSDEs3xCjjx3B",
+            "isrc": "GBKQU2587564",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3518845511
+          },
+          {
+            "id": "6PflW6dW9OuUHAJyK0AG53",
+            "name": "No Turning Back",
+            "artists": [
+              {
+                "id": "6w8EDSvxku1HxRykFvPVDL",
+                "name": "Adaru"
+              }
+            ],
+            "album": {
+              "id": "1EmcXubN5SAXp8Mgdn0UP9",
+              "name": "No Turning Back",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273f5d521fee105351303191d78",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02f5d521fee105351303191d78",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851f5d521fee105351303191d78",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-09-26"
+            },
+            "spotify": "https://open.spotify.com/track/6PflW6dW9OuUHAJyK0AG53",
+            "isrc": "GBKQU2589994",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3532020401
+          },
+          {
+            "id": "3RjPXzrObe2J5AAn5x2NRf",
+            "name": "I'm Stuntin",
+            "artists": [
+              {
+                "id": "72I24QKKHBlfjLwDH359MG",
+                "name": "Rave Rae"
+              }
+            ],
+            "album": {
+              "id": "1wL46cLHJKxmafoMffZhxf",
+              "name": "I'm Stuntin EP",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b2738f1fa61dd517c50df47fc538",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e028f1fa61dd517c50df47fc538",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d000048518f1fa61dd517c50df47fc538",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-11-07"
+            },
+            "spotify": "https://open.spotify.com/track/3RjPXzrObe2J5AAn5x2NRf",
+            "isrc": "GBLV62507605",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3606191402
+          },
+          {
+            "id": "2vnFubIdFpKtPaueNb0ZLf",
+            "name": "Fifty Stacks",
+            "artists": [
+              {
+                "id": "72I24QKKHBlfjLwDH359MG",
+                "name": "Rave Rae"
+              }
+            ],
+            "album": {
+              "id": "1wL46cLHJKxmafoMffZhxf",
+              "name": "I'm Stuntin EP",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b2738f1fa61dd517c50df47fc538",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e028f1fa61dd517c50df47fc538",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d000048518f1fa61dd517c50df47fc538",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-11-07"
+            },
+            "spotify": "https://open.spotify.com/track/2vnFubIdFpKtPaueNb0ZLf",
+            "isrc": "GBLV62507606",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3606191412
+          },
+          {
+            "id": "4EczT6jRDLgPgqfo1CWmhK",
+            "name": "Another Hit",
+            "artists": [
+              {
+                "id": "2MNWqxfraxtx61tyxwzyqq",
+                "name": "NAAR (US)"
+              },
+              {
+                "id": "1jRRjPpIYv5Wzbu4oyNSwb",
+                "name": "Parker Page"
+              }
+            ],
+            "album": {
+              "id": "6U9TTmxdR9b8RxNJGsRdvq",
+              "name": "Another Hit",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273e5531424d6dc67c4c72e387e",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02e5531424d6dc67c4c72e387e",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851e5531424d6dc67c4c72e387e",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-12-05"
+            },
+            "spotify": "https://open.spotify.com/track/4EczT6jRDLgPgqfo1CWmhK",
+            "isrc": "GBLV62521288",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3678106842
+          },
+          {
+            "id": "6rjwH2zUcBNMqp58u9Bekf",
+            "name": "Over The WRLD",
+            "artists": [
+              {
+                "id": "34YgnaBrdRLtuwExinbk0t",
+                "name": "Panna (BR)"
+              }
+            ],
+            "album": {
+              "id": "59md9MUzqtbmgICic3LTQv",
+              "name": "Dot By Dot",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273d6adee094aadbc7c9ee53aeb",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02d6adee094aadbc7c9ee53aeb",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851d6adee094aadbc7c9ee53aeb",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-12-26"
+            },
+            "spotify": "https://open.spotify.com/track/6rjwH2zUcBNMqp58u9Bekf",
+            "isrc": "GBLV62523890",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3695196202
+          },
+          {
+            "id": "1XDXqRC385eIdRA3QCwLgv",
+            "name": "Quirky Ting",
+            "artists": [
+              {
+                "id": "4cArYfwQ0BrfSEhaDwhVYQ",
+                "name": "Record Club"
+              }
+            ],
+            "album": {
+              "id": "59md9MUzqtbmgICic3LTQv",
+              "name": "Dot By Dot",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273d6adee094aadbc7c9ee53aeb",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02d6adee094aadbc7c9ee53aeb",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851d6adee094aadbc7c9ee53aeb",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-12-26"
+            },
+            "spotify": "https://open.spotify.com/track/1XDXqRC385eIdRA3QCwLgv",
+            "isrc": "GBLV62523893",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3695196212
+          },
+          {
+            "id": "4PImGHNvCUfnYDmbO6IejW",
+            "name": "Adegroove",
+            "artists": [
+              {
+                "id": "5yaXT63tlm1c2yn8aV0bOI",
+                "name": "MAGOS"
+              }
+            ],
+            "album": {
+              "id": "59md9MUzqtbmgICic3LTQv",
+              "name": "Dot By Dot",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273d6adee094aadbc7c9ee53aeb",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02d6adee094aadbc7c9ee53aeb",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851d6adee094aadbc7c9ee53aeb",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-12-26"
+            },
+            "spotify": "https://open.spotify.com/track/4PImGHNvCUfnYDmbO6IejW",
+            "isrc": "GBLV62524311",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3695196222
+          },
+          {
+            "id": "00AdhSHZpniQXfH7OttEsd",
+            "name": "Ya Ya Debushi",
+            "artists": [
+              {
+                "id": "4F47V8rO8pOERTLQNXCo3v",
+                "name": "Balanka"
+              }
+            ],
+            "album": {
+              "id": "59md9MUzqtbmgICic3LTQv",
+              "name": "Dot By Dot",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273d6adee094aadbc7c9ee53aeb",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02d6adee094aadbc7c9ee53aeb",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851d6adee094aadbc7c9ee53aeb",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-12-26"
+            },
+            "spotify": "https://open.spotify.com/track/00AdhSHZpniQXfH7OttEsd",
+            "isrc": "GBLV62524312",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3695196232
+          },
+          {
+            "id": "7lzn1WaAuItGYsPQUv3hFR",
+            "name": "Undercover",
+            "artists": [
+              {
+                "id": "4rn0HDcr0dkfAd5XwrHrkY",
+                "name": "Sadro"
+              }
+            ],
+            "album": {
+              "id": "59md9MUzqtbmgICic3LTQv",
+              "name": "Dot By Dot",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273d6adee094aadbc7c9ee53aeb",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02d6adee094aadbc7c9ee53aeb",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851d6adee094aadbc7c9ee53aeb",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-12-26"
+            },
+            "spotify": "https://open.spotify.com/track/7lzn1WaAuItGYsPQUv3hFR",
+            "isrc": "GBLV62524313",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3695196242
+          },
+          {
+            "id": "6wxj2YEktflrUgusdq71CS",
+            "name": "Chain",
+            "artists": [
+              {
+                "id": "7LMTCzHMeJywCQJFETsdnh",
+                "name": "Møsard"
+              }
+            ],
+            "album": {
+              "id": "59md9MUzqtbmgICic3LTQv",
+              "name": "Dot By Dot",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273d6adee094aadbc7c9ee53aeb",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02d6adee094aadbc7c9ee53aeb",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851d6adee094aadbc7c9ee53aeb",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-12-26"
+            },
+            "spotify": "https://open.spotify.com/track/6wxj2YEktflrUgusdq71CS",
+            "isrc": "GBLV62524314",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3695196252
+          },
+          {
+            "id": "6MlFpV7ZGX9YMeqnm9wYdb",
+            "name": "I Don't Give A Fuck",
+            "artists": [
+              {
+                "id": "5bKh6DOIC8AJZwHDtRAg1d",
+                "name": "Jackie (IT)"
+              },
+              {
+                "id": "2sTTvurvyqdMORsz3tMZYM",
+                "name": "Baaronn"
+              }
+            ],
+            "album": {
+              "id": "59md9MUzqtbmgICic3LTQv",
+              "name": "Dot By Dot",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273d6adee094aadbc7c9ee53aeb",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02d6adee094aadbc7c9ee53aeb",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851d6adee094aadbc7c9ee53aeb",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-12-26"
+            },
+            "spotify": "https://open.spotify.com/track/6MlFpV7ZGX9YMeqnm9wYdb",
+            "isrc": "GBLV62524180",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3695196262
+          },
+          {
+            "id": "5q22Zio70o51lQscq8W9ck",
+            "name": "Slave To The Sound",
+            "artists": [
+              {
+                "id": "2EsYY7ZHoWaQgPFwWgbyMe",
+                "name": "ABEL"
+              }
+            ],
+            "album": {
+              "id": "59md9MUzqtbmgICic3LTQv",
+              "name": "Dot By Dot",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273d6adee094aadbc7c9ee53aeb",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02d6adee094aadbc7c9ee53aeb",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851d6adee094aadbc7c9ee53aeb",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2025-12-26"
+            },
+            "spotify": "https://open.spotify.com/track/5q22Zio70o51lQscq8W9ck",
+            "isrc": "GBLV62524183",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3695196272
+          },
+          {
+            "id": "7qiD587jBobezwf18RHLFW",
+            "name": "House Revolution",
+            "artists": [
+              {
+                "id": "36jn1T9teX1BHEJYcPoazX",
+                "name": "OMRI."
+              }
+            ],
+            "album": {
+              "id": "7pXjIRbuOT4y6r5fBweBHX",
+              "name": "House Revolution",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273799bb4e0f4bde44f33294bfb",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02799bb4e0f4bde44f33294bfb",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851799bb4e0f4bde44f33294bfb",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-01-02"
+            },
+            "spotify": "https://open.spotify.com/track/7qiD587jBobezwf18RHLFW",
+            "isrc": "GBLV62532242",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3737868852
+          },
+          {
+            "id": "6jelCaEhVTmi38v1udt1e8",
+            "name": "Rhythm Of The Loner",
+            "artists": [
+              {
+                "id": "36jn1T9teX1BHEJYcPoazX",
+                "name": "OMRI."
+              }
+            ],
+            "album": {
+              "id": "7pXjIRbuOT4y6r5fBweBHX",
+              "name": "House Revolution",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273799bb4e0f4bde44f33294bfb",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02799bb4e0f4bde44f33294bfb",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851799bb4e0f4bde44f33294bfb",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-01-02"
+            },
+            "spotify": "https://open.spotify.com/track/6jelCaEhVTmi38v1udt1e8",
+            "isrc": "GBLV62532243",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3737868862
+          },
+          {
+            "id": "3EmVUp8OyKEwHca6OJRm82",
+            "name": "Louder",
+            "artists": [
+              {
+                "id": "36jn1T9teX1BHEJYcPoazX",
+                "name": "OMRI."
+              }
+            ],
+            "album": {
+              "id": "7pXjIRbuOT4y6r5fBweBHX",
+              "name": "House Revolution",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273799bb4e0f4bde44f33294bfb",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02799bb4e0f4bde44f33294bfb",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851799bb4e0f4bde44f33294bfb",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-01-02"
+            },
+            "spotify": "https://open.spotify.com/track/3EmVUp8OyKEwHca6OJRm82",
+            "isrc": "GBLV62532244",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3737868872
+          },
+          {
+            "id": "6mq5Ax6mRk4SS8ojEVxZ8j",
+            "name": "Drop The Needle On My Soul",
+            "artists": [
+              {
+                "id": "0hqXTlQAEAtkUw1QIveElr",
+                "name": "N.O.Y"
+              }
+            ],
+            "album": {
+              "id": "6rIm7WgOXXl7dmRNNcR2ia",
+              "name": "Drop The Needle On My Soul",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27383d4aa38b3e00d341fd1e89a",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0283d4aa38b3e00d341fd1e89a",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485183d4aa38b3e00d341fd1e89a",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-01-23"
+            },
+            "spotify": "https://open.spotify.com/track/6mq5Ax6mRk4SS8ojEVxZ8j",
+            "isrc": "GBKQU2601016",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3756486282
+          },
+          {
+            "id": "7GteoEAsKbHvZc5yPgyfFl",
+            "name": "La Roja",
+            "artists": [
+              {
+                "id": "0hqXTlQAEAtkUw1QIveElr",
+                "name": "N.O.Y"
+              }
+            ],
+            "album": {
+              "id": "6rIm7WgOXXl7dmRNNcR2ia",
+              "name": "Drop The Needle On My Soul",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27383d4aa38b3e00d341fd1e89a",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0283d4aa38b3e00d341fd1e89a",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485183d4aa38b3e00d341fd1e89a",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-01-23"
+            },
+            "spotify": "https://open.spotify.com/track/7GteoEAsKbHvZc5yPgyfFl",
+            "isrc": "GBKQU2601017",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3756486292
+          },
+          {
+            "id": "1cKJO9AfPPK1X58JBASqAl",
+            "name": "Get Flavor",
+            "artists": [
+              {
+                "id": "6w8EDSvxku1HxRykFvPVDL",
+                "name": "Adaru"
+              }
+            ],
+            "album": {
+              "id": "4uZ31Ph9ssSSBgY2UOgekC",
+              "name": "Get Flavor",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273df6c90f41ea14d2f62fe164a",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02df6c90f41ea14d2f62fe164a",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851df6c90f41ea14d2f62fe164a",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-02-06"
+            },
+            "spotify": "https://open.spotify.com/track/1cKJO9AfPPK1X58JBASqAl",
+            "isrc": "GBKQU2605472",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3778208342
+          },
+          {
+            "id": "74Lc5yeo9od4SMublDtZ4b",
+            "name": "Nowhere To Hide",
+            "artists": [
+              {
+                "id": "2uUpxGX8XaVGhqh398dP2f",
+                "name": "Yuvèe"
+              },
+              {
+                "id": "11fg1JCvGjXUihQ9GVIwLc",
+                "name": "Lee Doron"
+              }
+            ],
+            "album": {
+              "id": "6vZeu1ReCAxQZ68dAoIHfi",
+              "name": "Nowhere To Hide",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273a46d39419b7d2a20299f1e25",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02a46d39419b7d2a20299f1e25",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851a46d39419b7d2a20299f1e25",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-02-20"
+            },
+            "spotify": "https://open.spotify.com/track/74Lc5yeo9od4SMublDtZ4b",
+            "isrc": "GBKQU2615014",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3833450141
+          },
+          {
+            "id": "38YDMG3ehKSXydRCbdqhMW",
+            "name": "Nowhere To Hide - OMRI. Remix",
+            "artists": [
+              {
+                "id": "2uUpxGX8XaVGhqh398dP2f",
+                "name": "Yuvèe"
+              },
+              {
+                "id": "11fg1JCvGjXUihQ9GVIwLc",
+                "name": "Lee Doron"
+              },
+              {
+                "id": "36jn1T9teX1BHEJYcPoazX",
+                "name": "OMRI."
+              }
+            ],
+            "album": {
+              "id": "6vZeu1ReCAxQZ68dAoIHfi",
+              "name": "Nowhere To Hide",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273a46d39419b7d2a20299f1e25",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02a46d39419b7d2a20299f1e25",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851a46d39419b7d2a20299f1e25",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-02-20"
+            },
+            "spotify": "https://open.spotify.com/track/38YDMG3ehKSXydRCbdqhMW",
+            "isrc": "GBKQU2615013",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3833450151
+          },
+          {
+            "id": "6fnbDKCey6fvF65hYhnJDc",
+            "name": "We Don't Stop",
+            "artists": [
+              {
+                "id": "4EnqNMAlxI4dewzlGdBCTE",
+                "name": "Dodi"
+              }
+            ],
+            "album": {
+              "id": "2OWNphT68OUX47HOG418yM",
+              "name": "We Don't Stop",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b2736eab65eea7c405d4421700c7",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e026eab65eea7c405d4421700c7",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d000048516eab65eea7c405d4421700c7",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-03-06"
+            },
+            "spotify": "https://open.spotify.com/track/6fnbDKCey6fvF65hYhnJDc",
+            "isrc": "GBKQU2619507",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3856964221
+          },
+          {
+            "id": "4N36NogKsO1HSTTgZK6T1Q",
+            "name": "Creep",
+            "artists": [
+              {
+                "id": "3kCsXVpVs1ZhLnIVkNzdHJ",
+                "name": "Mishell"
+              },
+              {
+                "id": "3yterA1sW48hKQQC1ynk3w",
+                "name": "Kinna Mone"
+              }
+            ],
+            "album": {
+              "id": "2o2gFfQqCVaVpfkKwAytxM",
+              "name": "Creep",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b2730d0ad9587100292ed93bd618",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e020d0ad9587100292ed93bd618",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d000048510d0ad9587100292ed93bd618",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-03-20"
+            },
+            "spotify": "https://open.spotify.com/track/4N36NogKsO1HSTTgZK6T1Q",
+            "isrc": "GBKQU2620600",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3862579711
+          },
+          {
+            "id": "7k8T2aK5vHPiP6HExfFOI3",
+            "name": "So Good",
+            "artists": [
+              {
+                "id": "7KMvse80vFnyE3fsoGWjaq",
+                "name": "Gabss"
+              }
+            ],
+            "album": {
+              "id": "3Y6FmzdCqUdeIy1IHFhBF8",
+              "name": "So Good",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b2739ada1869b17facc2d2444ac4",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e029ada1869b17facc2d2444ac4",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d000048519ada1869b17facc2d2444ac4",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-04-03"
+            },
+            "spotify": "https://open.spotify.com/track/7k8T2aK5vHPiP6HExfFOI3",
+            "isrc": "GBKQU2627158",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3890657121
+          },
+          {
+            "id": "2om3lTM50cD01uc4KVz0O2",
+            "name": "Rhythm Queen",
+            "artists": [
+              {
+                "id": "3SgdcmBh5qukD0WSz51MRe",
+                "name": "Alonz"
+              }
+            ],
+            "album": {
+              "id": "1Ji4g1ZrxeT1DKodhTM1Mz",
+              "name": "Rhythm Queen",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273c8f15c52fe0d592dbcca5542",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02c8f15c52fe0d592dbcca5542",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851c8f15c52fe0d592dbcca5542",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-04-17"
+            },
+            "spotify": "https://open.spotify.com/track/2om3lTM50cD01uc4KVz0O2",
+            "isrc": "GBKQU2638558",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3952005611
+          },
+          {
+            "id": "6IkIseqEQrrs2Vwxo3vU3M",
+            "name": "Turn Up",
+            "artists": [
+              {
+                "id": "0STqwjy2KijS2n7vFxpWX9",
+                "name": "mrty."
+              }
+            ],
+            "album": {
+              "id": "2n9G2bJrLdFsthySLf9nLv",
+              "name": "Turn Up",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273680d5c06375cc898aeac17a7",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02680d5c06375cc898aeac17a7",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851680d5c06375cc898aeac17a7",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-05-01"
+            },
+            "spotify": "https://open.spotify.com/track/6IkIseqEQrrs2Vwxo3vU3M",
+            "isrc": "GBKQU2642930",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3972987871
+          },
+          {
+            "id": "0ab30Uj0bWUhmYONhH46yc",
+            "name": "Be Rich",
+            "artists": [
+              {
+                "id": "3DWDq9siRUkW6n9geTbtIm",
+                "name": "AJK"
+              }
+            ],
+            "album": {
+              "id": "6Ob7BSoTIgY3z81Hk9ubM4",
+              "name": "Be Rich",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273f03fb99dc37b84cbcb801e3c",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02f03fb99dc37b84cbcb801e3c",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851f03fb99dc37b84cbcb801e3c",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-05-01"
+            },
+            "spotify": "https://open.spotify.com/track/0ab30Uj0bWUhmYONhH46yc",
+            "isrc": "GBKQU2642931",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3972987881
+          },
+          {
+            "id": "7KED0mBCAUEuj72XLYxpAS",
+            "name": "Good Time",
+            "artists": [
+              {
+                "id": "1HZ90bBR1e9NYXw9PLe0FO",
+                "name": "Davidi"
+              }
+            ],
+            "album": {
+              "id": "1IfBOZPjnWu5D43jshl4iQ",
+              "name": "Good Time",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27371e44679fa21e36df34f816b",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0271e44679fa21e36df34f816b",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485171e44679fa21e36df34f816b",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-05-01"
+            },
+            "spotify": "https://open.spotify.com/track/7KED0mBCAUEuj72XLYxpAS",
+            "isrc": "GBKQU2642932",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3972987891
+          },
+          {
+            "id": "6PEyWCXwpbW4lYKoLiHIU0",
+            "name": "Breaking The Rules",
+            "artists": [
+              {
+                "id": "5pDYkzfk3VLsBs0MQvFgyX",
+                "name": "Skinnybit"
+              }
+            ],
+            "album": {
+              "id": "2etW6zzeLpoajGRWXHesN8",
+              "name": "Breaking The Rules",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273524b1733d50538a1f09515cc",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02524b1733d50538a1f09515cc",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851524b1733d50538a1f09515cc",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-05-01"
+            },
+            "spotify": "https://open.spotify.com/track/6PEyWCXwpbW4lYKoLiHIU0",
+            "isrc": "GBKQU2642933",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3972987911
+          },
+          {
+            "id": "2StsqxlW7tXeeKEjBBTust",
+            "name": "Midnight Groove",
+            "artists": [
+              {
+                "id": "11ofEe58zrex8X5NBbWhsk",
+                "name": "Duarte"
+              },
+              {
+                "id": "4sgVJb7jlCE51EaPmdyfiv",
+                "name": "Nadin"
+              }
+            ],
+            "album": {
+              "id": "5n5JEUVqvnU6DH9XxOxfER",
+              "name": "Midnight Groove",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27384e10e8dea62c87e4bb58e4f",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0284e10e8dea62c87e4bb58e4f",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485184e10e8dea62c87e4bb58e4f",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-05-15"
+            },
+            "spotify": "https://open.spotify.com/track/2StsqxlW7tXeeKEjBBTust",
+            "isrc": "GBKQU2645907",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 3990799821
+          },
+          {
+            "id": "7KAfC6iftMUHaBQIFIkfEG",
+            "name": "That Look",
+            "artists": [
+              {
+                "id": "4F47V8rO8pOERTLQNXCo3v",
+                "name": "Balanka"
+              }
+            ],
+            "album": {
+              "id": "4PQjVqovrZfQjoazzusTyf",
+              "name": "Command Your Soul",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27354e8bc92afb614484d473cbd",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0254e8bc92afb614484d473cbd",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485154e8bc92afb614484d473cbd",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-05-29"
+            },
+            "spotify": "https://open.spotify.com/track/7KAfC6iftMUHaBQIFIkfEG",
+            "isrc": "GBKQU2649572",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 4006349351
+          },
+          {
+            "id": "1iq30xrdhrhEXH7CExf0tU",
+            "name": "Command Your Soul",
+            "artists": [
+              {
+                "id": "4F47V8rO8pOERTLQNXCo3v",
+                "name": "Balanka"
+              }
+            ],
+            "album": {
+              "id": "4PQjVqovrZfQjoazzusTyf",
+              "name": "Command Your Soul",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27354e8bc92afb614484d473cbd",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0254e8bc92afb614484d473cbd",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485154e8bc92afb614484d473cbd",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-05-29"
+            },
+            "spotify": "https://open.spotify.com/track/1iq30xrdhrhEXH7CExf0tU",
+            "isrc": "GBKQU2649571",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 4006349331
+          },
+          {
+            "id": "03KDjQ54ghLmdABNti9XsI",
+            "name": "My Killers",
+            "artists": [
+              {
+                "id": "36jn1T9teX1BHEJYcPoazX",
+                "name": "OMRI."
+              },
+              {
+                "id": "6EuSg8aungYTh6vNgL1EpG",
+                "name": "Yamagucci"
+              }
+            ],
+            "album": {
+              "id": "5cdayoXa2FK7Z8EB0AqQ3E",
+              "name": "My Killers",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273b237abec7a30eadf507e8cd2",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02b237abec7a30eadf507e8cd2",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851b237abec7a30eadf507e8cd2",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-06-12"
+            },
+            "spotify": "https://open.spotify.com/track/03KDjQ54ghLmdABNti9XsI",
+            "isrc": "GBKQU2654281",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 4029682651
+          },
+          {
+            "id": "5gxLIz9dQBPNM4ZDuusKwG",
+            "name": "Stop, Go",
+            "artists": [
+              {
+                "id": "3T8Yqg9IV72k07FFLkkjoz",
+                "name": "JACKSKI"
+              }
+            ],
+            "album": {
+              "id": "3QlJeW3oun4NHA8eLJMMq8",
+              "name": "Stop, Go",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27358a2d979112f475d06ea8efa",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0258a2d979112f475d06ea8efa",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485158a2d979112f475d06ea8efa",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-06-26"
+            },
+            "spotify": "https://open.spotify.com/track/5gxLIz9dQBPNM4ZDuusKwG",
+            "isrc": "GBKQU2658158",
+            "previewAvailable": true,
+            "previewProvider": "Deezer",
+            "deezerTrackId": 4051060181
+          },
+          {
+            "id": "3C4ybKAZlkciqP9vc6Yt6h",
+            "name": "Shaking That Ass",
+            "artists": [
+              {
+                "id": "36jHmnMMKH4XOhdAj4LGe3",
+                "name": "DOX"
+              }
+            ],
+            "album": {
+              "id": "5NvKTmZjQ7AKjAIMSPQiOY",
+              "name": "Shaking That Ass",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b2735a50cdc69e1c6bf65b3990b5",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e025a50cdc69e1c6bf65b3990b5",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d000048515a50cdc69e1c6bf65b3990b5",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-07-10"
+            },
+            "spotify": "https://open.spotify.com/track/3C4ybKAZlkciqP9vc6Yt6h",
+            "isrc": "GBKQU2658077",
+            "previewAvailable": false,
+            "previewProvider": null,
+            "deezerTrackId": null
+          },
+          {
+            "id": "2GKBV5cJJ1mCWmp2nesrSd",
+            "name": "Do You Wanna Dance",
+            "artists": [
+              {
+                "id": "5se1Z9zt4CiEzpFjmKcR29",
+                "name": "Breakline"
+              }
+            ],
+            "album": {
+              "id": "6jGEQDKCelFZwzW6mgRcEB",
+              "name": "Whatcha Gonna Do",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27357bf7b071629d8969c1c9076",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0257bf7b071629d8969c1c9076",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485157bf7b071629d8969c1c9076",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-07-24"
+            },
+            "spotify": "https://open.spotify.com/track/2GKBV5cJJ1mCWmp2nesrSd",
+            "isrc": "GBKQU2658190",
+            "previewAvailable": false,
+            "previewProvider": null,
+            "deezerTrackId": null
+          },
+          {
+            "id": "6KxvBbV9Ju8d5t7QgoVGRh",
+            "name": "Whatcha Gonna Do",
+            "artists": [
+              {
+                "id": "5se1Z9zt4CiEzpFjmKcR29",
+                "name": "Breakline"
+              }
+            ],
+            "album": {
+              "id": "6jGEQDKCelFZwzW6mgRcEB",
+              "name": "Whatcha Gonna Do",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27357bf7b071629d8969c1c9076",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0257bf7b071629d8969c1c9076",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485157bf7b071629d8969c1c9076",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-07-24"
+            },
+            "spotify": "https://open.spotify.com/track/6KxvBbV9Ju8d5t7QgoVGRh",
+            "isrc": "GBKQU2658188",
+            "previewAvailable": false,
+            "previewProvider": null,
+            "deezerTrackId": null
+          },
+          {
+            "id": "1uhvWZlxF2ikFSUfG0YnyX",
+            "name": "Floor To The Ceiling",
+            "artists": [
+              {
+                "id": "7FldCwBXVtA0TFbqxvaKZY",
+                "name": "BOg"
+              }
+            ],
+            "album": {
+              "id": "0wRo8HhukD0kMQaRlnouPn",
+              "name": "Floor To The Ceiling",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27332a96be590a278d10c74e2b3",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0232a96be590a278d10c74e2b3",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485132a96be590a278d10c74e2b3",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-08-07"
+            },
+            "spotify": "https://open.spotify.com/track/1uhvWZlxF2ikFSUfG0YnyX",
+            "isrc": "GBKQU2671901",
+            "previewAvailable": false,
+            "previewProvider": null,
+            "deezerTrackId": null
+          },
+          {
+            "id": "1zZaMOmsSFykuFW04l8bEF",
+            "name": "Kinky",
+            "artists": [
+              {
+                "id": "3DWDq9siRUkW6n9geTbtIm",
+                "name": "AJK"
+              }
+            ],
+            "album": {
+              "id": "5jThQDaZX0DLmU5c30uraQ",
+              "name": "Sugar Daddy EP",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b2739bf8d4dc5f7d0245819a3a6e",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e029bf8d4dc5f7d0245819a3a6e",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d000048519bf8d4dc5f7d0245819a3a6e",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-08-21"
+            },
+            "spotify": "https://open.spotify.com/track/1zZaMOmsSFykuFW04l8bEF",
+            "isrc": "GBKQU2682706",
+            "previewAvailable": false,
+            "previewProvider": null,
+            "deezerTrackId": null
+          },
+          {
+            "id": "7oM7lXt0MMT6whswZZ3E3e",
+            "name": "Sugar Daddy",
+            "artists": [
+              {
+                "id": "3DWDq9siRUkW6n9geTbtIm",
+                "name": "AJK"
+              }
+            ],
+            "album": {
+              "id": "5jThQDaZX0DLmU5c30uraQ",
+              "name": "Sugar Daddy EP",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b2739bf8d4dc5f7d0245819a3a6e",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e029bf8d4dc5f7d0245819a3a6e",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d000048519bf8d4dc5f7d0245819a3a6e",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-08-21"
+            },
+            "spotify": "https://open.spotify.com/track/7oM7lXt0MMT6whswZZ3E3e",
+            "isrc": "GBKQU2682705",
+            "previewAvailable": false,
+            "previewProvider": null,
+            "deezerTrackId": null
+          },
+          {
+            "id": "4ip0Mp6A7pIg7F8c1c0xXn",
+            "name": "About Dancing",
+            "artists": [
+              {
+                "id": "6w8EDSvxku1HxRykFvPVDL",
+                "name": "Adaru"
+              },
+              {
+                "id": "3qWTx02uCfYKSvb2JToFZt",
+                "name": "Toni B"
+              }
+            ],
+            "album": {
+              "id": "3YPGCETNET5WBRyLrHEHdN",
+              "name": "About Dancing",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27333d3e2be2df7e18058993d6c",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0233d3e2be2df7e18058993d6c",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485133d3e2be2df7e18058993d6c",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-09-04"
+            },
+            "spotify": "https://open.spotify.com/track/4ip0Mp6A7pIg7F8c1c0xXn",
+            "isrc": "GBKQU2684710",
+            "previewAvailable": false,
+            "previewProvider": null,
+            "deezerTrackId": null
+          },
+          {
+            "id": "3Gbmjm97ZRaygObnjVtREQ",
+            "name": "Like That",
+            "artists": [
+              {
+                "id": "6w8EDSvxku1HxRykFvPVDL",
+                "name": "Adaru"
+              }
+            ],
+            "album": {
+              "id": "3YPGCETNET5WBRyLrHEHdN",
+              "name": "About Dancing",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27333d3e2be2df7e18058993d6c",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0233d3e2be2df7e18058993d6c",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485133d3e2be2df7e18058993d6c",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-09-04"
+            },
+            "spotify": "https://open.spotify.com/track/3Gbmjm97ZRaygObnjVtREQ",
+            "isrc": "GBKQU2684711",
+            "previewAvailable": false,
+            "previewProvider": null,
+            "deezerTrackId": null
+          },
+          {
+            "id": "0yrq3wZzg9V5t2zln41K2u",
+            "name": "Ecstasy",
+            "artists": [
+              {
+                "id": "3qWTx02uCfYKSvb2JToFZt",
+                "name": "Toni B"
+              }
+            ],
+            "album": {
+              "id": "3YPGCETNET5WBRyLrHEHdN",
+              "name": "About Dancing",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b27333d3e2be2df7e18058993d6c",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e0233d3e2be2df7e18058993d6c",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000485133d3e2be2df7e18058993d6c",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-09-04"
+            },
+            "spotify": "https://open.spotify.com/track/0yrq3wZzg9V5t2zln41K2u",
+            "isrc": "GBKQU2684712",
+            "previewAvailable": false,
+            "previewProvider": null,
+            "deezerTrackId": null
+          },
+          {
+            "id": "3MDzsqob8gRyYa1T4gciRm",
+            "name": "Liquid Lovers",
+            "artists": [
+              {
+                "id": "2800ldRznHIt29Q3cUdU5o",
+                "name": "Cour T."
+              }
+            ],
+            "album": {
+              "id": "67leQmn43oIFXbgblsXXDz",
+              "name": "Liquid Lovers",
+              "images": [
+                {
+                  "url": "https://i.scdn.co/image/ab67616d0000b273174a3b5c4a50e983647e29a9",
+                  "height": 640,
+                  "width": 640
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00001e02174a3b5c4a50e983647e29a9",
+                  "height": 300,
+                  "width": 300
+                },
+                {
+                  "url": "https://i.scdn.co/image/ab67616d00004851174a3b5c4a50e983647e29a9",
+                  "height": 64,
+                  "width": 64
+                }
+              ],
+              "release_date": "2026-09-18"
+            },
+            "spotify": "https://open.spotify.com/track/3MDzsqob8gRyYa1T4gciRm",
+            "isrc": "GBKQU2697363",
+            "previewAvailable": false,
+            "previewProvider": null,
+            "deezerTrackId": null
+          }
+        ]
+      }
+    }
+  ]
+}

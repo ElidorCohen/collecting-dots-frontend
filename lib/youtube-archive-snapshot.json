@@ -1,0 +1,48 @@
+{
+  "channelId": "UCaGuYQtXVNBHV2Ko2VcSB1Q",
+  "channelTitle": "Collecting Dots Records",
+  "checkedAt": "2026-10-21T16:18:01.878Z",
+  "source": "https://www.youtube.com/@CollectingDotsRecords/videos",
+  "videos": [
+    {
+      "id": "KDMoWIpuitA",
+      "title": "Dor Danino | Dots On Cape Town | DHL Stadium | Folks | South Africa",
+      "description": "",
+      "thumbnail": "https://i.ytimg.com/vi/KDMoWIpuitA/maxresdefault.jpg",
+      "publishedAt": "2026-01-21T17:42:37+00:00",
+      "duration": "1:22:24",
+      "viewCount": "5.1K",
+      "videoUrl": "https://www.youtube.com/watch?v=KDMoWIpuitA"
+    },
+    {
+      "id": "1zMYUk8E3Mw",
+      "title": "OMRI. | Dots On Cape Town | DHL Stadium | Folks | South Africa",
+      "description": "",
+      "thumbnail": "https://i.ytimg.com/vi/1zMYUk8E3Mw/maxresdefault.jpg",
+      "publishedAt": "2025-12-10T16:16:00+00:00",
+      "duration": "2:41:36",
+      "viewCount": "34K",
+      "videoUrl": "https://www.youtube.com/watch?v=1zMYUk8E3Mw"
+    },
+    {
+      "id": "oLuQXGdWsgc",
+      "title": "OMRI. | Dots En LooLoo | LooLoo | Mexico City",
+      "description": "",
+      "thumbnail": "https://i.ytimg.com/vi/oLuQXGdWsgc/maxresdefault.jpg",
+      "publishedAt": "2025-06-04T14:47:31+00:00",
+      "duration": "2:32:37",
+      "viewCount": "29K",
+      "videoUrl": "https://www.youtube.com/watch?v=oLuQXGdWsgc"
+    },
+    {
+      "id": "8FIIqSgCi8w",
+      "title": "OMRI. | Dots On Melrose | Est.Today | Stranger Than | Los Angeles",
+      "description": "",
+      "thumbnail": "https://i.ytimg.com/vi/8FIIqSgCi8w/maxresdefault.jpg",
+      "publishedAt": "2025-03-20T16:50:29+00:00",
+      "duration": "1:36:06",
+      "viewCount": "47K",
+      "videoUrl": "https://www.youtube.com/watch?v=8FIIqSgCi8w"
+    }
+  ]
+}
