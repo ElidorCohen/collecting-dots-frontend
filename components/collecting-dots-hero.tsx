@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useId, useRef, useState, type CSSProperties } from "react"
+import { Fragment, useEffect, useId, useRef, useState, type CSSProperties } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
@@ -40,6 +40,13 @@ const JOURNEY = {
 } as const
 // Where Skip lands: the story fully composed, just before the hero releases the page.
 const STORY_REST = 1.5
+// The chapter rail: each chapter starts on the journey clock; a click lands on its target.
+const CHAPTERS = [
+  { label: "Collect", start: 0, target: 0 },
+  { label: "Connect", start: JOURNEY.reveal, target: JOURNEY.reveal + 0.08 },
+  { label: "Film", start: JOURNEY.film, target: JOURNEY.film + 0.01 },
+  { label: "Story", start: 1, target: STORY_REST },
+] as const
 // The middle caption is cut out of darkness so the crowd plays inside the letters.
 const KNOCKOUT_LINES = ["THE ", "PEOPLE."]
 const KNOCKOUT_ZOOM_LETTER = KNOCKOUT_LINES.join("").indexOf("L")
@@ -84,6 +91,7 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
   const knockoutWordRef = useRef<SVGGElement>(null)
   const knockoutTextRef = useRef<SVGTextElement>(null)
   const knockoutProbeRef = useRef<SVGTextElement>(null)
+  const chaptersRef = useRef<HTMLElement>(null)
   const skipRef = useRef<HTMLButtonElement>(null)
   const skipVeilRef = useRef<HTMLDivElement>(null)
   const scrollForTimeRef = useRef<(time: number) => number | null>(() => null)
@@ -95,6 +103,7 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
   const [filmError, setFilmError] = useState(false)
   const revealId = `cd-hand-reveal-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`
   const knockoutId = `cd-knockout-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`
+  const chapters = continueStory ? CHAPTERS : CHAPTERS.slice(0, 3)
 
   useGSAP(() => {
     const header = headerRef.current
@@ -123,6 +132,8 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
     const drops = new Float32Array(MAX_DROPS * 3)
     const knockoutLayer = knockoutRef.current, knockoutSvg = knockoutSvgRef.current, knockoutWord = knockoutWordRef.current
     const knockoutText = knockoutTextRef.current, knockoutProbe = knockoutProbeRef.current
+    const chapterRail = chaptersRef.current
+    const chapterButtons = Array.from(chapterRail?.querySelectorAll<HTMLButtonElement>("[data-chapter]") ?? [])
     let textCues: { start: number; duration: number }[] = []
     let reducedStoryText = false
     let disposed = false
@@ -264,8 +275,11 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
       let lastPath = ""
       let lastControls = ""
       let lastReveal = ""
+      let lastChapter = -1
+      let lastTone = ""
       let lastSkip = ""
       let dotsHidden = false
+      const chapterFills = Array.from(chapterRail?.querySelectorAll<HTMLElement>("[data-chapter-fill]") ?? []).map(node => gsap.quickSetter(node, "scaleY"))
       // The film source for the droplets: the decoded frame when ready, else its poster.
       const filmSource = () => film.dataset.visible === "true" && film.readyState >= 2 ? film
         : posterImage?.complete && posterImage.naturalWidth ? posterImage : null
@@ -278,8 +292,22 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
         if (lastReveal !== revealState) { stage.dataset.revealing = lastReveal = revealState }
         const controlsState = String(progress > (reduced ? 0.3 : JOURNEY.controls) && (!continueStory || progress < 1.06))
         if (lastControls !== controlsState) { stage.dataset.controls = lastControls = controlsState }
-        stage.style.setProperty("--progress", String(progress / journeyLength))
         stage.dataset.journeyProgress = String(progress)
+        let chapter = 0
+        chapters.forEach(({ start }, index) => {
+          if (progress >= start) chapter = index
+          const next = chapters[index + 1]
+          if (next) chapterFills[index]?.(clamp((progress - start) / (next.start - start)))
+        })
+        if (chapter !== lastChapter) {
+          lastChapter = chapter
+          chapterButtons.forEach((button, index) => {
+            if (index === chapter) button.setAttribute("aria-current", "step"); else button.removeAttribute("aria-current")
+            button.dataset.done = String(index < chapter)
+          })
+        }
+        const tone = continueStory && progress >= 1.04 ? "light" : "dark"
+        if (tone !== lastTone) stage.dataset.tone = lastTone = tone
         const skipState = String(continueStory && progress < .99)
         if (skipState !== lastSkip) stage.dataset.skip = lastSkip = skipState
         textOpacity.forEach((setOpacity, index) => {
@@ -464,7 +492,7 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
         onLeaveBack: () => { header.dataset.afterStory = "false" },
         onRefresh: self => { header.dataset.afterStory = String(self.scroll() >= self.start) },
       })
-      // Skip lands on a journey time, through the same scroll remapping.
+      // Skip and the chapter rail land on journey times, through the same scroll remapping.
       scrollForTimeRef.current = time => {
         if (!trigger) return null
         const scrollTime = !smoothFirstShot || time <= filmStart ? time
@@ -561,6 +589,11 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
       .to(veil, { autoAlpha: 0, duration: .55, ease: "power2.out" }, "+=.08")
   }
 
+  function goToChapter(index: number) {
+    const top = scrollForTimeRef.current(chapters[index].target)
+    if (top !== null) window.scrollTo({ top, behavior: reducedMotion() ? "instant" : "smooth" })
+  }
+
   function replay() {
     const section = sectionRef.current
     if (!section) return
@@ -618,7 +651,12 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
           <div className={styles.controls}><button onClick={replay} aria-label="Replay opener"><RotateCcw size={15} aria-hidden="true" /><span>Replay</span></button></div>
           {continueStory && <button className={styles.skip} ref={skipRef} onClick={skipIntro}>Skip intro<ArrowDown size={14} aria-hidden="true" /></button>}
           {continueStory && <CollectingDotsStory preview={preview} />}
-          <div className={styles.progress} aria-hidden="true"><span /></div>
+          <nav className={styles.chapters} ref={chaptersRef} aria-label="Opener chapters">
+            {chapters.map((chapter, index) => <Fragment key={chapter.label}>
+              <button type="button" className={styles.chapter} data-chapter={index} onClick={() => goToChapter(index)}><span>{chapter.label}</span><i aria-hidden="true" /></button>
+              {index < chapters.length - 1 && <span className={styles.chapterLine} aria-hidden="true"><span data-chapter-fill /></span>}
+            </Fragment>)}
+          </nav>
           <div className={styles.skipVeil} ref={skipVeilRef} aria-hidden="true" />
           {(motionError || filmError) && <div className={styles.mediaNotice} role="status"><p>{motionError ? "The portrait motion couldn’t load." : "The film couldn’t load."}</p><button onClick={() => retryRef.current()}>Retry media</button></div>}
         </div>
