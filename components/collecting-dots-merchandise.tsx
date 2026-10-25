@@ -66,16 +66,18 @@ export default function CollectingDotsMerchandise() {
         const tagOpacity = gsap.quickSetter(tag, "opacity"), footerOpacity = gsap.quickSetter(footer, "opacity")
         const dotX = gsap.quickSetter(connector, "x", "px"), dotY = gsap.quickSetter(connector, "y", "px"), dotOpacity = gsap.quickSetter(connector, "opacity")
         const dotScaleX = gsap.quickSetter(connector, "scaleX"), dotScaleY = gsap.quickSetter(connector, "scaleY"), holeOpacity = gsap.quickSetter(hole, "opacity")
+        // Controls answer as soon as they are clearly visible, not only after the whole entrance.
+        const live = (node: HTMLElement, opacity: number) => { const value = String(opacity >= .5); if (node.dataset.live !== value) node.dataset.live = value }
         const render = () => {
           const intro = clamp(clock.progress * geometry.range / geometry.intro)
           paper.forEach((set, i) => set(geometry.height * (1 - smooth((intro - i * .065) / .62))))
-          text.forEach((set, i) => { const t = clamp((intro - .25 - i * .065) / .3); set.y(28 * (1 - t)); set.opacity(t) })
-          choice.forEach((set, i) => { const t = clamp((intro - .48 - i * .035) / .28); set.y(16 * (1 - t)); set.opacity(t) })
+          text.forEach((set, i) => { const t = clamp((intro - .25 - i * .065) / .3); set.y(28 * (1 - t)); set.opacity(t); live(lines[i], t) })
+          choice.forEach((set, i) => { const t = clamp((intro - .48 - i * .035) / .28); set.y(16 * (1 - t)); set.opacity(t); live(choices[i], t) })
           const photo = smooth((intro - .22) / .65)
           mainY(geometry.height * .16 * (1 - photo)); mainRotation(-5 * (1 - photo)); mainOpacity(clamp((intro - .25) / .32))
           const accessory = smooth((intro - .42) / .48)
-          nextX(geometry.width * .12 * (1 - accessory)); nextOpacity(clamp((intro - .48) / .35))
-          tagOpacity(clamp((intro - .56) / .3)); footerOpacity(clamp((intro - .72) / .28))
+          nextX(geometry.width * .12 * (1 - accessory)); nextOpacity(clamp((intro - .48) / .35)); live(next, clamp((intro - .48) / .35))
+          tagOpacity(clamp((intro - .56) / .3)); footerOpacity(clamp((intro - .72) / .28)); live(footer, clamp((intro - .72) / .28))
           const t = clamp(intro / .94), inverse = 1 - t
           dotX(inverse ** 3 * geometry.sourceX + 3 * inverse ** 2 * t * geometry.width * .22 + 3 * inverse * t ** 2 * geometry.width * .48 + t ** 3 * geometry.targetX)
           dotY(inverse ** 3 * geometry.sourceY + 3 * inverse ** 2 * t * geometry.height * .08 + 3 * inverse * t ** 2 * geometry.height * .08 + t ** 3 * geometry.targetY)

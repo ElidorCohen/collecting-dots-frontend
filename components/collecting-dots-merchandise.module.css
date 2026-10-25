@@ -59,6 +59,7 @@
 .connector { position: absolute; z-index: 12; left: -5px; top: -5px; width: 10px; height: 10px; border-radius: 50%; background: var(--orange); opacity: 0; }
 .stage [data-merch-line], .stage [data-merch-choice], .photoMotion, .tag, .nextPiece, .footer { opacity: 0; }
 .stage[data-merch-ready="true"] button, .stage[data-merch-ready="true"] a { pointer-events: auto; }
+.stage a[data-live="true"], .stage button[data-live="true"], .stage [data-live="true"] a, .stage [data-live="true"] button { pointer-events: auto; }
 .section :focus-visible { outline: 2px solid #c9422c; outline-offset: 5px; }
 @media (min-width: 700px) and (max-height: 760px) {
   .heading { top: 13%; }

@@ -178,8 +178,9 @@ export default function CollectingDotsReleases({ preview = false }: { preview?: 
         scrub: true, invalidateOnRefresh: true, onRefreshInit: measure, onRefresh: render,
         onToggle: render,
       })
-      const focusPanel = () => {
-        if (clock.progress * geometry.distance < geometry.intro) {
+      // Only keyboard focus scrolls; a mouse press must not move the button out from under the cursor.
+      const focusPanel = (event: FocusEvent) => {
+        if (event.target instanceof HTMLElement && event.target.matches(":focus-visible") && clock.progress * geometry.distance < geometry.intro) {
           window.scrollTo({ top: geometry.top + geometry.intro, behavior: "instant" })
         }
       }
@@ -247,7 +248,7 @@ export default function CollectingDotsReleases({ preview = false }: { preview?: 
   function closeCatalogue() { dialogRef.current?.close() }
 
   function record(release: LabelRelease, index: number, rail: boolean) {
-    return <article className={styles.record} key={release.id} data-release-card={rail ? "" : undefined} onFocus={rail ? () => revealFocus.current(index) : undefined}>
+    return <article className={styles.record} key={release.id} data-release-card={rail ? "" : undefined} onFocus={rail ? event => { if (event.target.matches(":focus-visible")) revealFocus.current(index) } : undefined}>
       <a className={styles.artwork} href={release.url} target="_blank" rel="noopener noreferrer" aria-label={`Listen to ${release.title} by ${release.artist} on Spotify`}>
         <img src={release.artwork} srcSet={release.artworkSet || undefined} sizes={rail ? "(max-width: 899px) 72vw, 33vw" : "(max-width: 600px) 80vw, 25vw"} width="640" height="640" alt={`${release.title} — ${release.artist}`} loading="lazy" decoding="async" />
         <span className={styles.artworkLink} aria-hidden="true"><ArrowUpRight size={18} /></span>

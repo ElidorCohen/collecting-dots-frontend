@@ -94,7 +94,7 @@ export default function LiquidGlassFrame({ className, reveal, revealFocus, child
   }, [reveal])
 
   return (
-    <div className={`${className ?? ""} ${styles.frame}`} ref={frameRef} data-liquid-frame>
+    <div className={`${className ?? ""} ${styles.frame}`} ref={frameRef} data-liquid-frame onDragStart={event => event.preventDefault()}>
       {children}
       <canvas className={styles.canvas} ref={canvasRef} aria-hidden="true" />
     </div>

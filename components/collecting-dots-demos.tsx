@@ -72,6 +72,9 @@ export default function CollectingDotsDemos() {
           text.forEach((set, index) => { const t = clamp((intro - .3 - index * .06) / .3); set.x(-55 * (1 - smooth(t))); set.opacity(t) })
           const arrival = smooth((intro - .28) / .62)
           coverY(geometry.height * .32 * (1 - arrival)); coverRotation(-22 + 16 * arrival); coverOpacity(clamp((intro - .28) / .3))
+          // The sleeve answers clicks and dropped files once clearly visible, not only after the entrance.
+          const live = String(clamp((intro - .28) / .3) >= .5)
+          if (sleeve.dataset.live !== live) sleeve.dataset.live = live
           footerOpacity(clamp((intro - .7) / .3))
           const t = clamp(intro / .96), inverse = 1 - t
           dotX(inverse ** 3 * geometry.sourceX + 3 * inverse ** 2 * t * geometry.width * .7 + 3 * inverse * t ** 2 * geometry.width * .92 + t ** 3 * geometry.targetX)

@@ -41,7 +41,7 @@
 .dotSignature > span { margin-left: 10px; font-size: 22px; line-height: 1; }
 .connector { position: absolute; z-index: 10; left: -5px; top: -5px; width: 10px; height: 10px; border-radius: 50%; background: var(--orange); opacity: 0; }
 .stage [data-demo-line], .footer { opacity: 0; }
-.stage[data-demo-ready="true"] button { pointer-events: auto; }
+.stage[data-demo-ready="true"] button, .sleeve[data-live="true"] button { pointer-events: auto; }
 .section :focus-visible { outline: 2px solid var(--paper); outline-offset: 8px; }
 
 .dialog { --paper: #eee8dd; --ink: #172019; --orange: #fa553c; width: min(1080px, calc(100vw - 48px)); max-width: none; max-height: calc(100svh - 48px); padding: 0; border: 0; color: var(--ink); background: var(--paper); overflow: auto; }
