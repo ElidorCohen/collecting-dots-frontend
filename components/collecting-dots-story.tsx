@@ -11,7 +11,7 @@ export default function CollectingDotsStory({ preview = false }: { preview?: boo
   return (
     <section className={styles.story} data-label-story aria-labelledby="cd-story-title">
       <p className={styles.eyebrow} data-story-eyebrow><span aria-hidden="true" data-story-handoff-dot />Collecting Dots Records</p>
-      <h2 className={styles.title} id="cd-story-title">
+      <h2 className={styles.title} id="cd-story-title" tabIndex={-1}>
         <span className={styles.line}><span data-story-line>COLLECTING DOTS,</span></span>
         <span className={styles.line}><span data-story-line>CURATING SOUND</span></span>
       </h2>

@@ -59,7 +59,11 @@
 .poster img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .film { opacity: 0; }
 .film[data-visible="true"] { opacity: 1; }
+.liquid { position: absolute; z-index: 5; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; }
 .filmShade { position: absolute; z-index: 6; inset: 0; background: linear-gradient(180deg, transparent 45%, #0002 62%, #000a 100%); opacity: var(--film-shade); pointer-events: none; }
+.knockout { position: absolute; z-index: 7; inset: 0; visibility: hidden; opacity: 0; pointer-events: none; }
+.knockout svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.knockout text { font-family: var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.045em; }
 .caption { position: absolute; z-index: 7; inset: 0; pointer-events: none; }
 .caption p { position: absolute; left: 3.8vw; bottom: 13%; margin: 0; font: 400 clamp(48px, 7.2vw, 136px)/.94 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.045em; }
 .beat0 { opacity: var(--beat-0); transform: translate3d(0, var(--beat-y-0, 28px), 0); }
@@ -69,6 +73,14 @@
 .stage[data-controls="true"] .controls { visibility: visible; }
 .controls button { display: flex; align-items: center; gap: 9px; min-height: 44px; font: 10px var(--font-jetbrains-mono), monospace; text-transform: uppercase; letter-spacing: .03em; cursor: pointer; }
 .controls button:hover { color: #ff9985; }
+/* Skip: a quiet exit while the opener plays; it hands over to a paper wipe. */
+.skip { position: absolute; z-index: 8; left: 3.8vw; bottom: 30px; display: flex; align-items: center; gap: 10px; min-height: 44px; color: var(--paper); font: 10px var(--font-jetbrains-mono), monospace; text-transform: uppercase; letter-spacing: .03em; cursor: pointer; opacity: .72; transition: opacity .35s, visibility .35s, color .2s; }
+.skip:hover { opacity: 1; color: #ff9985; }
+.skip svg { transition: transform .25s; }
+.skip:hover svg { transform: translateY(3px); }
+.stage[data-skip="false"] .skip { opacity: 0; visibility: hidden; }
+.skipVeil { position: absolute; z-index: 30; inset: 0; background: #e9e5dc; visibility: hidden; opacity: 0; pointer-events: none; }
+
 .progress { position: absolute; z-index: 8; left: 0; right: 0; bottom: 0; height: 2px; background: #f1eee70b; }
 .progress span { display: block; width: 100%; height: 100%; transform: scaleX(var(--progress)); transform-origin: left; background: var(--ember); }
 .mediaNotice { position: absolute; z-index: 9; right: 3.8vw; bottom: 100px; max-width: 270px; padding: 16px 20px; color: #f1eee7; background: #0b0c0be6; border: 1px solid #f1eee733; font-size: 12px; line-height: 1.5; }
@@ -89,12 +101,14 @@
   .portraitShade { background: linear-gradient(0deg, #0b0c0b 1%, transparent 37%), linear-gradient(180deg, #0b0c0b 21%, transparent 51%); }
   .caption p { left: 24px; bottom: 16%; font-size: clamp(37px, 10.3vw, 82px); }
   .controls { right: 24px; bottom: max(20px, env(safe-area-inset-bottom)); }
+  .skip { left: 24px; bottom: max(20px, env(safe-area-inset-bottom)); font-size: 9px; }
   .controls button { font-size: 9px; }
   .mediaNotice { right: 24px; left: 24px; bottom: 84px; max-width: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero { height: calc(100svh + 320svh * var(--reduced-journey-length, var(--journey-length, 1))); }
   .footage { clip-path: none; will-change: auto; }
-  .seed, .particles { display: none; }
+  .seed, .particles, .liquid, .knockout { display: none; }
+  .skip, .skip svg { transition: none; }
   .listen svg { transition: none; }
 }

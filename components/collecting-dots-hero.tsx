@@ -4,7 +4,8 @@ import { useEffect, useId, useRef, useState, type CSSProperties } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
-import { ArrowUpRight, RotateCcw } from "lucide-react"
+import { ArrowDown, ArrowUpRight, RotateCcw } from "lucide-react"
+import { createLiquidReveal, MAX_DROPS } from "@/lib/liquid-reveal"
 import { createScrollVideo } from "@/lib/scroll-video"
 import CollectingDotsStory from "./collecting-dots-story"
 import dotTracks from "./omri-dot-tracks.json"
@@ -37,6 +38,11 @@ const JOURNEY = {
   snap: 0.055 + (6 + 19 / 24) / 9 * 0.56,
   reveal: 0.493, film: 0.65, controls: 0.69, end: 1,
 } as const
+// Where Skip lands: the story fully composed, just before the hero releases the page.
+const STORY_REST = 1.5
+// The middle caption is cut out of darkness so the crowd plays inside the letters.
+const KNOCKOUT_LINES = ["THE ", "PEOPLE."]
+const KNOCKOUT_ZOOM_LETTER = KNOCKOUT_LINES.join("").indexOf("L")
 const DOT_DIAMETER = 8
 const DOT_FORMATION = [[227, 645], [288, 612], [357, 638], [394, 699], [372, 766], [306, 797], [234, 766], [197, 705], [263, 697], [326, 654], [337, 748], [300, 706]]
 // White-dot origins and curve offsets: eight left, one above, one below,
@@ -72,6 +78,15 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
   const seedRef = useRef<HTMLSpanElement>(null)
   const dotsRef = useRef<HTMLDivElement>(null)
   const revealRef = useRef<SVGPathElement>(null)
+  const liquidRef = useRef<HTMLCanvasElement>(null)
+  const knockoutRef = useRef<HTMLDivElement>(null)
+  const knockoutSvgRef = useRef<SVGSVGElement>(null)
+  const knockoutWordRef = useRef<SVGGElement>(null)
+  const knockoutTextRef = useRef<SVGTextElement>(null)
+  const knockoutProbeRef = useRef<SVGTextElement>(null)
+  const skipRef = useRef<HTMLButtonElement>(null)
+  const skipVeilRef = useRef<HTMLDivElement>(null)
+  const scrollForTimeRef = useRef<(time: number) => number | null>(() => null)
   const menuRef = useRef<HTMLDetailsElement>(null)
   const retryRef = useRef<() => void>(() => undefined)
   const [motionReady, setMotionReady] = useState(false)
@@ -79,6 +94,7 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
   const [motionError, setMotionError] = useState(false)
   const [filmError, setFilmError] = useState(false)
   const revealId = `cd-hand-reveal-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`
+  const knockoutId = `cd-knockout-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`
 
   useGSAP(() => {
     const header = headerRef.current
@@ -100,6 +116,13 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
     const story = stage.querySelector<HTMLElement>("[data-label-story]")
     const captions = Array.from(stage.querySelectorAll<HTMLElement>(`.${styles.caption} p`))
     const storyText = Array.from(story?.querySelectorAll<HTMLElement>("[data-story-eyebrow], [data-story-line], [data-story-sentence]") ?? [])
+    const posterImage = footage.querySelector<HTMLImageElement>("img")
+    const liquidCanvas = liquidRef.current
+    // WebGL droplets replace the rounded windows; without WebGL the windows remain.
+    const liquid = liquidCanvas && !window.matchMedia("(prefers-reduced-motion: reduce)").matches ? createLiquidReveal(liquidCanvas) : null
+    const drops = new Float32Array(MAX_DROPS * 3)
+    const knockoutLayer = knockoutRef.current, knockoutSvg = knockoutSvgRef.current, knockoutWord = knockoutWordRef.current
+    const knockoutText = knockoutTextRef.current, knockoutProbe = knockoutProbeRef.current
     let textCues: { start: number; duration: number }[] = []
     let reducedStoryText = false
     let disposed = false
@@ -115,7 +138,58 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
       onReady: ready => { setFilmReady(ready); if (ready) setFilmError(false) },
       onError: () => setFilmError(true),
     })
+    // Buffer both videos once the page has loaded, unless the visitor asked to save data.
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection
+    let preloadTimer = 0, idleHandle = 0
+    const preloadFilm = () => { window.clearTimeout(preloadTimer); if (!disposed) filmScrubber.preload() }
+    const preloadMedia = () => {
+      if (disposed) return
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { preloadFilm(); return }
+      portraitScrubber.preload()
+      // The film follows once the portrait can play through, or after a short head start.
+      portraitVideo.addEventListener("canplaythrough", preloadFilm, { once: true })
+      preloadTimer = window.setTimeout(preloadFilm, 2500)
+    }
+    const schedulePreload = () => {
+      // Safari has no requestIdleCallback; a short timeout plays the same role there.
+      if (typeof window.requestIdleCallback === "function") idleHandle = window.requestIdleCallback(preloadMedia, { timeout: 2000 })
+      else preloadTimer = window.setTimeout(preloadMedia, 200)
+    }
+    if (!connection?.saveData && !/2g/.test(connection?.effectiveType ?? "")) {
+      if (document.readyState === "complete") schedulePreload()
+      else window.addEventListener("load", schedulePreload, { once: true })
+    }
 
+    // Fit the knockout word to the stage (one line, or two stacked on phones)
+    // and zoom from inside the stem of its L.
+    function measureKnockout() {
+      if (!knockoutSvg || !knockoutWord || !knockoutText || !knockoutProbe) return
+      const width = stage!.clientWidth, height = stage!.clientHeight, stacked = phoneFraming.matches
+      knockoutSvg.setAttribute("viewBox", `0 0 ${width} ${height}`)
+      const texts = [knockoutProbe, knockoutText]
+      for (const node of texts) {
+        node.setAttribute("font-size", "100"); node.setAttribute("x", "0"); node.setAttribute("y", "0")
+        node.querySelectorAll("tspan").forEach(line => { line.removeAttribute("x"); line.removeAttribute("y") })
+      }
+      // Stacked lines centre on their visible glyphs, ignoring the joining space.
+      const lineWidths = Array.from(knockoutProbe.querySelectorAll("tspan"), line => line.getSubStringLength(0, line.textContent!.trimEnd().length) || 250)
+      const natural = knockoutProbe.getComputedTextLength() || 500
+      const size = stacked ? Math.min(width * .8 / Math.max(...lineWidths) * 100, height * .3) : Math.min(width * .86 / natural * 100, height * .42)
+      const lineHeight = size * .88
+      for (const node of texts) {
+        node.setAttribute("font-size", String(size))
+        if (!stacked) {
+          node.setAttribute("x", String((width - natural * size / 100) / 2)); node.setAttribute("y", String(height / 2 + size * .34))
+          continue
+        }
+        node.querySelectorAll("tspan").forEach((line, index) => {
+          line.setAttribute("x", String((width - lineWidths[index] * size / 100) / 2))
+          line.setAttribute("y", String(height / 2 + (index - .5) * lineHeight + size * .34))
+        })
+      }
+      const stem = knockoutProbe.getExtentOfChar(KNOCKOUT_ZOOM_LETTER)
+      gsap.set(knockoutWord, { svgOrigin: `${stem.x + stem.width * .24} ${stem.y + stem.height * .62}`, smoothOrigin: false })
+    }
     // All layout reads happen on layout changes, never in the scroll renderer.
     const geometry = { width: 1, height: 1, frameX: 0, frameY: 0, frameWidth: 1, frameHeight: 1, originX: 0, originY: 0, seedRadius: 4, headerHeight: 90, range: 1, phone: false }
     const measure = () => {
@@ -134,6 +208,8 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
         seedRadius: periodBounds.width / 2, headerHeight: header?.offsetHeight ?? 90,
         range: Math.max(1, section.offsetHeight - stage.clientHeight), phone: phoneFraming.matches,
       })
+      liquid?.resize()
+      measureKnockout()
       // Schedule whole phrases only after the moving film clears their bounds.
       // This runs on layout changes; scrolling only writes cached opacities.
       const filmTop = geometry.height * (geometry.phone ? 0.43 : 0.56)
@@ -188,7 +264,11 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
       let lastPath = ""
       let lastControls = ""
       let lastReveal = ""
+      let lastSkip = ""
       let dotsHidden = false
+      // The film source for the droplets: the decoded frame when ready, else its poster.
+      const filmSource = () => film.dataset.visible === "true" && film.readyState >= 2 ? film
+        : posterImage?.complete && posterImage.naturalWidth ? posterImage : null
       const render = () => {
         if (disposed) return
         const { progress, motion, collect, windup, detach } = clock
@@ -200,6 +280,8 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
         if (lastControls !== controlsState) { stage.dataset.controls = lastControls = controlsState }
         stage.style.setProperty("--progress", String(progress / journeyLength))
         stage.dataset.journeyProgress = String(progress)
+        const skipState = String(continueStory && progress < .99)
+        if (skipState !== lastSkip) stage.dataset.skip = lastSkip = skipState
         textOpacity.forEach((setOpacity, index) => {
           const cue = textCues[index]
           setOpacity(smoothstep(clamp((progress - cue.start) / cue.duration)))
@@ -221,18 +303,20 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
           })
           reveal(filmCaptionAlpha, smoothstep(clamp((progress - 1.27) / .08)))
           reveal(nextAlpha, smoothstep(clamp((progress - 1.43) / .07)))
-          reveal(drawingAlpha, smoothstep(clamp((progress - 1.32) / .16)))
+          // The drawing builds itself from here; it only needs to become visible.
+          reveal(drawingAlpha, smoothstep(clamp((progress - 1.14) / .04)))
         }
 
         let path = progress >= JOURNEY.film ? "M0 0H1V1H0Z" : "M0 0Z"
         // Once the handoff is complete, neither dots nor the SVG need per-scroll work.
+        const source = liquid && revealing ? filmSource() : null
         if ((!reduced && progress < 0.58) || revealing) {
           dotsHidden = false
           const sample = clamp(motion * 9 / 5) * (dotTracks.frames.length - 1)
           const first = Math.floor(sample)
           const next = Math.min(first + 1, dotTracks.frames.length - 1)
           const mix = sample - first
-          if (revealing) path = ""
+          if (revealing) path = source ? "M0 0Z" : ""
           dots.forEach((dot, index) => {
             const point = points[index]
             const isSeed = index === 11
@@ -266,8 +350,18 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
             dot.style.transform = `translate3d(${x - DOT_DIAMETER / 2}px, ${y - DOT_DIAMETER / 2}px, 0) scale(${scale * (1 + point.release * 2.8)}, ${scale * (1 - point.release * 0.3)})`
             dot.style.opacity = String(point.opacity)
             if (!revealing) return
-            // Twelve windows sample one unchanged real video, then join seamlessly.
             const opening = point.opening
+            if (source) {
+              // Each dot becomes a glass droplet that drifts to its own part of the frame and swells until they merge.
+              // Fixed per-drop offsets keep the scatter organic but identical on every scrub.
+              const slot = ROW_ORDER[index], spread = smoothstep(clamp(opening * 1.7))
+              const scatterX = Math.sin(slot * 12.9898) * 0.075, scatterY = Math.cos(slot * 4.1414) * 0.1
+              drops[index * 3] = lerp(x, ((slot % 4) + 0.5 + scatterX * 4) / 4 * width, spread)
+              drops[index * 3 + 1] = lerp(y, (Math.floor(slot / 4) + 0.5 + scatterY * 3) / 3 * height, spread)
+              drops[index * 3 + 2] = lerp(radius * 1.15, Math.hypot(width, height) * (0.38 + (slot % 3) * 0.04), Math.pow(opening, 2.6))
+              return
+            }
+            // Twelve windows sample one unchanged real video, then join seamlessly.
             const windowX = lerp(x / width, 0.5, opening)
             const windowY = lerp(y / height, (ROW_ORDER[index] + 0.5) / 12, opening)
             const windowWidth = lerp(radius * 2 / width, 1.002, opening)
@@ -278,6 +372,8 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
           dots.forEach(dot => { dot.style.opacity = "0" })
           dotsHidden = true
         }
+        if (source) liquid?.render(drops, progress * 6, source)
+        else liquid?.clear()
         stage.dataset.seedReady = String(!reduced)
         if (path !== lastPath) { revealRef.current?.setAttribute("d", path); lastPath = path }
         const onScreen = trigger ? window.scrollY < trigger.end + height : progress < 1
@@ -307,10 +403,18 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
       timeline.fromTo(intro, { opacity: 1 }, { opacity: 0, duration: reduced ? 0.05 : 0.14 }, reduced ? 0.2 : 0.065)
       if (!reduced) timeline.fromTo(intro, { x: 0, y: 0 }, { x: () => -geometry.width * 0.045, y: () => -geometry.height * 0.025, duration: 0.18 }, 0.04)
       timeline.fromTo(portrait, { opacity: 1 }, { opacity: 0, duration: reduced ? 0.04 : 0.085 }, reduced ? 0.23 : 0.565)
-      timeline.fromTo(footage, { opacity: 0 }, { opacity: 1, duration: reduced ? 0.04 : 0.022 }, reduced ? 0.23 : JOURNEY.reveal)
+      timeline.fromTo(liquidCanvas ? [footage, liquidCanvas] : footage, { opacity: 0 }, { opacity: 1, duration: reduced ? 0.04 : 0.022 }, reduced ? 0.23 : JOURNEY.reveal)
       timeline.fromTo([shade, controls], { opacity: 0 }, { opacity: 1, duration: reduced ? 0.1 : 0.05 }, reduced ? 0.3 : JOURNEY.controls)
       const beats = reduced ? [[0.36, 0.53], [0.57, 0.75], [0.79, 1.08]] : [[0.695, 0.78], [0.8, 0.885], [0.91, 1.04]]
       beats.forEach(([start, end], index) => {
+        if (index === 1 && !reduced && knockoutLayer && knockoutWord) {
+          // Darkness closes around the giant word, then the camera flies through its L.
+          timeline.fromTo(knockoutLayer, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.02 }, start - 0.005)
+          timeline.fromTo(knockoutWord, { scale: 1.45 }, { scale: 1, duration: 0.035, ease: "power3.out" }, start - 0.005)
+          timeline.to(knockoutWord, { scale: 34, duration: 0.03, ease: "power3.in" }, end - 0.03)
+          timeline.to(knockoutLayer, { autoAlpha: 0, duration: 0.012, ease: "none" }, end - 0.012)
+          return
+        }
         const enter = reduced ? 0.04 : 0.025
         timeline.fromTo(captions[index], { opacity: 0, y: reduced ? 0 : 28 }, { opacity: 1, y: 0, duration: enter }, start)
         // The final caption stays on screen as the opener hands over to the page.
@@ -340,9 +444,9 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
       // The scene stays paused. One scroll-owned driver seeks its time directly;
       // only the first real shot receives twice the scroll distance.
       let scrollTimeline = timeline
+      const firstShotDuration = (reduced ? 0.73 : 0.34) * FIRST_SHOT_SHARE
+      const firstShotEnd = filmStart + firstShotDuration
       if (smoothFirstShot) {
-        const firstShotDuration = (reduced ? 0.73 : 0.34) * FIRST_SHOT_SHARE
-        const firstShotEnd = filmStart + firstShotDuration
         scrollTimeline = gsap.timeline({ paused: true, defaults: { ease: "none" } })
           .to(timeline, { time: filmStart, duration: filmStart }, 0)
           .to(timeline, { time: firstShotEnd, duration: firstShotDuration * 2 })
@@ -360,10 +464,19 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
         onLeaveBack: () => { header.dataset.afterStory = "false" },
         onRefresh: self => { header.dataset.afterStory = String(self.scroll() >= self.start) },
       })
+      // Skip lands on a journey time, through the same scroll remapping.
+      scrollForTimeRef.current = time => {
+        if (!trigger) return null
+        const scrollTime = !smoothFirstShot || time <= filmStart ? time
+          : time <= firstShotEnd ? filmStart + (time - filmStart) * 2 : time + firstShotDuration
+        return trigger.start + (trigger.end - trigger.start) * Math.min(1, scrollTime / scrollTimeline.duration())
+      }
       scrollTimeline.progress(trigger.progress)
       render()
       return () => {
         renderCurrent = () => undefined; trigger = undefined
+        scrollForTimeRef.current = () => null
+        liquid?.clear()
         for (const node of [story, curator, lightbox, filmCaption, next, drawing]) {
           node?.style.removeProperty("opacity"); node?.style.removeProperty("visibility")
         }
@@ -396,6 +509,11 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
       filmScrubber.dispose()
       phoneFraming.removeEventListener("change", updateFraming)
       document.removeEventListener("visibilitychange", scheduleRefresh)
+      window.removeEventListener("load", schedulePreload)
+      portraitVideo.removeEventListener("canplaythrough", preloadFilm)
+      window.clearTimeout(preloadTimer)
+      if (idleHandle) window.cancelIdleCallback?.(idleHandle)
+      liquid?.dispose()
       retryRef.current = () => undefined
       if (header) delete header.dataset.afterStory
     }
@@ -419,6 +537,29 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
       document.removeEventListener("pointerdown", dismissMenu)
     }
   }, [])
+
+  const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+  function skipIntro() {
+    const top = scrollForTimeRef.current(STORY_REST), veil = skipVeilRef.current, button = skipRef.current, stage = stageRef.current
+    if (top === null) return
+    const land = () => {
+      window.scrollTo({ top, behavior: "instant" })
+      // The story is hidden until the scroll clock renders it, and hidden headings refuse focus.
+      ScrollTrigger.update()
+      requestAnimationFrame(() => document.getElementById("cd-story-title")?.focus({ preventScroll: true }))
+    }
+    if (!veil || !button || !stage || reducedMotion()) { land(); return }
+    // A paper-coloured wipe grows from the button, the page lands, and the story appears.
+    const from = button.getBoundingClientRect(), bounds = stage.getBoundingClientRect()
+    const x = from.left - bounds.left + 10, y = from.top - bounds.top + from.height / 2
+    const radius = Math.hypot(Math.max(x, bounds.width - x), Math.max(y, bounds.height - y))
+    gsap.timeline()
+      .set(veil, { autoAlpha: 1, clipPath: `circle(0px at ${x}px ${y}px)` })
+      .to(veil, { clipPath: `circle(${radius}px at ${x}px ${y}px)`, duration: .6, ease: "power3.inOut" })
+      .add(land)
+      .to(veil, { autoAlpha: 0, duration: .55, ease: "power2.out" }, "+=.08")
+  }
 
   function replay() {
     const section = sectionRef.current
@@ -455,15 +596,30 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
           <div className={styles.intro}><h1 id="cd-hero-title" tabIndex={-1}>COLLECTING<br />DOTS<span ref={periodRef} className={styles.period} aria-hidden="true" /></h1></div>
           <div className={styles.particles} ref={dotsRef} aria-hidden="true">{Array.from({ length: 11 }, (_, index) => <i key={index} />)}</div>
           <span className={styles.seed} ref={seedRef} aria-hidden="true" />
-          <div className={styles.footage} style={{ "--reveal-mask": `url(#${revealId})` } as CSSProperties}>
+          <div className={styles.footage} style={{ "--reveal-mask": `url(#${revealId})` } as CSSProperties} data-hero-footage>
             <picture className={styles.poster}><source media={PHONE_FRAMING} srcSet="/media/hero/cd-hero-poster-v3-portrait.webp" /><img src="/media/hero/cd-hero-poster-v3.webp" alt="OMRI at the decks with the real Collecting Dots crowd" width="1920" height="1080" /></picture>
             <video className={styles.film} ref={filmRef} data-visible={filmReady} preload="none" muted playsInline disablePictureInPicture aria-hidden="true" tabIndex={-1}><source media={PHONE_FRAMING} src={smoothFirstShot ? SMOOTH_PHONE_FILM : PHONE_FILM} type="video/mp4" /><source src={smoothFirstShot ? SMOOTH_FILM : FILM} type="video/mp4" /></video>
           </div>
+          <canvas className={styles.liquid} ref={liquidRef} aria-hidden="true" />
           <div className={styles.filmShade} aria-hidden="true" />
+          <div className={styles.knockout} ref={knockoutRef} aria-hidden="true">
+            <svg ref={knockoutSvgRef} preserveAspectRatio="none" focusable="false">
+              <defs>
+                <mask id={knockoutId} maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%">
+                  <rect width="100%" height="100%" fill="#fff" />
+                  <g ref={knockoutWordRef}><text ref={knockoutTextRef} fill="#000">{KNOCKOUT_LINES.map(line => <tspan key={line}>{line}</tspan>)}</text></g>
+                </mask>
+              </defs>
+              <rect width="100%" height="100%" fill="#0b0c0b" mask={`url(#${knockoutId})`} />
+              <text ref={knockoutProbeRef} visibility="hidden">{KNOCKOUT_LINES.map(line => <tspan key={line}>{line}</tspan>)}</text>
+            </svg>
+          </div>
           <div className={styles.caption} aria-hidden="true">{["THE MUSIC.", "THE PEOPLE.", "THE MOMENTS."].map((text, index) => <p key={text} className={styles[`beat${index}`]}>{text}</p>)}</div>
           <div className={styles.controls}><button onClick={replay} aria-label="Replay opener"><RotateCcw size={15} aria-hidden="true" /><span>Replay</span></button></div>
+          {continueStory && <button className={styles.skip} ref={skipRef} onClick={skipIntro}>Skip intro<ArrowDown size={14} aria-hidden="true" /></button>}
           {continueStory && <CollectingDotsStory preview={preview} />}
           <div className={styles.progress} aria-hidden="true"><span /></div>
+          <div className={styles.skipVeil} ref={skipVeilRef} aria-hidden="true" />
           {(motionError || filmError) && <div className={styles.mediaNotice} role="status"><p>{motionError ? "The portrait motion couldn’t load." : "The film couldn’t load."}</p><button onClick={() => retryRef.current()}>Retry media</button></div>}
         </div>
       </section>

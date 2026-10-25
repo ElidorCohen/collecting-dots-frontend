@@ -48,6 +48,8 @@ export function createScrollVideo(
       if (shouldLoad) prepare()
       if (loaded) schedule()
     },
+    /** Starts buffering before the scroll reaches this video. */
+    preload: prepare,
     reload() {
       onReady(false)
       loaded = false

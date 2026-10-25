@@ -1,6 +1,7 @@
 .story { position: absolute; z-index: 7; inset: 0; color: #20221d; opacity: 0; visibility: hidden; pointer-events: none; }
 .eyebrow { opacity: 0; position: absolute; top: 12%; left: 3.8%; display: flex; align-items: center; gap: 10px; margin: 0; font: 10px/1.2 var(--font-jetbrains-mono), monospace; letter-spacing: .025em; text-transform: uppercase; }
 .eyebrow > span { width: 7px; height: 7px; border-radius: 50%; background: #fa553c; }
+.title:focus { outline: none; }
 .title { position: absolute; top: 18%; left: 3.8%; margin: 0; font: 400 min(4.7vw, 8.5svh)/.9 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.045em; }
 .line { display: block; overflow: clip; padding: .04em .05em .06em 0; margin-bottom: -.1em; }
 .line > span { display: block; white-space: nowrap; opacity: 0; }

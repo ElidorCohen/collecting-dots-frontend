@@ -9,11 +9,13 @@ const INK = "32, 34, 29"
 const CORAL = "250, 85, 60"
 const LENS_RADIUS = 120
 const LENS_STRENGTH = 30
+const clamp = (value: number) => Math.max(0, Math.min(1, value))
 
 /**
  * A drafting-table construction around the two story photos: nested frames, circumscribed
  * orbits, extended edges with ticks and a field of dots. The cursor bends it like a lens
  * and collects the nearest dots, while the photos tilt and pour liquid glass above it.
+ * It drafts itself in, stroke by stroke, from the hero's journey clock as the film lands.
  */
 export default function StoryGeometry({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -27,7 +29,14 @@ export default function StoryGeometry({ className }: { className?: string }) {
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches
     const frames = () => Array.from(story.querySelectorAll<HTMLElement>("[data-story-curator], [data-story-lightbox]"))
     const pointer = { x: -9999, y: -9999, sx: -9999, sy: -9999, active: 0, target: 0 }
-    let width = 1, height = 1, ratio = 1, frame = 0, spin = 0, lastTime = 0
+    let width = 1, height = 1, ratio = 1, frame = 0, spin = 0, lastTime = 0, build = 1, order = 0
+    const stage = story.closest<HTMLElement>("[data-journey-progress]") ?? story.parentElement
+    const film = stage?.querySelector<HTMLElement>("[data-hero-footage]")
+    // Drafting starts as the film begins to shrink and completes as the story settles.
+    const readBuild = () => {
+      const progress = Number(stage?.dataset.journeyProgress)
+      return reduced || !Number.isFinite(progress) ? 1 : clamp((progress - 1.16) / .3)
+    }
     const mono = getComputedStyle(story).getPropertyValue("--font-jetbrains-mono").trim() || "monospace"
 
     const measure = (): Box[] => {
@@ -59,13 +68,21 @@ export default function StoryGeometry({ className }: { className?: string }) {
       const cos = Math.cos(angle), sin = Math.sin(angle), dx = x - center[0], dy = y - center[1]
       return [center[0] + dx * cos - dy * sin, center[1] + dx * sin + dy * cos]
     }
+    // Each stroke waits its turn, then draws along its own path until complete.
     const stroke = (points: Point[], alpha: number, closed = false, color = INK, dash: number[] = []) => {
+      const share = clamp((build - Math.min(.6, order++ * .022)) / .4)
+      if (share <= 0 || points.length < 2) return
+      const reach = (points.length - 1) * share, whole = Math.floor(reach)
       context.beginPath()
-      points.forEach((point, index) => {
-        const [x, y] = warp(point)
+      for (let index = 0; index <= whole; index++) {
+        const [x, y] = warp(points[index])
         if (index) context.lineTo(x, y); else context.moveTo(x, y)
-      })
-      if (closed) context.closePath()
+      }
+      if (whole < points.length - 1 && reach > whole) {
+        const [ax, ay] = points[whole], [bx, by] = points[whole + 1], t = reach - whole
+        context.lineTo(...warp([ax + (bx - ax) * t, ay + (by - ay) * t]))
+      }
+      if (closed && share >= 1) context.closePath()
       context.setLineDash(dash)
       context.strokeStyle = `rgba(${color}, ${alpha})`
       context.stroke()
@@ -95,12 +112,28 @@ export default function StoryGeometry({ className }: { className?: string }) {
     const draw = () => {
       context.setTransform(ratio, 0, 0, ratio, 0, 0)
       context.clearRect(0, 0, width, height)
+      build = readBuild()
+      order = 0
+      if (build <= 0) return
       const boxes = measure()
       if (!boxes.length) return
       context.lineWidth = 1
       context.lineCap = "round"
       const dots: { point: Point; size: number; accent?: boolean }[] = []
       const tilt = pointer.active * (pointer.sx - boxes[0].cx) / Math.max(width, 1) * .12
+
+      // A dimension line runs from the landing film to Omri's portrait.
+      const filmBounds = film?.getBoundingClientRect(), origin = canvas.getBoundingClientRect()
+      if (filmBounds && filmBounds.width < width * .7) {
+        const fx = filmBounds.right - origin.left, fy = filmBounds.top - origin.top, target = boxes[0]
+        stroke(rectangle(filmBounds.left - origin.left - 10, fy - 10, filmBounds.width + 20, filmBounds.height + 20), .12)
+        if (target.x > fx + 12) {
+          stroke(line([fx, fy], [target.x, fy]), .3, false, INK, [3, 5])
+          stroke(line([fx, fy - 6], [fx, fy + 6]), .4)
+          stroke(line([target.x, fy - 6], [target.x, fy + 6]), .4)
+          dots.push({ point: [fx, fy], size: 2.6, accent: true })
+        }
+      }
 
       boxes.forEach((box, boxIndex) => {
         const unit = Math.max(6, box.w * .055)
@@ -170,11 +203,13 @@ export default function StoryGeometry({ className }: { className?: string }) {
           context.beginPath(); context.moveTo(...cursor); context.lineTo(...warp(dot.point)); context.stroke()
         })
       }
-      dots.forEach(({ point, size, accent }) => {
+      // Dots settle in once most of the construction is drawn.
+      const appear = clamp((build - .55) / .45)
+      if (appear > 0) dots.forEach(({ point, size, accent }) => {
         const [x, y] = warp(point)
         const near = pointer.active * Math.exp(-((x - cursor[0]) ** 2 + (y - cursor[1]) ** 2) / (2 * 90 * 90))
-        context.fillStyle = `rgba(${accent || near > .4 ? CORAL : INK}, ${.45 + near * .5})`
-        context.beginPath(); context.arc(x, y, size * (1 + near * 1.4), 0, Math.PI * 2); context.fill()
+        context.fillStyle = `rgba(${accent || near > .4 ? CORAL : INK}, ${(.45 + near * .5) * appear})`
+        context.beginPath(); context.arc(x, y, size * (1 + near * 1.4) * (.4 + .6 * appear), 0, Math.PI * 2); context.fill()
       })
 
       if (pointer.active > .01) {
