@@ -171,35 +171,49 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
       else window.addEventListener("load", schedulePreload, { once: true })
     }
 
-    // Fit the knockout word to the stage (one line, or two stacked on phones)
-    // and zoom from inside the stem of its L.
+    // The knockout zoom is written by hand: a cached SVG origin kept stale offsets
+    // across re-measures and could leave the word shifted towards the top-left.
+    const knockoutZoom = { scale: 1, x: 0, y: 0 }
+    let lastZoom = ""
+    const applyKnockoutZoom = () => {
+      const { scale, x, y } = knockoutZoom
+      const transform = `translate(${x} ${y}) scale(${scale}) translate(${-x} ${-y})`
+      if (transform !== lastZoom) knockoutWord?.setAttribute("transform", lastZoom = transform)
+    }
+    // Fit the knockout word to the stage (one line, or two stacked on phones) and zoom
+    // from inside the stem of its L. Only the hidden probe is reset for measuring, so a
+    // failed measurement leaves the visible word where it was.
     function measureKnockout() {
       if (!knockoutSvg || !knockoutWord || !knockoutText || !knockoutProbe) return
       const width = stage!.clientWidth, height = stage!.clientHeight, stacked = phoneFraming.matches
-      knockoutSvg.setAttribute("viewBox", `0 0 ${width} ${height}`)
-      const texts = [knockoutProbe, knockoutText]
-      for (const node of texts) {
-        node.setAttribute("font-size", "100"); node.setAttribute("x", "0"); node.setAttribute("y", "0")
-        node.querySelectorAll("tspan").forEach(line => { line.removeAttribute("x"); line.removeAttribute("y") })
-      }
-      // Stacked lines centre on their visible glyphs, ignoring the joining space.
-      const lineWidths = Array.from(knockoutProbe.querySelectorAll("tspan"), line => line.getSubStringLength(0, line.textContent!.trimEnd().length) || 250)
-      const natural = knockoutProbe.getComputedTextLength() || 500
-      const size = stacked ? Math.min(width * .8 / Math.max(...lineWidths) * 100, height * .3) : Math.min(width * .86 / natural * 100, height * .42)
-      const lineHeight = size * .88
-      for (const node of texts) {
-        node.setAttribute("font-size", String(size))
-        if (!stacked) {
-          node.setAttribute("x", String((width - natural * size / 100) / 2)); node.setAttribute("y", String(height / 2 + size * .34))
-          continue
+      try {
+        knockoutProbe.setAttribute("font-size", "100"); knockoutProbe.setAttribute("x", "0"); knockoutProbe.setAttribute("y", "0")
+        knockoutProbe.querySelectorAll("tspan").forEach(line => { line.removeAttribute("x"); line.removeAttribute("y") })
+        // Not laid out yet: fonts or the next resize will measure again.
+        if (!knockoutProbe.getNumberOfChars()) return
+        const natural = knockoutProbe.getComputedTextLength()
+        // Stacked lines centre on their visible glyphs, ignoring the joining space.
+        const lineWidths = stacked ? Array.from(knockoutProbe.querySelectorAll("tspan"), line => line.getSubStringLength(0, line.textContent!.trimEnd().length)) : []
+        if (!natural || lineWidths.some(lineWidth => !lineWidth)) return
+        const size = stacked ? Math.min(width * .8 / Math.max(...lineWidths) * 100, height * .3) : Math.min(width * .86 / natural * 100, height * .42)
+        const lineHeight = size * .88
+        knockoutSvg.setAttribute("viewBox", `0 0 ${width} ${height}`)
+        for (const node of [knockoutProbe, knockoutText]) {
+          node.setAttribute("font-size", String(size))
+          node.setAttribute("x", stacked ? "0" : String((width - natural * size / 100) / 2))
+          node.setAttribute("y", stacked ? "0" : String(height / 2 + size * .34))
+          node.querySelectorAll("tspan").forEach((line, index) => {
+            if (!stacked) { line.removeAttribute("x"); line.removeAttribute("y"); return }
+            line.setAttribute("x", String((width - lineWidths[index] * size / 100) / 2))
+            line.setAttribute("y", String(height / 2 + (index - .5) * lineHeight + size * .34))
+          })
         }
-        node.querySelectorAll("tspan").forEach((line, index) => {
-          line.setAttribute("x", String((width - lineWidths[index] * size / 100) / 2))
-          line.setAttribute("y", String(height / 2 + (index - .5) * lineHeight + size * .34))
-        })
+        const stem = knockoutProbe.getExtentOfChar(KNOCKOUT_ZOOM_LETTER)
+        knockoutZoom.x = stem.x + stem.width * .24; knockoutZoom.y = stem.y + stem.height * .62
+        applyKnockoutZoom()
+      } catch {
+        // Keep the last good layout; the next layout change measures again.
       }
-      const stem = knockoutProbe.getExtentOfChar(KNOCKOUT_ZOOM_LETTER)
-      gsap.set(knockoutWord, { svgOrigin: `${stem.x + stem.width * .24} ${stem.y + stem.height * .62}`, smoothOrigin: false })
     }
     // All layout reads happen on layout changes, never in the scroll renderer.
     const geometry = { width: 1, height: 1, frameX: 0, frameY: 0, frameWidth: 1, frameHeight: 1, originX: 0, originY: 0, seedRadius: 4, headerHeight: 90, range: 1, phone: false }
@@ -293,6 +307,7 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
         const controlsState = String(progress > (reduced ? 0.3 : JOURNEY.controls) && (!continueStory || progress < 1.06))
         if (lastControls !== controlsState) { stage.dataset.controls = lastControls = controlsState }
         stage.dataset.journeyProgress = String(progress)
+        applyKnockoutZoom()
         let chapter = 0
         chapters.forEach(({ start }, index) => {
           if (progress >= start) chapter = index
@@ -438,8 +453,8 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
         if (index === 1 && !reduced && knockoutLayer && knockoutWord) {
           // Darkness closes around the giant word, then the camera flies through its L.
           timeline.fromTo(knockoutLayer, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.02 }, start - 0.005)
-          timeline.fromTo(knockoutWord, { scale: 1.45 }, { scale: 1, duration: 0.035, ease: "power3.out" }, start - 0.005)
-          timeline.to(knockoutWord, { scale: 34, duration: 0.03, ease: "power3.in" }, end - 0.03)
+          timeline.fromTo(knockoutZoom, { scale: 1.45 }, { scale: 1, duration: 0.035, ease: "power3.out" }, start - 0.005)
+          timeline.fromTo(knockoutZoom, { scale: 1 }, { scale: 34, duration: 0.03, ease: "power3.in", immediateRender: false }, end - 0.03)
           timeline.to(knockoutLayer, { autoAlpha: 0, duration: 0.012, ease: "none" }, end - 0.012)
           return
         }
