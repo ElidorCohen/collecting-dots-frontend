@@ -10,6 +10,14 @@ import styles from "./collecting-dots-releases.module.css"
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
+// Deezer preview links are signed and expire about 15 minutes after the playlist is fetched.
+const previewExpiry = (url: string | null | undefined) => {
+  const match = url ? decodeURIComponent(url).match(/exp=(\d+)/) : null
+  return match ? Number(match[1]) * 1000 : Infinity
+}
+// A silent clip played inside the click keeps Safari's permission while fresh links load.
+const SILENCE = "data:audio/wav;base64,UklGRnQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVAAAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA=="
+
 export default function CollectingDotsReleases({ preview = false }: { preview?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
@@ -21,6 +29,11 @@ export default function CollectingDotsReleases({ preview = false }: { preview?: 
   const dialogRef = useRef<HTMLDialogElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
   const playRequest = useRef(0)
+  const freshPreviews = useRef(new Map<string, string>())
+  const previewsExpire = useRef(Infinity)
+  const refreshing = useRef<Promise<void> | null>(null)
+  const retried = useRef<string | null>(null)
+  const current = useRef<LabelRelease | null>(null)
   const moveTo = useRef<(index: number) => void>(() => undefined)
   const revealFocus = useRef<(index: number) => void>(() => undefined)
   const [releases, setReleases] = useState<LabelRelease[]>([])
@@ -64,6 +77,34 @@ export default function CollectingDotsReleases({ preview = false }: { preview?: 
     const audio = audioRef.current
     return () => { ++playRequest.current; audio?.pause() }
   }, [])
+
+  // Replace preview links before they expire without touching the laid-out rail.
+  function refreshPreviews() {
+    refreshing.current ??= fetchLabelReleases(new AbortController().signal).then(latest => {
+      latest.forEach(release => { if (release.previewUrl) freshPreviews.current.set(release.id, release.previewUrl) })
+      previewsExpire.current = Math.min(...latest.map(release => previewExpiry(release.previewUrl)))
+    }).finally(() => { refreshing.current = null })
+    return refreshing.current
+  }
+
+  useEffect(() => {
+    freshPreviews.current.clear()
+    previewsExpire.current = Math.min(...releases.map(release => previewExpiry(release.previewUrl)))
+    if (!releases.length) return
+    let timer = 0
+    const plan = () => {
+      window.clearTimeout(timer)
+      const wait = previewsExpire.current - Date.now() - 60_000
+      if (!Number.isFinite(wait)) return
+      if (wait > 0) { timer = window.setTimeout(plan, Math.min(wait, 2 ** 31 - 1)); return }
+      // Hidden tabs wait; returning to the page refreshes straight away.
+      if (document.visibilityState === "visible") refreshPreviews().then(plan, () => { timer = window.setTimeout(plan, 30_000) })
+    }
+    const returned = () => { if (document.visibilityState === "visible") plan() }
+    plan()
+    document.addEventListener("visibilitychange", returned)
+    return () => { window.clearTimeout(timer); document.removeEventListener("visibilitychange", returned) }
+  }, [releases])
 
   useGSAP(() => {
     const section = sectionRef.current, stage = stageRef.current, panel = panelRef.current
@@ -222,19 +263,39 @@ export default function CollectingDotsReleases({ preview = false }: { preview?: 
     }
   }, { scope: sectionRef, dependencies: [releases], revertOnUpdate: true })
 
-  async function playPreview(release: LabelRelease) {
+  async function playPreview(release: LabelRelease, retry = false) {
     const audio = audioRef.current
     if (!audio || !release.previewUrl) return
     setNotice("")
     const request = ++playRequest.current
-    if (playing === release.id) { audio.pause(); setPlaying(null); return }
+    if (playing === release.id && !retry) { audio.pause(); setPlaying(null); return }
     audio.pause()
-    audio.src = release.previewUrl
+    current.current = release
+    if (!retry) retried.current = null
+    let url = freshPreviews.current.get(release.id) ?? release.previewUrl
+    if (retry || previewExpiry(url) - Date.now() < 5000) {
+      setPlaying(release.id)
+      audio.src = SILENCE
+      void audio.play().catch(() => undefined)
+      try { await refreshPreviews() } catch { /* The retry below reports the failure. */ }
+      if (request !== playRequest.current) return
+      url = freshPreviews.current.get(release.id) ?? url
+    }
+    audio.src = url
     setAudioProgress(0)
     setPlaying(release.id)
     try { await audio.play() } catch {
       if (request === playRequest.current) { setPlaying(null); setNotice("Preview unavailable. You can listen on Spotify.") }
     }
+  }
+
+  // A link that expired despite the schedule (sleep, a wrong clock) gets one fresh retry.
+  function previewFailed() {
+    const release = current.current, audio = audioRef.current
+    if (audio?.src === SILENCE) return
+    if (release && retried.current !== release.id) { retried.current = release.id; void playPreview(release, true); return }
+    setPlaying(null)
+    setNotice("Preview unavailable. You can listen on Spotify.")
   }
 
   async function shareRelease(release: LabelRelease) {
@@ -300,6 +361,6 @@ export default function CollectingDotsReleases({ preview = false }: { preview?: 
       {!catalogue.length && <p className={styles.emptySearch}>No releases found. Try a different title or artist.</p>}
       <a className={styles.catalogueSpotify} href={LABEL_PLAYLIST} target="_blank" rel="noopener noreferrer">Open the complete playlist on Spotify <ArrowUpRight size={16} /></a>
     </dialog>
-    <audio ref={audioRef} preload="none" onEnded={() => { setPlaying(null); setAudioProgress(0) }} onTimeUpdate={() => { const audio = audioRef.current; if (audio?.duration) setAudioProgress(audio.currentTime / audio.duration) }} onError={() => { setPlaying(null); setNotice("Preview unavailable. You can listen on Spotify.") }} />
+    <audio ref={audioRef} preload="none" onEnded={() => { setPlaying(null); setAudioProgress(0) }} onTimeUpdate={() => { const audio = audioRef.current; if (audio?.duration) setAudioProgress(audio.currentTime / audio.duration) }} onError={previewFailed} />
   </>
 }
