@@ -29,7 +29,7 @@ export default function StoryGeometry({ className }: { className?: string }) {
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches
     const frames = () => Array.from(story.querySelectorAll<HTMLElement>("[data-story-curator], [data-story-lightbox]"))
     const pointer = { x: -9999, y: -9999, sx: -9999, sy: -9999, active: 0, target: 0 }
-    let width = 1, height = 1, ratio = 1, frame = 0, spin = 0, lastTime = 0, build = 1, order = 0
+    let width = 1, height = 1, ratio = 1, frame = 0, spin = 0, lastTime = 0, build = 1, order = 0, drawnProgress: string | undefined, dirty = true
     const stage = story.closest<HTMLElement>("[data-journey-progress]") ?? story.parentElement
     const film = stage?.querySelector<HTMLElement>("[data-hero-footage]")
     // Drafting starts as the film begins to shrink and completes as the story settles.
@@ -50,10 +50,11 @@ export default function StoryGeometry({ className }: { className?: string }) {
       })
     }
     const resize = () => {
-      ratio = Math.min(window.devicePixelRatio || 1, 2)
+      // Hairlines stay crisp at 1.5x; phones skip the extra pixels of their denser screens.
+      ratio = Math.min(window.devicePixelRatio || 1, fine ? 2 : 1.5)
       width = canvas.clientWidth; height = canvas.clientHeight
       canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio)
-      schedule()
+      redraw()
     }
 
     // Lens: everything near the cursor swells outward, as if seen through the glass.
@@ -113,6 +114,7 @@ export default function StoryGeometry({ className }: { className?: string }) {
       context.setTransform(ratio, 0, 0, ratio, 0, 0)
       context.clearRect(0, 0, width, height)
       build = readBuild()
+      drawnProgress = stage?.dataset.journeyProgress
       order = 0
       if (build <= 0) return
       const boxes = measure()
@@ -227,6 +229,8 @@ export default function StoryGeometry({ className }: { className?: string }) {
 
     const tick = (now: number) => {
       frame = 0
+      // Scrolling past a resting journey clock, with no lens to settle, would redraw the same picture.
+      if (!dirty && stage?.dataset.journeyProgress === drawnProgress) return
       const dt = Math.min((now - (lastTime || now)) / 1000, 1 / 20)
       lastTime = now
       pointer.active += (pointer.target - pointer.active) * Math.min(1, dt * 6)
@@ -235,10 +239,12 @@ export default function StoryGeometry({ className }: { className?: string }) {
       spin += dt * .05 * (.2 + pointer.active)
       draw()
       const settling = Math.abs(pointer.target - pointer.active) > .002 || Math.hypot(pointer.x - pointer.sx, pointer.y - pointer.sy) > .5
-      if (settling || pointer.target > 0) frame = requestAnimationFrame(tick)
+      dirty = settling || pointer.target > 0
+      if (dirty) frame = requestAnimationFrame(tick)
       else lastTime = 0
     }
     function schedule() { if (!frame) frame = requestAnimationFrame(tick) }
+    function redraw() { dirty = true; schedule() }
 
     const visible = () => story.style.visibility === "visible" && Number(story.style.opacity || 0) > .05
     const move = (event: PointerEvent) => {
@@ -248,9 +254,9 @@ export default function StoryGeometry({ className }: { className?: string }) {
       const near = measure().some(box => x > box.x - 160 && x < box.x + box.w + 160 && y > box.y - 160 && y < box.y + box.h + 160)
       if (pointer.target === 0 && near) { pointer.sx = x; pointer.sy = y }
       pointer.x = x; pointer.y = y; pointer.target = near ? 1 : 0
-      schedule()
+      redraw()
     }
-    const leave = () => { pointer.target = 0; schedule() }
+    const leave = () => { pointer.target = 0; redraw() }
     const scroll = () => { if (visible()) schedule() }
     const observer = new ResizeObserver(resize)
     observer.observe(canvas)
