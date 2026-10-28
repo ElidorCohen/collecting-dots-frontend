@@ -119,11 +119,12 @@ export function createLiquidReveal(canvas: HTMLCanvasElement): LiquidReveal | nu
   gl.uniform1i(uniforms.image, 0)
 
   let width = 1, height = 1, cssWidth = 1, cssHeight = 1, lost = false, empty = true
-  let uploaded: unknown = null
+  let uploaded: unknown = null, uploadedFrame = ""
   const flipped = new Float32Array(MAX_DROPS * 3)
   const resize = () => {
     cssWidth = Math.max(1, canvas.clientWidth); cssHeight = Math.max(1, canvas.clientHeight)
-    const ratio = Math.min(window.devicePixelRatio || 1, 1.5)
+    // Phones fill a dense screen with the same per-pixel field; 1x keeps that affordable.
+    const ratio = Math.min(window.devicePixelRatio || 1, window.matchMedia("(pointer: coarse)").matches ? 1 : 1.5)
     width = canvas.width = Math.round(cssWidth * ratio)
     height = canvas.height = Math.round(cssHeight * ratio)
     empty = true
@@ -135,10 +136,13 @@ export function createLiquidReveal(canvas: HTMLCanvasElement): LiquidReveal | nu
   return {
     render(drops, time, source) {
       if (lost) return
-      // A paused video only needs a fresh upload when it may show a different frame.
-      if (source instanceof HTMLVideoElement || uploaded !== source) {
+      // A paused video only needs a fresh upload once it shows a different frame;
+      // mid-seek it keeps the last one rather than uploading a stale copy every scroll.
+      const videoFrame = source instanceof HTMLVideoElement ? `${source.currentSrc}|${source.currentTime}|${source.videoWidth}` : ""
+      if (uploaded !== source || (videoFrame !== uploadedFrame && !(source as HTMLVideoElement).seeking)) {
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source)
-        uploaded = source
+        // A first upload made mid-seek is retried once the seek lands.
+        uploaded = source; uploadedFrame = (source as HTMLVideoElement).seeking ? "" : videoFrame
       }
       const sourceWidth = source instanceof HTMLVideoElement ? source.videoWidth : (source as HTMLImageElement).naturalWidth
       const sourceHeight = source instanceof HTMLVideoElement ? source.videoHeight : (source as HTMLImageElement).naturalHeight
