@@ -20,7 +20,10 @@ const MOTION_POSTER = "/media/hero/omri-motion-poster.webp"
 const FILM = "/media/hero/cd-hero-scroll-v3-1080.mp4"
 const PHONE_FILM = "/media/hero/cd-hero-scroll-v3-portrait.mp4"
 const SMOOTH_FILM = "/media/hero/cd-hero-smooth-first-1080.mp4"
-const SMOOTH_PHONE_FILM = "/media/hero/cd-hero-smooth-first-portrait.mp4"
+// Phones get half the frames with a keyframe every fourth: each seek decodes at most four frames.
+const SMOOTH_PHONE_FILM = "/media/hero/cd-hero-smooth-first-portrait-48.mp4"
+// Touch devices hold both scrubbed videos in memory, so a fast flick never waits on a range request.
+const TOUCH = "(pointer: coarse)"
 // The first 180 of 824 encoded frames cover the 45 original source frames.
 const FIRST_SHOT_SHARE = 180 / 823
 const sections = [
@@ -141,12 +144,15 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
     let refreshFrame = 0
     let trigger: ScrollTrigger | undefined
     let renderCurrent: () => void = () => undefined
+    const inMemory = () => window.matchMedia(TOUCH).matches
     const portraitScrubber = createScrollVideo(portraitVideo, {
+      inMemory,
       onReady: ready => { setMotionReady(ready); if (ready) setMotionError(false) },
       onError: () => setMotionError(true),
     })
     const filmScrubber = createScrollVideo(film, {
-      fps: smoothFirstShot ? 96 : 24,
+      fps: () => !smoothFirstShot ? 24 : phoneFraming.matches ? 48 : 96,
+      inMemory,
       onReady: ready => { setFilmReady(ready); if (ready) setFilmError(false) },
       onError: () => setFilmError(true),
     })
