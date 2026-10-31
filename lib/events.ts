@@ -15,6 +15,8 @@ export interface LabelEvent {
   url: string
   instagram: string
   mock: boolean
+  /** Position in the events file; the dashboard appends, so higher means added later. */
+  added: number
 }
 export interface EventRow {
   event_title?: string
@@ -32,7 +34,7 @@ function publicUrl(value?: string) {
 
 export function mapLabelEvents(rows: EventRow[], mock = false): LabelEvent[] {
   const seen = new Set<string>()
-  return rows.flatMap(row => {
+  return rows.flatMap((row, added) => {
     if (!row || typeof row.event_title !== "string" || typeof row.date !== "string") return []
     const title = row.event_title.trim(), match = row.date.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/)
     if (!title || !match) return []
@@ -47,7 +49,7 @@ export function mapLabelEvents(rows: EventRow[], mock = false): LabelEvent[] {
       date: `${String(day).padStart(2, "0")} ${date.toLocaleDateString("en-GB", { month: "long" })} ${year}`,
       day: String(day).padStart(2, "0"), month: date.toLocaleDateString("en-GB", { month: "short" }).toUpperCase(), year: String(year), timestamp: date.getTime(),
       time: typeof row.times === "string" ? row.times : "", artists: typeof row.artists === "string" ? row.artists.split(",").map(value => value.trim()).filter(Boolean) : [],
-      url: mock ? "" : publicUrl(row.event_external_url), instagram: mock ? "" : publicUrl(row.event_instagram_post), mock,
+      url: mock ? "" : publicUrl(row.event_external_url), instagram: mock ? "" : publicUrl(row.event_instagram_post), mock, added,
     }]
   })
 }
@@ -55,6 +57,14 @@ export function mapLabelEvents(rows: EventRow[], mock = false): LabelEvent[] {
 export function partitionEvents(events: LabelEvent[], today = new Date()) {
   const boundary = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime()
   return { upcoming: events.filter(event => event.timestamp >= boundary).sort((a, b) => a.timestamp - b.timestamp), past: events.filter(event => event.timestamp < boundary).sort((a, b) => b.timestamp - a.timestamp) }
+}
+
+/** The main section: upcoming events, latest additions first, then those from the last 30 days. */
+export function featuredEvents(events: LabelEvent[], today = new Date()) {
+  const { upcoming, past } = partitionEvents(events, today)
+  const cutoff = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 30).getTime()
+  const current = [...upcoming.sort((a, b) => b.added - a.added), ...past.filter(event => event.timestamp >= cutoff)]
+  return (current.length ? current : past).slice(0, 3)
 }
 
 export const MOCK_EVENTS = mapLabelEvents([

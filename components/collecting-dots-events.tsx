@@ -6,7 +6,7 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ArrowLeft, ArrowUpRight, X } from "lucide-react"
 import { buildApiUrl } from "@/lib/api"
-import { EVENT_BACKDROPS, MOCK_EVENTS, mapLabelEvents, partitionEvents, type LabelEvent } from "@/lib/events"
+import { EVENT_BACKDROPS, MOCK_EVENTS, featuredEvents, mapLabelEvents, partitionEvents, type LabelEvent } from "@/lib/events"
 import styles from "./collecting-dots-events.module.css"
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
@@ -36,7 +36,7 @@ export default function CollectingDotsEvents({ mock = false }: { mock?: boolean 
   const [programmeTab, setProgrammeTab] = useState<"upcoming" | "past">("upcoming")
   const [detailId, setDetailId] = useState<string | null>(null)
   const programme = useMemo(() => partitionEvents(events), [events])
-  const featured = useMemo(() => (programme.upcoming.length ? programme.upcoming : programme.past).slice(0, 3), [programme])
+  const featured = useMemo(() => featuredEvents(events), [events])
   const detail = events.find(event => event.id === detailId)
   const listed = programme[programmeTab]
   const current = Math.min(active, Math.max(0, featured.length - 1))
