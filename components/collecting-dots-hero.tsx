@@ -24,7 +24,7 @@ const SMOOTH_PHONE_FILM = "/media/hero/cd-hero-smooth-first-portrait.mp4"
 const FIRST_SHOT_SHARE = 180 / 823
 const sections = [
   ["Releases", "releases"], ["Artists", "artists"], ["Events", "events"],
-  ["Media archive", "sets"], ["Merchandise", "merchandise"], ["Drop your dot", "demo-submission"],
+  ["Media archive", "sets"], ["Merchandise", "merchandise"], ["Drop it like it’s dot", "demo-submission"],
 ] as const
 const clamp = (value: number) => Math.max(0, Math.min(1, value))
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t

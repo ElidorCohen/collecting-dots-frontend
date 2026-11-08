@@ -12,16 +12,23 @@
 .introduction { margin: 32px 0 0; font-size: 14px; line-height: 1.6; }
 .sleeve { position: absolute; z-index: 3; width: min(31vw, 52svh); top: 28%; left: 79%; transform: translateX(-50%); }
 .sleeveButton { display: block; position: relative; width: 100%; color: var(--paper); text-align: left; }
-.cover { position: relative; display: block; aspect-ratio: 1; color: var(--ink); background: var(--paper); box-shadow: -9px 18px 0 #0003, 0 20px 60px #0003; transform-origin: 50% 50%; opacity: 0; }
-.cover::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 6%; border-top: 1px solid #17201920; background: linear-gradient(178deg, #1720190c, transparent 50%); }
+.cover { position: relative; display: block; aspect-ratio: 1; color: var(--ink); transform-origin: 50% 50%; opacity: 0; --cd-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150.04 150.04'%3E%3Cpath fill-rule='evenodd' d='M115.76,97.48c10.01,0,17.63,7.58,17.63,17.87s-7.62,17.96-17.63,17.96-17.72-7.58-17.72-17.96,7.62-17.87,17.72-17.87M0,150.04h150.04V0H0v150.04Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
+/* The sleeve is cut to the logo's square; a box-shadow would ignore the cut, so the shadow is a masked copy */
+.coverFace, .coverShadow > i { position: absolute; inset: 0; -webkit-mask: var(--cd-mark); mask: var(--cd-mark); }
+.coverFace { display: block; background: var(--paper); }
+.coverShadow { position: absolute; inset: 0; transform: translate(-9px, 18px); filter: blur(10px); }
+.coverShadow > i { background: #0005; }
+.coverFace::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 6%; border-top: 1px solid #17201920; background: linear-gradient(178deg, #1720190c, transparent 50%); }
 .sleeveLabel { position: absolute; top: 5%; left: 6%; right: 6%; display: flex; justify-content: space-between; gap: 12px; font: 6px/1.5 var(--font-jetbrains-mono), monospace; text-transform: uppercase; }
 .sleeveLabel > span:last-child { text-align: right; }
-.record { position: absolute; width: 56%; aspect-ratio: 1; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; background: var(--ink); box-shadow: inset 0 0 0 1px #eee8dd36, inset 0 0 0 7px #172019, inset 0 0 0 8px #eee8dd1a, inset 0 0 0 16px #172019, inset 0 0 0 17px #eee8dd14; }
+/* Nudged up and left so the record clears the cut-out dot */
+.record { position: absolute; width: 56%; aspect-ratio: 1; top: 45%; left: 46%; transform: translate(-50%, -50%); border-radius: 50%; background: var(--ink); box-shadow: inset 0 0 0 1px #eee8dd36, inset 0 0 0 7px #172019, inset 0 0 0 8px #eee8dd1a, inset 0 0 0 16px #172019, inset 0 0 0 17px #eee8dd14; }
 .record::before, .record::after, .record > i { content: ''; position: absolute; inset: 14%; border: 1px solid #eee8dd1f; border-radius: 50%; }
 .record::after { inset: 26%; border-color: #eee8dd36; }
 .record > i { inset: 32%; border-color: #eee8dd17; }
 .recordHole { position: absolute; left: calc(50% - 8px); top: calc(50% - 8px); width: 16px; height: 16px; border-radius: 50%; background: var(--orange); }
-.sleeveBottom { position: absolute; left: 6%; right: 6%; bottom: 9%; display: flex; align-items: end; justify-content: space-between; gap: 10px; font: 400 clamp(15px, 1.6vw, 24px)/.95 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.02em; }
+/* Ends before the cut-out dot in the lower right */
+.sleeveBottom { position: absolute; left: 6%; right: 38%; bottom: 9%; display: flex; align-items: end; justify-content: space-between; gap: 10px; font: 400 clamp(15px, 1.6vw, 24px)/.95 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.02em; }
 .sleeveBottom > span:first-child { white-space: nowrap; }
 .sleeveBottom > svg { width: 20px; }
 .barcode { height: 28px; width: 36px; background: repeating-linear-gradient(90deg, var(--ink) 0 1px, transparent 1px 3px, var(--ink) 3px 5px, transparent 5px 6px, var(--ink) 6px 7px, transparent 7px 10px); }
@@ -49,7 +56,8 @@
 .dialogLayout { display: grid; grid-template-columns: 31% 1fr; min-height: min(700px, calc(100svh - 48px)); }
 .formAside { position: sticky; top: 0; align-self: start; height: calc(100svh - 48px); min-height: 580px; max-height: 850px; background: var(--orange); padding: 40px 30px; overflow: hidden; }
 .formAside .micro { font-size: 7px; }
-.formAside h2 { margin: 55px 0 24px; font: 400 clamp(55px, 6vw, 82px)/.82 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.035em; }
+/* Sized so "LIKE IT’S" stays on one line in the narrow column */
+.formAside h2 { margin: 55px 0 24px; font: 400 clamp(44px, 4.8vw, 64px)/.82 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.035em; }
 .formAside h2 > span { display: block; }
 .formAside h2 i { color: var(--paper); font-style: normal; }
 .formAside > p:not(.micro) { font-size: 13px; line-height: 1.6; }
@@ -156,7 +164,8 @@
   .room > span { display: none; }
   .heading { top: 91px; width: 90%; z-index: 2; }
   .heading .micro { font-size: 6px; width: 59%; }
-  .heading h2 { margin-top: 22px; font-size: min(20vw, 10svh); line-height: .81; }
+  /* "LIKE IT’S" has to fit beside the dark panel, which takes the right 35% */
+  .heading h2 { margin-top: 22px; font-size: min(15.5vw, 10svh); line-height: .81; }
   .heading h2 > span { display: block; }
   .introduction { max-width: 28%; font-size: 10px; margin-top: 19px; line-height: 1.65; }
   .introduction br { display: none; }
@@ -198,7 +207,7 @@
 }
 @media (max-width: 699px) and (max-height: 680px) {
   .heading { top: 78px; }
-  .heading h2 { font-size: 19vw; margin-top: 16px; }
+  .heading h2 { font-size: 15.5vw; margin-top: 16px; }
   .introduction { font-size: 9px; margin-top: 14px; }
   .sleeve { top: 47%; width: min(54vw, 28svh); }
   .sleeveCaption { margin-top: 25px; font-size: 7px; }
