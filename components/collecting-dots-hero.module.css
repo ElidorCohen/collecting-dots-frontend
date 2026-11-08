@@ -45,7 +45,8 @@
 .portraitMotion[data-visible="true"] { opacity: 1; }
 .portraitShade { position: absolute; inset: 0; background: linear-gradient(0deg, #0b0c0b, transparent 44%), linear-gradient(90deg, #0b0c0b 16%, transparent 70%); }
 .intro { position: absolute; z-index: 2; top: 35%; left: 3.8vw; opacity: var(--intro-opacity); transform: translate3d(var(--intro-x), var(--intro-y), 0); pointer-events: none; }
-.intro h1 { margin: 0 0 0 -.045em; font: 400 clamp(76px, 9.5vw, 180px)/.87 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.05em; }
+.intro h1 { margin: 0; font: 400 clamp(76px, 9.5vw, 180px)/.87 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.05em; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .period { display: inline-block; position: relative; width: .235em; height: .235em; margin-left: .025em; border-radius: 50%; background: var(--ember); }
 .stage[data-seed-ready="true"] .period { visibility: hidden; }
 .particles { position: absolute; inset: 0; z-index: 3; pointer-events: none; }

@@ -10,6 +10,7 @@ import { createScrollVideo } from "@/lib/scroll-video"
 import CollectingDotsStory from "./collecting-dots-story"
 import dotTracks from "./omri-dot-tracks.json"
 import styles from "./collecting-dots-hero.module.css"
+import LogoWordmarkLine from "./logo-wordmark-line"
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
@@ -641,7 +642,7 @@ export default function CollectingDotsHero({ preview = false, continueStory = fa
             </div>
             <div className={styles.portraitShade} aria-hidden="true" />
           </div>
-          <div className={styles.intro}><h1 id="cd-hero-title" tabIndex={-1}>COLLECTING<br />DOTS<span ref={periodRef} className={styles.period} aria-hidden="true" /></h1></div>
+          <div className={styles.intro}><h1 id="cd-hero-title" tabIndex={-1}><span className={styles.srOnly}>Collecting Dots</span><LogoWordmarkLine line="collecting" /><br /><LogoWordmarkLine line="dots" /><span ref={periodRef} className={styles.period} aria-hidden="true" /></h1></div>
           <div className={styles.particles} ref={dotsRef} aria-hidden="true">{Array.from({ length: 11 }, (_, index) => <i key={index} />)}</div>
           <span className={styles.seed} ref={seedRef} aria-hidden="true" />
           <div className={styles.footage} style={{ "--reveal-mask": `url(#${revealId})` } as CSSProperties} data-hero-footage>

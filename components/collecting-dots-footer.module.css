@@ -2,7 +2,7 @@
 .stage { position: sticky; top: 0; height: 100svh; min-height: 560px; overflow: clip; isolation: isolate; }
 .matte { position: absolute; inset: 0; background: var(--ink); transform: translateY(100svh); }
 .eyebrow { position: absolute; left: var(--gutter); top: 14%; margin: 0; color: #9b9f8f; font: 9px/1.5 var(--font-jetbrains-mono), monospace; text-transform: uppercase; }
-.wordmark { position: absolute; left: calc(var(--gutter) - .025em); top: 24%; margin: 0; font: 400 min(13.5vw, 20svh, 230px)/.81 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.045em; }
+.wordmark { position: absolute; left: var(--gutter); top: 24%; margin: 0; font: 400 min(13.5vw, 20svh, 230px)/.81 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.045em; }
 .wordmark > span { display: block; white-space: nowrap; opacity: 0; }
 .period { display: inline-block; position: relative; vertical-align: .04em; width: .19em; height: .19em; margin-left: .04em; border-radius: 50%; background: var(--orange); opacity: 0; }
 .curator { position: absolute; left: 72%; top: 47%; margin: 0; color: #9b9f8f; font: 9px/1.7 var(--font-jetbrains-mono), monospace; text-transform: uppercase; }

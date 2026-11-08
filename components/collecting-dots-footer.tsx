@@ -6,6 +6,7 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ArrowUp, ArrowUpRight } from "lucide-react"
 import styles from "./collecting-dots-footer.module.css"
+import LogoWordmarkLine from "./logo-wordmark-line"
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 const clamp = gsap.utils.clamp(0, 1)
@@ -135,7 +136,7 @@ export default function CollectingDotsFooter() {
     <div className={styles.stage} ref={stageRef}>
       <div className={styles.matte} ref={matteRef} aria-hidden="true" />
       <p className={styles.eyebrow} data-footer-reveal>The story keeps going.</p>
-      <h2 className={styles.wordmark} id="cd-footer-title" aria-label="Collecting Dots Records"><span data-footer-word>COLLECTING</span><span data-footer-word>DOTS<span className={styles.period} ref={periodRef} data-footer-handoff-dot aria-hidden="true" /></span></h2>
+      <h2 className={styles.wordmark} id="cd-footer-title" aria-label="Collecting Dots Records"><span data-footer-word><LogoWordmarkLine line="collecting" /></span><span data-footer-word><LogoWordmarkLine line="dots" /><span className={styles.period} ref={periodRef} data-footer-handoff-dot aria-hidden="true" /></span></h2>
       <p className={styles.curator} data-footer-reveal>Independent music record label.<br /><span>Curated by OMRI.</span></p>
       <div className={styles.rule} ref={ruleRef} aria-hidden="true" />
       <div className={styles.content}>
