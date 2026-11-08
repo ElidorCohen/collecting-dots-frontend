@@ -10,7 +10,8 @@
 .rule { position: absolute; top: 60%; left: var(--gutter); right: var(--gutter); height: 1px; background: #e9e5dc35; transform: scaleX(0); transform-origin: 0 50%; opacity: 0; }
 .content { position: absolute; left: var(--gutter); right: var(--gutter); top: 66%; display: grid; grid-template-columns: 1fr 32%; gap: 6vw; }
 .contact > p { margin: 0 0 15px; color: #9b9f8f; font: 8px/1.5 var(--font-jetbrains-mono), monospace; text-transform: uppercase; }
-.contact > a { display: flex; align-items: center; gap: 20px; width: fit-content; max-width: 100%; min-height: 44px; font: 400 clamp(19px, 2.3vw, 37px)/1.2 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.015em; }
+/* Capitals, like every other use of the display face */
+.contact > a { display: flex; align-items: center; gap: 20px; width: fit-content; max-width: 100%; min-height: 44px; font: 400 clamp(19px, 2.3vw, 37px)/1.2 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.015em; text-transform: uppercase; }
 .contact > a > svg { flex-shrink: 0; width: 20px; }
 .contact > a:hover { color: #ff806b; }
 .links { display: grid; }

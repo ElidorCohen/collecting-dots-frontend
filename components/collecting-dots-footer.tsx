@@ -136,7 +136,7 @@ export default function CollectingDotsFooter() {
       <div className={styles.matte} ref={matteRef} aria-hidden="true" />
       <p className={styles.eyebrow} data-footer-reveal>The story keeps going.</p>
       <h2 className={styles.wordmark} id="cd-footer-title" aria-label="Collecting Dots Records"><span data-footer-word>COLLECTING</span><span data-footer-word>DOTS<span className={styles.period} ref={periodRef} data-footer-handoff-dot aria-hidden="true" /></span></h2>
-      <p className={styles.curator} data-footer-reveal>Independent electronic music.<br /><span>Curated by OMRI.</span></p>
+      <p className={styles.curator} data-footer-reveal>Independent music record label.<br /><span>Curated by OMRI.</span></p>
       <div className={styles.rule} ref={ruleRef} aria-hidden="true" />
       <div className={styles.content}>
         <div className={styles.contact} data-footer-reveal><p>Keep in touch</p><a href="mailto:office@collectingdots.com" target="_blank" rel="noopener noreferrer">office@collectingdots.com<ArrowUpRight size={22} /></a></div>
