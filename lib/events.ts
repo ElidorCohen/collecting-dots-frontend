@@ -59,10 +59,10 @@ export function partitionEvents(events: LabelEvent[], today = new Date()) {
   return { upcoming: events.filter(event => event.timestamp >= boundary).sort((a, b) => a.timestamp - b.timestamp), past: events.filter(event => event.timestamp < boundary).sort((a, b) => b.timestamp - a.timestamp) }
 }
 
-/** The main section: upcoming events, latest additions first, then those from the last 30 days. */
-export function featuredEvents(events: LabelEvent[], today = new Date()) {
+/** The main section: upcoming events, latest additions first, then those from the last recentDays days (set in the dashboard). */
+export function featuredEvents(events: LabelEvent[], today = new Date(), recentDays = 30) {
   const { upcoming, past } = partitionEvents(events, today)
-  const cutoff = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 30).getTime()
+  const cutoff = new Date(today.getFullYear(), today.getMonth(), today.getDate() - recentDays).getTime()
   const current = [...upcoming.sort((a, b) => b.added - a.added), ...past.filter(event => event.timestamp >= cutoff)]
   return (current.length ? current : past).slice(0, 3)
 }

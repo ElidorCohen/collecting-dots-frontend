@@ -5,11 +5,12 @@ export async function GET(request: NextRequest) {
   try {
     // Read events data from Dropbox JSON file
     const dropboxService = new DropboxService();
-    const eventsData = await dropboxService.readEventsData();
+    const { events: eventsData, recentDays } = await dropboxService.readEventsFile();
 
     const response = NextResponse.json({
       success: true,
       data: eventsData,
+      recent_days: recentDays,
       total_events: eventsData.length,
       message: 'Successfully retrieved events data',
     });
@@ -90,11 +91,12 @@ export async function POST(request: NextRequest) {
   try {
     // Read events data from Dropbox JSON file
     const dropboxService = new DropboxService();
-    const eventsData = await dropboxService.readEventsData();
+    const { events: eventsData, recentDays } = await dropboxService.readEventsFile();
 
     const response = NextResponse.json({
       success: true,
       data: eventsData,
+      recent_days: recentDays,
       total_events: eventsData.length,
       message: 'Successfully retrieved events data',
     });

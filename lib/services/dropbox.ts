@@ -30,6 +30,16 @@ const customFetch = async (url: RequestInfo | URL, init?: RequestInit) => {
   return response;
 };
 
+type EventRow = {
+  event_title: string;
+  location: string;
+  date: string;
+  times: string;
+  artists: string;
+  event_external_url?: string;
+  event_instagram_post?: string;
+};
+
 export class DropboxService {
   private dbx: Dropbox;
 
@@ -250,15 +260,14 @@ export class DropboxService {
    * Reads events data from a JSON file in Dropbox
    * Expected format: JSON with events array containing event information
    */
-  async readEventsData(): Promise<Array<{
-    event_title: string;
-    location: string;
-    date: string;
-    times: string;
-    artists: string;
-    event_external_url?: string;
-    event_instagram_post?: string;
-  }>> {
+  async readEventsData(): Promise<EventRow[]> {
+    return (await this.readEventsFile()).events;
+  }
+
+  /**
+   * The whole events file: the events plus how many days past events stay in the main section.
+   */
+  async readEventsFile(): Promise<{ events: EventRow[]; recentDays: number | null }> {
     try {
       // Download the file from Dropbox
       const response: any = await this.dbx.filesDownload({
@@ -343,7 +352,7 @@ export class DropboxService {
         throw new Error('Invalid JSON structure: expected "events" array');
       }
 
-      return jsonData.events;
+      return { events: jsonData.events, recentDays: Number.isInteger(jsonData.recentDays) ? jsonData.recentDays : null };
     } catch (error: any) {
       // Handle Dropbox auth errors
       if (error.status === 401) {
