@@ -333,7 +333,7 @@ export default function CollectingDotsReleases({ preview = false }: { preview?: 
       <div ref={stageRef} className={styles.stage}>
         <div ref={panelRef} className={styles.panel}>
           <div className={styles.masthead} data-release-heading>
-            <div><p className={styles.kicker}>The latest from Collecting Dots</p><h2 id="cd-releases-title">RELEASES<span className={styles.titleDot} ref={titleDotRef} aria-hidden="true">.</span></h2></div>
+            <div><p className={styles.kicker}>Most streamed from Collecting Dots</p><h2 id="cd-releases-title">RELEASES<span className={styles.titleDot} ref={titleDotRef} aria-hidden="true">.</span></h2></div>
             <a className={styles.spotify} href={LABEL_PLAYLIST} target="_blank" rel="noopener noreferrer">Listen on Spotify <ArrowUpRight size={16} /></a>
           </div>
           <p className={styles.srOnly} id="cd-release-instructions">Scroll down to move through the records horizontally. Use the arrow buttons or open the full catalogue to browse every release.</p>
