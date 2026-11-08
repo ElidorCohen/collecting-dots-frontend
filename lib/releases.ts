@@ -13,6 +13,8 @@ export interface LabelRelease {
   duration: string
   url: string
   previewUrl: string | null
+  /** Spotify's 0–100 score; it weighs recent plays most. */
+  popularity: number
 }
 
 type FeedTrack = {
@@ -24,6 +26,7 @@ type FeedTrack = {
   external_urls?: { spotify?: string }
   preview_url?: string | null
   deezer_preview_url?: string | null
+  popularity?: number
 }
 
 export function mapLabelReleases(rows: { track?: FeedTrack | null }[]): LabelRelease[] {
@@ -47,8 +50,10 @@ export function mapLabelReleases(rows: { track?: FeedTrack | null }[]): LabelRel
       duration,
       url: track.external_urls?.spotify || `https://open.spotify.com/track/${track.id}`,
       previewUrl: track.preview_url || track.deezer_preview_url || null,
+      popularity: track.popularity ?? 0,
     }]
-  }).sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))
+  // Most played first; equal scores keep the newest release ahead
+  }).sort((a, b) => b.popularity - a.popularity || b.releaseDate.localeCompare(a.releaseDate))
 }
 
 export function selectFeaturedReleases(releases: LabelRelease[], limit = 8): LabelRelease[] {

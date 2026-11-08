@@ -49,6 +49,7 @@ interface ArtistData {
   artist_spotify: string;
   artist_beatport: string;
   image: string;
+  popularity: number | null;
 }
 
 export class SpotifyService {
@@ -135,6 +136,8 @@ export class SpotifyService {
           artist_spotify: artistData.artist_spotify,
           artist_beatport: artistData.artist_beatport,
           image: imageUrl,
+          // Spotify left popularity out for apps in its restricted mode; the site then keeps the dashboard's order
+          popularity: typeof spotifyArtist.popularity === 'number' ? spotifyArtist.popularity : null,
         });
       }
 

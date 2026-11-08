@@ -4,6 +4,8 @@ export interface LabelArtist {
   image: string
   imageSet?: string
   editorial: boolean
+  /** Spotify's 0–100 score, when Spotify sends one. */
+  popularity: number | null
   links: { label: string; url: string }[]
 }
 
@@ -14,6 +16,7 @@ interface ArtistRow {
   artist_spotify?: string
   artist_beatport?: string
   image?: string
+  popularity?: number | null
 }
 
 const OMRI_ID = "36jn1T9teX1BHEJYcPoazX"
@@ -27,7 +30,7 @@ function externalUrl(value?: string) {
 
 export function mapLabelArtists(rows: ArtistRow[]): LabelArtist[] {
   const seen = new Set<string>()
-  return rows.flatMap(row => {
+  const artists = rows.flatMap(row => {
     const name = row.artist_name?.trim()
     if (!name) return []
     const id = row.artist_spotify?.match(/\/artist\/([a-zA-Z0-9]+)/)?.[1] || name.toLocaleLowerCase()
@@ -43,10 +46,13 @@ export function mapLabelArtists(rows: ArtistRow[]): LabelArtist[] {
     ].filter(link => link.url)
     return [{
       id, name, editorial, links,
+      popularity: typeof row.popularity === "number" ? row.popularity : null,
       image: editorial ? "/media/artists/omri-seated-1920.webp" : externalUrl(row.image),
       imageSet: editorial ? [640, 1280, 1920].map(width => `/media/artists/omri-seated-${width}.webp ${width}w`).join(", ") : undefined,
     }]
   })
+  // OMRI. leads; then the most popular, with unscored artists keeping the dashboard's order
+  return artists.sort((a, b) => Number(b.editorial) - Number(a.editorial) || (b.popularity ?? -1) - (a.popularity ?? -1))
 }
 
 export async function fetchLabelArtists(signal: AbortSignal): Promise<LabelArtist[]> {
