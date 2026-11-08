@@ -7,7 +7,8 @@
 .papers > div:not(:last-child) { border-right: 1px solid #1822190d; }
 .heading { position: absolute; z-index: 3; left: var(--gutter); top: 14%; width: 39%; }
 .kicker { margin: 0 0 20px; font: 9px/1.4 var(--font-jetbrains-mono), monospace; text-transform: uppercase; letter-spacing: .02em; }
-.heading h2 { font: 400 clamp(44px, 5.1vw, 88px)/.9 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.035em; margin: 0; }
+/* --title-scale shrinks the title for partner names longer than FLOAT, so it keeps its two lines */
+.heading h2 { font: 400 calc(clamp(44px, 5.1vw, 88px) * var(--title-scale, 1))/.9 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.035em; margin: 0; }
 .heading h2 > span { display: block; }
 .heading h2 i { font-family: var(--font-inter), sans-serif; font-size: .64em; font-weight: 300; font-style: normal; vertical-align: .06em; }
 .introduction { margin: 22px 0 0; font-size: 13px; line-height: 1.6; color: #5b6254; }
@@ -63,7 +64,7 @@
 .section :focus-visible { outline: 2px solid #c9422c; outline-offset: 5px; }
 @media (min-width: 700px) and (max-height: 760px) {
   .heading { top: 13%; }
-  .heading h2 { font-size: min(5.1vw, 9svh); }
+  .heading h2 { font-size: calc(min(5.1vw, 9svh) * var(--title-scale, 1)); }
   .kicker { margin-bottom: 16px; font-size: 8px; }
   .introduction { font-size: 11px; margin-top: 16px; }
   .choices > button { min-height: 34px; }
@@ -83,7 +84,7 @@
 @media (max-width: 699px) {
   .section { --gutter: 24px; }
   .heading { top: 85px; width: calc(100% - 48px); }
-  .heading h2 { font-size: clamp(25px, 8.2vw, 46px); line-height: .9; }
+  .heading h2 { font-size: calc(clamp(25px, 8.2vw, 46px) * var(--title-scale, 1)); line-height: .9; }
   .heading h2 > span { display: inline; }
   .heading h2 > span:first-child::after { content: ' '; }
   .kicker { margin-bottom: 12px; font-size: 7px; }
@@ -120,7 +121,7 @@
 }
 @media (max-width: 699px) and (max-height: 740px) {
   .heading { top: 78px; }
-  .heading h2 { font-size: 7.8vw; }
+  .heading h2 { font-size: calc(7.8vw * var(--title-scale, 1)); }
   .selection { bottom: 92px; }
   .caption h3 { font-size: 18px; }
   .caption { margin-top: 9px; }
@@ -130,7 +131,7 @@
   .mainFigure { top: 27%; width: min(58vw, calc(55svh - 200px)); }
 }
 @media (min-width: 700px) and (max-width: 1000px) {
-  .heading h2 { font-size: 4.8vw; }
+  .heading h2 { font-size: calc(4.8vw * var(--title-scale, 1)); }
   .caption { flex-direction: column; gap: 5px; }
 }
 @media (prefers-reduced-motion: reduce) {

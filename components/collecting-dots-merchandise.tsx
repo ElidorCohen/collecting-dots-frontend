@@ -1,26 +1,41 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, type CSSProperties } from "react"
 import { useGSAP } from "@gsap/react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ArrowUpRight, ArrowRight } from "lucide-react"
-import products from "@/lib/merchandise.json"
+import { BUNDLED_MERCH, fetchMerch, type MerchImage, type MerchProduct } from "@/lib/merchandise"
 import styles from "./collecting-dots-merchandise.module.css"
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
-const SHOP = "https://www.floatapparel.co.za/collections/collecting-dots-x-float"
 const clamp = gsap.utils.clamp(0, 1)
 const smooth = (value: number) => { const t = clamp(value); return t * t * (3 - 2 * t) }
-type ProductImage = typeof products[number]["images"][number]
-function imageSet(image: ProductImage) { return [360, 720, 1080, image.width].filter((width, index, all) => width <= image.width && all.indexOf(width) === index).map(width => `${image.src}&width=${width} ${width}w`).join(", ") }
+const WORDS = ["No", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve"]
+const count = (n: number) => WORDS[n] ?? String(n)
+// Shopify image links accept a width; anything else is used as it is
+function sized(src: string, width: number) {
+  try { const url = new URL(src); if (url.hostname !== "cdn.shopify.com" && !url.pathname.includes("/cdn/shop/")) return src; url.searchParams.set("width", String(width)); return url.href } catch { return src }
+}
+function imageSet(image: MerchImage) { return [360, 720, 1080, image.width].filter((width, index, all) => width <= image.width && all.indexOf(width) === index).map(width => `${sized(image.src, width)} ${width}w`).join(", ") }
 
 export default function CollectingDotsMerchandise() {
   const sectionRef = useRef<HTMLElement>(null), stageRef = useRef<HTMLDivElement>(null)
   const mainRef = useRef<HTMLDivElement>(null), nextRef = useRef<HTMLButtonElement>(null)
   const tagRef = useRef<HTMLDivElement>(null), holeRef = useRef<HTMLSpanElement>(null), connectorRef = useRef<HTMLSpanElement>(null)
   const footerRef = useRef<HTMLElement>(null), enter = useRef<() => void>(() => undefined)
+  const [products, setProducts] = useState<MerchProduct[]>(BUNDLED_MERCH)
   const [selected, setSelected] = useState(0), [view, setView] = useState(0)
+  // The dashboard's list replaces the bundled pieces; it keeps their order and look
+  useEffect(() => {
+    const controller = new AbortController()
+    fetchMerch(controller.signal).then(list => {
+      if (JSON.stringify(list) === JSON.stringify(BUNDLED_MERCH)) return
+      setProducts(list); setSelected(0); setView(0)
+    }).catch(() => { /* The bundled pieces stay. */ })
+    return () => controller.abort()
+  }, [])
+  const brands = new Set(products.map(item => item.brandName)).size
   const product = products[selected], nextIndex = (selected + 1) % products.length, next = products[nextIndex]
   function select(index: number) { setSelected(index); setView(0) }
 
@@ -108,7 +123,7 @@ export default function CollectingDotsMerchandise() {
       if (source) delete source.dataset.merchDeparted
       if (header) { delete header.dataset.merchTone; delete header.dataset.merchBridge }
     }
-  }, { scope: sectionRef })
+  }, { scope: sectionRef, dependencies: [products], revertOnUpdate: true })
 
   useEffect(() => {
     if (window.location.hash !== "#merchandise") return
@@ -133,7 +148,7 @@ export default function CollectingDotsMerchandise() {
     return () => { cancel(); inputs.forEach(type => window.removeEventListener(type, cancel)) }
   }, [])
 
-  function photograph(image: ProductImage, name: string, small = false) {
+  function photograph(image: MerchImage, name: string, small = false) {
     return <img src={image.src} srcSet={imageSet(image)} sizes={small ? "(max-width: 699px) 20vw, 15vw" : "(max-width: 699px) 58vw, (max-width: 1000px) 34vw, 47vh"} width={image.width} height={image.height} alt={`${name} — ${image.label}`} loading="lazy" decoding="async" draggable={false} />
   }
 
@@ -142,21 +157,21 @@ export default function CollectingDotsMerchandise() {
       <div className={styles.papers} aria-hidden="true">{[0, 1, 2].map(index => <div data-merch-paper key={index} />)}</div>
       <div className={styles.heading}>
         <p className={styles.kicker} data-merch-line>The collection / Merchandise</p>
-        <h2 id="cd-merch-title"><span data-merch-line>COLLECTING</span><span data-merch-line>DOTS <i>×</i> FLOAT</span></h2>
-        <p className={styles.introduction} data-merch-line>Premium apparel and accessories<br />in collaboration with Float Apparel.</p>
+        <h2 id="cd-merch-title" style={{ "--title-scale": Math.min(1, 11 / (6 + product.brand.length)) } as CSSProperties}><span data-merch-line>COLLECTING</span><span data-merch-line>DOTS <i>×</i> {product.brand.toUpperCase()}</span></h2>
+        <p className={styles.introduction} data-merch-line>Premium apparel and accessories<br />in collaboration with {product.brandName}.</p>
       </div>
       <div className={styles.selection}>
         <div className={styles.choices} aria-label="Choose a product">{products.map((item, index) => <button key={item.id} data-merch-choice aria-label={`View ${item.shortName}`} aria-pressed={selected === index} onClick={() => select(index)}><span>{String(index + 1).padStart(2, "0")}</span><span>{item.shortName}</span><i aria-hidden="true" /></button>)}</div>
-        <a className={styles.shop} href={SHOP} target="_blank" rel="noopener noreferrer" data-merch-line aria-label={`View ${product.shortName} in the Float collection`}>View at Float<ArrowUpRight size={19} /></a>
-        <p className={styles.shopNote} data-merch-line>Sizes, current prices and availability at Float.</p>
+        <a className={styles.shop} href={product.url} target="_blank" rel="noopener noreferrer" data-merch-line aria-label={`View ${product.shortName} at ${product.brandName}`}>View at {product.brand}<ArrowUpRight size={19} /></a>
+        <p className={styles.shopNote} data-merch-line>Sizes, current prices and availability at {product.brand}.</p>
       </div>
       <figure className={styles.mainFigure}>
         <div className={styles.photoWindow}><div className={styles.photoMotion} ref={mainRef}>{products.map((item, index) => <div key={item.id} className={styles.productImages} data-active={selected === index} aria-hidden={selected !== index}>{item.images.map((image, angle) => <div key={image.src} data-angle={angle} data-active={view === angle} aria-hidden={view !== angle}>{photograph(image, item.shortName)}</div>)}</div>)}</div></div>
         <figcaption className={styles.caption} data-merch-line><h3 aria-live="polite">{product.shortName}<span>{product.category}</span></h3><div className={styles.angles} aria-label="Product photographs">{product.images.map((image, index) => <button key={image.src} onClick={() => setView(index)} aria-pressed={view === index}>{image.label}</button>)}</div></figcaption>
-        <div className={styles.tag} ref={tagRef} aria-hidden="true"><span className={styles.tagHole} ref={holeRef} data-merch-handoff-dot /><span>COLLECTING<br />DOTS</span><i>×</i><strong>FLOAT</strong><small>{String(selected + 1).padStart(2, "0")} / 06</small></div>
+        <div className={styles.tag} ref={tagRef} aria-hidden="true"><span className={styles.tagHole} ref={holeRef} data-merch-handoff-dot /><span>COLLECTING<br />DOTS</span><i>×</i><strong>{product.brand.toUpperCase()}</strong><small>{String(selected + 1).padStart(2, "0")} / {String(products.length).padStart(2, "0")}</small></div>
       </figure>
       <button className={styles.nextPiece} ref={nextRef} onClick={() => select(nextIndex)} aria-label={`Next piece: ${next.shortName}`}><span className={styles.nextImage}>{photograph(next.images[0], next.shortName, true)}</span><span className={styles.nextCaption}><span>Next piece<small>{next.shortName}</small></span><ArrowRight size={18} /></span></button>
-      <footer className={styles.footer} ref={footerRef}><p>Collecting Dots × Float Apparel<span>Six pieces. One collection.</span></p><span className={styles.counter}>{String(selected + 1).padStart(2, "0")}<i />{String(products.length).padStart(2, "0")}</span><a href={SHOP} target="_blank" rel="noopener noreferrer">Shop full collection<ArrowUpRight size={18} /></a></footer>
+      <footer className={styles.footer} ref={footerRef}><p>Collecting Dots × {product.brandName}<span>{count(products.length)} pieces. {brands === 1 ? "One collection." : `${count(brands)} collaborations.`}</span></p><span className={styles.counter}>{String(selected + 1).padStart(2, "0")}<i />{String(products.length).padStart(2, "0")}</span><a href={product.url} target="_blank" rel="noopener noreferrer">{product.url.includes("/collections/") ? "Shop full collection" : "Shop this piece"}<ArrowUpRight size={18} /></a></footer>
       <span className={styles.connector} ref={connectorRef} aria-hidden="true" data-merch-connector />
     </div>
   </section>

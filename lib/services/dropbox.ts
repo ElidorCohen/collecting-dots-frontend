@@ -469,4 +469,26 @@ export class DropboxService {
       throw new Error(`Failed to save metadata: ${errorMessage}`);
     }
   }
+
+  /**
+   * Reads the merch list the dashboard keeps at /merch/merch.json.
+   * Returns null until the dashboard has saved one, so the site can keep its bundled products.
+   */
+  async readMerchData(): Promise<unknown[] | null> {
+    let response: any;
+    try {
+      response = await this.dbx.filesDownload({ path: '/merch/merch.json' });
+    } catch (error: any) {
+      if (error?.status === 409 && JSON.stringify(error?.error ?? '').includes('not_found')) return null;
+      throw new Error(`Failed to read merch data from Dropbox: ${error?.message || error?.status || error}`);
+    }
+    const result = response?.result;
+    const buffer: Buffer | undefined = result?.fileBinary
+      ? Buffer.from(result.fileBinary)
+      : result?.fileBlob ? Buffer.from(await result.fileBlob.arrayBuffer()) : undefined;
+    if (!buffer) throw new Error('File content not found in Dropbox response.');
+    const data = JSON.parse(buffer.toString('utf-8'));
+    if (!Array.isArray(data?.products)) throw new Error('Invalid JSON structure: expected "products" array');
+    return data.products;
+  }
 }
