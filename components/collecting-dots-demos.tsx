@@ -6,6 +6,7 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ArrowUpRight, ArrowDown } from "lucide-react"
 import DemoSubmissionForm from "./demo-submission-form"
+import { SLEEVE_DOT } from "@/lib/demo-sleeve"
 import styles from "./collecting-dots-demos.module.css"
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
@@ -44,7 +45,7 @@ export default function CollectingDotsDemos() {
       section.style.height = reduced ? "auto" : `${geometry.height + geometry.range}px`
       geometry.top = section.getBoundingClientRect().top + window.scrollY
       const bounds = stage.getBoundingClientRect(), frame = sleeve.getBoundingClientRect()
-      geometry.targetX = frame.left - bounds.left + frame.width / 2; geometry.targetY = frame.top - bounds.top + frame.width / 2
+      geometry.targetX = frame.left - bounds.left + frame.width * SLEEVE_DOT.x; geometry.targetY = frame.top - bounds.top + frame.width * SLEEVE_DOT.y
       const origin = source?.getBoundingClientRect(), merch = source?.closest<HTMLElement>("[data-merch-stage]")?.getBoundingClientRect()
       geometry.sourceX = origin && merch ? origin.left - merch.left + origin.width / 2 : geometry.width * .5
       geometry.sourceY = origin && merch ? origin.top - merch.top + origin.height / 2 : geometry.height * .2
@@ -71,7 +72,7 @@ export default function CollectingDotsDemos() {
           roomX(geometry.width * .48 * (1 - smooth((intro - .12) / .54)))
           text.forEach((set, index) => { const t = clamp((intro - .3 - index * .06) / .3); set.x(-55 * (1 - smooth(t))); set.opacity(t) })
           const arrival = smooth((intro - .28) / .62)
-          coverY(geometry.height * .32 * (1 - arrival)); coverRotation(-22 + 16 * arrival); coverOpacity(clamp((intro - .28) / .3))
+          coverY(geometry.height * .32 * (1 - arrival)); coverRotation(-16 * (1 - arrival)); coverOpacity(clamp((intro - .28) / .3))
           // The sleeve answers clicks and dropped files once clearly visible, not only after the entrance.
           const live = String(clamp((intro - .28) / .3) >= .5)
           if (sleeve.dataset.live !== live) sleeve.dataset.live = live
@@ -129,7 +130,7 @@ export default function CollectingDotsDemos() {
         <div className={styles.heading}><p className={styles.micro} data-demo-line>The next dot could be yours / Demos</p><h2 id="cd-demo-title"><span data-demo-line>DROP IT</span><span data-demo-line>LIKE IT’S</span><span data-demo-line>DOT<span className={styles.titlePeriod}>.</span></span></h2><p className={styles.introduction} data-demo-line>A new sound. A different perspective.<br /> Send us something only you could make.</p></div>
         <div className={styles.sleeve} ref={sleeveRef} data-demo-sleeve data-dragging={dragging}>
           <button className={styles.sleeveButton} aria-haspopup="dialog" aria-label="Drop it like it’s dot — open demo submission" onClick={() => setOpen(true)} onDragOver={event => { event.preventDefault(); if (enabled) setDragging(true) }} onDragLeave={() => setDragging(false)} onDrop={event => { event.preventDefault(); setDragging(false); if (!loading && enabled) { setIncoming(Array.from(event.dataTransfer.files)); setOpen(true) } }}>
-            <span className={styles.cover} ref={coverRef}><span className={styles.coverShadow} aria-hidden="true"><i /></span><span className={styles.coverFace}><span className={styles.sleeveLabel}><span>Collecting Dots Records</span><span>Original music / New discoveries</span></span><span className={styles.record} aria-hidden="true"><i /><span className={styles.recordHole} ref={holeRef} data-demo-handoff-dot /></span><span className={styles.sleeveBottom}><span>Your sound<br />belongs here.</span><ArrowDown size={24} /><span className={styles.barcode} aria-hidden="true" /></span></span></span>
+            <span className={styles.cover} ref={coverRef}><span className={styles.coverShadow} aria-hidden="true"><i /></span><span className={styles.coverFace}><span className={styles.sleeveLabel}><span>Collecting Dots Records</span><span>Original music / New discoveries</span></span><span className={styles.sleeveBottom}><span>Your sound<br />belongs here.</span><ArrowDown size={24} /><span className={styles.barcode} aria-hidden="true" /></span></span><span className={styles.recordHole} ref={holeRef} data-demo-handoff-dot aria-hidden="true" /></span>
             <span className={styles.sleeveCaption} data-demo-line><span>{loading ? "Opening the inbox…" : enabled ? "Choose your tracks" : "Submissions are taking a breather"}<small>MP3 / WAV · Up to 10 tracks · 150 MB each</small></span><ArrowUpRight size={23} /></span>
           </button>
         </div>

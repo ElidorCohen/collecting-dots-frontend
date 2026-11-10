@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ArrowUp, ArrowUpRight } from "lucide-react"
 import styles from "./collecting-dots-footer.module.css"
 import LogoWordmarkLine from "./logo-wordmark-line"
+import { SLEEVE_DOT } from "@/lib/demo-sleeve"
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 const clamp = gsap.utils.clamp(0, 1)
@@ -44,8 +45,8 @@ export default function CollectingDotsFooter() {
       geometry.targetY = target.top - bounds.top + target.height / 2; geometry.targetSize = target.width
       const originStage = sourceStage?.getBoundingClientRect(), sleeve = sourceSleeve?.getBoundingClientRect(), origin = source?.getBoundingClientRect()
       // The sleeve frame is static; its animated cover may still be arriving during refresh.
-      geometry.sourceX = originStage && sleeve ? sleeve.left - originStage.left + sleeve.width / 2 : origin && originStage ? origin.left - originStage.left + origin.width / 2 : geometry.width * .79
-      geometry.sourceY = originStage && sleeve ? sleeve.top - originStage.top + sleeve.width / 2 : origin && originStage ? origin.top - originStage.top + origin.height / 2 : geometry.height * .52
+      geometry.sourceX = originStage && sleeve ? sleeve.left - originStage.left + sleeve.width * SLEEVE_DOT.x : origin && originStage ? origin.left - originStage.left + origin.width / 2 : geometry.width * .79
+      geometry.sourceY = originStage && sleeve ? sleeve.top - originStage.top + sleeve.width * SLEEVE_DOT.y : origin && originStage ? origin.top - originStage.top + origin.height / 2 : geometry.height * .52
       geometry.sourceSize = source?.offsetWidth || 16
     }
     const media = gsap.matchMedia()
