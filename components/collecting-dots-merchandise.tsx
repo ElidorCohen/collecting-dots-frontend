@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, type CSSProperties } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useGSAP } from "@gsap/react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -157,7 +157,7 @@ export default function CollectingDotsMerchandise() {
       <div className={styles.papers} aria-hidden="true">{[0, 1, 2].map(index => <div data-merch-paper key={index} />)}</div>
       <div className={styles.heading}>
         <p className={styles.kicker} data-merch-line>The collection / Merchandise</p>
-        <h2 id="cd-merch-title" style={{ "--title-scale": Math.min(1, 11 / (6 + product.brand.length)) } as CSSProperties}><span data-merch-line>COLLECTING</span><span data-merch-line>DOTS <i>×</i> {product.brand.toUpperCase()}</span></h2>
+        <h2 id="cd-merch-title"><span data-merch-line>COLLECTING</span><span data-merch-line>DOTS <i>×</i> {product.brand.toUpperCase()}</span></h2>
         <p className={styles.introduction} data-merch-line>Premium apparel and accessories<br />in collaboration with {product.brandName}.</p>
       </div>
       <div className={styles.selection}>

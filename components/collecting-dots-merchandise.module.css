@@ -7,7 +7,8 @@
 .papers > div:not(:last-child) { border-right: 1px solid #1822190d; }
 .heading { position: absolute; z-index: 3; left: var(--gutter); top: 14%; width: 39%; }
 .kicker { margin: 0 0 20px; font: 9px/1.4 var(--font-jetbrains-mono), monospace; text-transform: uppercase; letter-spacing: .02em; }
-/* --title-scale shrinks the title for partner names longer than FLOAT, so it keeps its two lines */
+/* One size for every partner, small enough for a name of about ten letters on the second line */
+.heading { --title-scale: .6875; }
 .heading h2 { font: 400 calc(clamp(44px, 5.1vw, 88px) * var(--title-scale, 1))/.9 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.035em; margin: 0; }
 .heading h2 > span { display: block; }
 .heading h2 i { font-family: var(--font-inter), sans-serif; font-size: .64em; font-weight: 300; font-style: normal; vertical-align: .06em; }
