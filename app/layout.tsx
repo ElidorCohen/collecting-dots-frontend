@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Inter, Outfit } from 'next/font/google'
 import localFont from 'next/font/local'
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -10,9 +10,11 @@ const inter = Inter({
   display: 'swap',
 })
 
-const jetbrainsMono = JetBrains_Mono({ 
+// Small labels: a light geometric face close to the Collecting Dots letters, easier to read small than a monospace
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  variable: "--font-label",
+  weight: ["400", "500"],
   display: 'swap',
 })
 
@@ -86,7 +88,7 @@ export default function RootLayout({
       <head>
         <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
       </head>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} ${bnBobbieSans.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${outfit.variable} ${bnBobbieSans.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

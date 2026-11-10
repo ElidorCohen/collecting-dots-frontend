@@ -2,11 +2,11 @@
 .stage { position: sticky; top: 0; height: 100svh; overflow: clip; --catalogue-progress: 0; }
 .panel { position: absolute; inset: 0; pointer-events: auto; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: clamp(18px, 3svh, 32px); padding: clamp(96px, 12svh, 124px) 0 24px; background: var(--ink); clip-path: inset(0 0 0 100%); }
 .masthead { display: flex; align-items: end; justify-content: space-between; gap: 24px; padding: 0 var(--gutter); }
-.kicker { margin: 0 0 16px; font: 10px/1.3 var(--font-jetbrains-mono), monospace; letter-spacing: .025em; text-transform: uppercase; }
+.kicker { margin: 0 0 16px; font: 12px/1.3 var(--font-label), sans-serif; letter-spacing: .025em; text-transform: uppercase; }
 .kicker::before { content: ''; display: inline-block; width: 6px; height: 6px; margin-right: 10px; border-radius: 50%; background: var(--orange); vertical-align: 1px; }
 .masthead h2 { margin: 0; font: 400 clamp(64px, 7.8vw, 140px)/.82 var(--font-bn-bobbie-sans), sans-serif; letter-spacing: -.045em; }
 .masthead h2 > span, .catalogueHeader h2 > span { color: var(--orange); }
-.spotify, .nextChapter { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; font: 10px/1.4 var(--font-jetbrains-mono), monospace; text-transform: uppercase; }
+.spotify, .nextChapter { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; font: 12px/1.4 var(--font-label), sans-serif; text-transform: uppercase; }
 .spotify { padding: 12px 0 4px; border-bottom: 1px solid #55574e; }
 .viewport { position: relative; min-height: 0; overflow: clip; display: flex; align-items: center; container-type: size; }
 .track { position: relative; display: flex; align-items: flex-start; flex: 0 0 auto; gap: clamp(24px, 4vw, 76px); padding: 0 var(--gutter); width: max-content; will-change: transform; }
@@ -17,23 +17,23 @@
 .artwork:hover .artworkLink, .artwork:focus-visible .artworkLink { opacity: 1; transform: none; }
 .recordHeading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 16px; }
 .recordHeading h3 { margin: 0; min-height: 2.16em; font-size: clamp(16px, 1.2vw, 19px); line-height: 1.08; font-weight: 500; letter-spacing: -.03em; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
-.recordHeading > span { color: #9fa296; font: 9px/1.4 var(--font-jetbrains-mono), monospace; }
+.recordHeading > span { color: #9fa296; font: 11px/1.4 var(--font-label), sans-serif; }
 .artist { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin: 4px 0 8px; color: #aeb1a4; font-size: 12px; line-height: 1.5; }
 .recordActions { display: flex; align-items: center; gap: 16px; border-top: 1px solid #3c3f35; }
-.preview, .share { min-height: 44px; display: inline-flex; align-items: center; gap: 8px; font: 9px/1 var(--font-jetbrains-mono), monospace; text-transform: uppercase; }
+.preview, .share { min-height: 44px; display: inline-flex; align-items: center; gap: 8px; font: 11px/1 var(--font-label), sans-serif; text-transform: uppercase; }
 .playDot { width: 22px; height: 22px; border-radius: 50%; background: var(--paper); color: var(--ink); display: grid; place-items: center; }
 .preview:hover .playDot { background: var(--orange); }
 .preview:disabled { opacity: .4; cursor: default; }
-.duration { color: #9fa296; font: 9px/1 var(--font-jetbrains-mono), monospace; }
+.duration { color: #9fa296; font: 11px/1 var(--font-label), sans-serif; }
 .share { margin-left: auto; justify-content: end; min-width: 44px; }
 .audioProgress { height: 1px; background: #3c3f35; }
 .audioProgress > span { display: block; height: 100%; background: var(--orange); transform-origin: left; }
 .footer { display: flex; align-items: center; gap: clamp(16px, 2.2vw, 40px); margin: 0 var(--gutter); padding-top: 16px; border-top: 1px solid #3c3f35; }
-.position { font: 12px/1 var(--font-jetbrains-mono), monospace; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.position { font: 12px/1 var(--font-label), sans-serif; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .position > span { color: #888d7d; font-size: 10px; }
 .ruler { height: 2px; flex: 1; background: #3c3f35; }
 .ruler > span { display: block; height: 100%; background: var(--orange); transform: scaleX(var(--catalogue-progress)); transform-origin: left; }
-.catalogueButton { display: inline-flex; gap: 10px; align-items: center; min-height: 44px; font: 10px/1.4 var(--font-jetbrains-mono), monospace; text-transform: uppercase; white-space: nowrap; }
+.catalogueButton { display: inline-flex; gap: 10px; align-items: center; min-height: 44px; font: 12px/1.4 var(--font-label), sans-serif; text-transform: uppercase; white-space: nowrap; }
 .catalogueButton > span { color: #9fa296; }
 .arrows { display: flex; gap: 4px; }
 .arrows button { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid #55594c; border-radius: 50%; }
@@ -43,7 +43,7 @@
 .state { position: absolute; left: var(--gutter); top: 40%; font-size: 16px; color: #aeb1a4; }
 .state a { display: flex; align-items: center; gap: 10px; margin-top: 20px; }
 .state button { margin-top: 20px; text-decoration: underline; }
-.notice { position: absolute; bottom: 8px; left: var(--gutter); margin: 0; font: 10px/1.2 var(--font-jetbrains-mono), monospace; color: #ff9a83; }
+.notice { position: absolute; bottom: 8px; left: var(--gutter); margin: 0; font: 12px/1.2 var(--font-label), sans-serif; color: #ff9a83; }
 .section :focus-visible, .catalogue :focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; }
 .catalogue { --paper: #e9e5dc; --ink: #111310; --orange: #fa553c; position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0 3.8vw 40px; border: 0; background: var(--ink); color: var(--paper); overscroll-behavior: contain; }
 .catalogue::backdrop { background: #111310; }
@@ -52,20 +52,20 @@
 .catalogueHeader .kicker { margin-bottom: 12px; }
 .catalogueHeader > button { width: 48px; height: 48px; flex: 0 0 auto; border: 1px solid #55594c; border-radius: 50%; display: grid; place-items: center; }
 .catalogueTools { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 0 36px; }
-.catalogueTools > span { font: 10px/1.4 var(--font-jetbrains-mono), monospace; color: #aeb1a4; white-space: nowrap; }
+.catalogueTools > span { font: 12px/1.4 var(--font-label), sans-serif; color: #aeb1a4; white-space: nowrap; }
 .search { display: flex; align-items: center; gap: 14px; width: min(100%, 440px); padding: 12px 0; border-bottom: 1px solid #55594c; }
 .search input { width: 100%; border: 0; border-radius: 0; background: transparent; color: inherit; font-size: 14px; outline-offset: 8px; }
 .search input::placeholder { color: #aeb1a4; }
 .catalogueGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 48px 3vw; }
 .catalogueGrid .record { width: 100%; }
-.catalogueSpotify { display: inline-flex; align-items: center; gap: 12px; margin-top: 52px; padding-bottom: 8px; border-bottom: 1px solid #55594c; font: 10px/1.4 var(--font-jetbrains-mono), monospace; text-transform: uppercase; }
+.catalogueSpotify { display: inline-flex; align-items: center; gap: 12px; margin-top: 52px; padding-bottom: 8px; border-bottom: 1px solid #55594c; font: 12px/1.4 var(--font-label), sans-serif; text-transform: uppercase; }
 .emptySearch { padding: 40px 0; color: #aeb1a4; }
 .srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 @media (max-width: 899px) {
   .section { --gutter: 24px; }
   .panel { padding-top: 96px; padding-bottom: 24px; gap: 24px; }
   .masthead h2 { font-size: 15vw; }
-  .spotify { font-size: 9px; }
+  .spotify { font-size: 11px; }
   .record { width: min(72vw, 40svh, calc(100cqh - 132px)); }
   .track { gap: 24px; }
   .catalogue { padding-right: 24px; padding-left: 24px; }
@@ -77,10 +77,10 @@
 @media (max-width: 600px) {
   .masthead { display: block; }
   .spotify { display: none; }
-  .kicker { font-size: 9px; margin-bottom: 14px; }
+  .kicker { font-size: 11px; margin-bottom: 14px; }
   .footer { display: grid; grid-template-columns: auto 1fr auto; gap: 8px 18px; }
   .ruler { grid-column: 2 / 4; }
-  .catalogueButton { grid-column: 1 / 3; font-size: 9px; }
+  .catalogueButton { grid-column: 1 / 3; font-size: 11px; }
   .arrows { grid-column: 3; }
   .catalogueHeader { padding: 24px 0; gap: 16px; }
   .catalogueHeader h2 { font-size: 32px; }

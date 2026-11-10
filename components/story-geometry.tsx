@@ -37,7 +37,7 @@ export default function StoryGeometry({ className }: { className?: string }) {
       const progress = Number(stage?.dataset.journeyProgress)
       return reduced || !Number.isFinite(progress) ? 1 : clamp((progress - 1.16) / .3)
     }
-    const mono = getComputedStyle(story).getPropertyValue("--font-jetbrains-mono").trim() || "monospace"
+    const mono = getComputedStyle(story).getPropertyValue("--font-label").trim() || "sans-serif"
 
     const measure = (): Box[] => {
       const origin = canvas.getBoundingClientRect()
@@ -222,7 +222,7 @@ export default function StoryGeometry({ className }: { className?: string }) {
         context.beginPath(); context.moveTo(x - 34, y); context.lineTo(x - 26, y); context.moveTo(x + 26, y); context.lineTo(x + 34, y)
         context.moveTo(x, y - 34); context.lineTo(x, y - 26); context.moveTo(x, y + 26); context.lineTo(x, y + 34); context.stroke()
         context.fillStyle = `rgba(${INK}, ${.55 * pointer.active})`
-        context.font = `9px ${mono}, monospace`
+        context.font = `11px ${mono}, sans-serif`
         context.fillText(`X ${(x / width).toFixed(3)}  Y ${(y / height).toFixed(3)}`, x + 30, y + 30)
       }
     }
